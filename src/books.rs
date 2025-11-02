@@ -7,7 +7,7 @@ const STORY_JSON: &str = "story.json";
 pub struct Books {
     books: Vec<Book>,
 
-    current_book: usize,
+    current_book_index: usize,
 }
 
 impl Books {
@@ -32,11 +32,11 @@ impl Books {
             bail!("No book found");
         }
 
-        let current_book = 0;
+        let current_book_index = 0;
 
         Ok(Books {
             books,
-            current_book,
+            current_book_index,
         })
     }
 }
