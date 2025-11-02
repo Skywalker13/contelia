@@ -1,7 +1,6 @@
-use std::{collections::HashMap, fs::File, io::BufReader, option, path::Path};
-
 use anyhow::Result;
 use serde::Deserialize;
+use std::{collections::HashMap, fs::File, io::BufReader, path::Path};
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
