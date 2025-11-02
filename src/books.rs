@@ -2,6 +2,8 @@ use crate::book::Book;
 use anyhow::Result;
 use std::{fs, path::Path};
 
+const STORY_JSON: &str = "story.json";
+
 pub struct Books {
     books: Vec<Book>,
 }
@@ -17,7 +19,7 @@ impl Books {
                 continue;
             }
 
-            let story_path = path.join("story.json");
+            let story_path = path.join(STORY_JSON);
             match Book::from_file(&story_path) {
                 Ok(book) => books.push(book),
                 Err(e) => eprintln!("Cannot load the book {:?}: {}", story_path, e),
