@@ -1,11 +1,13 @@
 use crate::book::Book;
-use anyhow::Result;
+use anyhow::{Result, bail};
 use std::{fs, path::Path};
 
 const STORY_JSON: &str = "story.json";
 
 pub struct Books {
     books: Vec<Book>,
+
+    current_book: usize,
 }
 
 impl Books {
@@ -26,6 +28,15 @@ impl Books {
             }
         }
 
-        Ok(Books { books })
+        if books.is_empty() {
+            bail!("No book found");
+        }
+
+        let current_book = 0;
+
+        Ok(Books {
+            books,
+            current_book,
+        })
     }
 }
