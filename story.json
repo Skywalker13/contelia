@@ -1,0 +1,389 @@
+{
+  "format": "v1",
+  "version": 1,
+  "nightModeAvailable": false,
+  "stageNodes": [
+    {
+      "uuid": "2F0F3109BFAE4E0991D7CA0C2643948D",
+      "squareOne": true,
+      "image": "0cd0961fd99135cb6fa6bd897b11d15262e13780.bmp",
+      "audio": "f9d23e73387a069e908075126a8b5df72d10b48b.mp3",
+      "okTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "homeTransition": null,
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": false,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "ef895f69-6f4e-48a5-ad3b-3ed12c8c4608",
+      "image": "ccf22d99ae95f719092316e9ee0a486ab2743702.bmp",
+      "audio": "c92cdde7fa4eeea063379ac02c34d2e98e210e8e.mp3",
+      "okTransition": {
+        "actionNode": "2c6fbb01-abcd-40a1-b144-35829421edec",
+        "optionIndex": 0
+      },
+      "homeTransition": null,
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "cd8566b9-b700-4694-9ea5-212ffe0e6e8e",
+      "image": "753df3c48d88d240e19eae690292bec66309981f.bmp",
+      "audio": "750314a21331ac2944e620a108f0073649b6c4e5.mp3",
+      "okTransition": {
+        "actionNode": "e1204f8a-a39c-4de6-928b-491a6d4d0b2a",
+        "optionIndex": 0
+      },
+      "homeTransition": null,
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "3fc1414a-f281-4d2a-9ddc-1cb15feeabae",
+      "image": "5ce4018f66ae7a4ff81180cb67dd8a22b8545803.bmp",
+      "audio": "53a97b2e69167bf4b1bdb56a885d68c18f4d0b93.mp3",
+      "okTransition": {
+        "actionNode": "89fc562f-e1b8-4387-937a-b16965b8889c",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "dd843aa3-214a-40b8-866c-d5a7f73418e2",
+      "image": "92a4415cb81265e99ced8463adf10ab91393853f.bmp",
+      "audio": "df273c12a00fa9c3b8726e455c981b67e5b1e0ed.mp3",
+      "okTransition": {
+        "actionNode": "41b0f93e-e76a-4353-b772-f3c1d5e9ed4c",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "e8ebb46f-9608-439d-a7cf-ff90f33bf4c8",
+      "image": "8ea5323e839a6929b587b35028f7e2f97fa7abbd.bmp",
+      "audio": "6d179efc24ff2da357b3ab4d159f9663a873802a.mp3",
+      "okTransition": {
+        "actionNode": "c4c67bdb-7fed-4fdd-a077-0b5e4e36eb95",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "4e32f223-bc5d-4f3b-8cf2-34980664f356",
+      "image": "34be121b604c72f6858a060d73e58112e0997926.bmp",
+      "audio": "51313bb04b6a7d50d0ea7965d499dcc88f4f4513.mp3",
+      "okTransition": {
+        "actionNode": "309f1b57-6a78-4f79-b033-803cf345a30b",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "55c0786e-74bf-4f1a-aa80-a5f10dd89b32",
+      "image": "c13f57fe0f8073fb71127457b976f678f8118d75.bmp",
+      "audio": "f62a88ebeec84e588396b09d904b0b0689938676.mp3",
+      "okTransition": {
+        "actionNode": "d3d69c14-3ae6-49d1-b745-fdf1087c57eb",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "0b296637-77cb-4b8b-83ee-8d5c9d9b805c",
+      "image": "10f69b7d8ce7008504893d37b8dd0b1c73598383.bmp",
+      "audio": "2629372e916de02c5a50d6732722524592dde1f2.mp3",
+      "okTransition": {
+        "actionNode": "7346f1a1-2dce-4d28-b2a2-4209d71e180e",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": true,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": false
+      }
+    },
+    {
+      "uuid": "3cc7c321-0cc9-43b2-8220-4ac374a33872",
+      "image": null,
+      "audio": "ae33a92cbcdc8379cab4ac9afd04a03f9affd079.mp3",
+      "okTransition": {
+        "actionNode": "fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": false,
+        "home": true,
+        "pause": true,
+        "autoplay": true
+      }
+    },
+    {
+      "uuid": "1dfea263-72ec-46b4-9f57-402d9cd9f7a6",
+      "image": null,
+      "audio": "532f387d115682e8da8846648d9b4914d6b76d48.mp3",
+      "okTransition": {
+        "actionNode": "fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": false,
+        "home": true,
+        "pause": true,
+        "autoplay": true
+      }
+    },
+    {
+      "uuid": "cf8d52a0-8402-4080-bc58-cfcf9ef02bd3",
+      "image": null,
+      "audio": "818220d1175eb8ca354147fb3e8bfce8f6756be2.mp3",
+      "okTransition": {
+        "actionNode": "fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": false,
+        "home": true,
+        "pause": true,
+        "autoplay": true
+      }
+    },
+    {
+      "uuid": "3cb06916-6731-4a09-b5f6-b864ca3ea02f",
+      "image": null,
+      "audio": "693ccf0b667d62e83f0bb8dbb4c1edb824f154f3.mp3",
+      "okTransition": {
+        "actionNode": "fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": false,
+        "home": true,
+        "pause": true,
+        "autoplay": true
+      }
+    },
+    {
+      "uuid": "5ff37664-aa37-4b27-9dcc-fd864203ce2e",
+      "image": null,
+      "audio": "1d07f99818d01e2485cddcfcb9365261632270ce.mp3",
+      "okTransition": {
+        "actionNode": "fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": false,
+        "home": true,
+        "pause": true,
+        "autoplay": true
+      }
+    },
+    {
+      "uuid": "2049a24b-80f9-4016-90e1-8ff2f689c5b9",
+      "image": null,
+      "audio": "911609e4d954f0bdc6850404bd328d660d38ba99.mp3",
+      "okTransition": {
+        "actionNode": "fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": false,
+        "home": true,
+        "pause": true,
+        "autoplay": true
+      }
+    },
+    {
+      "uuid": "e643c767-d789-4bc2-b25f-71dc50d02020",
+      "image": null,
+      "audio": "7ff07b5092fdc6bf2fb66376b8844af3c5a61508.mp3",
+      "okTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": true
+      }
+    },
+    {
+      "uuid": "5ecc8e40-9f2b-4d21-82b8-e04c251f2633",
+      "image": null,
+      "audio": null,
+      "okTransition": null,
+      "homeTransition": {
+        "actionNode": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+        "optionIndex": 0
+      },
+      "controlSettings": {
+        "wheel": false,
+        "ok": true,
+        "home": true,
+        "pause": false,
+        "autoplay": true
+      }
+    }
+  ],
+  "actionNodes": [
+    {
+      "id": "89fc562f-e1b8-4387-937a-b16965b8889c",
+      "options": ["3cc7c321-0cc9-43b2-8220-4ac374a33872"]
+    },
+    {
+      "id": "309f1b57-6a78-4f79-b033-803cf345a30b",
+      "options": ["3cb06916-6731-4a09-b5f6-b864ca3ea02f"]
+    },
+    {
+      "id": "d3d69c14-3ae6-49d1-b745-fdf1087c57eb",
+      "options": ["5ff37664-aa37-4b27-9dcc-fd864203ce2e"]
+    },
+    {
+      "id": "fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df",
+      "options": ["e643c767-d789-4bc2-b25f-71dc50d02020"]
+    },
+    {
+      "id": "e1204f8a-a39c-4de6-928b-491a6d4d0b2a",
+      "options": [
+        "4e32f223-bc5d-4f3b-8cf2-34980664f356",
+        "55c0786e-74bf-4f1a-aa80-a5f10dd89b32",
+        "0b296637-77cb-4b8b-83ee-8d5c9d9b805c"
+      ]
+    },
+    {
+      "id": "7346f1a1-2dce-4d28-b2a2-4209d71e180e",
+      "options": ["2049a24b-80f9-4016-90e1-8ff2f689c5b9"]
+    },
+    {
+      "id": "2c6fbb01-abcd-40a1-b144-35829421edec",
+      "options": [
+        "3fc1414a-f281-4d2a-9ddc-1cb15feeabae",
+        "dd843aa3-214a-40b8-866c-d5a7f73418e2",
+        "e8ebb46f-9608-439d-a7cf-ff90f33bf4c8"
+      ]
+    },
+    {
+      "id": "c4c67bdb-7fed-4fdd-a077-0b5e4e36eb95",
+      "options": ["cf8d52a0-8402-4080-bc58-cfcf9ef02bd3"]
+    },
+    {
+      "id": "41b0f93e-e76a-4353-b772-f3c1d5e9ed4c",
+      "options": ["1dfea263-72ec-46b4-9f57-402d9cd9f7a6"]
+    },
+    {
+      "id": "ff38d914-9cca-4d50-86e9-4ae6bf3e65c1",
+      "options": [
+        "ef895f69-6f4e-48a5-ad3b-3ed12c8c4608",
+        "cd8566b9-b700-4694-9ea5-212ffe0e6e8e"
+      ]
+    }
+  ]
+}
