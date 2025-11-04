@@ -104,7 +104,13 @@ impl Book {
 
     fn button(&mut self, button: ActionButtons) -> Option<()> {
         let stage_node = self.stage_node_get()?;
-        let action_node = self.action_node_get(&button, stage_node)?;
+        let action_node = match self.action_node_get(&button, stage_node) {
+            Some(node) => node,
+            None => {
+                self.stage_reset();
+                return None;
+            }
+        };
 
         let transition = match button {
             ActionButtons::OK => stage_node.ok_transition.as_ref()?,
