@@ -142,7 +142,7 @@ impl Book {
         if option_index > action_node.options.len() as isize {
             option_index = 0;
         } else if option_index < 0 {
-            option_index = 0;
+            option_index = action_node.options.len() as isize - 1;
         }
         let option_index = option_index as usize;
         let next_stage_uuid = action_node.options.get(option_index)?.clone();
