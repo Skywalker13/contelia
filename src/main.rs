@@ -9,7 +9,7 @@ fn main() {
     let path = Path::new("./books");
     let mut books = Books::from_dir(path).expect("Load error");
 
-    let path = Path::new("./story.json");
+    let path = Path::new("test/story.json");
     let mut book = Book::from_file(path).expect("Erreur lors du chargement");
 
     let state = book.stage_get();

@@ -231,3 +231,132 @@ impl Book {
         self.button_wheel(ActionWheel::LEFT)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::str::FromStr;
+
+    use super::*;
+
+    #[test]
+    fn scenario() {
+        let story = Path::new("test/story.json");
+        let mut book = Book::from_file(story).expect("story.json not found");
+
+        let start_node_uuid = String::from("2F0F3109BFAE4E0991D7CA0C2643948D");
+        assert_eq!(book.start_node_uuid, Some(start_node_uuid));
+
+        /* Init */
+        let current_stage_node = String::from("2F0F3109BFAE4E0991D7CA0C2643948D");
+        assert_eq!(book.current_action_index, 0);
+        assert_eq!(book.current_action_node, None);
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+
+        /* OK */
+        book.button_ok().expect("OK button fail");
+        let current_action_node = String::from("ff38d914-9cca-4d50-86e9-4ae6bf3e65c1");
+        let current_stage_node = String::from("ef895f69-6f4e-48a5-ad3b-3ed12c8c4608");
+        assert_eq!(book.current_action_index, 0);
+        assert_eq!(book.current_action_node, Some(current_action_node));
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+        let stage = book.stage_get().expect("stage get fail");
+        assert_eq!(stage.control_settings.wheel, true);
+        assert_eq!(stage.control_settings.ok, true);
+        assert_eq!(stage.control_settings.home, true);
+        assert_eq!(stage.control_settings.pause, false);
+        assert_eq!(stage.control_settings.autoplay, false);
+
+        /* WHEEL RIGHT */
+        book.button_wheel_right().expect("Cannot move to option 1");
+        let current_action_node = String::from("ff38d914-9cca-4d50-86e9-4ae6bf3e65c1");
+        let current_stage_node = String::from("cd8566b9-b700-4694-9ea5-212ffe0e6e8e");
+        assert_eq!(book.current_action_index, 1);
+        assert_eq!(book.current_action_node, Some(current_action_node));
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+        let stage = book.stage_get().expect("stage get fail");
+        assert_eq!(stage.control_settings.wheel, true);
+        assert_eq!(stage.control_settings.ok, true);
+        assert_eq!(stage.control_settings.home, true);
+        assert_eq!(stage.control_settings.pause, false);
+        assert_eq!(stage.control_settings.autoplay, false);
+
+        /* OK */
+        book.button_ok().expect("OK button fail");
+        let current_action_node = String::from("e1204f8a-a39c-4de6-928b-491a6d4d0b2a");
+        let current_stage_node = String::from("4e32f223-bc5d-4f3b-8cf2-34980664f356");
+        assert_eq!(book.current_action_index, 0);
+        assert_eq!(book.current_action_node, Some(current_action_node));
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+        let stage = book.stage_get().expect("stage get fail");
+        assert_eq!(stage.control_settings.wheel, true);
+        assert_eq!(stage.control_settings.ok, true);
+        assert_eq!(stage.control_settings.home, true);
+        assert_eq!(stage.control_settings.pause, false);
+        assert_eq!(stage.control_settings.autoplay, false);
+
+        /* WHEEL RIGHT 2× */
+        book.button_wheel_right().expect("Cannot move to option 1");
+        book.button_wheel_right().expect("Cannot move to option 2");
+        let current_action_node = String::from("e1204f8a-a39c-4de6-928b-491a6d4d0b2a");
+        let current_stage_node = String::from("0b296637-77cb-4b8b-83ee-8d5c9d9b805c");
+        assert_eq!(book.current_action_index, 2);
+        assert_eq!(book.current_action_node, Some(current_action_node));
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+        let stage = book.stage_get().expect("stage get fail");
+        assert_eq!(stage.control_settings.wheel, true);
+        assert_eq!(stage.control_settings.ok, true);
+        assert_eq!(stage.control_settings.home, true);
+        assert_eq!(stage.control_settings.pause, false);
+        assert_eq!(stage.control_settings.autoplay, false);
+
+        /* OK 2× */
+        book.button_ok().expect("OK button fail");
+        book.button_ok().expect("OK button fail");
+        let current_action_node = String::from("fb7e0b44-a7f3-4967-9887-c6d7c8e9c1df");
+        let current_stage_node = String::from("e643c767-d789-4bc2-b25f-71dc50d02020");
+        assert_eq!(book.current_action_index, 0);
+        assert_eq!(book.current_action_node, Some(current_action_node));
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+        let stage = book.stage_get().expect("stage get fail");
+        assert_eq!(stage.control_settings.wheel, false);
+        assert_eq!(stage.control_settings.ok, true);
+        assert_eq!(stage.control_settings.home, true);
+        assert_eq!(stage.control_settings.pause, false);
+        assert_eq!(stage.control_settings.autoplay, true);
+
+        /* HOME */
+        book.button_home().expect("HOME button fail");
+        let current_action_node = String::from("ff38d914-9cca-4d50-86e9-4ae6bf3e65c1");
+        let current_stage_node = String::from("ef895f69-6f4e-48a5-ad3b-3ed12c8c4608");
+        assert_eq!(book.current_action_index, 0);
+        assert_eq!(book.current_action_node, Some(current_action_node));
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+        let stage = book.stage_get().expect("stage get fail");
+        assert_eq!(stage.control_settings.wheel, true);
+        assert_eq!(stage.control_settings.ok, true);
+        assert_eq!(stage.control_settings.home, true);
+        assert_eq!(stage.control_settings.pause, false);
+        assert_eq!(stage.control_settings.autoplay, false);
+
+        /* WHEEL LEFT */
+        book.button_wheel_left().expect("Cannot move to option 1");
+        let current_action_node = String::from("ff38d914-9cca-4d50-86e9-4ae6bf3e65c1");
+        let current_stage_node = String::from("cd8566b9-b700-4694-9ea5-212ffe0e6e8e");
+        assert_eq!(book.current_action_index, 1);
+        assert_eq!(book.current_action_node, Some(current_action_node));
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+        let stage = book.stage_get().expect("stage get fail");
+        assert_eq!(stage.control_settings.wheel, true);
+        assert_eq!(stage.control_settings.ok, true);
+        assert_eq!(stage.control_settings.home, true);
+        assert_eq!(stage.control_settings.pause, false);
+        assert_eq!(stage.control_settings.autoplay, false);
+
+        /* HOME */
+        book.button_home();
+        let current_stage_node = String::from("2F0F3109BFAE4E0991D7CA0C2643948D");
+        assert_eq!(book.current_action_index, 0);
+        assert_eq!(book.current_action_node, None);
+        assert_eq!(book.current_stage_node, Some(current_stage_node));
+    }
+}
