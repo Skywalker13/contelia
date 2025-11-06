@@ -1,11 +1,9 @@
-mod book;
-mod books;
-
-use book::Book;
-use books::Books;
 use clap::Parser;
 use std::error::Error;
 use std::path::Path;
+
+use contelia::Book;
+use contelia::Books;
 
 #[derive(Parser)]
 struct Cli {
