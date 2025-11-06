@@ -196,14 +196,14 @@ impl Book {
         })
     }
 
-    /* Reset the book to the start node */
+    /// Reset the book to the start node
     pub fn stage_reset(&mut self) {
         self.current_action_index = 0;
         self.current_stage_node = self.start_node_uuid.clone();
         self.current_action_node = None;
     }
 
-    /* Get the current image, audio and inputs from the stage */
+    /// Get the current image, audio and inputs from the stage
     pub fn stage_get(&self) -> Option<Stage> {
         let stage_node = self.stage_node_get()?;
         Some(Stage {
@@ -211,22 +211,22 @@ impl Book {
         })
     }
 
-    /* Handle OK button */
+    /// Handle OK button
     pub fn button_ok(&mut self) -> Option<()> {
         self.button(ActionButtons::OK)
     }
 
-    /* Handle the HOME button */
+    /// Handle the HOME button
     pub fn button_home(&mut self) -> Option<()> {
         self.button(ActionButtons::HOME)
     }
 
-    /* Handle the WHEEL button */
+    /// Handle the WHEEL button
     pub fn button_wheel_right(&mut self) -> Option<()> {
         self.button_wheel(ActionWheel::RIGHT)
     }
 
-    /* Handle the WHEEL button */
+    /// Handle the WHEEL button
     pub fn button_wheel_left(&mut self) -> Option<()> {
         self.button_wheel(ActionWheel::LEFT)
     }
