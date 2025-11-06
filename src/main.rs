@@ -17,25 +17,19 @@ fn main() -> Result<(), Box<dyn Error>> {
     let path = args.books;
     let mut books = Books::from_dir(&path)?;
 
-    let path = Path::new("test/story.json");
-    let mut book = Book::from_file(path)?;
+    loop {
+        let Some(book) = books.get() else {
+            break;
+        };
 
-    let state = book.stage_get();
-    println!("State : {state:?}");
-    //println!("Book  : {book:?}");
+        let Some(state) = book.stage_get() else {
+            break;
+        };
 
-    book.button_home();
-    book.button_ok();
-
-    let state = book.stage_get();
-    println!("State: {state:?}");
-    //println!("Book  : {book:?}");
-
-    book.button_wheel_right();
-
-    let state = book.stage_get();
-    println!("State: {state:?}");
-    //println!("Book  : {book:?}");
+        // Show the image, play the sound and wait on I/O
+        println!("{state:?}");
+        break;
+    }
 
     Ok(())
 }

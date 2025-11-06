@@ -39,4 +39,8 @@ impl Books {
             current_book_index,
         })
     }
+
+    pub fn get(&self) -> Option<&Book> {
+        self.books.get(self.current_book_index)
+    }
 }
