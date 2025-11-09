@@ -1,7 +1,7 @@
 mod book;
 mod books;
-mod gpio;
+mod buttons;
 
 pub use book::Book;
 pub use books::Books;
-pub use gpio::GPIO;
+pub use buttons::Buttons;

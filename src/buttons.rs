@@ -4,12 +4,12 @@ use nix::sys::epoll;
 use std::collections::HashSet;
 use std::error::Error;
 
-pub struct GPIO {
+pub struct Buttons {
     device: Device,
     epoll: epoll::Epoll,
 }
 
-impl GPIO {
+impl Buttons {
     pub fn new() -> Result<Self> {
         // See https://github.com/emberian/evdev/blob/main/examples/evtest_nonblocking.rs
         let device = Device::open("/dev/input/gamepi13")?;
@@ -19,7 +19,7 @@ impl GPIO {
         let event = epoll::EpollEvent::new(epoll::EpollFlags::EPOLLIN, 0);
         epoll.add(&device, event)?;
 
-        Ok(GPIO { device, epoll })
+        Ok(Buttons { device, epoll })
     }
 
     pub fn listen(&mut self) -> Result<KeyCode, Box<dyn Error>> {

@@ -1,7 +1,7 @@
 use clap::Parser;
 use std::error::Error;
 
-use contelia::{Books, GPIO};
+use contelia::{Books, Buttons};
 
 #[derive(Parser)]
 struct Cli {
@@ -14,7 +14,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let path = args.books;
     let mut books = Books::from_dir(&path)?;
-    let mut gpio = GPIO::new()?;
+    let mut gpio = Buttons::new()?;
 
     loop {
         let Some(book) = books.get() else {
