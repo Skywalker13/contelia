@@ -1,6 +1,7 @@
 use anyhow::Result;
-use evdev::Device;
+use evdev::{Device, KeyCode};
 use nix::sys::epoll;
+use std::collections::HashSet;
 use std::error::Error;
 
 pub struct GPIO {
@@ -24,11 +25,29 @@ impl GPIO {
     pub fn listen(&mut self) -> Result<(), Box<dyn Error>> {
         let mut events = [epoll::EpollEvent::empty(); 2];
 
+        let key_codes = HashSet::from([
+            KeyCode::KEY_UP,
+            KeyCode::KEY_DOWN,
+            KeyCode::KEY_LEFT,
+            KeyCode::KEY_RIGHT,
+            KeyCode::BTN_NORTH,
+            KeyCode::BTN_SOUTH,
+            KeyCode::BTN_EAST,
+            KeyCode::BTN_WEST,
+            KeyCode::BTN_SELECT,
+            KeyCode::BTN_START,
+            KeyCode::BTN_TL,
+            KeyCode::BTN_TR,
+        ]);
+
         loop {
             match self.device.fetch_events() {
                 Ok(events) => {
                     for ev in events {
-                        println!("{ev:?}")
+                        let code = KeyCode::new(ev.code());
+                        if key_codes.contains(&code) {
+                            println!("{ev:?}")
+                        }
                     }
                 }
                 Err(e) if e.kind() == std::io::ErrorKind::WouldBlock => {
