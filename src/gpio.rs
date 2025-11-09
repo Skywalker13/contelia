@@ -22,7 +22,7 @@ impl GPIO {
         Ok(GPIO { device, epoll })
     }
 
-    pub fn listen(&mut self) -> Result<(), Box<dyn Error>> {
+    pub fn listen(&mut self) -> Result<KeyCode, Box<dyn Error>> {
         let mut events = [epoll::EpollEvent::empty(); 2];
 
         let key_codes = HashSet::from([
@@ -45,8 +45,9 @@ impl GPIO {
                 Ok(events) => {
                     for ev in events {
                         let code = KeyCode::new(ev.code());
-                        if key_codes.contains(&code) {
-                            println!("{ev:?}")
+                        let value = ev.value();
+                        if key_codes.contains(&code) && value == 1 {
+                            return Ok(code);
                         }
                     }
                 }
@@ -54,12 +55,9 @@ impl GPIO {
                     self.epoll.wait(&mut events, epoll::EpollTimeout::NONE)?;
                 }
                 Err(e) => {
-                    eprintln!("{e}");
-                    break;
+                    return Err(Box::new(e));
                 }
-            }
+            };
         }
-
-        Ok(())
     }
 }
