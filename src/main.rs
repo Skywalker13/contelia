@@ -1,7 +1,7 @@
 use clap::Parser;
 use std::error::Error;
 
-use contelia::Books;
+use contelia::{Books, GPIO};
 
 #[derive(Parser)]
 struct Cli {
@@ -26,6 +26,10 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         // Show the image, play the sound and wait on I/O
         println!("{state:?}");
+
+        // Test listening on GPIO
+        let mut gpio = GPIO::new()?;
+        gpio.listen()?;
         break;
     }
 
