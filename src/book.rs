@@ -139,7 +139,7 @@ impl Book {
             ActionWheel::LEFT => self.current_action_index as isize - 1,
             ActionWheel::RIGHT => self.current_action_index as isize + 1,
         };
-        if option_index > action_node.options.len() as isize {
+        if option_index >= action_node.options.len() as isize {
             option_index = 0;
         } else if option_index < 0 {
             option_index = action_node.options.len() as isize - 1;
