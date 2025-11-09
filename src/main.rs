@@ -1,8 +1,6 @@
 use clap::Parser;
 use std::error::Error;
-use std::path::Path;
 
-use contelia::Book;
 use contelia::Books;
 
 #[derive(Parser)]
