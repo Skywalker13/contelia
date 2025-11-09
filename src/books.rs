@@ -43,4 +43,20 @@ impl Books {
     pub fn get(&self) -> Option<&Book> {
         self.books.get(self.current_book_index)
     }
+
+    pub fn button_wheel_right(&mut self) {
+        let mut book_index = self.current_book_index as isize;
+        book_index = book_index + 1;
+        if book_index >= self.books.len() as isize {
+            self.current_book_index = 0;
+        }
+    }
+
+    pub fn button_wheel_left(&mut self) {
+        let mut book_index = self.current_book_index as isize;
+        book_index = book_index - 1;
+        if book_index < 0 {
+            self.current_book_index = self.books.len() - 1;
+        }
+    }
 }
