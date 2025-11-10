@@ -1,4 +1,5 @@
 use clap::Parser;
+use evdev::KeyCode;
 use std::error::Error;
 
 use contelia::{Books, Buttons};
@@ -30,6 +31,15 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         let code = buttons.listen(&state.control_settings)?;
         println!("{code:?}");
+
+        let _result = match code {
+            KeyCode::BTN_DPAD_LEFT => book.button_wheel_left(),
+            KeyCode::BTN_DPAD_RIGHT => book.button_wheel_right(),
+            // KeyCode::BTN_NORTH => ,
+            KeyCode::BTN_SELECT => book.button_home(),
+            KeyCode::BTN_START => book.button_ok(),
+            _ => None,
+        };
     }
 
     Ok(())
