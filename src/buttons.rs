@@ -28,10 +28,10 @@ impl Buttons {
         let mut events = [epoll::EpollEvent::empty(); 2];
 
         let key_codes = HashSet::from([
-            KeyCode::KEY_UP,
-            KeyCode::KEY_DOWN,
-            KeyCode::KEY_LEFT,
-            KeyCode::KEY_RIGHT,
+            KeyCode::BTN_DPAD_UP,
+            KeyCode::BTN_DPAD_DOWN,
+            KeyCode::BTN_DPAD_LEFT,
+            KeyCode::BTN_DPAD_RIGHT,
             KeyCode::BTN_NORTH,
             KeyCode::BTN_SOUTH,
             KeyCode::BTN_EAST,
