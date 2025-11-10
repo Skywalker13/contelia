@@ -40,8 +40,8 @@ impl Books {
         })
     }
 
-    pub fn get(&self) -> Option<&Book> {
-        self.books.get(self.current_book_index)
+    pub fn get(&mut self) -> Option<&mut Book> {
+        self.books.get_mut(self.current_book_index)
     }
 
     pub fn button_wheel_right(&mut self) {
