@@ -1,7 +1,6 @@
 use anyhow::Result;
 use evdev::{Device, KeyCode};
 use nix::sys::epoll;
-use std::collections::HashSet;
 use std::error::Error;
 
 use crate::book::ControlSettings;
@@ -32,28 +31,13 @@ impl Buttons {
     ) -> Result<KeyCode, Box<dyn Error>> {
         let mut events = [epoll::EpollEvent::empty(); 2];
 
-        let key_codes = HashSet::from([
-            // KeyCode::BTN_DPAD_UP,
-            // KeyCode::BTN_DPAD_DOWN,
-            KeyCode::BTN_DPAD_LEFT,  // WHEEL LEFT
-            KeyCode::BTN_DPAD_RIGHT, // WHEEL RIGHT
-            KeyCode::BTN_NORTH,      // PAUSE
-            // KeyCode::BTN_SOUTH,
-            // KeyCode::BTN_EAST,
-            // KeyCode::BTN_WEST,
-            // KeyCode::BTN_TL,
-            // KeyCode::BTN_TR,
-            KeyCode::BTN_SELECT, // HOME
-            KeyCode::BTN_START,  // OK
-        ]);
-
         loop {
             match self.device.fetch_events() {
                 Ok(events) => {
                     for ev in events {
                         let code = KeyCode::new(ev.code());
                         let value = ev.value();
-                        if !key_codes.contains(&code) || value == 0 {
+                        if value != 1 {
                             continue;
                         }
 
