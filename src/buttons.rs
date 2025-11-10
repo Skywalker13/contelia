@@ -35,12 +35,12 @@ impl Buttons {
             match self.device.fetch_events() {
                 Ok(events) => {
                     for ev in events {
-                        let code = KeyCode::new(ev.code());
                         let value = ev.value();
                         if value != 1 {
                             continue;
                         }
 
+                        let code = KeyCode::new(ev.code());
                         if match code {
                             KeyCode::BTN_DPAD_LEFT => control_settings.wheel,
                             KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
