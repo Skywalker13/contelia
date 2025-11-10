@@ -14,7 +14,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let path = args.books;
     let mut books = Books::from_dir(&path)?;
-    let mut gpio = Buttons::new()?;
+    let mut buttons = Buttons::new()?;
 
     loop {
         let Some(book) = books.get() else {
@@ -29,7 +29,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         println!("{state:?}");
 
         // Test listening on GPIO
-        let code = gpio.listen()?;
+        let code = buttons.listen()?;
         println!("{code:?}");
     }
 
