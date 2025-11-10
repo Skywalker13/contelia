@@ -53,18 +53,19 @@ impl Buttons {
                     for ev in events {
                         let code = KeyCode::new(ev.code());
                         let value = ev.value();
-                        if key_codes.contains(&code) && value == 1 {
-                            let pass = match code {
-                                KeyCode::BTN_DPAD_LEFT => control_settings.wheel,
-                                KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
-                                KeyCode::BTN_NORTH => control_settings.pause,
-                                KeyCode::BTN_SELECT => control_settings.home,
-                                KeyCode::BTN_START => control_settings.ok,
-                                _ => false,
-                            };
-                            if pass {
-                                return Ok(code);
-                            }
+                        if !key_codes.contains(&code) || value == 0 {
+                            continue;
+                        }
+
+                        if match code {
+                            KeyCode::BTN_DPAD_LEFT => control_settings.wheel,
+                            KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
+                            KeyCode::BTN_NORTH => control_settings.pause,
+                            KeyCode::BTN_SELECT => control_settings.home,
+                            KeyCode::BTN_START => control_settings.ok,
+                            _ => false,
+                        } {
+                            return Ok(code);
                         }
                     }
                 }
