@@ -63,12 +63,8 @@ pub struct Book {
 #[derive(Debug)]
 pub struct Stage {
     pub control_settings: ControlSettings,
-}
-
-impl Stage {
-    pub fn get_image_name() {}
-
-    pub fn get_audio_name() {}
+    pub image: Option<String>,
+    pub audio: Option<String>,
 }
 
 enum ActionButtons {
@@ -208,6 +204,8 @@ impl Book {
         let stage_node = self.stage_node_get()?;
         Some(Stage {
             control_settings: stage_node.control_settings.clone(),
+            image: stage_node.image.clone(),
+            audio: stage_node.audio.clone(),
         })
     }
 
