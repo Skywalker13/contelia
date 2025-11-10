@@ -11,12 +11,12 @@ pub struct Transition {
 
 #[derive(Deserialize, Clone, Debug)]
 #[serde(rename_all = "camelCase")]
-struct ControlSettings {
-    wheel: bool,
-    ok: bool,
-    home: bool,
-    pause: bool,
-    autoplay: bool,
+pub struct ControlSettings {
+    pub wheel: bool,
+    pub ok: bool,
+    pub home: bool,
+    pub pause: bool,
+    pub autoplay: bool,
 }
 
 #[derive(Deserialize, Debug)]
@@ -62,7 +62,7 @@ pub struct Book {
 
 #[derive(Debug)]
 pub struct Stage {
-    control_settings: ControlSettings,
+    pub control_settings: ControlSettings,
 }
 
 impl Stage {

@@ -4,6 +4,8 @@ use nix::sys::epoll;
 use std::collections::HashSet;
 use std::error::Error;
 
+use crate::book::ControlSettings;
+
 const DEV_INPUT: &str = "/dev/input/gamepi13";
 
 pub struct Buttons {
@@ -24,22 +26,25 @@ impl Buttons {
         Ok(Buttons { device, epoll })
     }
 
-    pub fn listen(&mut self) -> Result<KeyCode, Box<dyn Error>> {
+    pub fn listen(
+        &mut self,
+        control_settings: &ControlSettings,
+    ) -> Result<KeyCode, Box<dyn Error>> {
         let mut events = [epoll::EpollEvent::empty(); 2];
 
         let key_codes = HashSet::from([
-            KeyCode::BTN_DPAD_UP,
-            KeyCode::BTN_DPAD_DOWN,
-            KeyCode::BTN_DPAD_LEFT,
-            KeyCode::BTN_DPAD_RIGHT,
-            KeyCode::BTN_NORTH,
-            KeyCode::BTN_SOUTH,
-            KeyCode::BTN_EAST,
-            KeyCode::BTN_WEST,
-            KeyCode::BTN_SELECT,
-            KeyCode::BTN_START,
-            KeyCode::BTN_TL,
-            KeyCode::BTN_TR,
+            // KeyCode::BTN_DPAD_UP,
+            // KeyCode::BTN_DPAD_DOWN,
+            KeyCode::BTN_DPAD_LEFT,  // WHEEL LEFT
+            KeyCode::BTN_DPAD_RIGHT, // WHEEL RIGHT
+            KeyCode::BTN_NORTH,      // PAUSE
+            // KeyCode::BTN_SOUTH,
+            // KeyCode::BTN_EAST,
+            // KeyCode::BTN_WEST,
+            // KeyCode::BTN_TL,
+            // KeyCode::BTN_TR,
+            KeyCode::BTN_SELECT, // HOME
+            KeyCode::BTN_START,  // OK
         ]);
 
         loop {
@@ -49,7 +54,17 @@ impl Buttons {
                         let code = KeyCode::new(ev.code());
                         let value = ev.value();
                         if key_codes.contains(&code) && value == 1 {
-                            return Ok(code);
+                            let pass = match code {
+                                KeyCode::BTN_DPAD_LEFT => control_settings.wheel,
+                                KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
+                                KeyCode::BTN_NORTH => control_settings.pause,
+                                KeyCode::BTN_SELECT => control_settings.home,
+                                KeyCode::BTN_START => control_settings.ok,
+                                _ => false,
+                            };
+                            if pass {
+                                return Ok(code);
+                            }
                         }
                     }
                 }

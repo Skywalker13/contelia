@@ -28,8 +28,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         // Show the image, play the sound and wait on I/O
         println!("{state:?}");
 
-        // Test listening on GPIO
-        let code = buttons.listen()?;
+        let code = buttons.listen(&state.control_settings)?;
         println!("{code:?}");
     }
 
