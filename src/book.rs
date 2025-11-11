@@ -250,7 +250,7 @@ mod tests {
 
     #[test]
     fn scenario() {
-        let story = Path::new("test/story.json");
+        let story = Path::new("test");
         let mut book = Book::from_file(story).expect("story.json not found");
 
         let start_node_uuid = String::from("2F0F3109BFAE4E0991D7CA0C2643948D");
