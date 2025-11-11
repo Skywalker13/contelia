@@ -1,6 +1,13 @@
 use anyhow::Result;
 use serde::Deserialize;
-use std::{collections::HashMap, fs::File, io::BufReader, path::Path};
+use std::{
+    collections::HashMap,
+    fs::File,
+    io::BufReader,
+    path::{Path, PathBuf},
+};
+
+const STORY_JSON: &str = "story.json";
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -50,6 +57,7 @@ struct Story {
 
 #[derive(Debug)]
 pub struct Book {
+    path: PathBuf,
     story: Story,
     stages: HashMap<String, usize>,
     actions: HashMap<String, usize>,
@@ -150,7 +158,8 @@ impl Book {
     }
 
     pub fn from_file(path: &Path) -> Result<Self> {
-        let file = File::open(path)?;
+        let story_path = path.join(STORY_JSON);
+        let file = File::open(story_path)?;
         let reader = BufReader::new(file);
         let story: Story = serde_json::from_reader(reader)?;
 
@@ -182,6 +191,7 @@ impl Book {
         let current_action_node = None;
 
         Ok(Book {
+            path: path.to_path_buf(),
             story,
             stages,
             actions,
@@ -207,6 +217,10 @@ impl Book {
             image: stage_node.image.clone(),
             audio: stage_node.audio.clone(),
         })
+    }
+
+    pub fn path_get(&self) -> &PathBuf {
+        &self.path
     }
 
     /// Handle OK button
