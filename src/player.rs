@@ -26,4 +26,21 @@ impl Player {
 
         Ok(())
     }
+
+    pub fn toggle_pause(&self) {
+        if let Some(sink) = &self.sink {
+            if sink.is_paused() {
+                sink.play();
+            } else {
+                sink.pause();
+            }
+        }
+    }
+
+    pub fn is_paused(&self) -> bool {
+        match &self.sink {
+            Some(sink) => sink.is_paused(),
+            None => false,
+        }
+    }
 }
