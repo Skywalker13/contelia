@@ -2,7 +2,7 @@ use clap::Parser;
 use evdev::KeyCode;
 use std::{error::Error, path::Path};
 
-use contelia::{Books, Buttons, Renderer};
+use contelia::{Books, Buttons, Player, Renderer};
 
 #[derive(Parser)]
 struct Cli {
@@ -17,6 +17,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut books = Books::from_dir(&path)?;
     let mut buttons = Buttons::new()?;
     let mut renderer = Renderer::new(Path::new("/dev/fb2"))?;
+    let mut player = Player::new()?;
 
     loop {
         let Some(book) = books.get() else {
@@ -36,6 +37,14 @@ fn main() -> Result<(), Box<dyn Error>> {
                 renderer.blit(&image)?;
             }
             None => renderer.clear()?,
+        }
+
+        match state.audio {
+            Some(audio) => {
+                let audio = book.path_get().join("assets").join(&audio);
+                player.play(&audio)?;
+            }
+            None => {}
         }
 
         let code = buttons.listen(&state.control_settings)?;
