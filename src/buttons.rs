@@ -25,10 +25,7 @@ impl Buttons {
         Ok(Buttons { device, epoll })
     }
 
-    pub fn listen(
-        &mut self,
-        control_settings: &ControlSettings,
-    ) -> Result<KeyCode, Box<dyn Error>> {
+    pub fn listen(&mut self) -> Result<KeyCode, Box<dyn Error>> {
         let mut events = [epoll::EpollEvent::empty(); 2];
 
         loop {
@@ -42,11 +39,11 @@ impl Buttons {
 
                         let code = KeyCode::new(ev.code());
                         if match code {
-                            KeyCode::BTN_DPAD_LEFT => control_settings.wheel,
-                            KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
-                            KeyCode::BTN_NORTH => control_settings.pause,
-                            KeyCode::BTN_SELECT => control_settings.home,
-                            KeyCode::BTN_START => control_settings.ok,
+                            KeyCode::BTN_DPAD_LEFT => true,
+                            KeyCode::BTN_DPAD_RIGHT => true,
+                            KeyCode::BTN_NORTH => true,
+                            KeyCode::BTN_SELECT => true,
+                            KeyCode::BTN_START => true,
                             _ => false,
                         } {
                             return Ok(code);

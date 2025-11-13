@@ -1,5 +1,6 @@
 use anyhow::Result;
-use rodio::{OutputStream, OutputStreamBuilder, Sink, play};
+use evdev::KeyCode;
+use rodio::{OutputStream, OutputStreamBuilder, Sink, play, source::EmptyCallback};
 use std::{fs::File, io::BufReader, path::Path};
 
 pub struct Player {
@@ -16,12 +17,20 @@ impl Player {
         })
     }
 
-    pub fn play(&mut self, audio: &Path) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn play<F>(&mut self, audio: &Path, end_cb: F) -> Result<(), Box<dyn std::error::Error>>
+    where
+        F: Fn(KeyCode) + Send + 'static,
+    {
         let mixer = self.stream_handle.mixer();
         let file = File::open(audio)?;
         let sink = play(mixer, BufReader::new(file))?;
 
-        sink.set_volume(0.8);
+        sink.append(EmptyCallback::new(Box::new(move || {
+            println!("End of stream");
+            end_cb(KeyCode::BTN_START);
+        })));
+
+        sink.set_volume(0.2);
         self.sink = Some(sink);
 
         Ok(())
