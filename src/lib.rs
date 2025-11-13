@@ -6,6 +6,7 @@ mod screen;
 
 pub use book::Book;
 pub use book::ControlSettings;
+pub use book::Stage;
 pub use books::Books;
 pub use buttons::Buttons;
 pub use player::Player;

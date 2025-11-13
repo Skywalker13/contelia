@@ -4,7 +4,7 @@ use evdev::KeyCode;
 use std::sync::mpsc::channel;
 use std::{error::Error, path::Path, thread};
 
-use contelia::{Book, Books, Buttons, ControlSettings, Player, Screen};
+use contelia::{Book, Books, Buttons, ControlSettings, Player, Screen, Stage};
 
 fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
     match code {
@@ -17,10 +17,7 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
 }
 
 /// Process the event and returns true is we want to skip the assets
-fn process_event(book: &mut Book, code: KeyCode, player: &Player) -> bool {
-    let Some(state) = book.stage_get() else {
-        return true;
-    };
+fn process_event(book: &mut Book, state: &Stage, code: KeyCode, player: &Player) -> bool {
     if !is_key_enabled(&state.control_settings, code) {
         return true;
     }
@@ -74,7 +71,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         if !only_buttons {
             match state.image {
-                Some(image) => {
+                Some(ref image) => {
                     let image = book.path_get().join("assets").join(&image);
                     screen.draw(&image)?;
                 }
@@ -82,7 +79,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
 
             match state.audio {
-                Some(audio) => {
+                Some(ref audio) => {
                     let audio = book.path_get().join("assets").join(&audio);
                     let tx_play = tx.clone();
                     player.play(&audio, move |code| {
@@ -100,7 +97,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 if eos && !state.control_settings.autoplay {
                     only_buttons = true; // skip playing, wait only on the buttons
                 } else {
-                    only_buttons = process_event(book, code, &player);
+                    only_buttons = process_event(book, &state, code, &player);
                 }
             }
             Err(_) => (),
