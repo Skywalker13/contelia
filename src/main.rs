@@ -46,7 +46,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let path = args.books;
     let (tx, rx) = channel::<(KeyCode, bool)>();
     let mut books = Books::from_dir(&path)?;
-    let mut renderer = Screen::new(Path::new("/dev/fb2"))?;
+    let mut screen = Screen::new(Path::new("/dev/fb2"))?;
 
     let tx_buttons = tx.clone();
     thread::spawn(move || -> Option<()> {
@@ -76,9 +76,9 @@ fn main() -> Result<(), Box<dyn Error>> {
             match state.image {
                 Some(image) => {
                     let image = book.path_get().join("assets").join(&image);
-                    renderer.draw(&image)?;
+                    screen.draw(&image)?;
                 }
-                None => renderer.clear()?,
+                None => screen.clear()?,
             }
 
             match state.audio {
