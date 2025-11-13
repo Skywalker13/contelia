@@ -3,17 +3,17 @@ use framebuffer::Framebuffer;
 use image::GenericImageView;
 use std::path::Path;
 
-pub struct Renderer {
+pub struct Screen {
     fb: Framebuffer,
 }
 
-impl Renderer {
+impl Screen {
     pub fn new(fb: &Path) -> Result<Self> {
         let fb = Framebuffer::new(fb)?;
-        Ok(Renderer { fb })
+        Ok(Screen { fb })
     }
 
-    pub fn blit(&mut self, image: &Path) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn draw(&mut self, image: &Path) -> Result<(), Box<dyn std::error::Error>> {
         let width = self.fb.var_screen_info.xres;
         let height = self.fb.var_screen_info.yres;
         let line_length = self.fb.fix_screen_info.line_length;

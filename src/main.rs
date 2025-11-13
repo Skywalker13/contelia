@@ -4,7 +4,7 @@ use evdev::KeyCode;
 use std::sync::mpsc::channel;
 use std::{error::Error, path::Path, thread};
 
-use contelia::{Book, Books, Buttons, ControlSettings, Player, Renderer};
+use contelia::{Book, Books, Buttons, ControlSettings, Player, Screen};
 
 fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
     match code {
@@ -46,7 +46,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let path = args.books;
     let (tx, rx) = channel::<(KeyCode, bool)>();
     let mut books = Books::from_dir(&path)?;
-    let mut renderer = Renderer::new(Path::new("/dev/fb2"))?;
+    let mut renderer = Screen::new(Path::new("/dev/fb2"))?;
 
     let tx_buttons = tx.clone();
     thread::spawn(move || -> Option<()> {
@@ -76,7 +76,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             match state.image {
                 Some(image) => {
                     let image = book.path_get().join("assets").join(&image);
-                    renderer.blit(&image)?;
+                    renderer.draw(&image)?;
                 }
                 None => renderer.clear()?,
             }
