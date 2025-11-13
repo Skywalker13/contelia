@@ -1,14 +1,58 @@
+use anyhow::Result;
 use clap::Parser;
 use evdev::KeyCode;
 use std::sync::mpsc::channel;
 use std::{error::Error, path::Path, thread};
 
-use contelia::{Books, Buttons, Player, Renderer};
+use contelia::{Book, Books, Buttons, ControlSettings, Player, Renderer};
 
 #[derive(Parser)]
 struct Cli {
     /// The path to the books directory
     books: std::path::PathBuf,
+}
+
+fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
+    match code {
+        KeyCode::BTN_DPAD_LEFT | KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
+        KeyCode::BTN_SELECT => control_settings.home,
+        KeyCode::BTN_START => control_settings.ok,
+        KeyCode::BTN_NORTH => control_settings.pause,
+        _ => false,
+    }
+}
+
+/// Process the event and returns true is we want to skip the assets
+fn process_event(book: &mut Book, code: KeyCode, player: &Player) -> bool {
+    let Some(state) = book.stage_get() else {
+        return true;
+    };
+    if !is_key_enabled(&state.control_settings, code) {
+        return true;
+    }
+    match code {
+        KeyCode::BTN_DPAD_LEFT => {
+            book.button_wheel_left();
+            false
+        }
+        KeyCode::BTN_DPAD_RIGHT => {
+            book.button_wheel_right();
+            false
+        }
+        KeyCode::BTN_SELECT => {
+            book.button_home();
+            false
+        }
+        KeyCode::BTN_START => {
+            book.button_ok();
+            false
+        }
+        KeyCode::BTN_NORTH => {
+            player.toggle_pause();
+            true
+        }
+        _ => true,
+    }
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -34,10 +78,10 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut only_buttons = false;
     loop {
         let Some(book) = books.get() else {
-            return Ok(());
+            return Err("No book available".into());
         };
         let Some(state) = book.stage_get() else {
-            return Ok(());
+            return Err("Invalid book state".into());
         };
 
         // Show the image, play the sound and wait on I/O
@@ -65,50 +109,14 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
 
         only_buttons = false;
-        let _result = match rx.recv() {
+        match rx.recv() {
             Ok((code, eos)) => {
                 // Ignore EOS when autoplay is disabled
                 if eos && !state.control_settings.autoplay {
                     only_buttons = true; // skip playing, wait only on the buttons
-                    continue;
+                } else {
+                    only_buttons = process_event(book, code, &player);
                 }
-                match code {
-                    KeyCode::BTN_DPAD_LEFT => {
-                        if state.control_settings.wheel {
-                            book.button_wheel_left();
-                        } else {
-                            only_buttons = true;
-                        }
-                    }
-                    KeyCode::BTN_DPAD_RIGHT => {
-                        if state.control_settings.wheel {
-                            book.button_wheel_right();
-                        } else {
-                            only_buttons = true;
-                        }
-                    }
-                    KeyCode::BTN_SELECT => {
-                        if state.control_settings.home {
-                            book.button_home();
-                        } else {
-                            only_buttons = true;
-                        }
-                    }
-                    KeyCode::BTN_START => {
-                        if state.control_settings.ok {
-                            book.button_ok();
-                        } else {
-                            only_buttons = true;
-                        }
-                    }
-                    KeyCode::BTN_NORTH => {
-                        if state.control_settings.pause {
-                            Some(player.toggle_pause());
-                        }
-                        only_buttons = true;
-                    }
-                    _ => (),
-                };
             }
             Err(_) => (),
         };
