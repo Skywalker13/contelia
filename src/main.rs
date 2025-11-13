@@ -6,12 +6,6 @@ use std::{error::Error, path::Path, thread};
 
 use contelia::{Book, Books, Buttons, ControlSettings, Player, Renderer};
 
-#[derive(Parser)]
-struct Cli {
-    /// The path to the books directory
-    books: std::path::PathBuf,
-}
-
 fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
     match code {
         KeyCode::BTN_DPAD_LEFT | KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
@@ -53,6 +47,12 @@ fn process_event(book: &mut Book, code: KeyCode, player: &Player) -> bool {
         }
         _ => true,
     }
+}
+
+#[derive(Parser)]
+struct Cli {
+    /// The path to the books directory
+    books: std::path::PathBuf,
 }
 
 fn main() -> Result<(), Box<dyn Error>> {

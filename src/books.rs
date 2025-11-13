@@ -4,7 +4,6 @@ use std::{fs, path::Path};
 
 pub struct Books {
     books: Vec<Book>,
-
     current_book_index: usize,
 }
 
