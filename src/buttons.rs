@@ -3,8 +3,6 @@ use evdev::{Device, KeyCode};
 use nix::sys::epoll;
 use std::error::Error;
 
-use crate::book::ControlSettings;
-
 const DEV_INPUT: &str = "/dev/input/gamepi13";
 
 pub struct Buttons {
