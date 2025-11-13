@@ -25,26 +25,11 @@ fn process_event(book: &mut Book, code: KeyCode, player: &Player) -> bool {
         return true;
     }
     match code {
-        KeyCode::BTN_DPAD_LEFT => {
-            book.button_wheel_left();
-            false
-        }
-        KeyCode::BTN_DPAD_RIGHT => {
-            book.button_wheel_right();
-            false
-        }
-        KeyCode::BTN_SELECT => {
-            book.button_home();
-            false
-        }
-        KeyCode::BTN_START => {
-            book.button_ok();
-            false
-        }
-        KeyCode::BTN_NORTH => {
-            player.toggle_pause();
-            true
-        }
+        KeyCode::BTN_DPAD_LEFT => (book.button_wheel_left(), false).1,
+        KeyCode::BTN_DPAD_RIGHT => (book.button_wheel_right(), false).1,
+        KeyCode::BTN_SELECT => (book.button_home(), false).1,
+        KeyCode::BTN_START => (book.button_ok(), false).1,
+        KeyCode::BTN_NORTH => (player.toggle_pause(), true).1,
         _ => true,
     }
 }
