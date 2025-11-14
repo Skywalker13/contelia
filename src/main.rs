@@ -4,7 +4,7 @@ use evdev::KeyCode;
 use std::sync::mpsc::channel;
 use std::{error::Error, path::Path, thread};
 
-use contelia::{Book, Books, Buttons, ControlSettings, Player, Screen, Stage};
+use contelia::{Books, Buttons, ControlSettings, Player, Screen, Stage};
 
 fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
     match code {
@@ -17,13 +17,30 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
 }
 
 /// Process the event and returns true is we want to skip the assets
-fn process_event(book: &mut Book, state: &Stage, code: KeyCode, player: &Player) -> bool {
+fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &Player) -> bool {
     if !is_key_enabled(&state.control_settings, code) {
         return true;
     }
+    let Some(book) = books.get() else {
+        return true;
+    };
     match code {
-        KeyCode::BTN_DPAD_LEFT => (book.button_wheel_left(), false).1,
-        KeyCode::BTN_DPAD_RIGHT => (book.button_wheel_right(), false).1,
+        KeyCode::BTN_DPAD_LEFT => {
+            if state.square_one {
+                books.button_wheel_left();
+            } else {
+                book.button_wheel_left();
+            }
+            false
+        }
+        KeyCode::BTN_DPAD_RIGHT => {
+            if state.square_one {
+                books.button_wheel_right();
+            } else {
+                book.button_wheel_right();
+            }
+            false
+        }
         KeyCode::BTN_SELECT => (book.button_home(), false).1,
         KeyCode::BTN_START => (book.button_ok(), false).1,
         KeyCode::BTN_NORTH => (player.toggle_pause(), true).1,
@@ -97,7 +114,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 if eos && !state.control_settings.autoplay {
                     only_buttons = true; // skip playing, wait only on the buttons
                 } else {
-                    only_buttons = process_event(book, &state, code, &player);
+                    only_buttons = process_event(&mut books, &state, code, &player);
                 }
             }
             Err(_) => (),

@@ -28,6 +28,8 @@ impl Books {
             bail!("No book found");
         }
 
+        println!("Loaded {} books", books.len());
+
         let current_book_index = 0;
 
         Ok(Books {
@@ -45,6 +47,8 @@ impl Books {
         book_index = book_index + 1;
         if book_index >= self.books.len() as isize {
             self.current_book_index = 0;
+        } else {
+            self.current_book_index = book_index as usize;
         }
     }
 
@@ -53,6 +57,8 @@ impl Books {
         book_index = book_index - 1;
         if book_index < 0 {
             self.current_book_index = self.books.len() - 1;
+        } else {
+            self.current_book_index = book_index as usize;
         }
     }
 }

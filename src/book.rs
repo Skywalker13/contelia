@@ -70,6 +70,7 @@ pub struct Book {
 
 #[derive(Debug)]
 pub struct Stage {
+    pub square_one: bool,
     pub control_settings: ControlSettings,
     pub image: Option<String>,
     pub audio: Option<String>,
@@ -213,6 +214,7 @@ impl Book {
     pub fn stage_get(&self) -> Option<Stage> {
         let stage_node = self.stage_node_get()?;
         Some(Stage {
+            square_one: stage_node.square_one.unwrap_or(false),
             control_settings: stage_node.control_settings.clone(),
             image: stage_node.image.clone(),
             audio: stage_node.audio.clone(),
