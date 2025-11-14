@@ -102,7 +102,14 @@ fn main() -> Result<(), Box<dyn Error>> {
                 Some(ref audio) => {
                     let audio = book.path_get().join("assets").join(&audio);
                     let tx_play = tx.clone();
-                    player.play(&audio, move |code| {
+                    player.play(&audio, move || {
+                        let code = if state.control_settings.ok {
+                            KeyCode::BTN_START
+                        } else if state.control_settings.home {
+                            KeyCode::BTN_SELECT
+                        } else {
+                            return;
+                        };
                         let _ = tx_play.send((code, true));
                     })?;
                 }
