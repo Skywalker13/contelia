@@ -68,7 +68,7 @@ impl Player {
     pub fn volume_down(&mut self) {
         if let Some(sink) = &self.sink {
             let mut volume = sink.volume();
-            if volume > 0.1 {
+            if volume > 0.2 {
                 volume = volume - 0.1;
             }
             self.volume = volume;
