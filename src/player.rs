@@ -6,6 +6,7 @@ use std::{fs::File, io::BufReader, path::Path};
 pub struct Player {
     stream_handle: OutputStream,
     sink: Option<Sink>,
+    volume: f32,
 }
 
 impl Player {
@@ -14,6 +15,7 @@ impl Player {
         Ok(Player {
             stream_handle,
             sink: None,
+            volume: 0.2,
         })
     }
 
@@ -30,7 +32,7 @@ impl Player {
             end_cb(KeyCode::BTN_START);
         })));
 
-        sink.set_volume(0.2);
+        sink.set_volume(self.volume);
         self.sink = Some(sink);
 
         Ok(())
@@ -50,6 +52,28 @@ impl Player {
         match &self.sink {
             Some(sink) => sink.is_paused(),
             None => false,
+        }
+    }
+
+    pub fn volume_up(&mut self) {
+        if let Some(sink) = &self.sink {
+            let mut volume = sink.volume();
+            if volume < 1.0 {
+                volume = volume + 0.1;
+            }
+            self.volume = volume;
+            sink.set_volume(volume);
+        }
+    }
+
+    pub fn volume_down(&mut self) {
+        if let Some(sink) = &self.sink {
+            let mut volume = sink.volume();
+            if volume > 1.0 {
+                volume = volume - 0.1;
+            }
+            self.volume = volume;
+            sink.set_volume(volume);
         }
     }
 }

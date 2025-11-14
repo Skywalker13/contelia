@@ -9,6 +9,7 @@ use contelia::{Books, Buttons, ControlSettings, Player, Screen, Stage};
 fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
     match code {
         KeyCode::BTN_DPAD_LEFT | KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
+        KeyCode::BTN_DPAD_UP | KeyCode::BTN_DPAD_DOWN => true, // volume
         KeyCode::BTN_SELECT => control_settings.home,
         KeyCode::BTN_START => control_settings.ok,
         KeyCode::BTN_NORTH => control_settings.pause,
@@ -17,7 +18,7 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
 }
 
 /// Process the event and returns true is we want to skip the assets
-fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &Player) -> bool {
+fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut Player) -> bool {
     if !is_key_enabled(&state.control_settings, code) {
         return true;
     }
@@ -41,6 +42,8 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &Playe
             }
             false
         }
+        KeyCode::BTN_DPAD_UP => (player.volume_up(), true).1,
+        KeyCode::BTN_DPAD_DOWN => (player.volume_down(), true).1,
         KeyCode::BTN_SELECT => (book.button_home(), false).1,
         KeyCode::BTN_START => (book.button_ok(), false).1,
         KeyCode::BTN_NORTH => (player.toggle_pause(), true).1,
@@ -114,7 +117,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 if eos && !state.control_settings.autoplay {
                     only_buttons = true; // skip playing, wait only on the buttons
                 } else {
-                    only_buttons = process_event(&mut books, &state, code, &player);
+                    only_buttons = process_event(&mut books, &state, code, &mut player);
                 }
             }
             Err(_) => (),
