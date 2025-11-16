@@ -94,13 +94,13 @@ pub struct Stage {
 }
 
 enum ActionButtons {
-    OK,
-    HOME,
+    Ok,
+    Home,
 }
 
 enum ActionWheel {
-    RIGHT,
-    LEFT,
+    Right,
+    Left,
 }
 
 impl Book {
@@ -116,8 +116,8 @@ impl Book {
         stage_node: &StageNode,
     ) -> Option<&ActionNode> {
         let transition = match button {
-            ActionButtons::OK => stage_node.ok_transition.as_ref()?,
-            ActionButtons::HOME => stage_node.home_transition.as_ref()?,
+            ActionButtons::Ok => stage_node.ok_transition.as_ref()?,
+            ActionButtons::Home => stage_node.home_transition.as_ref()?,
         };
         let id = &transition.action_node;
         let index = self.actions.get(id)?;
@@ -135,8 +135,8 @@ impl Book {
         };
 
         let transition = match button {
-            ActionButtons::OK => stage_node.ok_transition.as_ref()?,
-            ActionButtons::HOME => stage_node.home_transition.as_ref()?,
+            ActionButtons::Ok => stage_node.ok_transition.as_ref()?,
+            ActionButtons::Home => stage_node.home_transition.as_ref()?,
         };
         let option_index = transition.option_index;
 
@@ -158,8 +158,8 @@ impl Book {
             .find(|node| Some(node.id.clone()) == self.current_action_node)?;
 
         let mut option_index = match direction {
-            ActionWheel::LEFT => self.current_action_index as isize - 1,
-            ActionWheel::RIGHT => self.current_action_index as isize + 1,
+            ActionWheel::Left => self.current_action_index as isize - 1,
+            ActionWheel::Right => self.current_action_index as isize + 1,
         };
         if option_index >= action_node.options.len() as isize {
             option_index = 0;
@@ -244,22 +244,22 @@ impl Book {
 
     /// Handle OK button
     pub fn button_ok(&mut self) -> Option<()> {
-        self.button(ActionButtons::OK)
+        self.button(ActionButtons::Ok)
     }
 
     /// Handle the HOME button
     pub fn button_home(&mut self) -> Option<()> {
-        self.button(ActionButtons::HOME)
+        self.button(ActionButtons::Home)
     }
 
     /// Handle the WHEEL button
     pub fn button_wheel_right(&mut self) -> Option<()> {
-        self.button_wheel(ActionWheel::RIGHT)
+        self.button_wheel(ActionWheel::Right)
     }
 
     /// Handle the WHEEL button
     pub fn button_wheel_left(&mut self) -> Option<()> {
-        self.button_wheel(ActionWheel::LEFT)
+        self.button_wheel(ActionWheel::Left)
     }
 }
 
