@@ -23,6 +23,13 @@ use std::{error::Error, path::Path, thread};
 
 use contelia::{Books, Buttons, ControlSettings, Player, Screen, Stage};
 
+#[derive(PartialEq)]
+enum Next {
+    Normal,
+    SkipAssets,
+    Shutdown,
+}
+
 fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
     match code {
         KeyCode::BTN_DPAD_LEFT | KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
@@ -30,17 +37,18 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
         KeyCode::BTN_SELECT => control_settings.home,
         KeyCode::BTN_START => control_settings.ok,
         KeyCode::BTN_NORTH => control_settings.pause,
+        KeyCode::BTN_SOUTH => true, // shutdown
         _ => false,
     }
 }
 
 /// Process the event and returns true is we want to skip the assets
-fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut Player) -> bool {
+fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut Player) -> Next {
     if !is_key_enabled(&state.control_settings, code) {
-        return true;
+        return Next::SkipAssets;
     }
     let Some(book) = books.get() else {
-        return true;
+        return Next::SkipAssets;
     };
     match code {
         KeyCode::BTN_DPAD_LEFT => {
@@ -49,7 +57,7 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
             } else {
                 book.button_wheel_left();
             }
-            false
+            Next::Normal
         }
         KeyCode::BTN_DPAD_RIGHT => {
             if state.square_one {
@@ -57,14 +65,15 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
             } else {
                 book.button_wheel_right();
             }
-            false
+            Next::Normal
         }
-        KeyCode::BTN_DPAD_UP => (player.volume_up(), true).1,
-        KeyCode::BTN_DPAD_DOWN => (player.volume_down(), true).1,
-        KeyCode::BTN_SELECT => (book.button_home(), false).1,
-        KeyCode::BTN_START => (book.button_ok(), false).1,
-        KeyCode::BTN_NORTH => (player.toggle_pause(), true).1,
-        _ => true,
+        KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::SkipAssets).1,
+        KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::SkipAssets).1,
+        KeyCode::BTN_SELECT => (book.button_home(), Next::Normal).1,
+        KeyCode::BTN_START => (book.button_ok(), Next::Normal).1,
+        KeyCode::BTN_NORTH => (player.toggle_pause(), Next::SkipAssets).1,
+        KeyCode::BTN_SOUTH => Next::Shutdown,
+        _ => Next::SkipAssets,
     }
 }
 
@@ -94,7 +103,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     });
 
     let mut player = Player::new()?;
-    let mut only_buttons = false;
+    let mut next = Next::Normal;
     loop {
         let Some(book) = books.get() else {
             return Err("No book available".into());
@@ -106,7 +115,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         // Show the image, play the sound and wait on I/O
         println!("{state:?}");
 
-        if !only_buttons {
+        if next == Next::Normal {
             match state.image {
                 Some(ref image) => {
                     let image = book.path_get().join("assets").join(&image);
@@ -134,17 +143,23 @@ fn main() -> Result<(), Box<dyn Error>> {
             }
         }
 
-        only_buttons = false;
+        next = Next::Normal;
         match rx.recv() {
             Ok((code, eos)) => {
                 // Ignore EOS when autoplay is disabled
                 if eos && !state.control_settings.autoplay {
-                    only_buttons = true; // skip playing, wait only on the buttons
+                    next = Next::SkipAssets; // skip playing, wait only on the buttons
                 } else {
-                    only_buttons = process_event(&mut books, &state, code, &mut player);
+                    next = process_event(&mut books, &state, code, &mut player);
                 }
             }
             Err(_) => (),
         };
+
+        if next == Next::Shutdown {
+            break;
+        }
     }
+
+    Ok(())
 }
