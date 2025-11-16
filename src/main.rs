@@ -18,6 +18,7 @@
 use anyhow::Result;
 use clap::Parser;
 use evdev::KeyCode;
+use std::process::ExitCode;
 use std::sync::mpsc::channel;
 use std::{error::Error, path::Path, thread};
 
@@ -83,7 +84,7 @@ struct Cli {
     books: std::path::PathBuf,
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn run() -> Result<u8, Box<dyn Error>> {
     let args = Cli::parse();
 
     let path = args.books;
@@ -161,5 +162,19 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
-    Ok(())
+    if next == Next::Shutdown {
+        Ok(42)
+    } else {
+        Ok(0)
+    }
+}
+
+fn main() -> ExitCode {
+    match run() {
+        Ok(code) => ExitCode::from(code),
+        Err(e) => {
+            eprintln!("Error : {}", e);
+            ExitCode::FAILURE
+        }
+    }
 }
