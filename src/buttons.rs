@@ -18,9 +18,7 @@
 use anyhow::Result;
 use evdev::{Device, KeyCode};
 use nix::sys::epoll;
-use std::error::Error;
-
-const DEV_INPUT: &str = "/dev/input/gamepi13";
+use std::{error::Error, path::Path};
 
 pub struct Buttons {
     device: Device,
@@ -28,9 +26,9 @@ pub struct Buttons {
 }
 
 impl Buttons {
-    pub fn new() -> Result<Self> {
+    pub fn new(input: &Path) -> Result<Self> {
         // See https://github.com/emberian/evdev/blob/main/examples/evtest_nonblocking.rs
-        let device = Device::open(DEV_INPUT)?;
+        let device = Device::open(input)?;
         device.set_nonblocking(true)?;
 
         let epoll = epoll::Epoll::new(epoll::EpollCreateFlags::EPOLL_CLOEXEC)?;

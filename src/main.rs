@@ -81,9 +81,13 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
 
 #[derive(Parser)]
 struct Cli {
-    /// Framebuffer
+    /// Framebuffer device
     #[arg(short, long, default_value = "/dev/fb2")]
     fb: PathBuf,
+
+    /// Input device
+    #[arg(short, long, default_value = "/dev/input/gamepi13")]
+    input: PathBuf,
 
     /// The path to the books directory
     books: std::path::PathBuf,
@@ -94,6 +98,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
     let path = args.books;
     let fb = args.fb;
+    let input = args.input;
 
     let (tx, rx) = channel::<(KeyCode, bool)>();
     let mut books = Books::from_dir(&path)?;
@@ -101,7 +106,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
     let tx_buttons = tx.clone();
     thread::spawn(move || -> Option<()> {
-        let mut buttons = Buttons::new().ok()?;
+        let mut buttons = Buttons::new(input.as_path()).ok()?;
         loop {
             if let Ok(code) = buttons.listen() {
                 println!("{code:?}");
