@@ -18,9 +18,10 @@
 use anyhow::Result;
 use clap::Parser;
 use evdev::KeyCode;
+use std::path::PathBuf;
 use std::process::ExitCode;
 use std::sync::mpsc::channel;
-use std::{error::Error, path::Path, thread};
+use std::{error::Error, thread};
 
 use contelia::{Books, Buttons, ControlSettings, Player, Screen, Stage};
 
@@ -80,6 +81,10 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
 
 #[derive(Parser)]
 struct Cli {
+    /// Framebuffer
+    #[arg(short, long, default_value = "/dev/fb2")]
+    fb: PathBuf,
+
     /// The path to the books directory
     books: std::path::PathBuf,
 }
@@ -88,9 +93,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let args = Cli::parse();
 
     let path = args.books;
+    let fb = args.fb;
+
     let (tx, rx) = channel::<(KeyCode, bool)>();
     let mut books = Books::from_dir(&path)?;
-    let mut screen = Screen::new(Path::new("/dev/fb2"))?;
+    let mut screen = Screen::new(fb.as_path())?;
 
     let tx_buttons = tx.clone();
     thread::spawn(move || -> Option<()> {
