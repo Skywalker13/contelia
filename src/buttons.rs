@@ -56,10 +56,9 @@ impl Buttons {
                             KeyCode::BTN_DPAD_RIGHT => true,
                             KeyCode::BTN_DPAD_UP => true,
                             KeyCode::BTN_DPAD_DOWN => true,
-                            KeyCode::BTN_NORTH => true,
-                            KeyCode::BTN_SOUTH => true,
-                            KeyCode::BTN_SELECT => true,
                             KeyCode::BTN_START => true,
+                            KeyCode::BTN_SELECT => true,
+                            KeyCode::BTN_MODE => true,
                             _ => false,
                         } {
                             return Ok(code);
