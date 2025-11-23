@@ -180,20 +180,13 @@ fn decrypt_block(bytes: &Vec<u8>) -> Vec<u8> {
     /* Original key (big-endian):
      * 0x91, 0xBD, 0x7A, 0x0A, 0xA7, 0x54, 0x40, 0xA9,
      * 0xBB, 0xD4, 0x9D, 0x6C, 0xE0, 0xDC, 0xC0, 0xE3,
+     * See https://github.com/marian-m12l/studio/blob/028912d9ee06e77bff679abd31701aa493f5461a/core/src/main/java/studio/core/v1/utils/XXTEACipher.java
      */
-    const KEY: [u8; 16] = [
-        0x0A, 0x7A, 0xBD, 0x91, // 91BD7A0A reversed
-        0xA9, 0x40, 0x54, 0xA7, // A75440A9 reversed
-        0x6C, 0x9D, 0xD4, 0xBB, // BBD49D6C reversed
-        0xE3, 0xC0, 0xDC, 0xE0, // E0DCC0E3 reversed
-    ];
-
-    let k: [u32; 4] = bytemuck::cast(KEY);
+    const KEY: [u32; 4] = [0x91BD7A0A, 0xA75440A9, 0xBBD49D6C, 0xE0DCC0E3];
 
     /* Only the first 512 bytes are encrypted */
     let block_size = std::cmp::min(512, bytes.len());
     let aligned_size = (block_size / 4) * 4;
-
     if aligned_size < 4 {
         return bytes.to_vec();
     }
@@ -205,7 +198,7 @@ fn decrypt_block(bytes: &Vec<u8>) -> Vec<u8> {
 
     /* (max 128 u32) */
     let n = std::cmp::min(128, int_count);
-    btea_decrypt(&mut v[0..n], &k);
+    btea_decrypt(&mut v[0..n], &KEY);
 
     /* Convert to little-endian */
     let mut result = vec![0u8; aligned_size];
