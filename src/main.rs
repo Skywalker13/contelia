@@ -37,8 +37,7 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
         KeyCode::BTN_DPAD_LEFT | KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
         KeyCode::BTN_DPAD_UP | KeyCode::BTN_DPAD_DOWN => true, // volume
         KeyCode::BTN_SELECT => control_settings.home,
-        KeyCode::BTN_START => control_settings.ok,
-        KeyCode::BTN_MODE => control_settings.pause,
+        KeyCode::BTN_START => control_settings.ok || control_settings.pause,
         _ => false,
     }
 }
@@ -71,8 +70,15 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
         KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::SkipAssets).1,
         KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::SkipAssets).1,
         KeyCode::BTN_SELECT => (book.button_home(), Next::Normal).1,
-        KeyCode::BTN_START => (book.button_ok(), Next::Normal).1,
-        KeyCode::BTN_MODE => (player.toggle_pause(), Next::SkipAssets).1,
+        KeyCode::BTN_START => {
+            if state.control_settings.pause {
+                player.toggle_pause();
+                Next::SkipAssets
+            } else {
+                book.button_ok();
+                Next::Normal
+            }
+        }
         _ => Next::SkipAssets,
     }
 }

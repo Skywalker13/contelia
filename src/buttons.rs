@@ -58,7 +58,6 @@ impl Buttons {
                             KeyCode::BTN_DPAD_DOWN => true,
                             KeyCode::BTN_START => true,
                             KeyCode::BTN_SELECT => true,
-                            KeyCode::BTN_MODE => true,
                             _ => false,
                         } {
                             return Ok(code);
