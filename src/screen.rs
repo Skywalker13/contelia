@@ -18,16 +18,30 @@
 use anyhow::Result;
 use framebuffer::Framebuffer;
 use image::GenericImageView;
-use std::path::Path;
+use std::{fs, io, path::Path};
 
 pub struct Screen {
+    dev: String,
     fb: Framebuffer,
 }
 
 impl Screen {
     pub fn new(fb: &Path) -> Result<Self> {
+        let dev = fb
+            .file_name()
+            .unwrap_or_default()
+            .to_string_lossy()
+            .to_string();
         let fb = Framebuffer::new(fb)?;
-        Ok(Screen { fb })
+        Ok(Screen { dev, fb })
+    }
+
+    pub fn off(&self) -> io::Result<()> {
+        fs::write(format!("/sys/class/graphics/{}/blank", self.dev), "1")
+    }
+
+    pub fn on(&self) -> io::Result<()> {
+        fs::write(format!("/sys/class/graphics/{}/blank", self.dev), "0")
     }
 
     pub fn draw(&mut self, image: &Path) -> Result<(), Box<dyn std::error::Error>> {

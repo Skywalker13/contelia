@@ -137,8 +137,12 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 Some(ref image) => {
                     let image = book.path_get().join("assets").join(&image);
                     screen.draw(&image)?;
+                    screen.on()?;
                 }
-                None => screen.clear()?,
+                None => {
+                    screen.off()?;
+                    screen.clear()?;
+                }
             }
 
             match state.audio {
