@@ -18,6 +18,7 @@
 use anyhow::Result;
 use clap::Parser;
 use evdev::KeyCode;
+use signal_hook::{consts::*, iterator::Signals};
 use std::path::PathBuf;
 use std::process::ExitCode;
 use std::sync::mpsc::channel;
@@ -105,6 +106,25 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let input = args.input;
 
     let (tx, rx) = channel::<(KeyCode, bool)>();
+
+    let mut signals = Signals::new(&[SIGTERM, SIGINT])?;
+    let tx_sig = tx.clone();
+    thread::spawn(move || {
+        for sig in signals.forever() {
+            match sig {
+                SIGTERM => {
+                    println!("SIGTERM");
+                    let _ = tx_sig.send((KeyCode::KEY_END, false));
+                }
+                SIGINT => {
+                    println!("SIGINT");
+                    let _ = tx_sig.send((KeyCode::KEY_END, false));
+                }
+                _ => unreachable!(),
+            }
+        }
+    });
+
     let mut books = Books::from_dir(&path)?;
     let mut screen = Screen::new(fb.as_path())?;
 
@@ -170,6 +190,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 // Ignore EOS when autoplay is disabled
                 if eos && !state.control_settings.autoplay {
                     next = Next::SkipAssets; // skip playing, wait only on the buttons
+                } else if code == KeyCode::KEY_END {
+                    next = Next::Shutdown; // Clean shutdown
                 } else {
                     next = process_event(&mut books, &state, code, &mut player);
                 }
@@ -178,6 +200,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
         };
 
         if next == Next::Shutdown {
+            screen.off()?;
+            screen.clear()?;
             break;
         }
     }
