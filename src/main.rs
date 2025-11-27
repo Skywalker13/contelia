@@ -244,10 +244,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
     if next == Next::Shutdown {
         screen.off()?;
         screen.clear()?;
-        Ok(42)
-    } else {
-        Ok(0)
     }
+
+    Ok(0)
 }
 
 fn main() -> ExitCode {
