@@ -19,17 +19,22 @@ use anyhow::Result;
 use clap::Parser;
 use evdev::KeyCode;
 use signal_hook::{consts::*, iterator::Signals};
-use std::path::PathBuf;
+use std::env;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::sync::mpsc::channel;
+use std::time::Duration;
 use std::{error::Error, thread};
 
-use contelia::{Books, Buttons, ControlSettings, Player, Screen, Stage};
+use contelia::{Books, Buttons, ControlSettings, Player, Screen, Stage, Timeout};
 
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 enum Next {
     Normal,
-    SkipAssets,
+    Image,
+    Audio,
+    Volume,
+    Timeout,
     Shutdown,
 }
 
@@ -46,10 +51,10 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
 /// Process the event and returns true is we want to skip the assets
 fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut Player) -> Next {
     if !is_key_enabled(&state.control_settings, code) {
-        return Next::SkipAssets;
+        return Next::Timeout;
     }
     let Some(book) = books.get() else {
-        return Next::SkipAssets;
+        return Next::Timeout;
     };
     match code {
         KeyCode::BTN_DPAD_LEFT => {
@@ -68,19 +73,19 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
             }
             Next::Normal
         }
-        KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::SkipAssets).1,
-        KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::SkipAssets).1,
+        KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::Volume).1,
+        KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::Volume).1,
         KeyCode::BTN_SELECT => (book.button_home(), Next::Normal).1,
         KeyCode::BTN_START => {
             if state.control_settings.pause {
                 player.toggle_pause();
-                Next::SkipAssets
+                Next::Timeout
             } else {
                 book.button_ok();
                 Next::Normal
             }
         }
-        _ => Next::SkipAssets,
+        _ => Next::Timeout,
     }
 }
 
@@ -141,7 +146,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
     let mut player = Player::new()?;
     let mut next = Next::Normal;
-    loop {
+    let mut timeout: Option<Timeout> = None;
+
+    while next != Next::Shutdown {
         let Some(book) = books.get() else {
             return Err("No book available".into());
         };
@@ -149,10 +156,17 @@ fn run() -> Result<u8, Box<dyn Error>> {
             return Err("Invalid book state".into());
         };
 
+        if next != Next::Timeout {
+            if let Some(ref mut timeout) = timeout {
+                timeout.clear();
+            }
+        }
+
         // Show the image, play the sound and wait on I/O
         println!("{state:?}");
+        println!("{next:?}");
 
-        if next == Next::Normal {
+        if next == Next::Normal || next == Next::Image {
             match state.image {
                 Some(ref image) => {
                     let image = book.path_get().join("assets").join(&image);
@@ -164,7 +178,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
                     screen.clear()?;
                 }
             }
-
+        }
+        if next == Next::Normal || next == Next::Audio {
             match state.audio {
                 Some(ref audio) => {
                     let audio = book.path_get().join("assets").join(&audio);
@@ -183,30 +198,49 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 None => {}
             }
         }
+        if next == Next::Volume {
+            let volume = player.get_volume();
+            let mut image = env::current_exe()?;
+            image.pop();
+            image.push("assets");
+            image.push(format!("volume{:0>2}.png", volume));
+
+            let path = Path::new(&image);
+            println!("volume image: {}", path.to_string_lossy().to_string());
+            screen.draw(path)?;
+            screen.on()?;
+
+            let tx_timeout = tx.clone();
+            timeout = Some(Timeout::set(Duration::from_millis(500), move || {
+                let _ = tx_timeout.send((KeyCode::KEY_TIME, true));
+            }));
+        }
 
         next = Next::Normal;
         match rx.recv() {
             Ok((code, eos)) => {
-                // Ignore EOS when autoplay is disabled
-                if eos && !state.control_settings.autoplay {
-                    next = Next::SkipAssets; // skip playing, wait only on the buttons
+                if code == KeyCode::KEY_TIME {
+                    next = Next::Image; // Restore screen
                 } else if code == KeyCode::KEY_END {
                     next = Next::Shutdown; // Clean shutdown
+                } else if eos && !state.control_settings.autoplay {
+                    // Ignore EOS when autoplay is disabled
+                    if timeout.is_none() {
+                        next = Next::Image;
+                    } else {
+                        next = Next::Timeout;
+                    }
                 } else {
                     next = process_event(&mut books, &state, code, &mut player);
                 }
             }
             Err(_) => (),
         };
-
-        if next == Next::Shutdown {
-            screen.off()?;
-            screen.clear()?;
-            break;
-        }
     }
 
     if next == Next::Shutdown {
+        screen.off()?;
+        screen.clear()?;
         Ok(42)
     } else {
         Ok(0)
