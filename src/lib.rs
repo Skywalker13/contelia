@@ -21,6 +21,7 @@ mod buttons;
 mod player;
 mod screen;
 mod story_pack;
+mod timeout;
 
 pub use book::Book;
 pub use book::ControlSettings;
@@ -30,3 +31,4 @@ pub use buttons::Buttons;
 pub use player::Player;
 pub use screen::Screen;
 pub use story_pack::StoryPack;
+pub use timeout::Timeout;
