@@ -203,7 +203,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
             let mut image = env::current_exe()?;
             image.pop();
             image.pop(); // ..
-            image.push("usr");
             image.push("share");
             image.push("contelia");
             image.push("assets");
