@@ -71,6 +71,13 @@ impl Player {
         }
     }
 
+    pub fn get_volume(&self) -> usize {
+        match &self.sink {
+            Some(sink) => (sink.volume() * 10.0).round() as usize,
+            None => 0,
+        }
+    }
+
     pub fn volume_up(&mut self) {
         if let Some(sink) = &self.sink {
             let mut volume = sink.volume();
