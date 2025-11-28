@@ -144,7 +144,7 @@ fn btea_decrypt(v: &mut [u32], k: &[u32; 4]) {
         return;
     }
 
-    const DELTA: u32 = 0x9e3779b9;
+    const DELTA: u32 = 0x9E3779B9;
 
     /* WARNING: Lunii is using 1+52/n instead of 6+52/n
      * See https://github.com/marian-m12l/studio/issues/292#issuecomment-1157586816

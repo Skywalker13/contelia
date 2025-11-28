@@ -196,7 +196,7 @@ impl Book {
             .map(|(i, node)| (node.uuid.clone(), i))
             .collect();
 
-        /* Get action ba id */
+        /* Get action by id */
         let actions = story
             .action_nodes
             .iter()
