@@ -34,6 +34,8 @@ enum Next {
     Image,
     Audio,
     Volume,
+    Pause,
+    Play,
     Timeout,
     Shutdown,
 }
@@ -79,7 +81,11 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
         KeyCode::BTN_START => {
             if state.control_settings.pause {
                 player.toggle_pause();
-                Next::Timeout
+                if player.is_paused() {
+                    Next::Pause
+                } else {
+                    Next::Play
+                }
             } else {
                 book.button_ok();
                 Next::Normal
@@ -215,6 +221,27 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(500), move || {
+                let _ = tx_timeout.send((KeyCode::KEY_TIME, true));
+            }));
+        }
+        if next == Next::Pause || next == Next::Play {
+            let mut image = env::current_exe()?;
+            image.pop();
+            image.pop();
+            image = image.join("share/contelia/assets");
+            if next == Next::Play {
+                image = image.join("play.png");
+            } else {
+                image = image.join("pause.png");
+            }
+
+            let path = Path::new(&image);
+            println!("play/pause image: {}", path.to_string_lossy().to_string());
+            screen.draw(path)?;
+            screen.on()?;
+
+            let tx_timeout = tx.clone();
+            timeout = Some(Timeout::set(Duration::from_millis(800), move || {
                 let _ = tx_timeout.send((KeyCode::KEY_TIME, true));
             }));
         }
