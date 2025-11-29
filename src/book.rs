@@ -376,7 +376,7 @@ impl Book {
         let version = 1;
         let night_mode_available = false; // FIXME: depends of .nm
         let mut stage_nodes = Vec::new();
-        let action_nodes = Vec::new();
+        let mut action_nodes = Vec::new();
         let stages = HashMap::new();
         let actions = HashMap::new();
 
@@ -387,7 +387,7 @@ impl Book {
             .to_string();
         let mut square_one = true;
 
-        for node in ni.nodes {
+        for node in &ni.nodes {
             let image = ri
                 .list
                 .get(node.image_asset_index as usize)
@@ -429,6 +429,37 @@ impl Book {
             square_one = false
         }
 
+        for i in 0..stage_nodes.len() {
+            let node = ni.nodes[i];
+
+            let ok_index = node.ok_transition_action_index;
+            let ok_count = node.ok_transition_options_count;
+
+            if ok_index >= 0 {
+                let id = Uuid::new_v4().to_string();
+                let mut options = Vec::new();
+
+                for index in ok_index..ok_count {
+                    let stage_node_index = li.list[index as usize];
+                    options.push(stage_nodes[stage_node_index as usize].uuid.clone());
+                }
+
+                let action = ActionNode {
+                    id: id.clone(),
+                    options,
+                };
+                action_nodes.push(action);
+
+                let stage_node = &mut stage_nodes[i];
+                stage_node.ok_transition = Some(Transition {
+                    action_node: id,
+                    option_index: node.ok_transition_selected_option as usize,
+                });
+
+                println!("{:?}", stage_node);
+            }
+        }
+
         let story = Story {
             format,
             version,
@@ -436,12 +467,13 @@ impl Book {
             stage_nodes,
             action_nodes,
         };
+
         Ok(Book {
             path: path.to_path_buf(),
             story,
             stages,
             actions,
-            start_node_uuid: None,
+            start_node_uuid: None, // FIXME
             current_stage_node: None,
             current_action_node: None,
             current_action_index: 0,
