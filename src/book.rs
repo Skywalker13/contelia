@@ -434,12 +434,11 @@ impl Book {
 
             let ok_index = node.ok_transition_action_index;
             let ok_count = node.ok_transition_options_count;
-
-            if ok_index >= 0 {
+            if ok_index >= 0 && ok_count >= 1 {
                 let id = Uuid::new_v4().to_string();
                 let mut options = Vec::new();
 
-                for index in ok_index..ok_count {
+                for index in ok_index..(ok_index + ok_count) {
                     let stage_node_index = li.list[index as usize];
                     options.push(stage_nodes[stage_node_index as usize].uuid.clone());
                 }
