@@ -457,6 +457,32 @@ impl Book {
 
                 println!("{:?}", stage_node);
             }
+
+            let home_index = node.home_transition_action_index;
+            let home_count = node.home_transition_options_count;
+            if home_index >= 0 && home_count >= 1 {
+                let id = Uuid::new_v4().to_string();
+                let mut options = Vec::new();
+
+                for index in home_index..(home_index + home_count) {
+                    let stage_node_index = li.list[index as usize];
+                    options.push(stage_nodes[stage_node_index as usize].uuid.clone());
+                }
+
+                let action = ActionNode {
+                    id: id.clone(),
+                    options,
+                };
+                action_nodes.push(action);
+
+                let stage_node = &mut stage_nodes[i];
+                stage_node.home_transition = Some(Transition {
+                    action_node: id,
+                    option_index: node.ok_transition_selected_option as usize,
+                });
+
+                println!("{:?}", stage_node);
+            }
         }
 
         let story = Story {
