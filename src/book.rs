@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 use serde::Deserialize;
 use std::{
     collections::HashMap,
@@ -23,6 +23,7 @@ use std::{
     io::BufReader,
     path::{Path, PathBuf},
 };
+use uuid::Uuid;
 
 use bytemuck::{Pod, Zeroable};
 use std::fs::{self};
@@ -379,7 +380,11 @@ impl Book {
         let stages = HashMap::new();
         let actions = HashMap::new();
 
-        let mut uuid: String; // FIXME: folder's name
+        let mut uuid = path
+            .file_name()
+            .context("Missing folder name")?
+            .to_string_lossy()
+            .to_string();
         let mut square_one = true;
 
         for node in ni.nodes {
@@ -404,8 +409,12 @@ impl Book {
                 wheel: node.control_wheel_enabled != 0,
             };
 
+            if !square_one {
+                uuid = Uuid::new_v4().to_string();
+            }
+
             let stage = StageNode {
-                uuid: "".to_string(), // FIXME: generate an ID
+                uuid: uuid.clone(),
                 square_one: Some(square_one),
                 image,
                 audio,
