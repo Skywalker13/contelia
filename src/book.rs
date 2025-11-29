@@ -493,6 +493,8 @@ impl Book {
             action_nodes,
         };
 
+        println!("{:?}", story);
+
         Ok(Book {
             path: path.to_path_buf(),
             story,
