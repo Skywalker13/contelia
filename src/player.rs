@@ -19,6 +19,8 @@ use anyhow::Result;
 use rodio::{OutputStream, OutputStreamBuilder, Sink, play, source::EmptyCallback};
 use std::{fs::File, io::BufReader};
 
+use crate::FileReader;
+
 pub struct Player {
     stream_handle: OutputStream,
     sink: Option<Sink>,
@@ -35,7 +37,11 @@ impl Player {
         })
     }
 
-    pub fn play<F>(&mut self, audio: File, end_cb: F) -> Result<(), Box<dyn std::error::Error>>
+    pub fn play<F>(
+        &mut self,
+        audio: FileReader,
+        end_cb: F,
+    ) -> Result<(), Box<dyn std::error::Error>>
     where
         F: Fn() + Send + 'static,
     {

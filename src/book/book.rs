@@ -23,6 +23,8 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use crate::decrypt::{DecryptedFile, FileReader};
+
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Transition {
@@ -199,13 +201,22 @@ impl Book {
         })
     }
 
-    pub fn images_file_get(&self, image: &String) -> Result<(File, image::ImageFormat)> {
-        let file = File::open(&self.images_path.join(image))?;
+    pub fn images_file_get(&self, image: &String) -> Result<(FileReader, image::ImageFormat)> {
+        let path = &self.images_path.join(image);
+        let file = if self.encrypted {
+            FileReader::Encrypted(DecryptedFile::open(path)?)
+        } else {
+            FileReader::Plain(File::open(path)?)
+        };
+
         Ok((file, image::ImageFormat::Bmp))
     }
 
-    pub fn audio_file_get(&self, audio: &String) -> Result<File> {
-        Ok(File::open(&self.audio_path.join(audio))?)
+    pub fn audio_file_get(&self, audio: &String) -> Result<FileReader> {
+        let path = &self.audio_path.join(audio);
+        let file = FileReader::Plain(File::open(path)?);
+
+        Ok(file)
     }
 
     pub fn from_source(source: Source) -> Result<Self> {

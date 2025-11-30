@@ -24,6 +24,8 @@ use std::{
 };
 use uuid::Uuid;
 
+use crate::decrypt::decrypt_block;
+
 use super::ControlSettings;
 use super::book::ActionNode;
 use super::book::Book;
@@ -292,79 +294,6 @@ impl Book {
             current_action_index,
         })
     }
-}
-
-fn btea_decrypt(v: &mut [u32], k: &[u32; 4]) {
-    let n = v.len();
-    if n < 2 {
-        return;
-    }
-
-    const DELTA: u32 = 0x9E3779B9;
-
-    /* WARNING: Lunii is using 1+52/n instead of 6+52/n
-     * See https://github.com/marian-m12l/studio/issues/292#issuecomment-1157586816
-     */
-    let rounds = 1 + 52 / n;
-    let mut sum = (rounds as u32).wrapping_mul(DELTA);
-    let mut y = v[0];
-
-    for _ in 0..rounds {
-        let e = (sum >> 2) & 3;
-
-        for p in (1..n).rev() {
-            let z = v[p - 1];
-            let mx = (((z >> 5) ^ (y << 2)).wrapping_add((y >> 3) ^ (z << 4)))
-                ^ ((sum ^ y).wrapping_add(k[(((p as u32) & 3) ^ e) as usize] ^ z));
-            y = v[p].wrapping_sub(mx);
-            v[p] = y;
-        }
-
-        let z = v[n - 1];
-        let mx = (((z >> 5) ^ (y << 2)).wrapping_add((y >> 3) ^ (z << 4)))
-            ^ ((sum ^ y).wrapping_add(k[((0 & 3) ^ e) as usize] ^ z));
-        y = v[0].wrapping_sub(mx);
-        v[0] = y;
-
-        sum = sum.wrapping_sub(DELTA);
-    }
-}
-
-fn decrypt_block(bytes: &Vec<u8>) -> Vec<u8> {
-    use byteorder::{ByteOrder, LittleEndian};
-
-    /* Original key (big-endian):
-     * 0x91, 0xBD, 0x7A, 0x0A, 0xA7, 0x54, 0x40, 0xA9,
-     * 0xBB, 0xD4, 0x9D, 0x6C, 0xE0, 0xDC, 0xC0, 0xE3,
-     * See https://github.com/marian-m12l/studio/blob/028912d9ee06e77bff679abd31701aa493f5461a/core/src/main/java/studio/core/v1/utils/XXTEACipher.java
-     */
-    const KEY: [u32; 4] = [0x91BD7A0A, 0xA75440A9, 0xBBD49D6C, 0xE0DCC0E3];
-
-    /* Only the first 512 bytes are encrypted */
-    let block_size = std::cmp::min(512, bytes.len());
-    let aligned_size = (block_size / 4) * 4;
-    if aligned_size < 4 {
-        return bytes.to_vec();
-    }
-
-    /* little-endian data */
-    let int_count = aligned_size / 4;
-    let mut v = vec![0u32; int_count];
-    LittleEndian::read_u32_into(&bytes[0..aligned_size], &mut v);
-
-    /* (max 128 u32) */
-    let n = std::cmp::min(128, int_count);
-    btea_decrypt(&mut v[0..n], &KEY);
-
-    /* Convert to little-endian */
-    let mut result = vec![0u8; aligned_size];
-    LittleEndian::write_u32_into(&v, &mut result);
-
-    if bytes.len() > aligned_size {
-        result.extend_from_slice(&bytes[aligned_size..]);
-    }
-
-    result
 }
 
 #[cfg(test)]

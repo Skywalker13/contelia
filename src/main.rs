@@ -27,7 +27,7 @@ use std::sync::mpsc::channel;
 use std::time::Duration;
 use std::{error::Error, thread};
 
-use contelia::{Books, Buttons, ControlSettings, Player, Screen, Stage, Timeout};
+use contelia::{Books, Buttons, ControlSettings, FileReader, Player, Screen, Stage, Timeout};
 
 #[derive(Debug, PartialEq)]
 enum Next {
@@ -176,8 +176,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::Normal || next == Next::Image {
             match state.image {
                 Some(ref image) => {
-                    let (image, format) = book.images_file_get(&image)?;
-                    screen.draw(&image, format)?;
+                    let (mut image, format) = book.images_file_get(&image)?;
+                    screen.draw(&mut image, format)?;
                     screen.on()?;
                 }
                 None => {
@@ -216,8 +216,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let path = Path::new(&image);
             println!("volume image: {}", path.to_string_lossy().to_string());
-            let file = File::open(path)?;
-            screen.draw(&file, image::ImageFormat::Png)?;
+            let mut file = FileReader::Plain(File::open(path)?);
+            screen.draw(&mut file, image::ImageFormat::Png)?;
             screen.on()?;
 
             let tx_timeout = tx.clone();
@@ -238,8 +238,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let path = Path::new(&image);
             println!("play/pause image: {}", path.to_string_lossy().to_string());
-            let file = File::open(path)?;
-            screen.draw(&file, image::ImageFormat::Png)?;
+            let mut file = FileReader::Plain(File::open(path)?);
+            screen.draw(&mut file, image::ImageFormat::Png)?;
             screen.on()?;
 
             let tx_timeout = tx.clone();

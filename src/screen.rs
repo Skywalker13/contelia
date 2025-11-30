@@ -19,10 +19,12 @@ use anyhow::Result;
 use framebuffer::Framebuffer;
 use image::GenericImageView;
 use std::{
-    fs::{self, File},
+    fs::{self},
     io::{self, BufReader},
     path::Path,
 };
+
+use crate::decrypt::FileReader;
 
 pub struct Screen {
     dev: String,
@@ -50,7 +52,7 @@ impl Screen {
 
     pub fn draw(
         &mut self,
-        image: &File,
+        image: &mut FileReader,
         format: image::ImageFormat,
     ) -> Result<(), Box<dyn std::error::Error>> {
         let width = self.fb.var_screen_info.xres;
