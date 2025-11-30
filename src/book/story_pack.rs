@@ -132,6 +132,7 @@ impl Book {
         li: &Li,
         stage_nodes: &Vec<StageNode>,
         action_nodes: &mut Vec<ActionNode>,
+        actions: &mut HashMap<String, usize>,
         action_index: i32,
         options_count: i32,
         selected_option: i32,
@@ -155,6 +156,7 @@ impl Book {
             options,
         };
         action_nodes.push(action);
+        actions.insert(id.clone(), action_nodes.len() - 1);
 
         Some(Transition {
             action_node: id,
@@ -184,8 +186,8 @@ impl Book {
         let night_mode_available = false; // FIXME: depends of .nm
         let mut stage_nodes = Vec::new();
         let mut action_nodes = Vec::new();
-        let stages = HashMap::new();
-        let actions = HashMap::new();
+        let mut stages = HashMap::new();
+        let mut actions = HashMap::new();
 
         let mut uuid = path
             .file_name()
@@ -234,6 +236,7 @@ impl Book {
             };
 
             stage_nodes.push(stage);
+            stages.insert(uuid.clone(), stage_nodes.len() - 1);
             square_one = false
         }
 
@@ -244,6 +247,7 @@ impl Book {
                 &li,
                 &stage_nodes,
                 &mut action_nodes,
+                &mut actions,
                 node.ok_transition_action_index,
                 node.ok_transition_options_count,
                 node.ok_transition_selected_option,
@@ -252,6 +256,7 @@ impl Book {
                 &li,
                 &stage_nodes,
                 &mut action_nodes,
+                &mut actions,
                 node.home_transition_action_index,
                 node.home_transition_options_count,
                 node.home_transition_selected_option,
