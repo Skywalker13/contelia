@@ -1,7 +1,20 @@
 # Contelia
 
-Experimental reader for https://github.com/marian-m12l/studio books.
+Application able to read books from a Lunii story teller (format v1) and
+[STUdio - Story Teller Unleashed][STUdio] (story.json).
 
-It's dedicated to a project based on Raspberry Pi Zero 2 W.
+It's dedicated to the [Carnotzet OS][Carnotzet] for Raspberry Pi Zero 2 W.
+Everything is still a work in progress.
 
-**WIP**
+The books can be copied/pasted from the Lunii or STUdio without conversions.
+Contelia implements the necessary readers.
+
+---
+
+This project was possible because of the incredible work of:
+
+- https://github.com/o-daneel/Lunii.RE/tree/main
+- https://github.com/marian-m12l/studio
+
+[STUdio]: https://github.com/marian-m12l/studio
+[Carnotzet]: https://xcraft.ch/carnotzet/index.html
