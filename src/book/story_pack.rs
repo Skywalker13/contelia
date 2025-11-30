@@ -410,6 +410,6 @@ mod tests {
     #[test]
     fn load_story_pack() {
         let pk = Path::new("/home/schroeterm/devel/lunii/nathan/.content/2643948D");
-        let mut book = Book::from_pack_directory(pk).expect("story pack not found");
+        let book = Book::from_pack_directory(pk).expect("story pack not found");
     }
 }
