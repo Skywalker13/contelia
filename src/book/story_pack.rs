@@ -184,15 +184,17 @@ impl Book {
         let mut square_one = true;
 
         for node in &ni.nodes {
-            let image = ri
-                .list
-                .get(node.image_asset_index as usize)
-                .map(|bytes| String::from_utf8_lossy(bytes).to_string());
+            let image = ri.list.get(node.image_asset_index as usize).map(|bytes| {
+                String::from_utf8_lossy(bytes)
+                    .to_string()
+                    .replace("\\", "/")
+            });
 
-            let audio = si
-                .list
-                .get(node.sound_asset_index as usize)
-                .map(|bytes| String::from_utf8_lossy(bytes).to_string());
+            let audio = si.list.get(node.sound_asset_index as usize).map(|bytes| {
+                String::from_utf8_lossy(bytes)
+                    .to_string()
+                    .replace("\\", "/")
+            });
 
             let ok_transition = None;
             let home_transition = None;
