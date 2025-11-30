@@ -261,7 +261,8 @@ impl Book {
         println!("{:?}", story);
 
         Ok(Book {
-            path: path.to_path_buf(),
+            images_path: path.join("rf").to_path_buf(),
+            audio_path: path.join("sf").to_path_buf(),
             story,
             stages,
             actions,

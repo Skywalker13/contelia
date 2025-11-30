@@ -58,7 +58,8 @@ impl Book {
         let current_action_node = None;
 
         Ok(Book {
-            path: path.to_path_buf(),
+            images_path: path.join("assets").to_path_buf(),
+            audio_path: path.join("assets").to_path_buf(),
             story,
             stages,
             actions,

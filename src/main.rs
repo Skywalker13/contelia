@@ -175,7 +175,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::Normal || next == Next::Image {
             match state.image {
                 Some(ref image) => {
-                    let image = book.path_get().join("assets").join(&image);
+                    let image = book.images_path_get().join(&image);
                     screen.draw(&image)?;
                     screen.on()?;
                 }
@@ -188,7 +188,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::Normal || next == Next::Audio {
             match state.audio {
                 Some(ref audio) => {
-                    let audio = book.path_get().join("assets").join(&audio);
+                    let audio = book.audio_path_get().join(&audio);
                     let tx_play = tx.clone();
                     player.play(&audio, move || {
                         let code = if state.control_settings.ok {

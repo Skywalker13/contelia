@@ -70,7 +70,8 @@ pub(super) struct Story {
 
 #[derive(Debug)]
 pub struct Book {
-    pub(super) path: PathBuf,
+    pub(super) images_path: PathBuf,
+    pub(super) audio_path: PathBuf,
     pub(super) story: Story,
     pub(super) stages: HashMap<String, usize>,
     pub(super) actions: HashMap<String, usize>,
@@ -194,8 +195,12 @@ impl Book {
         })
     }
 
-    pub fn path_get(&self) -> &PathBuf {
-        &self.path
+    pub fn images_path_get(&self) -> &PathBuf {
+        &self.images_path
+    }
+
+    pub fn audio_path_get(&self) -> &PathBuf {
+        &self.audio_path
     }
 
     pub fn from_source(source: Source) -> Result<Self> {
