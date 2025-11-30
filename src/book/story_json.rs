@@ -24,7 +24,7 @@ use super::book::Story;
 const STORY_JSON: &str = "story.json";
 
 impl Book {
-    pub fn from_file(path: &Path) -> Result<Self> {
+    pub(super) fn from_json_file(path: &Path) -> Result<Self> {
         let story_path = path.join(STORY_JSON);
         let file = File::open(story_path)?;
         let reader = BufReader::new(file);
@@ -77,7 +77,7 @@ mod tests {
     #[test]
     fn scenario() {
         let story = Path::new("test");
-        let mut book = Book::from_file(story).expect("story.json not found");
+        let mut book = Book::from_json_file(story).expect("story.json not found");
 
         let start_node_uuid = String::from("2F0F3109BFAE4E0991D7CA0C2643948D");
         assert_eq!(book.start_node_uuid, Some(start_node_uuid));

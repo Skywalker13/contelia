@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use crate::book::Book;
+use crate::book::{Book, book::Source};
 use anyhow::{Result, bail};
 use std::{fs, path::Path};
 
@@ -35,7 +35,7 @@ impl Books {
                 continue;
             }
 
-            match Book::from_file(&path) {
+            match Book::from_source(Source::StoryJson(&path)) {
                 Ok(book) => books.push(book),
                 Err(e) => eprintln!("Cannot load the book {:?}: {}", path, e),
             }

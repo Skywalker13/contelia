@@ -15,8 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use anyhow::Result;
 use serde::Deserialize;
-use std::{collections::HashMap, path::PathBuf};
+use std::{
+    collections::HashMap,
+    path::{Path, PathBuf},
+};
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -93,6 +97,11 @@ enum ActionButtons {
 enum ActionWheel {
     Right,
     Left,
+}
+
+pub enum Source<'a> {
+    StoryJson(&'a Path),
+    StoryPack(&'a Path),
 }
 
 impl Book {
@@ -187,6 +196,13 @@ impl Book {
 
     pub fn path_get(&self) -> &PathBuf {
         &self.path
+    }
+
+    pub fn from_source(source: Source) -> Result<Self> {
+        match source {
+            Source::StoryJson(path) => Self::from_json_file(path),
+            Source::StoryPack(path) => Self::from_pack_directory(path),
+        }
     }
 
     /// Handle OK button

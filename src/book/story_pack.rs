@@ -162,7 +162,7 @@ impl Book {
         })
     }
 
-    pub fn from_directory(path: &Path) -> Result<Self> {
+    pub(super) fn from_pack_directory(path: &Path) -> Result<Self> {
         let ni = Ni::from_file(&path.join("ni"))?;
         let li = Li::from_file(&path.join("li"))?;
         let ri = Ri::from_file(&path.join("ri"))?;
@@ -409,6 +409,6 @@ mod tests {
     #[test]
     fn load_story_pack() {
         let pk = Path::new("/home/schroeterm/devel/lunii/nathan/.content/2643948D");
-        let mut book = Book::from_directory(pk).expect("story pack not found");
+        let mut book = Book::from_pack_directory(pk).expect("story pack not found");
     }
 }
