@@ -228,7 +228,7 @@ impl Book {
         for i in 0..stage_nodes.len() {
             let node = ni.nodes[i];
 
-            let ok_transition = Book::create_transition(
+            let ok_transition = Self::create_transition(
                 &li,
                 &stage_nodes,
                 &mut action_nodes,
@@ -236,7 +236,7 @@ impl Book {
                 node.ok_transition_options_count,
                 node.ok_transition_selected_option,
             );
-            let home_transition = Book::create_transition(
+            let home_transition = Self::create_transition(
                 &li,
                 &stage_nodes,
                 &mut action_nodes,
