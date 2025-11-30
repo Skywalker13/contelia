@@ -162,6 +162,17 @@ impl Book {
         })
     }
 
+    pub fn is_story_pack(path: &Path) -> bool {
+        let story_li = path.join("li");
+        let story_ni = path.join("ni");
+        let story_ri = path.join("ri");
+        let story_si = path.join("si");
+        story_li.try_exists().unwrap_or_default()
+            && story_ni.try_exists().unwrap_or_default()
+            && story_ri.try_exists().unwrap_or_default()
+            && story_si.try_exists().unwrap_or_default()
+    }
+
     pub(super) fn from_pack_directory(path: &Path) -> Result<Self> {
         let ni = Ni::from_file(&path.join("ni"))?;
         let li = Li::from_file(&path.join("li"))?;

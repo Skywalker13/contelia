@@ -24,6 +24,11 @@ use super::book::Story;
 const STORY_JSON: &str = "story.json";
 
 impl Book {
+    pub fn is_story_json(path: &Path) -> bool {
+        let story_path = path.join(STORY_JSON);
+        story_path.try_exists().unwrap_or_default()
+    }
+
     pub(super) fn from_json_file(path: &Path) -> Result<Self> {
         let story_path = path.join(STORY_JSON);
         let file = File::open(story_path)?;
