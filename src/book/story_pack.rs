@@ -232,8 +232,6 @@ impl Book {
                 control_settings,
             };
 
-            println!("{:?}", stage);
-
             stage_nodes.push(stage);
             square_one = false
         }
@@ -270,8 +268,6 @@ impl Book {
             stage_nodes,
             action_nodes,
         };
-
-        println!("{:?}", story);
 
         Ok(Book {
             images_path: path.join("rf").to_path_buf(),
