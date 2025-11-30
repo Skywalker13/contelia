@@ -83,8 +83,6 @@ struct Si {
     list: Vec<[u8; 12]>,
 }
 
-pub struct StoryPack {}
-
 impl Ni {
     fn from_file(path: &Path) -> Result<Self> {
         let bytes = fs::read(path)?;
