@@ -35,15 +35,13 @@ impl Books {
                 continue;
             }
 
-            let source;
-
-            if Book::is_story_json(&path) {
-                source = Source::StoryJson(&path);
+            let source = if Book::is_story_json(&path) {
+                Source::StoryJson(&path)
             } else if Book::is_story_pack(&path) {
-                source = Source::StoryPack(&path);
+                Source::StoryPack(&path)
             } else {
                 continue;
-            }
+            };
 
             match Book::from_source(source) {
                 Ok(book) => books.push(book),
