@@ -193,6 +193,7 @@ impl Book {
             .to_string_lossy()
             .to_string();
         let mut square_one = true;
+        let start_node_uuid = Some(uuid.clone());
 
         for node in &ni.nodes {
             let image = ri.list.get(node.image_asset_index as usize).map(|bytes| {
@@ -269,16 +270,20 @@ impl Book {
             action_nodes,
         };
 
+        let current_action_index = 0;
+        let current_stage_node = start_node_uuid.clone();
+        let current_action_node = None;
+
         Ok(Book {
             images_path: path.join("rf").to_path_buf(),
             audio_path: path.join("sf").to_path_buf(),
             story,
             stages,
             actions,
-            start_node_uuid: None, // FIXME
-            current_stage_node: None,
-            current_action_node: None,
-            current_action_index: 0,
+            start_node_uuid,
+            current_stage_node,
+            current_action_node,
+            current_action_index,
         })
     }
 }
