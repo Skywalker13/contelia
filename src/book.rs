@@ -271,19 +271,19 @@ impl Book {
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable)]
 struct Node {
-    image_asset_index: i32,              /* Index in ri (-1 if not used) */
-    sound_asset_index: i32,              /* Index in si (-1 if not used) */
-    ok_transition_action_index: i32,     /* Index in li (-1 if not used) */
-    ok_transition_options_count: i32,    /* -1 if not used */
-    ok_transition_selected_option: i32,  /* -1 if not used */
-    home_transition_action_index: i32,   /* Index in li (-1 if not used) */
-    home_transition_options_count: i32,  /* -1 if not used */
-    home_transition_selected_count: i32, /* -1 if not used */
-    control_wheel_enabled: u16,          /* wheel enabled (0 for no) */
-    control_ok_enabled: u16,             /* OK enabled (0 for no) */
-    control_home_enabled: u16,           /* HOME enabled (0 for no) */
-    control_pause_enabled: u16,          /* Pause enabled (0 for no) */
-    control_autoplay_enabled: u16,       /* Autoplayback (0 for no) */
+    image_asset_index: i32,               /* Index in ri (-1 if not used) */
+    sound_asset_index: i32,               /* Index in si (-1 if not used) */
+    ok_transition_action_index: i32,      /* Index in li (-1 if not used) */
+    ok_transition_options_count: i32,     /* -1 if not used */
+    ok_transition_selected_option: i32,   /* -1 if not used */
+    home_transition_action_index: i32,    /* Index in li (-1 if not used) */
+    home_transition_options_count: i32,   /* -1 if not used */
+    home_transition_selected_option: i32, /* -1 if not used */
+    control_wheel_enabled: u16,           /* wheel enabled (0 for no) */
+    control_ok_enabled: u16,              /* OK enabled (0 for no) */
+    control_home_enabled: u16,            /* HOME enabled (0 for no) */
+    control_pause_enabled: u16,           /* Pause enabled (0 for no) */
+    control_autoplay_enabled: u16,        /* Autoplayback (0 for no) */
     padding: u16,
 }
 
@@ -398,8 +398,8 @@ impl Book {
                 .get(node.sound_asset_index as usize)
                 .map(|bytes| String::from_utf8_lossy(bytes).to_string());
 
-            let ok_transition = None; // FIXME
-            let home_transition = None; // FIXME
+            let ok_transition = None;
+            let home_transition = None;
 
             let control_settings = ControlSettings {
                 autoplay: node.control_autoplay_enabled != 0,
@@ -478,7 +478,7 @@ impl Book {
                 let stage_node = &mut stage_nodes[i];
                 stage_node.home_transition = Some(Transition {
                     action_node: id,
-                    option_index: node.ok_transition_selected_option as usize,
+                    option_index: node.home_transition_selected_option as usize,
                 });
 
                 println!("{:?}", stage_node);
