@@ -39,7 +39,7 @@ impl Timeout {
             }
         });
 
-        Timeout { abort }
+        Self { abort }
     }
 
     pub fn clear(&mut self) {

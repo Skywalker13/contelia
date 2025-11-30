@@ -44,7 +44,7 @@ impl Screen {
          */
         fs::write(format!("/sys/class/graphics/{}/blank", dev), "0")?;
 
-        Ok(Screen { fb })
+        Ok(Self { fb })
     }
 
     pub fn off(&self) -> io::Result<()> {

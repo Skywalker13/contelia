@@ -281,7 +281,7 @@ impl Book {
         let current_stage_node = start_node_uuid.clone();
         let current_action_node = None;
 
-        Ok(Book {
+        Ok(Self {
             encrypted: true,
             images_path: path.join("rf").to_path_buf(),
             audio_path: path.join("sf").to_path_buf(),

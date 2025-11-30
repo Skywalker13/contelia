@@ -35,7 +35,7 @@ impl Buttons {
         let event = epoll::EpollEvent::new(epoll::EpollFlags::EPOLLIN, 0);
         epoll.add(&device, event)?;
 
-        Ok(Buttons { device, epoll })
+        Ok(Self { device, epoll })
     }
 
     pub fn listen(&mut self) -> Result<KeyCode, Box<dyn Error>> {

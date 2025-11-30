@@ -30,7 +30,7 @@ pub struct Player {
 impl Player {
     pub fn new() -> Result<Self> {
         let stream_handle = OutputStreamBuilder::open_default_stream()?;
-        Ok(Player {
+        Ok(Self {
             stream_handle,
             sink: None,
             volume: 0.2,

@@ -59,7 +59,7 @@ impl Books {
 
         let current_book_index = 0;
 
-        Ok(Books {
+        Ok(Self {
             books,
             current_book_index,
         })
