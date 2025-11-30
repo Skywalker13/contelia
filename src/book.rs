@@ -366,6 +366,40 @@ impl Si {
 }
 
 impl Book {
+    fn create_transition(
+        li: &Li,
+        stage_nodes: &Vec<StageNode>,
+        action_nodes: &mut Vec<ActionNode>,
+        action_index: i32,
+        options_count: i32,
+        selected_option: i32,
+    ) -> Option<Transition> {
+        let index = action_index;
+        let count = options_count;
+        if index < 0 || count < 1 {
+            return None;
+        }
+
+        let id = Uuid::new_v4().to_string();
+        let mut options = Vec::new();
+
+        for index in index..(index + count) {
+            let stage_node_index = li.list[index as usize];
+            options.push(stage_nodes[stage_node_index as usize].uuid.clone());
+        }
+
+        let action = ActionNode {
+            id: id.clone(),
+            options,
+        };
+        action_nodes.push(action);
+
+        Some(Transition {
+            action_node: id,
+            option_index: selected_option as usize,
+        })
+    }
+
     pub fn from_directory(path: &Path) -> Result<Self> {
         let ni = Ni::from_file(&path.join("ni"))?;
         let li = Li::from_file(&path.join("li"))?;
@@ -432,57 +466,26 @@ impl Book {
         for i in 0..stage_nodes.len() {
             let node = ni.nodes[i];
 
-            let ok_index = node.ok_transition_action_index;
-            let ok_count = node.ok_transition_options_count;
-            if ok_index >= 0 && ok_count >= 1 {
-                let id = Uuid::new_v4().to_string();
-                let mut options = Vec::new();
+            let ok_transition = Book::create_transition(
+                &li,
+                &stage_nodes,
+                &mut action_nodes,
+                node.ok_transition_action_index,
+                node.ok_transition_options_count,
+                node.ok_transition_selected_option,
+            );
+            let home_transition = Book::create_transition(
+                &li,
+                &stage_nodes,
+                &mut action_nodes,
+                node.home_transition_action_index,
+                node.home_transition_options_count,
+                node.home_transition_selected_option,
+            );
 
-                for index in ok_index..(ok_index + ok_count) {
-                    let stage_node_index = li.list[index as usize];
-                    options.push(stage_nodes[stage_node_index as usize].uuid.clone());
-                }
-
-                let action = ActionNode {
-                    id: id.clone(),
-                    options,
-                };
-                action_nodes.push(action);
-
-                let stage_node = &mut stage_nodes[i];
-                stage_node.ok_transition = Some(Transition {
-                    action_node: id,
-                    option_index: node.ok_transition_selected_option as usize,
-                });
-
-                println!("{:?}", stage_node);
-            }
-
-            let home_index = node.home_transition_action_index;
-            let home_count = node.home_transition_options_count;
-            if home_index >= 0 && home_count >= 1 {
-                let id = Uuid::new_v4().to_string();
-                let mut options = Vec::new();
-
-                for index in home_index..(home_index + home_count) {
-                    let stage_node_index = li.list[index as usize];
-                    options.push(stage_nodes[stage_node_index as usize].uuid.clone());
-                }
-
-                let action = ActionNode {
-                    id: id.clone(),
-                    options,
-                };
-                action_nodes.push(action);
-
-                let stage_node = &mut stage_nodes[i];
-                stage_node.home_transition = Some(Transition {
-                    action_node: id,
-                    option_index: node.home_transition_selected_option as usize,
-                });
-
-                println!("{:?}", stage_node);
-            }
+            let stage_node = &mut stage_nodes[i];
+            stage_node.ok_transition = ok_transition;
+            stage_node.home_transition = home_transition;
         }
 
         let story = Story {
