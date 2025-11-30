@@ -17,7 +17,7 @@
 
 use anyhow::Result;
 use rodio::{OutputStream, OutputStreamBuilder, Sink, play, source::EmptyCallback};
-use std::{fs::File, io::BufReader};
+use std::io::BufReader;
 
 use crate::FileReader;
 
