@@ -280,6 +280,7 @@ impl Book {
         let current_action_node = None;
 
         Ok(Book {
+            encrypted: true,
             images_path: path.join("rf").to_path_buf(),
             audio_path: path.join("sf").to_path_buf(),
             story,

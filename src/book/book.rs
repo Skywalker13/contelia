@@ -71,8 +71,11 @@ pub(super) struct Story {
 
 #[derive(Debug)]
 pub struct Book {
+    pub(super) encrypted: bool,
+
     pub(super) images_path: PathBuf,
     pub(super) audio_path: PathBuf,
+
     pub(super) story: Story,
     pub(super) stages: HashMap<String, usize>,
     pub(super) actions: HashMap<String, usize>,
