@@ -17,7 +17,7 @@
 
 use anyhow::Result;
 use rodio::{OutputStream, OutputStreamBuilder, Sink, play, source::EmptyCallback};
-use std::{fs::File, io::BufReader, path::Path};
+use std::{fs::File, io::BufReader};
 
 pub struct Player {
     stream_handle: OutputStream,
@@ -35,13 +35,13 @@ impl Player {
         })
     }
 
-    pub fn play<F>(&mut self, audio: &Path, end_cb: F) -> Result<(), Box<dyn std::error::Error>>
+    pub fn play<F>(&mut self, audio: File, end_cb: F) -> Result<(), Box<dyn std::error::Error>>
     where
         F: Fn() + Send + 'static,
     {
         let mixer = self.stream_handle.mixer();
-        let file = File::open(audio)?;
-        let sink = play(mixer, BufReader::new(file))?;
+        let reader = BufReader::new(audio);
+        let sink = play(mixer, reader)?;
 
         sink.append(EmptyCallback::new(Box::new(move || {
             println!("End of stream");

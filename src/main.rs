@@ -20,6 +20,7 @@ use clap::Parser;
 use evdev::KeyCode;
 use signal_hook::{consts::*, iterator::Signals};
 use std::env;
+use std::fs::File;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 use std::sync::mpsc::channel;
@@ -175,8 +176,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::Normal || next == Next::Image {
             match state.image {
                 Some(ref image) => {
-                    let image = book.images_path_get().join(&image);
-                    screen.draw(&image)?;
+                    let (image, format) = book.images_file_get(&image)?;
+                    screen.draw(&image, format)?;
                     screen.on()?;
                 }
                 None => {
@@ -188,9 +189,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::Normal || next == Next::Audio {
             match state.audio {
                 Some(ref audio) => {
-                    let audio = book.audio_path_get().join(&audio);
+                    let audio = book.audio_file_get(&audio)?;
                     let tx_play = tx.clone();
-                    player.play(&audio, move || {
+                    player.play(audio, move || {
                         let code = if state.control_settings.ok {
                             KeyCode::BTN_START
                         } else if state.control_settings.home {
@@ -215,7 +216,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let path = Path::new(&image);
             println!("volume image: {}", path.to_string_lossy().to_string());
-            screen.draw(path)?;
+            let file = File::open(path)?;
+            screen.draw(&file, image::ImageFormat::Png)?;
             screen.on()?;
 
             let tx_timeout = tx.clone();
@@ -236,7 +238,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let path = Path::new(&image);
             println!("play/pause image: {}", path.to_string_lossy().to_string());
-            screen.draw(path)?;
+            let file = File::open(path)?;
+            screen.draw(&file, image::ImageFormat::Png)?;
             screen.on()?;
 
             let tx_timeout = tx.clone();

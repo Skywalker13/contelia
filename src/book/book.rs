@@ -19,6 +19,7 @@ use anyhow::Result;
 use serde::Deserialize;
 use std::{
     collections::HashMap,
+    fs::File,
     path::{Path, PathBuf},
 };
 
@@ -195,12 +196,13 @@ impl Book {
         })
     }
 
-    pub fn images_path_get(&self) -> &PathBuf {
-        &self.images_path
+    pub fn images_file_get(&self, image: &String) -> Result<(File, image::ImageFormat)> {
+        let file = File::open(&self.images_path.join(image))?;
+        Ok((file, image::ImageFormat::Bmp))
     }
 
-    pub fn audio_path_get(&self) -> &PathBuf {
-        &self.audio_path
+    pub fn audio_file_get(&self, audio: &String) -> Result<File> {
+        Ok(File::open(&self.audio_path.join(audio))?)
     }
 
     pub fn from_source(source: Source) -> Result<Self> {

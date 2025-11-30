@@ -18,7 +18,11 @@
 use anyhow::Result;
 use framebuffer::Framebuffer;
 use image::GenericImageView;
-use std::{fs, io, path::Path};
+use std::{
+    fs::{self, File},
+    io::{self, BufReader},
+    path::Path,
+};
 
 pub struct Screen {
     dev: String,
@@ -44,12 +48,20 @@ impl Screen {
         fs::write(format!("/sys/class/graphics/{}/blank", self.dev), "0")
     }
 
-    pub fn draw(&mut self, image: &Path) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn draw(
+        &mut self,
+        image: &File,
+        format: image::ImageFormat,
+    ) -> Result<(), Box<dyn std::error::Error>> {
         let width = self.fb.var_screen_info.xres;
         let height = self.fb.var_screen_info.yres;
         let line_length = self.fb.fix_screen_info.line_length;
-        let img =
-            image::open(image)?.resize(width, height, image::imageops::FilterType::CatmullRom);
+        let reader = BufReader::new(image);
+        let img = image::load(reader, format)?.resize(
+            width,
+            height,
+            image::imageops::FilterType::CatmullRom,
+        );
 
         let (_w, h) = img.dimensions();
         let h_offset = if height > h { (height - h) / 2 } else { 0 };
