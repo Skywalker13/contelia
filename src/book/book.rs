@@ -214,7 +214,11 @@ impl Book {
 
     pub fn audio_file_get(&self, audio: &String) -> Result<FileReader> {
         let path = &self.audio_path.join(audio);
-        let file = FileReader::Plain(File::open(path)?);
+        let file = if self.encrypted {
+            FileReader::Encrypted(DecryptedFile::open(path)?)
+        } else {
+            FileReader::Plain(File::open(path)?)
+        };
 
         Ok(file)
     }
