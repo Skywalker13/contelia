@@ -80,16 +80,17 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
         KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::Volume).1,
         KeyCode::BTN_SELECT => (book.button_home(), Next::Normal).1,
         KeyCode::BTN_START => {
-            if state.control_settings.pause {
+            /* Prefer OK when both buttons are enabled */
+            if state.control_settings.ok {
+                book.button_ok();
+                Next::Normal
+            } else {
                 player.toggle_pause();
                 if player.is_paused() {
                     Next::Pause
                 } else {
                     Next::Play
                 }
-            } else {
-                book.button_ok();
-                Next::Normal
             }
         }
         _ => Next::Timeout,
