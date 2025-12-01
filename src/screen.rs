@@ -28,6 +28,7 @@ use crate::decrypt::FileReader;
 
 pub struct Screen {
     fb: Framebuffer,
+    name: String,
 }
 
 impl Screen {
@@ -38,21 +39,26 @@ impl Screen {
             .to_string_lossy()
             .to_string();
         let fb = Framebuffer::new(fb)?;
+        let name = fs::read_to_string(format!("/sys/class/graphics/{}/name", dev))?
+            .trim()
+            .to_string();
 
         /* Enable the screen (must be done only the first time), otherwise it
          * can break the render (blackscreen, no more colors, etc.)
          */
         fs::write(format!("/sys/class/graphics/{}/blank", dev), "0")?;
 
-        Ok(Self { fb })
+        Ok(Self { fb, name })
     }
 
     pub fn off(&self) -> io::Result<()> {
-        fs::write("/sys/class/backlight/fb_st7789v/bl_power", "4")
+        let bl_power = format!("/sys/class/backlight/{}/bl_power", self.name);
+        fs::write(bl_power, "4")
     }
 
     pub fn on(&self) -> io::Result<()> {
-        fs::write("/sys/class/backlight/fb_st7789v/bl_power", "0")
+        let bl_power = format!("/sys/class/backlight/{}/bl_power", self.name);
+        fs::write(bl_power, "0")
     }
 
     pub fn draw(
