@@ -53,8 +53,14 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
 }
 
 /// Process the event and returns true is we want to skip the assets
-fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut Player) -> Next {
-    if !is_key_enabled(&state.control_settings, code) {
+fn process_event(
+    books: &mut Books,
+    state: &Stage,
+    code: KeyCode,
+    player: &mut Player,
+    autoplay: bool,
+) -> Next {
+    if !autoplay && !is_key_enabled(&state.control_settings, code) {
         return Next::Timeout;
     }
     let Some(book) = books.get() else {
@@ -190,7 +196,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                     let audio = book.audio_file_get(&audio)?;
                     let tx_play = tx.clone();
                     player.play(audio, move || {
-                        let code = if state.control_settings.ok {
+                        let code = if state.control_settings.ok || state.control_settings.autoplay {
                             KeyCode::BTN_START
                         } else if state.control_settings.home {
                             KeyCode::BTN_SELECT
@@ -261,7 +267,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         next = Next::Timeout;
                     }
                 } else {
-                    next = process_event(&mut books, &state, code, &mut player);
+                    next = process_event(&mut books, &state, code, &mut player, eos);
                 }
             }
             Err(_) => (),
