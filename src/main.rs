@@ -60,7 +60,8 @@ fn process_event(
     player: &mut Player,
     autoplay: bool,
 ) -> Next {
-    if !autoplay && !is_key_enabled(&state.control_settings, code) {
+    /* In case of autoplay or square_one, we ignore the button settings */
+    if !autoplay && !state.square_one && !is_key_enabled(&state.control_settings, code) {
         return Next::Timeout;
     }
     let Some(book) = books.get() else {
@@ -76,12 +77,12 @@ fn process_event(
             Next::Normal
         }
         KeyCode::BTN_DPAD_RIGHT => {
+            if state.square_one {
+                books.button_wheel_right();
+                return Next::Normal;
+            }
             if state.control_settings.wheel {
-                if state.square_one {
-                    books.button_wheel_right();
-                } else {
-                    book.button_wheel_right();
-                }
+                book.button_wheel_right();
                 return Next::Normal;
             }
             if state.control_settings.pause {
@@ -91,7 +92,7 @@ fn process_event(
                 }
                 return Next::Play;
             }
-            return Next::Normal;
+            Next::Normal
         }
         KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::Volume).1,
         KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::Volume).1,
