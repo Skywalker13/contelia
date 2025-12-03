@@ -126,12 +126,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
     thread::spawn(move || {
         for sig in signals.forever() {
             match sig {
-                SIGTERM => {
-                    println!("SIGTERM");
-                    let _ = tx_sig.send((KeyCode::KEY_END, false));
-                }
-                SIGINT => {
-                    println!("SIGINT");
+                SIGTERM | SIGINT => {
+                    println!("{sig:?}");
                     let _ = tx_sig.send((KeyCode::KEY_END, false));
                 }
                 _ => unreachable!(),
