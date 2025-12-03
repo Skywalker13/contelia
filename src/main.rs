@@ -43,10 +43,11 @@ enum Next {
 
 fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
     match code {
-        KeyCode::BTN_DPAD_LEFT | KeyCode::BTN_DPAD_RIGHT => control_settings.wheel,
+        KeyCode::BTN_DPAD_LEFT => control_settings.wheel,
+        KeyCode::BTN_DPAD_RIGHT => control_settings.wheel || control_settings.pause,
         KeyCode::BTN_DPAD_UP | KeyCode::BTN_DPAD_DOWN => true, // volume
         KeyCode::BTN_SELECT => control_settings.home,
-        KeyCode::BTN_START => control_settings.ok || control_settings.pause,
+        KeyCode::BTN_START => control_settings.ok,
         _ => false,
     }
 }
@@ -69,29 +70,29 @@ fn process_event(books: &mut Books, state: &Stage, code: KeyCode, player: &mut P
             Next::Normal
         }
         KeyCode::BTN_DPAD_RIGHT => {
-            if state.square_one {
-                books.button_wheel_right();
-            } else {
-                book.button_wheel_right();
+            if state.control_settings.wheel {
+                if state.square_one {
+                    books.button_wheel_right();
+                } else {
+                    book.button_wheel_right();
+                }
+                return Next::Normal;
             }
-            Next::Normal
+            if state.control_settings.pause {
+                player.toggle_pause();
+                if player.is_paused() {
+                    return Next::Pause;
+                }
+                return Next::Play;
+            }
+            return Next::Normal;
         }
         KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::Volume).1,
         KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::Volume).1,
         KeyCode::BTN_SELECT => (book.button_home(), Next::Normal).1,
         KeyCode::BTN_START => {
-            /* Prefer OK when both buttons are enabled */
-            if state.control_settings.ok {
-                book.button_ok();
-                Next::Normal
-            } else {
-                player.toggle_pause();
-                if player.is_paused() {
-                    Next::Pause
-                } else {
-                    Next::Play
-                }
-            }
+            book.button_ok();
+            Next::Normal
         }
         _ => Next::Timeout,
     }
