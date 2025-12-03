@@ -209,7 +209,20 @@ impl Book {
             FileReader::Plain(File::open(path)?)
         };
 
-        Ok((file, image::ImageFormat::Bmp))
+        let format = match path.extension() {
+            Some(ext) => {
+                if ext == "png" {
+                    image::ImageFormat::Png
+                } else if ext == "jpg" || ext == "jpeg" {
+                    image::ImageFormat::Jpeg
+                } else {
+                    image::ImageFormat::Bmp
+                }
+            }
+            None => image::ImageFormat::Bmp,
+        };
+
+        Ok((file, format))
     }
 
     pub fn audio_file_get(&self, audio: &String) -> Result<FileReader> {
