@@ -226,7 +226,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
             screen.on()?;
 
             let tx_timeout = tx.clone();
-            timeout = Some(Timeout::set(Duration::from_millis(500), move || {
+            timeout = Some(Timeout::set(Duration::from_millis(800), move || {
                 let _ = tx_timeout.send((KeyCode::KEY_TIME, true));
             }));
         }
