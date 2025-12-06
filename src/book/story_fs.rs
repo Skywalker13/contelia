@@ -20,11 +20,15 @@ use bytemuck::{Pod, Zeroable};
 use std::{
     collections::HashMap,
     fs::{self},
+    io::BufReader,
     path::Path,
 };
 use uuid::Uuid;
 
-use crate::decrypt::decrypt_block;
+use crate::{
+    FileReader,
+    decrypt::{DecryptedFile, decrypt_block},
+};
 
 use super::ControlSettings;
 use super::book::ActionNode;
@@ -166,6 +170,20 @@ impl Book {
         })
     }
 
+    fn gen_thumbnail(path: &Path, image: &String) -> Result<()> {
+        let thumbnail = path.join("thumbnail.png");
+        if fs::exists(&thumbnail)? {
+            return Ok(());
+        }
+
+        let rf_image = path.join("rf").join(image);
+        let image = FileReader::Encrypted(DecryptedFile::open(rf_image)?);
+        let reader = BufReader::new(image);
+        let img = image::load(reader, image::ImageFormat::Bmp)?;
+        img.save_with_format(thumbnail, image::ImageFormat::Png)?;
+        Ok(())
+    }
+
     pub fn is_story_fs(path: &Path) -> bool {
         let story_li = path.join("li");
         let story_ni = path.join("ni");
@@ -223,7 +241,16 @@ impl Book {
                 wheel: node.control_wheel_enabled != 0,
             };
 
-            if !square_one {
+            if square_one {
+                match image {
+                    /* Generate a thumbnail with the first image if available.
+                     * This one is useful when we want to list the books because
+                     * the title is not available.
+                     */
+                    Some(ref image) => Self::gen_thumbnail(path, image),
+                    None => Ok(()),
+                }?;
+            } else {
                 uuid = Uuid::new_v4().to_string();
             }
 
