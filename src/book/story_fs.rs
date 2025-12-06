@@ -58,13 +58,13 @@ struct Node {
 #[derive(Copy, Clone, Pod, Zeroable)]
 struct NiHeader {
     format_version: u16,     /* File format version: always 1 */
-    story_version: u16,      /* Story pack version */
+    story_version: u16,      /* Story fs version */
     nodes_list_offset: u32,  /* Offset for the nodes (should be 0x200) */
     node_size: u32,          /* Node size (should be 0x2C) */
     stage_nodes_count: u32,  /* Number of stage nodes */
     image_assets_count: u32, /* Number of images */
     sound_assets_count: u32, /* Number of sounds */
-    factory_disabled: u8,    /* Factory pack if different of 0 */
+    factory_disabled: u8,    /* Factory fs if different of 0 */
     padding: [u8; 487],
 }
 
@@ -166,7 +166,7 @@ impl Book {
         })
     }
 
-    pub fn is_story_pack(path: &Path) -> bool {
+    pub fn is_story_fs(path: &Path) -> bool {
         let story_li = path.join("li");
         let story_ni = path.join("ni");
         let story_ri = path.join("ri");
@@ -177,7 +177,7 @@ impl Book {
             && story_si.try_exists().unwrap_or_default()
     }
 
-    pub(super) fn from_pack_directory(path: &Path) -> Result<Self> {
+    pub(super) fn from_fs_directory(path: &Path) -> Result<Self> {
         let ni = Ni::from_file(&path.join("ni"))?;
         let li = Li::from_file(&path.join("li"))?;
         let ri = Ri::from_file(&path.join("ri"))?;
@@ -357,8 +357,8 @@ mod tests {
     }
 
     #[test]
-    fn load_story_pack() {
+    fn load_story_fs() {
         let pk = Path::new("/home/schroeterm/devel/lunii/nathan/.content/2643948D");
-        let book = Book::from_pack_directory(pk).expect("story pack not found");
+        let book = Book::from_fs_directory(pk).expect("story fs not found");
     }
 }

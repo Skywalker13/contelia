@@ -108,7 +108,7 @@ enum ActionWheel {
 
 pub enum Source<'a> {
     StoryJson(&'a Path),
-    StoryPack(&'a Path),
+    StoryFs(&'a Path),
 }
 
 impl Book {
@@ -239,7 +239,7 @@ impl Book {
     pub fn from_source(source: Source) -> Result<Self> {
         match source {
             Source::StoryJson(path) => Self::from_json_file(path),
-            Source::StoryPack(path) => Self::from_pack_directory(path),
+            Source::StoryFs(path) => Self::from_fs_directory(path),
         }
     }
 

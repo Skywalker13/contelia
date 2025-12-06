@@ -37,8 +37,8 @@ impl Books {
 
             let source = if Book::is_story_json(&path) {
                 Source::StoryJson(&path)
-            } else if Book::is_story_pack(&path) {
-                Source::StoryPack(&path)
+            } else if Book::is_story_fs(&path) {
+                Source::StoryFs(&path)
             } else {
                 continue;
             };
