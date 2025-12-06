@@ -1,0 +1,417 @@
+#!/usr/bin/haserl --upload-limit=524288 --upload-dir=/tmp
+<?haserl content-type: text/html ?>
+<%
+# Configuration
+BASE_DIR="/var/lib/contelia"
+MAX_ARCHIVE_SIZE=536870912  # 512 MB
+
+# Créer le dossier si inexistant
+mkdir -p "$BASE_DIR"
+
+# Fonction pour formater la taille
+format_size() {
+  size=$1
+  if [ $size -lt 1024 ]; then
+    echo "${size}B"
+  elif [ $size -lt 1048576 ]; then
+    echo "$((size / 1024))KB"
+  else
+    echo "$((size / 1048576))MB"
+  fi
+}
+
+# Fonction pour extraire le titre depuis story.json
+get_story_title() {
+  story_file="$1/story.json"
+  if [ -f "$story_file" ]; then
+    # Extraire la valeur de "title" avec awk
+    awk -F'"' '/"title"[[:space:]]*:/ {
+      for(i=1;i<=NF;i++) {
+        if($i ~ /title/) {
+          print $(i+2);
+          exit
+        }
+      }
+    }' "$story_file"
+  fi
+}
+
+# Fonction pour extraire la description depuis story.json
+get_story_description() {
+  story_file="$1/story.json"
+  if [ -f "$story_file" ]; then
+    # Extraire la valeur de "description" avec awk
+    awk -F'"' '/"description"[[:space:]]*:/ {
+      for(i=1;i<=NF;i++) {
+        if($i ~ /description/) {
+          print $(i+2);
+          exit
+        }
+      }
+    }' "$story_file"
+  fi
+}
+
+# Fonction pour vérifier si thumbnail.png existe
+has_thumbnail() {
+  [ -f "$1/thumbnail.png" ] && echo "yes" || echo "no"
+}
+
+# Variables pour les messages
+MSG_TYPE=""
+MSG_TEXT=""
+
+# Traitement de l'upload d'archive
+if [ -n "$FORM_archive" ] && [ -f "$FORM_archive" ]; then
+  archive_name=$(echo "$FORM_archive_name" | sed 's/[^a-zA-Z0-9._-]/_/g')
+  folder_name=$(echo "$archive_name" | sed 's/\.[^.]*$//')
+  
+  # Sécurité: vérifier que folder_name ne contient que des caractères safe
+  if echo "$folder_name" | grep -qE '^[a-zA-Z0-9._-]+$'; then
+    dest_dir="$BASE_DIR/$folder_name"
+    
+    # Vérifier que dest_dir est bien dans BASE_DIR (après résolution)
+    real_base=$(cd "$BASE_DIR" && pwd)
+    parent_dir=$(dirname "$dest_dir")
+    real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
+    
+    if [ "$real_parent" != "$real_base" ]; then
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Chemin invalide (sécurité)"
+      rm -f "$FORM_archive"
+    elif [ -d "$dest_dir" ]; then
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Le dossier '$folder_name' existe déjà"
+      rm -f "$FORM_archive"
+    else
+      # Créer le dossier de destination
+      mkdir -p "$dest_dir"
+      
+      # Décompresser l'archive ZIP
+      case "$archive_name" in
+        *.zip)
+          error_log=$(unzip -q "$FORM_archive" -d "$dest_dir" 2>&1)
+          if [ $? -eq 0 ]; then
+            MSG_TYPE="success"
+            MSG_TEXT="✓ Archive '$archive_name' décompressée dans '$folder_name'"
+            logger -t contelia "Upload OK: $archive_name -> $folder_name"
+          else
+            rm -rf "$dest_dir"
+            MSG_TYPE="error"
+            MSG_TEXT="✗ Erreur lors de la décompression: $error_log"
+            logger -t contelia "Erreur décompression: $archive_name - $error_log"
+          fi
+          ;;
+        *)
+          rm -rf "$dest_dir"
+          MSG_TYPE="error"
+          MSG_TEXT="✗ Seules les archives ZIP sont supportées"
+          ;;
+      esac
+      
+      # Nettoyer le fichier temporaire
+      rm -f "$FORM_archive"
+    fi
+  else
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Nom de dossier invalide"
+    rm -f "$FORM_archive"
+  fi
+fi
+
+# Traitement de la suppression
+if [ -n "$FORM_delete" ]; then
+  # Ne pas sanitizer - utiliser le nom tel quel mais vérifier la sécurité
+  delete_folder="$FORM_delete"
+  
+  # Vérification de sécurité: pas de / ni de ..
+  if echo "$delete_folder" | grep -qE '(/|\.\.)'; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Caractères interdits dans le nom"
+  else
+    folder_path="$BASE_DIR/$delete_folder"
+    
+    # Vérifications de sécurité supplémentaires
+    real_base=$(cd "$BASE_DIR" && pwd)
+    real_path=$(cd "$folder_path" 2>/dev/null && pwd)
+    
+    if [ -z "$real_path" ]; then
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Dossier introuvable"
+    elif [ "$real_path" = "$real_base" ]; then
+      # Ne jamais supprimer BASE_DIR lui-même
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Impossible de supprimer le dossier racine"
+    elif echo "$real_path" | grep -q "^$real_base/"; then
+      # Le chemin réel est bien dans BASE_DIR
+      error_log=$(rm -rf "$folder_path" 2>&1)
+      if [ $? -eq 0 ]; then
+        MSG_TYPE="success"
+        MSG_TEXT="✓ Dossier '$delete_folder' supprimé"
+        logger -t contelia "Suppression OK: $delete_folder"
+      else
+        MSG_TYPE="error"
+        MSG_TEXT="✗ Erreur lors de la suppression: $error_log"
+        logger -t contelia "Erreur suppression: $delete_folder - $error_log"
+      fi
+    else
+      # Tentative de path traversal détectée
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Chemin invalide (sécurité)"
+    fi
+  fi
+fi
+
+# Comptage des dossiers
+folder_count=$(find "$BASE_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
+total_size=$(du -sb "$BASE_DIR" 2>/dev/null | awk '{print $1}')
+%>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestionnaire Contelia</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+    .stats {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 25px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 4px;
+    }
+    .message {
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+      border: 1px solid;
+    }
+    .message.success {
+      color: green;
+      background: #d4edda;
+      border-color: #c3e6cb;
+    }
+    .message.error {
+      color: red;
+      background: #f8d7da;
+      border-color: #f5c6cb;
+    }
+    .upload-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 25px;
+      border: 2px dashed #ddd;
+    }
+    .upload-section h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #555;
+    }
+    input[type="file"] {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      width: 100%;
+      max-width: 400px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-left: 10px;
+      transition: background 0.2s;
+    }
+    button:hover { background: #0056b3; }
+    button.delete {
+      background: #dc3545;
+      padding: 6px 12px;
+      font-size: 12px;
+      margin: 0;
+    }
+    button.delete:hover { background: #c82333; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th {
+      background: #f8f9fa;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #555;
+      border-bottom: 2px solid #dee2e6;
+    }
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #dee2e6;
+    }
+    tr:hover { background: #f8f9fa; }
+    .folder-icon { margin-right: 8px; font-size: 20px; }
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+      font-style: italic;
+    }
+    .info-text {
+      color: #666;
+      font-size: 13px;
+      margin-top: 8px;
+      padding: 8px;
+      background: #fff3cd;
+      border-radius: 4px;
+      border: 1px solid #ffc107;
+    }
+    .book-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .thumbnail {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    .book-placeholder {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 4px;
+      font-size: 28px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .book-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .book-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .folder-name {
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📦 Gestionnaire Contelia</h1>
+    
+    <div class="stats">
+      <strong><%= $folder_count %></strong> dossier(s) • 
+      Espace utilisé: <strong><% format_size $total_size %></strong>
+    </div>
+
+    <% if [ -n "$MSG_TEXT" ]; then %>
+    <div class="message <%= $MSG_TYPE %>">
+      <%= $MSG_TEXT %>
+    </div>
+    <% fi %>
+
+    <div class="upload-section">
+      <h2>📤 Déployer une archive</h2>
+      <form method="post" enctype="multipart/form-data">
+        <input type="file" name="archive" accept=".zip" required>
+        <button type="submit">Décompresser</button>
+      </form>
+      <div class="info-text">
+        Format supporté: <strong>ZIP uniquement</strong><br>
+        Taille max: <strong><% format_size $MAX_ARCHIVE_SIZE %></strong><br>
+        L'archive sera décompressée dans un nouveau dossier portant son nom
+      </div>
+    </div>
+
+    <h2 style="margin-bottom: 10px; font-size: 20px; color: #555;">📚 Livres déployés</h2>
+
+    <% if [ $folder_count -eq 0 ]; then %>
+      <div class="empty">Aucun livre déployé. Uploadez une archive pour commencer!</div>
+    <% else %>
+      <table>
+        <thead>
+          <tr>
+            <th>Livre</th>
+            <th>Taille</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% find "$BASE_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r folder_path; do
+            folder_name=$(basename "$folder_path")
+            size=$(du -sb "$folder_path" 2>/dev/null | awk '{print $1}')
+            
+            # Récupérer le titre depuis story.json
+            story_title=$(get_story_title "$folder_path")
+            story_description=$(get_story_description "$folder_path")
+            
+            # Vérifier si thumbnail existe
+            has_thumb=$(has_thumbnail "$folder_path")
+          %>
+          <tr>
+            <td>
+              <div class="book-cell">
+                <% if [ "$has_thumb" = "yes" ]; then %>
+                  <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
+                <% else %>
+                  <div class="book-placeholder">📖</div>
+                <% fi %>
+                <div class="book-info">
+                  <% if [ -n "$story_title" ]; then %>
+                    <div class="book-title"><%= $story_title %></div>
+                    <div class="folder-name"><%= $story_description %></div>
+                  <% else %>
+                    <div class="book-title"><%= $folder_name %></div>
+                  <% fi %>
+                </div>
+              </div>
+            </td>
+            <td><% format_size $size %></td>
+            <td>
+              <form method="post" onsubmit="return confirm('Supprimer le livre <%= $story_title %> ?')" style="display:inline;">
+                <input type="hidden" name="delete" value="<%= $folder_name %>">
+                <button type="submit" class="delete">
+                  🗑️ Supprimer
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% done %>
+        </tbody>
+      </table>
+    <% fi %>
+  </div>
+</body>
+</html>
