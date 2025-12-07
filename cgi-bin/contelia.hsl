@@ -26,34 +26,21 @@ format_size() {
 get_story_title() {
   story_file="$1/story.json"
   if [ ! -f "$story_file" ]; then
-    return
+    grep '"title"' "$story_file" \
+      | sed 's/.*"title"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/' \
+      | sed 's/\\"/"/g'
   fi
-
-  awk -F'"' '/"title"[[:space:]]*:/ {
-    for (i = 1; i <= NF; i++) {
-      if ($i ~ /title/) {
-        print $(i+2);
-        exit
-      }
-    }
-  }' "$story_file"
 }
 
 # Extract the description from story.json
 get_story_description() {
   story_file="$1/story.json"
-  if [ ! -f "$story_file" ]; then
-    return
+  if [ -f "$story_file" ]; then
+    grep '"description"' "$story_file" \
+      | sed 's/.*"description"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/' \
+      | sed 's/\\"/"/g' \
+      | sed 's,\\n,<br/>,g'
   fi
-
-  awk -F'"' '/"description"[[:space:]]*:/ {
-    for (i = 1; i <= NF; i++) {
-      if ($i ~ /description/) {
-        print $(i+2);
-        exit
-      }
-    }
-  }' "$story_file"
 }
 
 has_thumbnail() {
@@ -589,7 +576,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       </div>
       <div class="info-text">
         <strong>Format :</strong> ZIP uniquement<br>
-        <strong>Taille max:</strong> <% format_size $MAX_ZIP_SIZE %><br>
+        <strong>Taille max :</strong> <% format_size $MAX_ZIP_SIZE %><br>
       </div>
     </div>
 
@@ -646,7 +633,6 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 
     if (fileInput.files.length > 0) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Chargement en cours...';
       progress.classList.add('active');
     }
   });
