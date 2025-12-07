@@ -11,11 +11,15 @@ format_size() {
   size=$1
   if [ $size -lt 1024 ]; then
     echo "${size}B"
-  elif [ $size -lt 1048576 ]; then
-    echo "$((size / 1024))KB"
-  else
-    echo "$((size / 1048576))MB"
+    return
   fi
+
+  if [ $size -lt 1048576 ]; then
+    echo "$((size / 1024))KB"
+    return
+  fi
+
+  echo "$((size / 1048576))MB"
 }
 
 # Extract the title from story.json
@@ -56,112 +60,164 @@ has_thumbnail() {
   [ -f "$1/thumbnail.png" ] && echo "true" || echo "false"
 }
 
-# Variables pour les messages
-MSG_TYPE=""
-MSG_TEXT=""
+# Valider le nom de dossier (caractères safe uniquement)
+is_valid_folder_name() {
+  echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
+}
 
-# Traitement de l'upload d'archive
-if [ -n "$FORM_archive" ] && [ -f "$FORM_archive" ]; then
+# Vérifier si un chemin est dans CONTELIA_DIR
+is_path_safe() {
+  local target_path="$1"
+  local real_base=$(cd "$CONTELIA_DIR" && pwd)
+  local real_target=$(cd "$target_path" 2>/dev/null && pwd)
+
+  if [ -z "$real_target" ]; then
+    return 1
+  fi
+
+  if [ "$real_target" = "$real_base" ]; then
+    return 1
+  fi
+
+  echo "$real_target" | grep -q "^$real_base/"
+}
+
+# Story upload
+process_archive_upload() {
+  if [ -z "$FORM_archive" ] || [ ! -f "$FORM_archive" ]; then
+    return
+  fi
+
   archive_name=$(echo "$FORM_archive_name" | sed 's/[^a-zA-Z0-9._-]/_/g')
   folder_name=$(echo "$archive_name" | sed 's/\.[^.]*$//')
 
-  # Sécurité: vérifier que folder_name ne contient que des caractères safe
-  if echo "$folder_name" | grep -qE '^[a-zA-Z0-9._-]+$'; then
-    dest_dir="$CONTELIA_DIR/$folder_name"
-
-    # Vérifier que dest_dir est bien dans CONTELIA_DIR (après résolution)
-    real_base=$(cd "$CONTELIA_DIR" && pwd)
-    parent_dir=$(dirname "$dest_dir")
-    real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
-
-    if [ "$real_parent" != "$real_base" ]; then
-      MSG_TYPE="error"
-      MSG_TEXT="✗ Chemin invalide (sécurité)"
-      rm -f "$FORM_archive"
-    elif [ -d "$dest_dir" ]; then
-      MSG_TYPE="error"
-      MSG_TEXT="✗ Le dossier '$folder_name' existe déjà"
-      rm -f "$FORM_archive"
-    else
-      # Créer le dossier de destination
-      mkdir -p "$dest_dir"
-
-      # Décompresser l'archive ZIP
-      case "$archive_name" in
-        *.zip)
-          error_log=$(unzip -q "$FORM_archive" -d "$dest_dir" 2>&1)
-          if [ $? -eq 0 ]; then
-            MSG_TYPE="success"
-            MSG_TEXT="✓ Archive '$archive_name' décompressée dans '$folder_name'"
-            logger -t contelia "Upload OK: $archive_name -> $folder_name"
-          else
-            rm -rf "$dest_dir"
-            MSG_TYPE="error"
-            MSG_TEXT="✗ Erreur lors de la décompression: $error_log"
-            logger -t contelia "Erreur décompression: $archive_name - $error_log"
-          fi
-          ;;
-        *)
-          rm -rf "$dest_dir"
-          MSG_TYPE="error"
-          MSG_TEXT="✗ Seules les archives ZIP sont supportées"
-          ;;
-      esac
-
-      # Nettoyer le fichier temporaire
-      rm -f "$FORM_archive"
-    fi
-  else
+  if ! is_valid_folder_name "$folder_name"; then
     MSG_TYPE="error"
-    MSG_TEXT="✗ Nom de dossier invalide"
+    MSG_TEXT="✗ Nom d'histoire invalide"
     rm -f "$FORM_archive"
+    return
   fi
-fi
 
-# Traitement de la suppression
-if [ -n "$FORM_delete" ]; then
-  # Ne pas sanitizer - utiliser le nom tel quel mais vérifier la sécurité
+  dest_dir="$CONTELIA_DIR/$folder_name"
+
+  # Check the parent path
+  real_base=$(cd "$CONTELIA_DIR" && pwd)
+  parent_dir=$(dirname "$dest_dir")
+  real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
+
+  if [ "$real_parent" != "$real_base" ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Chemin invalide"
+    rm -f "$FORM_archive"
+    return
+  fi
+
+  if [ -d "$dest_dir" ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ L'histoire '$folder_name' existe déjà"
+    rm -f "$FORM_archive"
+    return
+  fi
+
+  case "$archive_name" in
+    *.zip)
+      ;;
+    *)
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Seules les histoires au format ZIP sont supportées"
+      rm -f "$FORM_archive"
+      return
+      ;;
+  esac
+
+  mkdir -p "$dest_dir"
+  error_log=$(unzip -q "$FORM_archive" -d "$dest_dir" 2>&1)
+
+  if [ $? -ne 0 ]; then
+    rm -rf "$dest_dir"
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Erreur lors de la décompression: $error_log"
+    logger -t contelia "Extract error: $archive_name - $error_log"
+    rm -f "$FORM_archive"
+    return
+  fi
+
+  # Check if there is only one root folder
+  root_items=$(find "$dest_dir" -mindepth 1 -maxdepth 1 | wc -l)
+  if [ $root_items -eq 1 ]; then
+    first_item=$(find "$dest_dir" -mindepth 1 -maxdepth 1)
+    if [ -d "$first_item" ]; then
+      # Only one folder, move its content
+      temp_dir="${dest_dir}_temp"
+      mv "$first_item" "$temp_dir"
+      rm -rf "$dest_dir"
+      mv "$temp_dir" "$dest_dir"
+      logger -t contelia "Squashed archive: $archive_name"
+    fi
+  fi
+
+  MSG_TYPE="success"
+  MSG_TEXT="✓ Histoire '$archive_name' chargée"
+  logger -t contelia "Upload OK: $archive_name -> $folder_name"
+  rm -f "$FORM_archive"
+}
+
+# Story deletion
+process_folder_deletion() {
+  if [ -z "$FORM_delete" ]; then
+    return
+  fi
+
   delete_folder="$FORM_delete"
 
-  # Vérification de sécurité: pas de / ni de ..
   if echo "$delete_folder" | grep -qE '(/|\.\.)'; then
     MSG_TYPE="error"
     MSG_TEXT="✗ Caractères interdits dans le nom"
-  else
-    folder_path="$CONTELIA_DIR/$delete_folder"
-
-    # Vérifications de sécurité supplémentaires
-    real_base=$(cd "$CONTELIA_DIR" && pwd)
-    real_path=$(cd "$folder_path" 2>/dev/null && pwd)
-
-    if [ -z "$real_path" ]; then
-      MSG_TYPE="error"
-      MSG_TEXT="✗ Dossier introuvable"
-    elif [ "$real_path" = "$real_base" ]; then
-      # Ne jamais supprimer CONTELIA_DIR lui-même
-      MSG_TYPE="error"
-      MSG_TEXT="✗ Impossible de supprimer le dossier racine"
-    elif echo "$real_path" | grep -q "^$real_base/"; then
-      # Le chemin réel est bien dans CONTELIA_DIR
-      error_log=$(rm -rf "$folder_path" 2>&1)
-      if [ $? -eq 0 ]; then
-        MSG_TYPE="success"
-        MSG_TEXT="✓ Dossier '$delete_folder' supprimé"
-        logger -t contelia "Suppression OK: $delete_folder"
-      else
-        MSG_TYPE="error"
-        MSG_TEXT="✗ Erreur lors de la suppression: $error_log"
-        logger -t contelia "Erreur suppression: $delete_folder - $error_log"
-      fi
-    else
-      # Tentative de path traversal détectée
-      MSG_TYPE="error"
-      MSG_TEXT="✗ Chemin invalide (sécurité)"
-    fi
+    return
   fi
-fi
 
-# Comptage des dossiers
+  folder_path="$CONTELIA_DIR/$delete_folder"
+  real_base=$(cd "$CONTELIA_DIR" && pwd)
+  real_path=$(cd "$folder_path" 2>/dev/null && pwd)
+
+  if [ -z "$real_path" ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Histoire introuvable"
+    return
+  fi
+
+  if [ "$real_path" = "$real_base" ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Impossible de supprimer le dossier racine"
+    return
+  fi
+
+  if ! echo "$real_path" | grep -q "^$real_base/"; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Chemin invalide"
+    return
+  fi
+
+  error_log=$(rm -rf "$folder_path" 2>&1)
+
+  if [ $? -ne 0 ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Erreur lors de la suppression: $error_log"
+    logger -t contelia "Deletion error: $delete_folder - $error_log"
+    return
+  fi
+
+  MSG_TYPE="success"
+  MSG_TEXT="✓ Histoire '$delete_folder' supprimée"
+  logger -t contelia "Deletion OK: $delete_folder"
+}
+
+MSG_TYPE=""
+MSG_TEXT=""
+
+process_archive_upload
+process_folder_deletion
+
 folder_count=$(find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
 total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 %>
@@ -169,160 +225,292 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestionnaire Contelia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Gestionnaire d'histoires Contelia</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       background: #f5f5f5;
-      padding: 20px;
+      padding: 12px;
+      font-size: 16px;
+      line-height: 1.5;
     }
+
     .container {
-      max-width: 1000px;
+      max-width: 100%;
       margin: 0 auto;
       background: white;
-      border-radius: 8px;
+      border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 30px;
+      padding: 16px;
     }
+
     h1 {
       color: #333;
-      margin-bottom: 10px;
-      font-size: 28px;
+      margin-bottom: 12px;
+      font-size: 24px;
+      word-break: break-word;
     }
+
     .stats {
       color: #666;
       font-size: 14px;
-      margin-bottom: 25px;
-      padding: 10px;
+      margin-bottom: 20px;
+      padding: 12px;
       background: #f8f9fa;
-      border-radius: 4px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .message {
-      padding: 10px;
-      border-radius: 4px;
-      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 12px 0;
       border: 1px solid;
+      font-size: 14px;
+      word-break: break-word;
     }
+
     .message.success {
-      color: green;
+      color: #155724;
       background: #d4edda;
       border-color: #c3e6cb;
     }
+
     .message.error {
-      color: red;
+      color: #721c24;
       background: #f8d7da;
       border-color: #f5c6cb;
     }
+
     .upload-section {
       background: #f8f9fa;
-      padding: 20px;
-      border-radius: 6px;
-      margin-bottom: 25px;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
       border: 2px dashed #ddd;
     }
+
     .upload-section h2 {
       font-size: 18px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       color: #555;
     }
+
+    .upload-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     input[type="file"] {
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 8px;
       background: white;
       width: 100%;
-      max-width: 400px;
+      font-size: 14px;
     }
+
     button {
       background: #007bff;
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
+      padding: 12px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
-      margin-left: 10px;
+      font-size: 16px;
+      font-weight: 500;
       transition: background 0.2s;
+      width: 100%;
+      -webkit-tap-highlight-color: transparent;
     }
-    button:hover { background: #0056b3; }
+
+    button:hover, button:active { 
+      background: #0056b3; 
+    }
+
     button.delete {
       background: #dc3545;
-      padding: 6px 12px;
-      font-size: 12px;
-      margin: 0;
+      padding: 8px 16px;
+      font-size: 14px;
+      width: auto;
+      min-width: 120px;
     }
-    button.delete:hover { background: #c82333; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+
+    button.delete:hover, button.delete:active { 
+      background: #c82333; 
     }
-    th {
-      background: #f8f9fa;
-      padding: 12px;
-      text-align: left;
-      font-weight: 600;
-      color: #555;
-      border-bottom: 2px solid #dee2e6;
-    }
-    td {
-      padding: 12px;
-      border-bottom: 1px solid #dee2e6;
-    }
-    tr:hover { background: #f8f9fa; }
-    .folder-icon { margin-right: 8px; font-size: 20px; }
-    .empty {
-      text-align: center;
-      padding: 40px;
-      color: #999;
-      font-style: italic;
-    }
+
     .info-text {
-      color: #666;
+      color: #856404;
       font-size: 13px;
-      margin-top: 8px;
-      padding: 8px;
+      margin-top: 12px;
+      padding: 10px;
       background: #fff3cd;
-      border-radius: 4px;
+      border-radius: 6px;
       border: 1px solid #ffc107;
+      line-height: 1.6;
     }
-    .book-cell {
+
+    .section-title {
+      margin: 20px 0 12px 0;
+      font-size: 18px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    .book-list {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 12px;
     }
+
+    .book-card {
+      background: white;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      transition: background 0.2s;
+    }
+
+    .book-card:active {
+      background: #f8f9fa;
+    }
+
     .thumbnail {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
+      min-width: 70px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 6px;
       border: 1px solid #ddd;
     }
+
     .book-placeholder {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
+      min-width: 70px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 4px;
-      font-size: 28px;
+      border-radius: 6px;
+      font-size: 32px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .book-info {
+
+    .book-content {
+      flex: 1;
+      min-width: 0;
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
+
+    .book-info {
+      flex: 1;
+      min-width: 0;
+    }
+
     .book-title {
       font-weight: 600;
       color: #333;
+      font-size: 16px;
       margin-bottom: 4px;
+      word-break: break-word;
+      line-height: 1.3;
     }
-    .folder-name {
+
+    .book-description {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 4px;
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .book-size {
       font-size: 12px;
       color: #999;
+    }
+
+    .book-actions {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        padding: 30px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .stats {
+        flex-direction: row;
+        justify-content: space-around;
+      }
+
+      .upload-form {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      input[type="file"] {
+        flex: 1;
+      }
+
+      button {
+        width: auto;
+        min-width: 140px;
+      }
+
+      .book-card {
+        padding: 16px;
+      }
+
+      .book-content {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .book-actions {
+        width: auto;
+      }
     }
   </style>
 </head>
@@ -331,8 +519,14 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     <h1>📦 Gestionnaire Contelia</h1>
 
     <div class="stats">
-      <strong><%= $folder_count %></strong> dossier(s) • 
-      Espace utilisé: <strong><% format_size $total_size %></strong>
+      <div class="stat-item">
+        <span>📚</span>
+        <span><strong><%= $folder_count %></strong> livre(s)</span>
+      </div>
+      <div class="stat-item">
+        <span>💾</span>
+        <span><strong><% format_size $total_size %></strong> utilisé</span>
+      </div>
     </div>
 
     <% if [ -n "$MSG_TEXT" ]; then %>
@@ -342,74 +536,60 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     <% fi %>
 
     <div class="upload-section">
-      <h2>📤 Déployer une archive</h2>
-      <form method="post" enctype="multipart/form-data">
+      <h2>📤 Déployer une histoire</h2>
+      <form method="post" enctype="multipart/form-data" class="upload-form">
         <input type="file" name="archive" accept=".zip" required>
-        <button type="submit">Décompresser</button>
+        <button type="submit">Charger</button>
       </form>
       <div class="info-text">
-        Format supporté: <strong>ZIP uniquement</strong><br>
-        Taille max: <strong><% format_size $MAX_ZIP_SIZE %></strong><br>
-        L'archive sera décompressée dans un nouveau dossier portant son nom
+        <strong>Format :</strong> ZIP uniquement<br>
+        <strong>Taille max:</strong> <% format_size $MAX_ZIP_SIZE %><br>
       </div>
     </div>
 
-    <h2 style="margin-bottom: 10px; font-size: 20px; color: #555;">📚 Livres déployés</h2>
+    <h2 class="section-title">📚 Histoires déployées</h2>
 
     <% if [ $folder_count -eq 0 ]; then %>
-      <div class="empty">Aucun livre déployé. Uploadez une archive pour commencer!</div>
+      <div class="empty">
+        Aucune histoire déployée<br>
+        Charger une histoire au format ZIP pour commencer.
+      </div>
     <% else %>
-      <table>
-        <thead>
-          <tr>
-            <th>Livre</th>
-            <th>Taille</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r folder_path; do
-            folder_name=$(basename "$folder_path")
-            size=$(du -sb "$folder_path" 2>/dev/null | awk '{print $1}')
+      <div class="book-list">
+        <% find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r folder_path; do
+          folder_name=$(basename "$folder_path")
+          size=$(du -sb "$folder_path" 2>/dev/null | awk '{print $1}')
+          story_title=$(get_story_title "$folder_path")
+          [ -z "$story_title" ] && story_title="$folder_name"
+          story_description=$(get_story_description "$folder_path")
+          has_thumb=$(has_thumbnail "$folder_path")
+        %>
+        <div class="book-card">
+          <% if [ "$has_thumb" = "true" ]; then %>
+            <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
+          <% else %>
+            <div class="book-placeholder">📖</div>
+          <% fi %>
 
-            # Récupérer le titre depuis story.json
-            story_title=$(get_story_title "$folder_path")
-            story_description=$(get_story_description "$folder_path")
+          <div class="book-content">
+            <div class="book-info">
+              <div class="book-title"><%= $story_title %></div>
+              <% if [ -n "$story_description" ]; then %>
+                <div class="book-description"><%= $story_description %></div>
+              <% fi %>
+              <div class="book-size"><% format_size $size %></div>
+            </div>
 
-            # Vérifier si thumbnail existe
-            has_thumb=$(has_thumbnail "$folder_path")
-          %>
-          <tr>
-            <td>
-              <div class="book-cell">
-                <% if [ "$has_thumb" = "true" ]; then %>
-                  <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
-                <% else %>
-                  <div class="book-placeholder">📖</div>
-                <% fi %>
-                <div class="book-info">
-                  <% if [ -n "$story_title" ]; then %>
-                    <div class="book-title"><%= $story_title %></div>
-                    <div class="folder-name"><%= $story_description %></div>
-                  <% else %>
-                    <div class="book-title"><%= $folder_name %></div>
-                  <% fi %>
-                </div>
-              </div>
-            </td>
-            <td><% format_size $size %></td>
-            <td>
-              <form method="post" onsubmit="return confirm('Supprimer le livre <%= $story_title %> ?')" style="display:inline;">
+            <div class="book-actions">
+              <form method="post" onsubmit="return confirm('Supprimer « <%= $story_title %> » ?')" style="margin: 0;">
                 <input type="hidden" name="delete" value="<%= $folder_name %>">
-                <button type="submit" class="delete">
-                  🗑️ Supprimer
-                </button>
+                <button type="submit" class="delete">🗑️ Supprimer</button>
               </form>
-            </td>
-          </tr>
-          <% done %>
-        </tbody>
-      </table>
+            </div>
+          </div>
+        </div>
+        <% done %>
+      </div>
     <% fi %>
   </div>
 </body>
