@@ -63,7 +63,6 @@ fn process_event(
     state: &Stage,
     code: KeyCode,
     autoplay: bool,
-    status: Option<&Status>,
 ) -> Next {
     /* In case of autoplay or square_one, we ignore the button settings */
     if !autoplay && !state.square_one && !is_key_enabled(&state.control_settings, code) {
@@ -101,15 +100,6 @@ fn process_event(
         }
         KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::Volume).1,
         KeyCode::BTN_DPAD_DOWN => {
-            match status {
-                Some(status) => {
-                    if status.select {
-                        return Next::Settings;
-                    }
-                }
-                None => {}
-            }
-
             player.volume_down();
             Next::Volume
         }
@@ -203,6 +193,27 @@ fn run() -> Result<u8, Box<dyn Error>> {
         println!("{state:?}");
         println!("{next:?}");
 
+        if next == Next::Settings && settings {
+            settings = false;
+            next = Next::Normal;
+        }
+        if next == Next::Settings {
+            settings = true;
+            player.stop();
+
+            let mut image = env::current_exe()?;
+            image.pop();
+            image.pop();
+            image = image.join("share/contelia/assets");
+            image = image.join("settings.png");
+
+            let path = Path::new(&image);
+            println!("settings image: {}", path.to_string_lossy().to_string());
+            let mut file = FileReader::Plain(File::open(path)?);
+            screen.draw(&mut file, image::ImageFormat::Png)?;
+            screen.on()?;
+        }
+
         if next == Next::Normal || next == Next::Image {
             match state.image {
                 Some(ref image) => {
@@ -277,26 +288,17 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true));
             }));
         }
-        if next == Next::Settings {
-            settings = true;
-            player.stop();
-
-            let mut image = env::current_exe()?;
-            image.pop();
-            image.pop();
-            image = image.join("share/contelia/assets");
-            image = image.join("settings.png");
-
-            let path = Path::new(&image);
-            println!("settings image: {}", path.to_string_lossy().to_string());
-            let mut file = FileReader::Plain(File::open(path)?);
-            screen.draw(&mut file, image::ImageFormat::Png)?;
-            screen.on()?;
-        }
 
         next = Next::Normal;
         match rx.recv() {
             Ok((code, status, eos)) => {
+                if let Some(status) = status {
+                    if status.dpad_down && status.select {
+                        next = Next::Settings;
+                        continue;
+                    }
+                }
+
                 if code == KeyCode::KEY_END {
                     next = Next::Shutdown; // Clean shutdown
                 } else if settings == true {
@@ -311,8 +313,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         next = Next::Timeout;
                     }
                 } else {
-                    next =
-                        process_event(&mut books, &mut player, &state, code, eos, status.as_ref());
+                    next = process_event(&mut books, &mut player, &state, code, eos);
                 }
             }
             Err(_) => (),
