@@ -178,6 +178,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut timeout: Option<Timeout> = None;
     let mut settings = false;
 
+    let mut assets_dir = env::current_exe()?;
+    assets_dir.pop();
+    assets_dir.pop();
+    assets_dir = assets_dir.join("share/contelia/assets");
+
     while next != Next::Shutdown {
         let Some(book) = books.get() else {
             return Err("No book available".into());
@@ -200,16 +205,12 @@ fn run() -> Result<u8, Box<dyn Error>> {
             settings = false;
             next = Next::Normal;
         }
+
         if next == Next::Settings {
             settings = true;
             player.stop();
 
-            let mut image = env::current_exe()?;
-            image.pop();
-            image.pop();
-            image = image.join("share/contelia/assets");
-            image = image.join("settings.png");
-
+            let image = assets_dir.join("settings.png");
             let path = Path::new(&image);
             println!("settings image: {}", path.to_string_lossy().to_string());
             let mut file = FileReader::Plain(File::open(path)?);
@@ -230,6 +231,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 }
             }
         }
+
         if next == Next::Normal || next == Next::Audio {
             match state.audio {
                 Some(ref audio) => {
@@ -249,15 +251,10 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 None => {}
             }
         }
+
         if next == Next::Volume {
             let volume = player.get_volume();
-            let mut image = env::current_exe()?;
-            image.pop();
-            image.pop();
-            let image = image
-                .join("share/contelia/assets")
-                .join(format!("volume{:0>2}.png", volume));
-
+            let image = assets_dir.join(format!("volume{:0>2}.png", volume));
             let path = Path::new(&image);
             println!("volume image: {}", path.to_string_lossy().to_string());
             let mut file = FileReader::Plain(File::open(path)?);
@@ -269,17 +266,13 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true));
             }));
         }
-        if next == Next::Pause || next == Next::Play {
-            let mut image = env::current_exe()?;
-            image.pop();
-            image.pop();
-            image = image.join("share/contelia/assets");
-            if next == Next::Play {
-                image = image.join("play.png");
-            } else {
-                image = image.join("pause.png");
-            }
 
+        if next == Next::Pause || next == Next::Play {
+            let image = if next == Next::Play {
+                assets_dir.join("play.png")
+            } else {
+                assets_dir.join("pause.png")
+            };
             let path = Path::new(&image);
             println!("play/pause image: {}", path.to_string_lossy().to_string());
             let mut file = FileReader::Plain(File::open(path)?);
