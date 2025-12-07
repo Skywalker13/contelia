@@ -98,7 +98,10 @@ fn process_event(
             }
             Next::Normal
         }
-        KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::Volume).1,
+        KeyCode::BTN_DPAD_UP => {
+            player.volume_up();
+            Next::Volume
+        }
         KeyCode::BTN_DPAD_DOWN => {
             player.volume_down();
             Next::Volume
