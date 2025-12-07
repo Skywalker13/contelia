@@ -2,13 +2,11 @@
 <?haserl content-type: text/html ?>
 <%
 # Configuration
-BASE_DIR="/var/lib/contelia"
-MAX_ARCHIVE_SIZE=536870912  # 512 MB
+CONTELIA_DIR="/var/lib/contelia"
+MAX_ZIP_SIZE=536870912  # 512 MB
 
-# Créer le dossier si inexistant
-mkdir -p "$BASE_DIR"
+mkdir -p "$CONTELIA_DIR"
 
-# Fonction pour formater la taille
 format_size() {
   size=$1
   if [ $size -lt 1024 ]; then
@@ -20,41 +18,42 @@ format_size() {
   fi
 }
 
-# Fonction pour extraire le titre depuis story.json
+# Extract the title from story.json
 get_story_title() {
   story_file="$1/story.json"
-  if [ -f "$story_file" ]; then
-    # Extraire la valeur de "title" avec awk
-    awk -F'"' '/"title"[[:space:]]*:/ {
-      for(i=1;i<=NF;i++) {
-        if($i ~ /title/) {
-          print $(i+2);
-          exit
-        }
-      }
-    }' "$story_file"
+  if [ ! -f "$story_file" ]; then
+    return
   fi
+
+  awk -F'"' '/"title"[[:space:]]*:/ {
+    for (i = 1; i <= NF; i++) {
+      if ($i ~ /title/) {
+        print $(i+2);
+        exit
+      }
+    }
+  }' "$story_file"
 }
 
-# Fonction pour extraire la description depuis story.json
+# Extract the description from story.json
 get_story_description() {
   story_file="$1/story.json"
-  if [ -f "$story_file" ]; then
-    # Extraire la valeur de "description" avec awk
-    awk -F'"' '/"description"[[:space:]]*:/ {
-      for(i=1;i<=NF;i++) {
-        if($i ~ /description/) {
-          print $(i+2);
-          exit
-        }
-      }
-    }' "$story_file"
+  if [ ! -f "$story_file" ]; then
+    return
   fi
+
+  awk -F'"' '/"description"[[:space:]]*:/ {
+    for (i = 1; i <= NF; i++) {
+      if ($i ~ /description/) {
+        print $(i+2);
+        exit
+      }
+    }
+  }' "$story_file"
 }
 
-# Fonction pour vérifier si thumbnail.png existe
 has_thumbnail() {
-  [ -f "$1/thumbnail.png" ] && echo "yes" || echo "no"
+  [ -f "$1/thumbnail.png" ] && echo "true" || echo "false"
 }
 
 # Variables pour les messages
@@ -65,16 +64,16 @@ MSG_TEXT=""
 if [ -n "$FORM_archive" ] && [ -f "$FORM_archive" ]; then
   archive_name=$(echo "$FORM_archive_name" | sed 's/[^a-zA-Z0-9._-]/_/g')
   folder_name=$(echo "$archive_name" | sed 's/\.[^.]*$//')
-  
+
   # Sécurité: vérifier que folder_name ne contient que des caractères safe
   if echo "$folder_name" | grep -qE '^[a-zA-Z0-9._-]+$'; then
-    dest_dir="$BASE_DIR/$folder_name"
-    
-    # Vérifier que dest_dir est bien dans BASE_DIR (après résolution)
-    real_base=$(cd "$BASE_DIR" && pwd)
+    dest_dir="$CONTELIA_DIR/$folder_name"
+
+    # Vérifier que dest_dir est bien dans CONTELIA_DIR (après résolution)
+    real_base=$(cd "$CONTELIA_DIR" && pwd)
     parent_dir=$(dirname "$dest_dir")
     real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
-    
+
     if [ "$real_parent" != "$real_base" ]; then
       MSG_TYPE="error"
       MSG_TEXT="✗ Chemin invalide (sécurité)"
@@ -86,7 +85,7 @@ if [ -n "$FORM_archive" ] && [ -f "$FORM_archive" ]; then
     else
       # Créer le dossier de destination
       mkdir -p "$dest_dir"
-      
+
       # Décompresser l'archive ZIP
       case "$archive_name" in
         *.zip)
@@ -108,7 +107,7 @@ if [ -n "$FORM_archive" ] && [ -f "$FORM_archive" ]; then
           MSG_TEXT="✗ Seules les archives ZIP sont supportées"
           ;;
       esac
-      
+
       # Nettoyer le fichier temporaire
       rm -f "$FORM_archive"
     fi
@@ -123,27 +122,27 @@ fi
 if [ -n "$FORM_delete" ]; then
   # Ne pas sanitizer - utiliser le nom tel quel mais vérifier la sécurité
   delete_folder="$FORM_delete"
-  
+
   # Vérification de sécurité: pas de / ni de ..
   if echo "$delete_folder" | grep -qE '(/|\.\.)'; then
     MSG_TYPE="error"
     MSG_TEXT="✗ Caractères interdits dans le nom"
   else
-    folder_path="$BASE_DIR/$delete_folder"
-    
+    folder_path="$CONTELIA_DIR/$delete_folder"
+
     # Vérifications de sécurité supplémentaires
-    real_base=$(cd "$BASE_DIR" && pwd)
+    real_base=$(cd "$CONTELIA_DIR" && pwd)
     real_path=$(cd "$folder_path" 2>/dev/null && pwd)
-    
+
     if [ -z "$real_path" ]; then
       MSG_TYPE="error"
       MSG_TEXT="✗ Dossier introuvable"
     elif [ "$real_path" = "$real_base" ]; then
-      # Ne jamais supprimer BASE_DIR lui-même
+      # Ne jamais supprimer CONTELIA_DIR lui-même
       MSG_TYPE="error"
       MSG_TEXT="✗ Impossible de supprimer le dossier racine"
     elif echo "$real_path" | grep -q "^$real_base/"; then
-      # Le chemin réel est bien dans BASE_DIR
+      # Le chemin réel est bien dans CONTELIA_DIR
       error_log=$(rm -rf "$folder_path" 2>&1)
       if [ $? -eq 0 ]; then
         MSG_TYPE="success"
@@ -163,8 +162,8 @@ if [ -n "$FORM_delete" ]; then
 fi
 
 # Comptage des dossiers
-folder_count=$(find "$BASE_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
-total_size=$(du -sb "$BASE_DIR" 2>/dev/null | awk '{print $1}')
+folder_count=$(find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
+total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -330,7 +329,7 @@ total_size=$(du -sb "$BASE_DIR" 2>/dev/null | awk '{print $1}')
 <body>
   <div class="container">
     <h1>📦 Gestionnaire Contelia</h1>
-    
+
     <div class="stats">
       <strong><%= $folder_count %></strong> dossier(s) • 
       Espace utilisé: <strong><% format_size $total_size %></strong>
@@ -350,7 +349,7 @@ total_size=$(du -sb "$BASE_DIR" 2>/dev/null | awk '{print $1}')
       </form>
       <div class="info-text">
         Format supporté: <strong>ZIP uniquement</strong><br>
-        Taille max: <strong><% format_size $MAX_ARCHIVE_SIZE %></strong><br>
+        Taille max: <strong><% format_size $MAX_ZIP_SIZE %></strong><br>
         L'archive sera décompressée dans un nouveau dossier portant son nom
       </div>
     </div>
@@ -369,21 +368,21 @@ total_size=$(du -sb "$BASE_DIR" 2>/dev/null | awk '{print $1}')
           </tr>
         </thead>
         <tbody>
-          <% find "$BASE_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r folder_path; do
+          <% find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r folder_path; do
             folder_name=$(basename "$folder_path")
             size=$(du -sb "$folder_path" 2>/dev/null | awk '{print $1}')
-            
+
             # Récupérer le titre depuis story.json
             story_title=$(get_story_title "$folder_path")
             story_description=$(get_story_description "$folder_path")
-            
+
             # Vérifier si thumbnail existe
             has_thumb=$(has_thumbnail "$folder_path")
           %>
           <tr>
             <td>
               <div class="book-cell">
-                <% if [ "$has_thumb" = "yes" ]; then %>
+                <% if [ "$has_thumb" = "true" ]; then %>
                   <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
                 <% else %>
                   <div class="book-placeholder">📖</div>
