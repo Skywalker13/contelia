@@ -466,6 +466,48 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       font-size: 14px;
     }
 
+    .upload-form {
+      position: relative;
+    }
+
+    .upload-progress {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      background: #e3f2fd;
+      border: 1px solid #2196f3;
+      border-radius: 8px;
+      text-align: center;
+      color: #1976d2;
+      font-weight: 500;
+    }
+
+    .upload-progress.active {
+      display: block;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #2196f3;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
     @media (min-width: 768px) {
       body {
         padding: 20px;
@@ -537,10 +579,14 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 
     <div class="upload-section">
       <h2>📤 Déployer une histoire</h2>
-      <form method="post" enctype="multipart/form-data" class="upload-form">
-        <input type="file" name="archive" accept=".zip" required>
-        <button type="submit">Charger</button>
+      <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
+        <input type="file" name="archive" accept=".zip" required id="fileInput">
+        <button type="submit" id="submitBtn">Charger</button>
       </form>
+      <div class="upload-progress" id="uploadProgress">
+        <span class="spinner"></span>
+        Chargement et décompression en cours...
+      </div>
       <div class="info-text">
         <strong>Format :</strong> ZIP uniquement<br>
         <strong>Taille max:</strong> <% format_size $MAX_ZIP_SIZE %><br>
@@ -592,5 +638,18 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       </div>
     <% fi %>
   </div>
+  <script>
+  document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    const fileInput = document.getElementById('fileInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const progress = document.getElementById('uploadProgress');
+
+    if (fileInput.files.length > 0) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Chargement en cours...';
+      progress.classList.add('active');
+    }
+  });
+  </script>
 </body>
 </html>
