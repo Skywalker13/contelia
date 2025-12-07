@@ -23,6 +23,17 @@ use std::{error::Error, path::Path};
 pub struct Buttons {
     device: Device,
     epoll: epoll::Epoll,
+    status: Status,
+}
+
+#[derive(Debug)]
+pub struct Status {
+    dpad_left: bool,
+    dpad_right: bool,
+    dpad_up: bool,
+    dpad_down: bool,
+    start: bool,
+    select: bool,
 }
 
 impl Buttons {
@@ -35,7 +46,24 @@ impl Buttons {
         let event = epoll::EpollEvent::new(epoll::EpollFlags::EPOLLIN, 0);
         epoll.add(&device, event)?;
 
-        Ok(Self { device, epoll })
+        let status = Status {
+            dpad_left: false,
+            dpad_right: false,
+            dpad_up: false,
+            dpad_down: false,
+            start: false,
+            select: false,
+        };
+
+        Ok(Self {
+            device,
+            epoll,
+            status,
+        })
+    }
+
+    pub fn status(&self) -> &Status {
+        &self.status
     }
 
     pub fn listen(&mut self) -> Result<KeyCode, Box<dyn Error>> {
@@ -46,18 +74,32 @@ impl Buttons {
                 Ok(events) => {
                     for ev in events {
                         let value = ev.value();
-                        if value != 1 {
-                            continue;
-                        }
-
                         let code = KeyCode::new(ev.code());
                         if match code {
-                            KeyCode::BTN_DPAD_LEFT => true,
-                            KeyCode::BTN_DPAD_RIGHT => true,
-                            KeyCode::BTN_DPAD_UP => true,
-                            KeyCode::BTN_DPAD_DOWN => true,
-                            KeyCode::BTN_START => true,
-                            KeyCode::BTN_SELECT => true,
+                            KeyCode::BTN_DPAD_LEFT => {
+                                self.status.dpad_left = value == 1;
+                                self.status.dpad_left
+                            }
+                            KeyCode::BTN_DPAD_RIGHT => {
+                                self.status.dpad_right = value == 1;
+                                self.status.dpad_right
+                            }
+                            KeyCode::BTN_DPAD_UP => {
+                                self.status.dpad_up = value == 1;
+                                self.status.dpad_up
+                            }
+                            KeyCode::BTN_DPAD_DOWN => {
+                                self.status.dpad_down = value == 1;
+                                self.status.dpad_down
+                            }
+                            KeyCode::BTN_START => {
+                                self.status.start = value == 1;
+                                self.status.start
+                            }
+                            KeyCode::BTN_SELECT => {
+                                self.status.select = value == 1;
+                                self.status.select
+                            }
                             _ => false,
                         } {
                             return Ok(code);

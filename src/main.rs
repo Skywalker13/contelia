@@ -150,7 +150,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         let mut buttons = Buttons::new(input.as_path()).ok()?;
         loop {
             if let Ok(code) = buttons.listen() {
-                println!("{code:?}");
+                println!("{code:?}: {:?}", buttons.status());
                 let _ = tx_buttons.send((code, false));
             }
         }
