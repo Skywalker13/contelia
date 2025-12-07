@@ -242,14 +242,13 @@ impl Book {
             };
 
             if square_one {
-                match image {
-                    /* Generate a thumbnail with the first image if available.
-                     * This one is useful when we want to list the books because
-                     * the title is not available.
-                     */
-                    Some(ref image) => Self::gen_thumbnail(path, image),
-                    None => Ok(()),
-                }?;
+                /* Generate a thumbnail with the first image if available.
+                 * This one is useful when we want to list the books because
+                 * the title is not available.
+                 */
+                if let Some(ref image) = image {
+                    Self::gen_thumbnail(path, image)?;
+                }
             } else {
                 uuid = Uuid::new_v4().to_string();
             }

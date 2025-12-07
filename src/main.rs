@@ -108,10 +108,11 @@ fn process_event(
         }
         KeyCode::BTN_SELECT => {
             if state.square_one {
-                return Next::None;
+                Next::None
+            } else {
+                book.button_home();
+                Next::Normal
             }
-            book.button_home();
-            Next::Normal
         }
         KeyCode::BTN_START => {
             book.button_ok();
@@ -137,11 +138,6 @@ struct Cli {
 
 fn run() -> Result<u8, Box<dyn Error>> {
     let args = Cli::parse();
-
-    let path = args.books;
-    let fb = args.fb;
-    let input = args.input;
-
     let (tx, rx) = channel::<(KeyCode, Option<Status>, bool)>();
 
     let mut signals = Signals::new(&[SIGTERM, SIGINT])?;
@@ -158,9 +154,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
     });
 
-    let mut books = Books::from_dir(&path)?;
-    let mut screen = Screen::new(fb.as_path())?;
-
+    let input = args.input;
     let tx_buttons = tx.clone();
     thread::spawn(move || -> Option<()> {
         let mut buttons = Buttons::new(input.as_path()).ok()?;
@@ -173,6 +167,10 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
     });
 
+    let path = args.books;
+    let fb = args.fb;
+    let mut books = Books::from_dir(&path)?;
+    let mut screen = Screen::new(fb.as_path())?;
     let mut player = Player::new()?;
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
@@ -303,11 +301,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
                     next = Next::Image; // Restore screen
                 } else if eos && !state.control_settings.autoplay {
                     // Ignore EOS when autoplay is disabled
-                    if timeout.is_none() {
-                        next = Next::Image;
+                    next = if timeout.is_none() {
+                        Next::Image
                     } else {
-                        next = Next::Timeout;
-                    }
+                        Next::Timeout
+                    };
                 } else {
                     next = process_event(&mut books, &mut player, &state, code, eos);
                 }
