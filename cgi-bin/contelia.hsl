@@ -18,25 +18,12 @@ format_size() {
   fi
 }
 
-# Extract the title from story.json
 get_story_title() {
-  local story_file="$1/story.json"
-  if [ ! -f "$story_file" ]; then
-    grep '"title"' "$story_file" \
-      | sed 's/.*"title"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/' \
-      | sed 's/\\"/"/g'
-  fi
+  jq -r '.title // empty' "$1/story.json" 2>/dev/null
 }
 
-# Extract the description from story.json
 get_story_description() {
-  local story_file="$1/story.json"
-  if [ -f "$story_file" ]; then
-    grep '"description"' "$story_file" \
-      | sed 's/.*"description"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/' \
-      | sed 's/\\"/"/g' \
-      | sed 's,\\n,<br/>,g'
-  fi
+  jq -r '.description // empty | gsub("\n"; "<br/>")' "$1/story.json" 2>/dev/null
 }
 
 has_thumbnail() {
