@@ -166,7 +166,7 @@ impl Book {
 
         Some(Transition {
             action_node: id,
-            option_index: selected_option as usize,
+            option_index: selected_option as isize,
         })
     }
 

@@ -16,6 +16,7 @@
  */
 
 use anyhow::Result;
+use rand::Rng;
 use serde::Deserialize;
 use std::{
     collections::HashMap,
@@ -29,7 +30,7 @@ use crate::decrypt::{DecryptedFile, FileReader};
 #[serde(rename_all = "camelCase")]
 pub struct Transition {
     pub(super) action_node: String,
-    pub(super) option_index: usize,
+    pub(super) option_index: isize,
 }
 
 #[derive(Deserialize, Clone, Debug)]
@@ -146,10 +147,16 @@ impl Book {
             ActionButtons::Ok => stage_node.ok_transition.as_ref()?,
             ActionButtons::Home => stage_node.home_transition.as_ref()?,
         };
-        let option_index = transition.option_index;
 
-        let action_node_id = action_node.id.clone();
+        /* Is random? */
+        let option_index = if transition.option_index < 0 {
+            rand::rng().random_range(0..action_node.options.len()) as usize
+        } else {
+            transition.option_index as usize
+        };
+
         let next_stage_uuid = action_node.options.get(option_index)?.clone();
+        let action_node_id = action_node.id.clone();
 
         self.current_action_node = Some(action_node_id);
         self.current_action_index = option_index;
