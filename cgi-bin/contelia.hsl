@@ -8,23 +8,19 @@ MAX_ZIP_SIZE=536870912  # 512 MB
 mkdir -p "$CONTELIA_DIR"
 
 format_size() {
-  size=$1
+  local size=$1
   if [ $size -lt 1024 ]; then
     echo "${size}B"
-    return
-  fi
-
-  if [ $size -lt 1048576 ]; then
+  elif  [ $size -lt 1048576 ]; then
     echo "$((size / 1024))KB"
-    return
+  else
+    echo "$((size / 1048576))MB"
   fi
-
-  echo "$((size / 1048576))MB"
 }
 
 # Extract the title from story.json
 get_story_title() {
-  story_file="$1/story.json"
+  local story_file="$1/story.json"
   if [ ! -f "$story_file" ]; then
     grep '"title"' "$story_file" \
       | sed 's/.*"title"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/' \
@@ -34,7 +30,7 @@ get_story_title() {
 
 # Extract the description from story.json
 get_story_description() {
-  story_file="$1/story.json"
+  local story_file="$1/story.json"
   if [ -f "$story_file" ]; then
     grep '"description"' "$story_file" \
       | sed 's/.*"description"[[:space:]]*:[[:space:]]*"\(.*\)".*/\1/' \
@@ -47,22 +43,17 @@ has_thumbnail() {
   [ -f "$1/thumbnail.png" ] && echo "true" || echo "false"
 }
 
-# Valider le nom de dossier (caractères safe uniquement)
 is_valid_folder_name() {
   echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
 }
 
-# Vérifier si un chemin est dans CONTELIA_DIR
+# is in CONTELIA_DIR
 is_path_safe() {
   local target_path="$1"
   local real_base=$(cd "$CONTELIA_DIR" && pwd)
   local real_target=$(cd "$target_path" 2>/dev/null && pwd)
 
-  if [ -z "$real_target" ]; then
-    return 1
-  fi
-
-  if [ "$real_target" = "$real_base" ]; then
+  if [ -z "$real_target" ] || [ "$real_target" = "$real_base" ]; then
     return 1
   fi
 
@@ -222,7 +213,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-family: sans-serif;
       background: #f5f5f5;
       padding: 12px;
       font-size: 16px;
@@ -324,7 +315,6 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       font-weight: 500;
       transition: background 0.2s;
       width: 100%;
-      -webkit-tap-highlight-color: transparent;
     }
 
     button:hover, button:active { 
@@ -534,7 +524,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 
       .book-content {
         flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
       }
 
       .book-actions {
@@ -545,12 +535,12 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 </head>
 <body>
   <div class="container">
-    <h1>📦 Gestionnaire Contelia</h1>
+    <h1>📦 Gestionnaire d'histoires Contelia</h1>
 
     <div class="stats">
       <div class="stat-item">
         <span>📚</span>
-        <span><strong><%= $folder_count %></strong> livre(s)</span>
+        <span><strong><%= $folder_count %></strong> histoire(s)</span>
       </div>
       <div class="stat-item">
         <span>💾</span>
@@ -559,9 +549,9 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     </div>
 
     <% if [ -n "$MSG_TEXT" ]; then %>
-    <div class="message <%= $MSG_TYPE %>">
-      <%= $MSG_TEXT %>
-    </div>
+      <div class="message <%= $MSG_TYPE %>">
+        <%= $MSG_TEXT %>
+      </div>
     <% fi %>
 
     <div class="upload-section">
@@ -597,30 +587,30 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
           story_description=$(get_story_description "$folder_path")
           has_thumb=$(has_thumbnail "$folder_path")
         %>
-        <div class="book-card">
-          <% if [ "$has_thumb" = "true" ]; then %>
-            <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
-          <% else %>
-            <div class="book-placeholder">📖</div>
-          <% fi %>
+          <div class="book-card">
+            <% if [ "$has_thumb" = "true" ]; then %>
+              <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
+            <% else %>
+              <div class="book-placeholder">📖</div>
+            <% fi %>
 
-          <div class="book-content">
-            <div class="book-info">
-              <div class="book-title"><%= $story_title %></div>
-              <% if [ -n "$story_description" ]; then %>
-                <div class="book-description"><%= $story_description %></div>
-              <% fi %>
-              <div class="book-size"><% format_size $size %></div>
-            </div>
+            <div class="book-content">
+              <div class="book-info">
+                <div class="book-title"><%= $story_title %></div>
+                <% if [ -n "$story_description" ]; then %>
+                  <div class="book-description"><%= $story_description %></div>
+                <% fi %>
+                <div class="book-size"><% format_size $size %></div>
+              </div>
 
-            <div class="book-actions">
-              <form method="post" onsubmit="return confirm('Supprimer « <%= $story_title %> » ?')" style="margin: 0;">
-                <input type="hidden" name="delete" value="<%= $folder_name %>">
-                <button type="submit" class="delete">🗑️ Supprimer</button>
-              </form>
+              <div class="book-actions">
+                <form method="post" onsubmit="return confirm('Supprimer « <%= $story_title %> » ?')" style="margin: 0;">
+                  <input type="hidden" name="delete" value="<%= $folder_name %>">
+                  <button type="submit" class="delete">🗑️ Supprimer</button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
         <% done %>
       </div>
     <% fi %>
