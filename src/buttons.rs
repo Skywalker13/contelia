@@ -26,14 +26,14 @@ pub struct Buttons {
     status: Status,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Status {
-    dpad_left: bool,
-    dpad_right: bool,
-    dpad_up: bool,
-    dpad_down: bool,
-    start: bool,
-    select: bool,
+    pub dpad_left: bool,
+    pub dpad_right: bool,
+    pub dpad_up: bool,
+    pub dpad_down: bool,
+    pub start: bool,
+    pub select: bool,
 }
 
 impl Buttons {

@@ -60,6 +60,12 @@ impl Player {
         Ok(())
     }
 
+    pub fn stop(&self) {
+        if let Some(sink) = &self.sink {
+            sink.stop();
+        }
+    }
+
     pub fn toggle_pause(&self) {
         if let Some(sink) = &self.sink {
             if sink.is_paused() {

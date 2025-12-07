@@ -28,6 +28,7 @@ pub use book::ControlSettings;
 pub use book::Stage;
 pub use books::Books;
 pub use buttons::Buttons;
+pub use buttons::Status;
 pub use decrypt::FileReader;
 pub use player::Player;
 pub use screen::Screen;

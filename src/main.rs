@@ -27,10 +27,13 @@ use std::sync::mpsc::channel;
 use std::time::Duration;
 use std::{error::Error, thread};
 
-use contelia::{Books, Buttons, ControlSettings, FileReader, Player, Screen, Stage, Timeout};
+use contelia::{
+    Books, Buttons, ControlSettings, FileReader, Player, Screen, Stage, Status, Timeout,
+};
 
 #[derive(Debug, PartialEq)]
 enum Next {
+    None,
     Normal,
     Image,
     Audio,
@@ -38,6 +41,7 @@ enum Next {
     Pause,
     Play,
     Timeout,
+    Settings,
     Shutdown,
 }
 
@@ -55,10 +59,11 @@ fn is_key_enabled(control_settings: &ControlSettings, code: KeyCode) -> bool {
 /// Process the event and returns true is we want to skip the assets
 fn process_event(
     books: &mut Books,
+    player: &mut Player,
     state: &Stage,
     code: KeyCode,
-    player: &mut Player,
     autoplay: bool,
+    status: Option<&Status>,
 ) -> Next {
     /* In case of autoplay or square_one, we ignore the button settings */
     if !autoplay && !state.square_one && !is_key_enabled(&state.control_settings, code) {
@@ -95,8 +100,26 @@ fn process_event(
             Next::Normal
         }
         KeyCode::BTN_DPAD_UP => (player.volume_up(), Next::Volume).1,
-        KeyCode::BTN_DPAD_DOWN => (player.volume_down(), Next::Volume).1,
-        KeyCode::BTN_SELECT => (book.button_home(), Next::Normal).1,
+        KeyCode::BTN_DPAD_DOWN => {
+            match status {
+                Some(status) => {
+                    if status.select {
+                        return Next::Settings;
+                    }
+                }
+                None => {}
+            }
+
+            player.volume_down();
+            Next::Volume
+        }
+        KeyCode::BTN_SELECT => {
+            if state.square_one {
+                return Next::None;
+            }
+            book.button_home();
+            Next::Normal
+        }
         KeyCode::BTN_START => {
             book.button_ok();
             Next::Normal
@@ -126,7 +149,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let fb = args.fb;
     let input = args.input;
 
-    let (tx, rx) = channel::<(KeyCode, bool)>();
+    let (tx, rx) = channel::<(KeyCode, Option<Status>, bool)>();
 
     let mut signals = Signals::new(&[SIGTERM, SIGINT])?;
     let tx_sig = tx.clone();
@@ -135,7 +158,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
             match sig {
                 SIGTERM | SIGINT => {
                     println!("{sig:?}");
-                    let _ = tx_sig.send((KeyCode::KEY_END, false));
+                    let _ = tx_sig.send((KeyCode::KEY_END, None, false));
                 }
                 _ => unreachable!(),
             }
@@ -150,8 +173,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
         let mut buttons = Buttons::new(input.as_path()).ok()?;
         loop {
             if let Ok(code) = buttons.listen() {
-                println!("{code:?}: {:?}", buttons.status());
-                let _ = tx_buttons.send((code, false));
+                let status = buttons.status().clone();
+                println!("{code:?}: {:?}", status);
+                let _ = tx_buttons.send((code, Some(status), false));
             }
         }
     });
@@ -159,6 +183,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut player = Player::new()?;
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
+    let mut settings = false;
 
     while next != Next::Shutdown {
         let Some(book) = books.get() else {
@@ -204,7 +229,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         } else {
                             return;
                         };
-                        let _ = tx_play.send((code, true));
+                        let _ = tx_play.send((code, None, true));
                     })?;
                 }
                 None => {}
@@ -227,7 +252,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(800), move || {
-                let _ = tx_timeout.send((KeyCode::KEY_TIME, true));
+                let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true));
             }));
         }
         if next == Next::Pause || next == Next::Play {
@@ -249,17 +274,35 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(800), move || {
-                let _ = tx_timeout.send((KeyCode::KEY_TIME, true));
+                let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true));
             }));
+        }
+        if next == Next::Settings {
+            settings = true;
+            player.stop();
+
+            let mut image = env::current_exe()?;
+            image.pop();
+            image.pop();
+            image = image.join("share/contelia/assets");
+            image = image.join("settings.png");
+
+            let path = Path::new(&image);
+            println!("settings image: {}", path.to_string_lossy().to_string());
+            let mut file = FileReader::Plain(File::open(path)?);
+            screen.draw(&mut file, image::ImageFormat::Png)?;
+            screen.on()?;
         }
 
         next = Next::Normal;
         match rx.recv() {
-            Ok((code, eos)) => {
-                if code == KeyCode::KEY_TIME {
-                    next = Next::Image; // Restore screen
-                } else if code == KeyCode::KEY_END {
+            Ok((code, status, eos)) => {
+                if code == KeyCode::KEY_END {
                     next = Next::Shutdown; // Clean shutdown
+                } else if settings == true {
+                    next = Next::None;
+                } else if code == KeyCode::KEY_TIME {
+                    next = Next::Image; // Restore screen
                 } else if eos && !state.control_settings.autoplay {
                     // Ignore EOS when autoplay is disabled
                     if timeout.is_none() {
@@ -268,7 +311,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         next = Next::Timeout;
                     }
                 } else {
-                    next = process_event(&mut books, &state, code, &mut player, eos);
+                    next =
+                        process_event(&mut books, &mut player, &state, code, eos, status.as_ref());
                 }
             }
             Err(_) => (),
