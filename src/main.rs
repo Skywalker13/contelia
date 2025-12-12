@@ -128,9 +128,13 @@ struct Cli {
     #[arg(short, long, default_value = "/dev/fb2")]
     fb: PathBuf,
 
-    /// Input device
+    /// Main buttons input device
     #[arg(short, long, default_value = "/dev/input/tftbonnet13")]
     input: PathBuf,
+
+    /// Power button input device
+    #[arg(short, long, default_value = "/dev/input/pisugar")]
+    power: PathBuf,
 
     /// The path to the books directory
     books: std::path::PathBuf,
@@ -140,6 +144,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let args = Cli::parse();
     let (tx, rx) = channel::<(KeyCode, Option<Status>, bool)>();
 
+    //// Listen for signals ////////////////////////////////////////////////////
     let mut signals = Signals::new(&[SIGTERM, SIGINT])?;
     let tx_sig = tx.clone();
     thread::spawn(move || {
@@ -154,15 +159,30 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
     });
 
+    //// Listen for power button ///////////////////////////////////////////////
+    let power = args.power;
+    let tx_power_button = tx.clone();
+    thread::spawn(move || -> Option<()> {
+        let mut buttons = Buttons::new(power.as_path()).ok()?;
+        loop {
+            if let Ok(code) = buttons.listen() {
+                let status = buttons.status().clone();
+                println!("{code:?}: {:?}", status);
+                let _ = tx_power_button.send((code, Some(status), false));
+            }
+        }
+    });
+
+    //// Listen for main buttons ///////////////////////////////////////////////
     let input = args.input;
-    let tx_buttons = tx.clone();
+    let tx_main_buttons = tx.clone();
     thread::spawn(move || -> Option<()> {
         let mut buttons = Buttons::new(input.as_path()).ok()?;
         loop {
             if let Ok(code) = buttons.listen() {
                 let status = buttons.status().clone();
                 println!("{code:?}: {:?}", status);
-                let _ = tx_buttons.send((code, Some(status), false));
+                let _ = tx_main_buttons.send((code, Some(status), false));
             }
         }
     });
@@ -175,6 +195,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
     let mut settings = false;
+    let mut status_code = 0;
 
     let mut assets_dir = env::current_exe()?;
     assets_dir.pop();
@@ -295,6 +316,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
                 if code == KeyCode::KEY_END {
                     next = Next::Shutdown; // Clean shutdown
+                } else if code == KeyCode::KEY_POWER {
+                    next = Next::Shutdown;
+                    status_code = 42; // Poweroff
                 } else if settings == true {
                     next = Next::None;
                 } else if code == KeyCode::KEY_TIME {
@@ -319,7 +343,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         screen.clear()?;
     }
 
-    Ok(0)
+    Ok(status_code)
 }
 
 fn main() -> ExitCode {
