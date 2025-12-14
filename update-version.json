@@ -1,0 +1,13 @@
+{
+    "Files": [
+        {
+            "Path": "Cargo.toml",
+            "Modifiers": [
+                {
+                    "Match": "^(version = )\"[0-9]+.[0-9]+.[0-9]+?\"",
+                    "Replace": "$1\"$MAJ.$MIN.$PATCH\""
+                }
+            ]
+        }
+    ]
+}
