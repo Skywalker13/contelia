@@ -21,6 +21,7 @@ mod buttons;
 mod decrypt;
 mod player;
 mod screen;
+mod services;
 mod timeout;
 
 pub use book::Book;
@@ -32,4 +33,5 @@ pub use buttons::Status;
 pub use decrypt::FileReader;
 pub use player::Player;
 pub use screen::Screen;
+pub use services::Services;
 pub use timeout::Timeout;

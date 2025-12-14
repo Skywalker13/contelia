@@ -28,7 +28,7 @@ use std::time::Duration;
 use std::{error::Error, thread};
 
 use contelia::{
-    Books, Buttons, ControlSettings, FileReader, Player, Screen, Stage, Status, Timeout,
+    Books, Buttons, ControlSettings, FileReader, Player, Screen, Services, Stage, Status, Timeout,
 };
 
 #[derive(Debug, PartialEq)]
@@ -189,6 +189,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
     let path = args.books;
     let fb = args.fb;
+    let services = Services::new()?;
     let mut books = Books::from_dir(&path)?;
     let mut screen = Screen::new(fb.as_path())?;
     let mut player = Player::new()?;
@@ -221,20 +222,24 @@ fn run() -> Result<u8, Box<dyn Error>> {
         println!("{next:?}");
 
         if next == Next::Settings && settings {
-            settings = false;
-            next = Next::Normal;
+            if services.stop().is_ok() {
+                settings = false;
+                next = Next::Normal;
+            }
         }
 
         if next == Next::Settings {
-            settings = true;
-            player.stop();
+            if services.start().is_ok() {
+                settings = true;
+                player.stop();
 
-            let image = assets_dir.join("settings.png");
-            let path = Path::new(&image);
-            println!("settings image: {}", path.to_string_lossy().to_string());
-            let mut file = FileReader::Plain(File::open(path)?);
-            screen.draw(&mut file, image::ImageFormat::Png)?;
-            screen.on()?;
+                let image = assets_dir.join("settings.png");
+                let path = Path::new(&image);
+                println!("settings image: {}", path.to_string_lossy().to_string());
+                let mut file = FileReader::Plain(File::open(path)?);
+                screen.draw(&mut file, image::ImageFormat::Png)?;
+                screen.on()?;
+            }
         }
 
         if next == Next::Normal || next == Next::Image {
