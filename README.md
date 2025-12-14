@@ -13,7 +13,7 @@ Contelia implements the necessary readers.
 
 This project was possible because of the incredible work of:
 
-- https://github.com/o-daneel/Lunii.RE/tree/main
+- https://github.com/o-daneel/Lunii.RE
 - https://github.com/marian-m12l/studio
 
 [STUdio]: https://github.com/marian-m12l/studio
