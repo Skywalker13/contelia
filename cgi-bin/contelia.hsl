@@ -208,6 +208,11 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <script>
+    if (/android/i.test(navigator.userAgent)) {
+      window.location.href = 'intent://${window.location.host}${window.location.pathname}#Intent;scheme=http;end';
+    }
+  </script>
   <title>Gestionnaire d'histoires Contelia</title>
   <style>
     * { 
