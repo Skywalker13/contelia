@@ -1,2 +1,3 @@
 [update-version]
-    custom = update-version.json
+	cargo-toml = Cargo.toml
+	cargo-lock = Cargo.lock
