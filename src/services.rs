@@ -27,7 +27,7 @@ impl Services {
         Ok(services)
     }
 
-    fn exec(&self, args: [&str; 2]) -> io::Result<()> {
+    fn exec(&self, args: Vec<&str>) -> io::Result<()> {
         let output = Command::new("sv").args(args).output()?;
 
         if !output.status.success() {
@@ -40,27 +40,13 @@ impl Services {
         Ok(())
     }
 
-    fn stop_service(&self, name: &str) -> io::Result<()> {
-        self.exec(["down", name])
-    }
-
-    fn start_service(&self, name: &str) -> io::Result<()> {
-        self.exec(["up", name])
-    }
-
     pub fn start(&self) -> io::Result<()> {
-        self.start_service("wifi")?;
-        self.start_service("hostapd")?;
-        self.start_service("dnsmasq")?;
-        self.start_service("httpd")?;
+        self.exec(vec!["up", "wifi", "hostapd", "dnsmasq", "httpd"])?;
         Ok(())
     }
 
     pub fn stop(&self) -> io::Result<()> {
-        self.stop_service("httpd")?;
-        self.stop_service("dnsmasq")?;
-        self.stop_service("hostapd")?;
-        self.stop_service("wifi")?;
+        self.exec(vec!["down", "wifi", "hostapd", "dnsmasq", "httpd"])?;
         Ok(())
     }
 }
