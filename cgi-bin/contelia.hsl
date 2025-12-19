@@ -1,7 +1,7 @@
 #!/usr/bin/haserl --upload-limit=524288 --upload-dir=/tmp
-<%
 content-type: text/html
 
+<%
 # Contelia
 # Copyright (C) 2025  Mathieu Schroeter <mathieu@schroetersa.ch>
 #
