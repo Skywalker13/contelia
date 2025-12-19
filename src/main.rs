@@ -221,27 +221,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
         println!("{state:?}");
         println!("{next:?}");
 
-        if next == Next::Settings && settings {
-            if services.stop().is_ok() {
-                settings = false;
-                next = Next::Normal;
-            }
-        }
-
-        if next == Next::Settings {
-            if services.start().is_ok() {
-                settings = true;
-                player.stop();
-
-                let image = assets_dir.join("settings.png");
-                let path = Path::new(&image);
-                println!("settings image: {}", path.to_string_lossy().to_string());
-                let mut file = FileReader::Plain(File::open(path)?);
-                screen.draw(&mut file, image::ImageFormat::Png)?;
-                screen.on()?;
-            }
-        }
-
         if next == Next::Normal || next == Next::Image {
             match state.image {
                 Some(ref image) => {
@@ -273,6 +252,29 @@ fn run() -> Result<u8, Box<dyn Error>> {
                     })?;
                 }
                 None => {}
+            }
+        }
+
+        if next == Next::Settings && settings {
+            if services.stop().is_ok() {
+                settings = false;
+                books.reload();
+                next = Next::Normal;
+                continue; /* Restore image and/or audio */
+            }
+        }
+
+        if next == Next::Settings {
+            if services.start().is_ok() {
+                settings = true;
+                player.stop();
+
+                let image = assets_dir.join("settings.png");
+                let path = Path::new(&image);
+                println!("settings image: {}", path.to_string_lossy().to_string());
+                let mut file = FileReader::Plain(File::open(path)?);
+                screen.draw(&mut file, image::ImageFormat::Png)?;
+                screen.on()?;
             }
         }
 

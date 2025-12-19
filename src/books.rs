@@ -16,19 +16,35 @@
  */
 
 use crate::book::{Book, book::Source};
-use anyhow::{Result, bail};
-use std::{fs, path::Path};
+use anyhow::Result;
+use std::{
+    error::Error,
+    fs,
+    path::{Path, PathBuf},
+};
 
 pub struct Books {
+    path: PathBuf,
     books: Vec<Book>,
     current_book_index: usize,
 }
 
 impl Books {
     pub fn from_dir(path: &Path) -> Result<Self> {
+        let current_book_index = 0;
+        let books = Self::load(path).unwrap_or_default();
+
+        Ok(Self {
+            path: path.to_path_buf(),
+            books,
+            current_book_index,
+        })
+    }
+
+    fn load(path: &Path) -> Result<Vec<Book>, Box<dyn Error>> {
         let mut books = Vec::new();
 
-        for entry in fs::read_dir(path)? {
+        for entry in fs::read_dir(&path)? {
             let entry = entry?;
             let path = entry.path();
             if !path.is_dir() {
@@ -49,18 +65,15 @@ impl Books {
             }
         }
 
-        if books.is_empty() {
-            bail!("No book found");
-        }
-
         println!("Loaded {} books", books.len());
 
-        let current_book_index = 0;
+        Ok(books)
+    }
 
-        Ok(Self {
-            books,
-            current_book_index,
-        })
+    pub fn reload(&mut self) {
+        let books = Self::load(&self.path).unwrap_or_default();
+        self.books = books;
+        self.current_book_index = 0;
     }
 
     pub fn get(&mut self) -> Option<&mut Book> {
