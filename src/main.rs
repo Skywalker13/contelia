@@ -315,7 +315,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         match rx.recv() {
             Ok((code, status, eos)) => {
                 if let Some(status) = status {
-                    if status.dpad_down && status.select {
+                    if status.dpad_down && status.select && status.start {
                         next = Next::Settings;
                         continue;
                     }
