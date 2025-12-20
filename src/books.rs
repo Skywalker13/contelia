@@ -52,7 +52,7 @@ impl Books {
             }
 
             let factory_disabled = path.join(".factory_disabled");
-            if fs::exists(factory_disabled)? {
+            if fs::exists(&factory_disabled)? {
                 continue;
             }
 
