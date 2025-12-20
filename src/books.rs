@@ -51,6 +51,11 @@ impl Books {
                 continue;
             }
 
+            let factory_disabled = path.join(".factory_disabled");
+            if fs::exists(factory_disabled)? {
+                continue;
+            }
+
             let source = if Book::is_story_archive(&path) {
                 Source::StoryArchive(&path)
             } else if Book::is_story_fs(&path) {
