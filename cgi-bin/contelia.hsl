@@ -48,7 +48,7 @@ has_thumbnail() {
 }
 
 is_disabled() {
-  [ -f "$1/.disabled_factory" ] && echo "true" || echo "false"
+  [ -f "$1/.factory_disabled" ] && echo "true" || echo "false"
 }
 
 is_valid_folder_name() {
@@ -234,7 +234,7 @@ process_folder_toggle() {
     return
   fi
 
-  disabled_file="$folder_path/.disabled_factory"
+  disabled_file="$folder_path/.factory_disabled"
 
   if [ -f "$disabled_file" ]; then
     # Currently disabled, enable it
