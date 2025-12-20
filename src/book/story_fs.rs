@@ -200,10 +200,11 @@ impl Book {
         let li = Li::from_file(&path.join("li"))?;
         let ri = Ri::from_file(&path.join("ri"))?;
         let si = Si::from_file(&path.join("si"))?;
+        let nm = path.join("nm");
 
         let format = format!("v{}", ni.header.format_version);
         let version = 1;
-        let night_mode_available = false; // FIXME: depends of .nm
+        let night_mode_available = fs::exists(&nm)?;
         let mut stage_nodes = Vec::new();
         let mut action_nodes = Vec::new();
         let mut stages = HashMap::new();
