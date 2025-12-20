@@ -397,7 +397,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     }
 
     button:hover, button:active { 
-      background: #0056b3; 
+      background: #3898ffff;
     }
 
     button.delete {
@@ -409,7 +409,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     }
 
     button.delete:hover, button.delete:active { 
-      background: #c82333; 
+      background: #ff3c3cff;
     }
 
     button.toggle {
@@ -423,7 +423,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     }
 
     button.toggle:hover, button.toggle:active {
-      background: #e0a800;
+      background: #ffd350ff;
     }
 
     button.toggle.disabled {
@@ -432,7 +432,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     }
 
     button.toggle.disabled:hover, button.toggle.disabled:active {
-      background: #218838;
+      background: #2dca4fff;
     }
 
     .info-text {
@@ -552,7 +552,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       width: 100%;
       flex-wrap: wrap;
       gap: 8px;
-      flex-direction: column;
+      flex-direction: row;
     }
 
     .empty {
@@ -649,6 +649,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 
       .book-actions {
         width: auto;
+        flex-direction: column;
       }
     }
   </style>
@@ -733,14 +734,14 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
                 <form method="post" style="margin: 0;">
                   <input type="hidden" name="toggle" value="<%= $folder_name %>">
                   <% if [ "$is_disabled_flag" = "true" ]; then %>
-                    <button type="submit" class="toggle disabled">✓ Activer</button>
+                    <button type="submit" class="toggle disabled">✔ Activer</button>
                   <% else %>
-                    <button type="submit" class="toggle">⏸ Désactiver</button>
+                    <button type="submit" class="toggle">💤 Désactiver</button>
                   <% fi %>
                 </form>
                 <form method="post" onsubmit="return confirm('Supprimer « <%= $story_title %> » ?')" style="margin: 0;">
                   <input type="hidden" name="delete" value="<%= $folder_name %>">
-                  <button type="submit" class="delete">🗑️ Supprimer</button>
+                  <button type="submit" class="delete">🔥 Supprimer</button>
                 </form>
               </div>
             </div>
