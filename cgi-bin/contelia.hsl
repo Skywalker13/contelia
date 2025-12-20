@@ -47,6 +47,10 @@ has_thumbnail() {
   [ -f "$1/thumbnail.png" ] && echo "true" || echo "false"
 }
 
+is_disabled() {
+  [ -f "$1/.disabled_factory" ] && echo "true" || echo "false"
+}
+
 is_valid_folder_name() {
   echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
 }
@@ -194,11 +198,77 @@ process_folder_deletion() {
   logger -t contelia "Deletion OK: $delete_folder"
 }
 
+# Story toggle (enable/disable)
+process_folder_toggle() {
+  if [ -z "$FORM_toggle" ]; then
+    return
+  fi
+
+  toggle_folder="$FORM_toggle"
+
+  if echo "$toggle_folder" | grep -qE '(/|\.\.)'; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Caractères interdits dans le nom"
+    return
+  fi
+
+  folder_path="$CONTELIA_DIR/$toggle_folder"
+  real_base=$(cd "$CONTELIA_DIR" && pwd)
+  real_path=$(cd "$folder_path" 2>/dev/null && pwd)
+
+  if [ -z "$real_path" ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Histoire introuvable"
+    return
+  fi
+
+  if [ "$real_path" = "$real_base" ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Impossible de modifier le dossier racine"
+    return
+  fi
+
+  if ! echo "$real_path" | grep -q "^$real_base/"; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Chemin invalide"
+    return
+  fi
+
+  disabled_file="$folder_path/.disabled_factory"
+
+  if [ -f "$disabled_file" ]; then
+    # Currently disabled, enable it
+    error_log=$(rm -f "$disabled_file" 2>&1)
+    if [ $? -ne 0 ]; then
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Erreur lors de l'activation: $error_log"
+      logger -t contelia "Enable error: $toggle_folder - $error_log"
+      return
+    fi
+    MSG_TYPE="success"
+    MSG_TEXT="✓ Histoire '$toggle_folder' activée"
+    logger -t contelia "Enable OK: $toggle_folder"
+  else
+    # Currently enabled, disable it
+    error_log=$(touch "$disabled_file" 2>&1)
+    if [ $? -ne 0 ]; then
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Erreur lors de la désactivation: $error_log"
+      logger -t contelia "Disable error: $toggle_folder - $error_log"
+      return
+    fi
+    MSG_TYPE="success"
+    MSG_TEXT="✓ Histoire '$toggle_folder' désactivée"
+    logger -t contelia "Disable OK: $toggle_folder"
+  fi
+}
+
 MSG_TYPE=""
 MSG_TEXT=""
 
 process_archive_upload
 process_folder_deletion
+process_folder_toggle
 
 folder_count=$(find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
 total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
@@ -342,6 +412,29 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       background: #c82333; 
     }
 
+    button.toggle {
+      background: #ffc107;
+      color: #000;
+      padding: 8px 16px;
+      font-size: 14px;
+      width: auto;
+      min-width: 120px;
+      margin-right: 8px;
+    }
+
+    button.toggle:hover, button.toggle:active {
+      background: #e0a800;
+    }
+
+    button.toggle.disabled {
+      background: #28a745;
+      color: white;
+    }
+
+    button.toggle.disabled:hover, button.toggle.disabled:active {
+      background: #218838;
+    }
+
     .info-text {
       color: #856404;
       font-size: 13px;
@@ -375,6 +468,10 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       gap: 12px;
       align-items: flex-start;
       transition: background 0.2s;
+    }
+
+    .book-card.disabled {
+      background: #f8f9fa;
     }
 
     .book-card:active {
@@ -425,6 +522,17 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       line-height: 1.3;
     }
 
+    .book-title .status-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      background: #dc3545;
+      color: white;
+    }
+
     .book-description {
       font-size: 13px;
       color: #666;
@@ -442,6 +550,9 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       display: flex;
       justify-content: flex-end;
       width: 100%;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex-direction: column;
     }
 
     .empty {
@@ -595,8 +706,9 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
           [ -z "$story_title" ] && story_title="$folder_name"
           story_description=$(get_story_description "$folder_path")
           has_thumb=$(has_thumbnail "$folder_path")
+          is_disabled_flag=$(is_disabled "$folder_path")
         %>
-          <div class="book-card">
+          <div class="book-card<% [ "$is_disabled_flag" = "true" ] && echo " disabled" %>">
             <% if [ "$has_thumb" = "true" ]; then %>
               <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
             <% else %>
@@ -605,7 +717,12 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 
             <div class="book-content">
               <div class="book-info">
-                <div class="book-title"><%= $story_title %></div>
+                <div class="book-title">
+                  <%= $story_title %>
+                  <% if [ "$is_disabled_flag" = "true" ]; then %>
+                    <span class="status-badge">DÉSACTIVÉ</span>
+                  <% fi %>
+                </div>
                 <% if [ -n "$story_description" ]; then %>
                   <div class="book-description"><%= $story_description %></div>
                 <% fi %>
@@ -613,6 +730,14 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
               </div>
 
               <div class="book-actions">
+                <form method="post" style="margin: 0;">
+                  <input type="hidden" name="toggle" value="<%= $folder_name %>">
+                  <% if [ "$is_disabled_flag" = "true" ]; then %>
+                    <button type="submit" class="toggle disabled">✓ Activer</button>
+                  <% else %>
+                    <button type="submit" class="toggle">⏸ Désactiver</button>
+                  <% fi %>
+                </form>
                 <form method="post" onsubmit="return confirm('Supprimer « <%= $story_title %> » ?')" style="margin: 0;">
                   <input type="hidden" name="delete" value="<%= $folder_name %>">
                   <button type="submit" class="delete">🗑️ Supprimer</button>
