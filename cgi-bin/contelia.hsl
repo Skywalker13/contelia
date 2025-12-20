@@ -68,7 +68,6 @@ is_path_safe() {
   echo "$real_target" | grep -q "^$real_base/"
 }
 
-# Story upload
 process_archive_upload() {
   if [ -z "$FORM_archive" ] || [ ! -f "$FORM_archive" ]; then
     return
@@ -148,118 +147,78 @@ process_archive_upload() {
   rm -f "$FORM_archive"
 }
 
-# Story deletion
-process_folder_deletion() {
-  if [ -z "$FORM_delete" ]; then
+process_batch_actions() {
+  if [ -z "$FORM_batch_actions" ]; then
     return
   fi
 
-  delete_folder="$FORM_delete"
+  # Parse JSON actions
+  actions_count=0
+  errors_count=0
 
-  if echo "$delete_folder" | grep -qE '(/|\.\.)'; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Caractères interdits dans le nom"
-    return
-  fi
+  echo "$FORM_batch_actions" | jq -c '.[]' 2>/dev/null | while read -r action; do
+    action_type=$(echo "$action" | jq -r '.type')
+    folder_name=$(echo "$action" | jq -r '.folder')
 
-  folder_path="$CONTELIA_DIR/$delete_folder"
-  real_base=$(cd "$CONTELIA_DIR" && pwd)
-  real_path=$(cd "$folder_path" 2>/dev/null && pwd)
-
-  if [ -z "$real_path" ]; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Histoire introuvable"
-    return
-  fi
-
-  if [ "$real_path" = "$real_base" ]; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Impossible de supprimer le dossier racine"
-    return
-  fi
-
-  if ! echo "$real_path" | grep -q "^$real_base/"; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Chemin invalide"
-    return
-  fi
-
-  error_log=$(rm -rf "$folder_path" 2>&1)
-
-  if [ $? -ne 0 ]; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Erreur lors de la suppression: $error_log"
-    logger -t contelia "Deletion error: $delete_folder - $error_log"
-    return
-  fi
-
-  MSG_TYPE="success"
-  MSG_TEXT="✓ Histoire '$delete_folder' supprimée"
-  logger -t contelia "Deletion OK: $delete_folder"
-}
-
-# Story toggle (enable/disable)
-process_folder_toggle() {
-  if [ -z "$FORM_toggle" ]; then
-    return
-  fi
-
-  toggle_folder="$FORM_toggle"
-
-  if echo "$toggle_folder" | grep -qE '(/|\.\.)'; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Caractères interdits dans le nom"
-    return
-  fi
-
-  folder_path="$CONTELIA_DIR/$toggle_folder"
-  real_base=$(cd "$CONTELIA_DIR" && pwd)
-  real_path=$(cd "$folder_path" 2>/dev/null && pwd)
-
-  if [ -z "$real_path" ]; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Histoire introuvable"
-    return
-  fi
-
-  if [ "$real_path" = "$real_base" ]; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Impossible de modifier le dossier racine"
-    return
-  fi
-
-  if ! echo "$real_path" | grep -q "^$real_base/"; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Chemin invalide"
-    return
-  fi
-
-  disabled_file="$folder_path/.factory_disabled"
-
-  if [ -f "$disabled_file" ]; then
-    # Currently disabled, enable it
-    error_log=$(rm -f "$disabled_file" 2>&1)
-    if [ $? -ne 0 ]; then
-      MSG_TYPE="error"
-      MSG_TEXT="✗ Erreur lors de l'activation: $error_log"
-      logger -t contelia "Enable error: $toggle_folder - $error_log"
-      return
+    if echo "$folder_name" | grep -qE '(/|\.\.)'; then
+      errors_count=$((errors_count + 1))
+      continue
     fi
-    MSG_TYPE="success"
-    MSG_TEXT="✓ Histoire '$toggle_folder' activée"
-    logger -t contelia "Enable OK: $toggle_folder"
-  else
-    # Currently enabled, disable it
-    error_log=$(touch "$disabled_file" 2>&1)
-    if [ $? -ne 0 ]; then
-      MSG_TYPE="error"
-      MSG_TEXT="✗ Erreur lors de la désactivation: $error_log"
-      logger -t contelia "Disable error: $toggle_folder - $error_log"
-      return
+
+    folder_path="$CONTELIA_DIR/$folder_name"
+    real_base=$(cd "$CONTELIA_DIR" && pwd)
+    real_path=$(cd "$folder_path" 2>/dev/null && pwd)
+
+    if [ -z "$real_path" ] || [ "$real_path" = "$real_base" ]; then
+      errors_count=$((errors_count + 1))
+      continue
     fi
+
+    if ! echo "$real_path" | grep -q "^$real_base/"; then
+      errors_count=$((errors_count + 1))
+      continue
+    fi
+
+    case "$action_type" in
+      "delete")
+        rm -rf "$folder_path" 2>/dev/null
+        if [ $? -eq 0 ]; then
+          actions_count=$((actions_count + 1))
+          logger -t contelia "Batch delete OK: $folder_name"
+        else
+          errors_count=$((errors_count + 1))
+        fi
+        ;;
+      "enable")
+        rm -f "$folder_path/.factory_disabled" 2>/dev/null
+        if [ $? -eq 0 ]; then
+          actions_count=$((actions_count + 1))
+          logger -t contelia "Batch enable OK: $folder_name"
+        else
+          errors_count=$((errors_count + 1))
+        fi
+        ;;
+      "disable")
+        touch "$folder_path/.factory_disabled" 2>/dev/null
+        if [ $? -eq 0 ]; then
+          actions_count=$((actions_count + 1))
+          logger -t contelia "Batch disable OK: $folder_name"
+        else
+          errors_count=$((errors_count + 1))
+        fi
+        ;;
+    esac
+  done
+
+  if [ $actions_count -gt 0 ]; then
     MSG_TYPE="success"
-    MSG_TEXT="✓ Histoire '$toggle_folder' désactivée"
-    logger -t contelia "Disable OK: $toggle_folder"
+    MSG_TEXT="✓ $actions_count modification(s) appliquée(s)"
+    if [ $errors_count -gt 0 ]; then
+      MSG_TEXT="$MSG_TEXT ($errors_count erreur(s))"
+    fi
+  elif [ $errors_count -gt 0 ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ $errors_count erreur(s) lors de l'application"
   fi
 }
 
@@ -267,8 +226,7 @@ MSG_TYPE=""
 MSG_TEXT=""
 
 process_archive_upload
-process_folder_deletion
-process_folder_toggle
+process_batch_actions
 
 folder_count=$(find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
 total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
@@ -404,8 +362,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       background: #dc3545;
       padding: 8px 16px;
       font-size: 14px;
-      width: auto;
-      min-width: 120px;
+      width: 130px;
     }
 
     button.delete:hover, button.delete:active { 
@@ -417,8 +374,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       color: #000;
       padding: 8px 16px;
       font-size: 14px;
-      width: auto;
-      min-width: 120px;
+      width: 130px;
       margin-right: 8px;
     }
 
@@ -432,6 +388,24 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     }
 
     button.toggle.disabled:hover, button.toggle.disabled:active {
+      background: #2dca4fff;
+    }
+
+    button.apply {
+      background: #28a745;
+      position: sticky;
+      bottom: 12px;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+      display: none;
+      width: 100%;
+    }
+
+    button.apply.visible {
+      display: block;
+    }
+
+    button.apply:hover, button.apply:active {
       background: #2dca4fff;
     }
 
@@ -451,6 +425,18 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       font-size: 18px;
       color: #555;
       font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pending-changes {
+      font-size: 13px;
+      color: #856404;
+      background: #fff3cd;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 500;
     }
 
     .book-list {
@@ -467,11 +453,27 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       display: flex;
       gap: 12px;
       align-items: flex-start;
-      transition: background 0.2s;
+      transition: all 0.2s;
     }
 
     .book-card.disabled {
       background: #f8f9fa;
+    }
+
+    .book-card.pending-delete {
+      opacity: 0.5;
+      background: #ffe5e5;
+      border-color: #dc3545;
+    }
+
+    .book-card.pending-enable {
+      background: #e5ffe5;
+      border-color: #28a745;
+    }
+
+    .book-card.pending-disable {
+      background: #fff8e5;
+      border-color: #ffc107;
     }
 
     .book-card:active {
@@ -523,13 +525,24 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     }
 
     .book-title .status-badge {
-      display: inline-block;
+      display: inline;
       font-size: 11px;
       font-weight: 600;
       padding: 2px 8px;
       border-radius: 4px;
       margin-left: 8px;
       background: #dc3545;
+      color: white;
+    }
+
+    .book-title .pending-badge {
+      display: inline;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      background: #6c757d;
       color: white;
     }
 
@@ -691,7 +704,10 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       </div>
     </div>
 
-    <h2 class="section-title">📚 Histoires déployées</h2>
+    <h2 class="section-title">
+      <span>📚 Histoires déployées</span>
+      <span class="pending-changes" id="pendingCount" style="display: none;">0 modification(s) en attente</span>
+    </h2>
 
     <% if [ $folder_count -eq 0 ]; then %>
       <div class="empty">
@@ -699,7 +715,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
         Charger une histoire au format ZIP pour commencer.
       </div>
     <% else %>
-      <div class="book-list">
+      <div class="book-list" id="bookList">
         <% find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r folder_path; do
           folder_name=$(basename "$folder_path")
           size=$(du -sb "$folder_path" 2>/dev/null | awk '{print $1}')
@@ -709,7 +725,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
           has_thumb=$(has_thumbnail "$folder_path")
           is_disabled_flag=$(is_disabled "$folder_path")
         %>
-          <div class="book-card<% [ "$is_disabled_flag" = "true" ] && echo " disabled" %>">
+          <div class="book-card<% [ "$is_disabled_flag" = "true" ] && echo " disabled" %>" data-folder="<%= $folder_name %>" data-disabled="<%= $is_disabled_flag %>">
             <% if [ "$has_thumb" = "true" ]; then %>
               <img src="/contelia/<%= $folder_name %>/thumbnail.png" alt="Miniature" class="thumbnail">
             <% else %>
@@ -719,7 +735,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
             <div class="book-content">
               <div class="book-info">
                 <div class="book-title">
-                  <%= $story_title %>
+                  <span class="title-text"><%= $story_title %></span>
                   <% if [ "$is_disabled_flag" = "true" ]; then %>
                     <span class="status-badge">DÉSACTIVÉ</span>
                   <% fi %>
@@ -731,26 +747,110 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
               </div>
 
               <div class="book-actions">
-                <form method="post" style="margin: 0;">
-                  <input type="hidden" name="toggle" value="<%= $folder_name %>">
-                  <% if [ "$is_disabled_flag" = "true" ]; then %>
-                    <button type="submit" class="toggle disabled">✔ Activer</button>
-                  <% else %>
-                    <button type="submit" class="toggle">💤 Désactiver</button>
-                  <% fi %>
-                </form>
-                <form method="post" onsubmit="return confirm('Supprimer « <%= $story_title %> » ?')" style="margin: 0;">
-                  <input type="hidden" name="delete" value="<%= $folder_name %>">
-                  <button type="submit" class="delete">🔥 Supprimer</button>
-                </form>
+                <% if [ "$is_disabled_flag" = "true" ]; then %>
+                  <button type="button" class="toggle disabled" onclick="toggleStory(this, '<%= $folder_name %>')">✔ Activer</button>
+                <% else %>
+                  <button type="button" class="toggle" onclick="toggleStory(this, '<%= $folder_name %>')">💤 Désactiver</button>
+                <% fi %>
+                <button type="button" class="delete" onclick="deleteStory(this, '<%= $folder_name %>', '<%= $story_title %>')">🔥 Supprimer</button>
               </div>
             </div>
           </div>
         <% done %>
       </div>
+
+      <form method="post" id="batchForm">
+        <input type="hidden" name="batch_actions" id="batchActions">
+        <button type="submit" class="apply" id="applyBtn">✓ Appliquer les modifications</button>
+      </form>
     <% fi %>
   </div>
+
   <script>
+  const pendingActions = new Map();
+
+  function updateUI() {
+    const count = pendingActions.size;
+    const applyBtn = document.getElementById('applyBtn');
+    const pendingCount = document.getElementById('pendingCount');
+
+    if (count > 0) {
+      applyBtn.classList.add('visible');
+      pendingCount.style.display = 'block';
+      pendingCount.textContent = count + ' modification(s) en attente';
+    } else {
+      applyBtn.classList.remove('visible');
+      pendingCount.style.display = 'none';
+    }
+  }
+
+  function toggleStory(btn, folderName) {
+    const card = btn.closest('.book-card');
+    const isCurrentlyDisabled = card.dataset.disabled === 'true';
+    const currentAction = pendingActions.get(folderName);
+
+    if (currentAction) {
+      pendingActions.delete(folderName);
+      card.classList.remove('pending-enable', 'pending-disable', 'pending-delete');
+
+      const pendingBadge = card.querySelector('.pending-badge');
+      if (pendingBadge) {
+        pendingBadge.remove();
+      }
+    } else {
+      const action = isCurrentlyDisabled ? 'enable' : 'disable';
+      pendingActions.set(folderName, { type: action, folder: folderName });
+
+      if (action === 'enable') {
+        card.classList.add('pending-enable');
+        card.querySelector('.book-title').innerHTML += '<span class="pending-badge">→ ACTIVATION</span>';
+      } else {
+        card.classList.add('pending-disable');
+        card.querySelector('.book-title').innerHTML += '<span class="pending-badge">→ DÉSACTIVATION</span>';
+      }
+    }
+
+    updateUI();
+  }
+
+  function deleteStory(btn, folderName, storyTitle) {
+    const card = btn.closest('.book-card');
+    const currentAction = pendingActions.get(folderName);
+
+    if (currentAction) {
+      pendingActions.delete(folderName);
+      card.classList.remove('pending-enable', 'pending-disable', 'pending-delete');
+
+      const pendingBadge = card.querySelector('.pending-badge');
+      if (pendingBadge) {
+        pendingBadge.remove();
+      }
+    } else {
+      pendingActions.set(folderName, { type: 'delete', folder: folderName });
+      card.classList.add('pending-delete');
+
+      const existingBadge = card.querySelector('.pending-badge');
+      if (existingBadge) {
+        existingBadge.remove();
+      }
+      card.querySelector('.book-title').innerHTML += '<span class="pending-badge">→ SUPPRESSION</span>';
+    }
+
+    updateUI();
+  }
+
+  // Handle form submission
+  document.getElementById('batchForm').addEventListener('submit', function(e) {
+    if (pendingActions.size === 0) {
+      e.preventDefault();
+      return;
+    }
+
+    const actionsArray = Array.from(pendingActions.values());
+    document.getElementById('batchActions').value = JSON.stringify(actionsArray);
+  });
+
+  // Handle upload form
   document.getElementById('uploadForm').addEventListener('submit', function(e) {
     const fileInput = document.getElementById('fileInput');
     const submitBtn = document.getElementById('submitBtn');
