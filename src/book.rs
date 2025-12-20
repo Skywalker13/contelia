@@ -16,8 +16,8 @@
  */
 
 pub mod book;
+pub mod story_archive;
 pub mod story_fs;
-pub mod story_json;
 
 pub use book::Book;
 pub use book::ControlSettings;

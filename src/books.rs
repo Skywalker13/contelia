@@ -51,8 +51,8 @@ impl Books {
                 continue;
             }
 
-            let source = if Book::is_story_json(&path) {
-                Source::StoryJson(&path)
+            let source = if Book::is_story_archive(&path) {
+                Source::StoryArchive(&path)
             } else if Book::is_story_fs(&path) {
                 Source::StoryFs(&path)
             } else {
