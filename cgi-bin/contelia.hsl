@@ -3,7 +3,7 @@ content-type: text/html
 
 <%
 # Contelia
-# Copyright (C) 2025  Mathieu Schroeter <mathieu@schroetersa.ch>
+# Copyright (C) 2025-2026  Mathieu Schroeter <mathieu@schroetersa.ch>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ content-type: text/html
 
 # Configuration
 CONTELIA_DIR="/var/lib/contelia"
-MAX_ZIP_SIZE=536870912  # 512 MB
+MAX_ZIP_SIZE=1073741824  # 1024 MB
 
 mkdir -p "$CONTELIA_DIR"
 
