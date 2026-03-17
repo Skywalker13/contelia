@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+mod bluez;
 mod book;
 mod books;
 mod buttons;
@@ -24,6 +25,7 @@ mod screen;
 mod services;
 mod timeout;
 
+pub use bluez::Bluez;
 pub use book::Book;
 pub use book::ControlSettings;
 pub use book::Stage;
