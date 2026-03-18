@@ -46,9 +46,12 @@ impl Bluez {
         Ok(Self { adapter, props })
     }
 
-    pub async fn set_powered(&self) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn set_powered(&self, power: bool) -> Result<(), Box<dyn std::error::Error>> {
         self.props
-            .call_method("Set", &("org.bluez.Adapter1", "Powered", Value::from(true)))
+            .call_method(
+                "Set",
+                &("org.bluez.Adapter1", "Powered", Value::from(power)),
+            )
             .await?;
         Ok(())
     }
