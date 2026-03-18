@@ -149,23 +149,7 @@ impl Bluez {
         let objects = proxy.get_managed_objects().await?;
 
         for (path, ifaces) in &objects {
-            if let Some(props) = ifaces.get("org.bluez.Adapter1") {
-                let name = props
-                    .get("Name")
-                    .and_then(|v| String::try_from(v.clone()).ok())
-                    .unwrap_or_default();
-                let address = props
-                    .get("Address")
-                    .and_then(|v| String::try_from(v.clone()).ok())
-                    .unwrap_or_default();
-                let powered = props
-                    .get("Powered")
-                    .and_then(|v| bool::try_from(v.clone()).ok())
-                    .unwrap_or(false);
-                println!("path    : {}", path);
-                println!("name    : {}", name);
-                println!("address : {}", address);
-                println!("powered : {}", powered);
+            if let Some(_props) = ifaces.get("org.bluez.Adapter1") {
                 return Ok(path.clone());
             }
         }
