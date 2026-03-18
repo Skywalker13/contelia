@@ -27,6 +27,15 @@ pub struct Bluez {
     props: Proxy<'static>,
 }
 
+pub struct Device {
+    pub path: OwnedObjectPath,
+    pub name: String,
+    pub address: String,
+    pub paired: bool,
+    pub connected: bool,
+    pub trusted: bool,
+}
+
 impl Bluez {
     pub async fn new() -> Result<Self, Box<dyn std::error::Error>> {
         let conn = Connection::system().await?;
@@ -64,6 +73,63 @@ impl Bluez {
             .body();
         let powered = powered.deserialize::<zbus::zvariant::Value>()?;
         Ok(bool::try_from(powered)?)
+    }
+
+    pub async fn start_scan(&self) -> Result<(), Box<dyn std::error::Error>> {
+        self.adapter.call_method("StartDiscovery", &()).await?;
+        Ok(())
+    }
+
+    pub async fn stop_scan(&self) -> Result<(), Box<dyn std::error::Error>> {
+        self.adapter.call_method("StopDiscovery", &()).await?;
+        Ok(())
+    }
+
+    pub async fn list_devices(&self) -> Result<Vec<Device>, Box<dyn std::error::Error>> {
+        let proxy = ObjectManagerProxy::builder(self.adapter.connection())
+            .destination("org.bluez")?
+            .path("/")?
+            .build()
+            .await?;
+
+        let objects = proxy.get_managed_objects().await?;
+        let mut devices = Vec::new();
+
+        for (path, ifaces) in &objects {
+            if let Some(props) = ifaces.get("org.bluez.Device1") {
+                let name = props
+                    .get("Name")
+                    .and_then(|v| String::try_from(v.clone()).ok())
+                    .unwrap_or_default();
+                let address = props
+                    .get("Address")
+                    .and_then(|v| String::try_from(v.clone()).ok())
+                    .unwrap_or_default();
+                let paired = props
+                    .get("Paired")
+                    .and_then(|v| bool::try_from(v.clone()).ok())
+                    .unwrap_or(false);
+                let connected = props
+                    .get("Connected")
+                    .and_then(|v| bool::try_from(v.clone()).ok())
+                    .unwrap_or(false);
+                let trusted = props
+                    .get("Trusted")
+                    .and_then(|v| bool::try_from(v.clone()).ok())
+                    .unwrap_or(false);
+
+                devices.push(Device {
+                    path: path.clone(),
+                    name,
+                    address,
+                    paired,
+                    connected,
+                    trusted,
+                });
+            }
+        }
+
+        Ok(devices)
     }
 
     async fn get_default_adapter_path(
