@@ -36,6 +36,7 @@ pub struct Device {
     pub path: OwnedObjectPath,
     pub name: String,
     pub address: String,
+    pub class: u32,
     pub paired: bool,
     pub connected: bool,
     pub trusted: bool,
@@ -110,6 +111,10 @@ impl Bluez {
                     .get("Address")
                     .and_then(|v| String::try_from(v.clone()).ok())
                     .unwrap_or_default();
+                let class = props
+                    .get("Class")
+                    .and_then(|v| u32::try_from(v.clone()).ok())
+                    .unwrap_or_default();
                 let paired = props
                     .get("Paired")
                     .and_then(|v| bool::try_from(v.clone()).ok())
@@ -127,6 +132,7 @@ impl Bluez {
                     path: path.clone(),
                     name,
                     address,
+                    class,
                     paired,
                     connected,
                     trusted,
