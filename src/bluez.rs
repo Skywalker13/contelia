@@ -184,10 +184,10 @@ impl Bluez {
                     rssi,
                     kind,
                 });
-
-                devices.sort_by(|a, b| b.rssi.cmp(&a.rssi));
             }
         }
+
+        devices.sort_by(|a, b| b.rssi.cmp(&a.rssi));
 
         Ok(devices)
     }
