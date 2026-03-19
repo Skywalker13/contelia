@@ -40,12 +40,12 @@ impl Services {
         Ok(())
     }
 
-    pub fn start(&self) -> io::Result<()> {
+    pub fn start_ap(&self) -> io::Result<()> {
         self.exec(vec!["up", "wifi", "hostapd", "dnsmasq", "httpd"])?;
         Ok(())
     }
 
-    pub fn stop(&self) -> io::Result<()> {
+    pub fn stop_ap(&self) -> io::Result<()> {
         self.exec(vec!["down", "wifi", "hostapd", "dnsmasq", "httpd"])?;
         Ok(())
     }

@@ -256,7 +256,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
 
         if next == Next::Settings && settings {
-            if services.stop().is_ok() {
+            if services.stop_ap().is_ok() {
                 settings = false;
                 books.reload();
                 next = Next::Normal;
@@ -265,7 +265,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
 
         if next == Next::Settings {
-            if services.start().is_ok() {
+            if services.start_ap().is_ok() {
                 settings = true;
                 player.stop();
 
