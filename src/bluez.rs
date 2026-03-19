@@ -32,6 +32,16 @@ pub struct Bluez {
     props: Proxy<'static>,
 }
 
+#[derive(Debug)]
+pub enum DeviceKind {
+    Headset,    /* 0x0404 */
+    Speaker,    /* 0x0408 */
+    Headphones, /* 0x0410 */
+    Portable,   /* 0x0418 */
+    Car,        /* 0x0420 */
+    Unknown,
+}
+
 pub struct Device {
     pub path: OwnedObjectPath,
     pub name: String,
@@ -41,6 +51,7 @@ pub struct Device {
     pub connected: bool,
     pub trusted: bool,
     pub rssi: i16,
+    pub kind: DeviceKind,
 }
 
 impl Bluez {
@@ -149,6 +160,15 @@ impl Bluez {
                     .and_then(|v| i16::try_from(v.clone()).ok())
                     .unwrap_or_default();
 
+                let kind = match class & 0x1FFF {
+                    0x0404 => DeviceKind::Headset,
+                    0x0408 => DeviceKind::Speaker,
+                    0x0410 => DeviceKind::Headphones,
+                    0x0418 => DeviceKind::Portable,
+                    0x0420 => DeviceKind::Car,
+                    _ => DeviceKind::Unknown,
+                };
+
                 devices.push(Device {
                     path: path.clone(),
                     name,
@@ -158,6 +178,7 @@ impl Bluez {
                     connected,
                     trusted,
                     rssi,
+                    kind,
                 });
 
                 devices.sort_by(|a, b| b.rssi.cmp(&a.rssi));
