@@ -49,4 +49,14 @@ impl Services {
         self.exec(vec!["down", "wifi", "hostapd", "dnsmasq", "httpd"])?;
         Ok(())
     }
+
+    pub fn start_bluez(&self) -> io::Result<()> {
+        self.exec(vec!["dbus", "bluez", "bluealsa"])?;
+        Ok(())
+    }
+
+    pub fn stop_bluez(&self) -> io::Result<()> {
+        self.exec(vec!["dbus", "bluez", "bluealsa"])?;
+        Ok(())
+    }
 }
