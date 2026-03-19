@@ -51,12 +51,12 @@ impl Services {
     }
 
     pub fn start_bluez(&self) -> io::Result<()> {
-        self.exec(vec!["dbus", "bluez", "bluealsa"])?;
+        self.exec(vec!["start", "dbus", "bluez", "bluealsa"])?;
         Ok(())
     }
 
     pub fn stop_bluez(&self) -> io::Result<()> {
-        self.exec(vec!["dbus", "bluez", "bluealsa"])?;
+        self.exec(vec!["down", "dbus", "bluez", "bluealsa"])?;
         Ok(())
     }
 }
