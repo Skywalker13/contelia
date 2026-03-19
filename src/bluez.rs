@@ -102,8 +102,24 @@ impl Bluez {
         let objects = proxy.get_managed_objects().await?;
         let mut devices = Vec::new();
 
+        const AUDIO_UUIDS: &[&str] = &[
+            "0000110b-0000-1000-8000-00805f9b34fb", /* A2DP Sink */
+            "00001108-0000-1000-8000-00805f9b34fb", /* HSP       */
+            "0000111e-0000-1000-8000-00805f9b34fb", /* HFP       */
+        ];
+
         for (path, ifaces) in &objects {
             if let Some(props) = ifaces.get("org.bluez.Device1") {
+                let uuids: Vec<String> = props
+                    .get("UUIDs")
+                    .and_then(|v| Vec::<String>::try_from(v.clone()).ok())
+                    .unwrap_or_default();
+
+                let is_audio = uuids.iter().any(|u| AUDIO_UUIDS.contains(&u.as_str()));
+                if !is_audio {
+                    continue;
+                }
+
                 let name = props
                     .get("Name")
                     .and_then(|v| String::try_from(v.clone()).ok())
