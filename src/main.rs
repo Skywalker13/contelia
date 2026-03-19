@@ -18,6 +18,7 @@
 use anyhow::Result;
 use clap::Parser;
 use evdev::KeyCode;
+use futures_lite::future::block_on;
 use signal_hook::{consts::*, iterator::Signals};
 use std::env;
 use std::fs::File;
@@ -28,7 +29,8 @@ use std::time::Duration;
 use std::{error::Error, thread};
 
 use contelia::{
-    Books, Buttons, ControlSettings, FileReader, Player, Screen, Services, Stage, Status, Timeout,
+    Bluez, Books, Buttons, ControlSettings, Device, FileReader, Player, Screen, Services, Stage,
+    Status, Timeout,
 };
 
 #[derive(Debug, PartialEq)]
@@ -41,8 +43,16 @@ enum Next {
     Pause,
     Play,
     Timeout,
-    Settings,
-    Bluetooth,
+    AccessPoint,
+
+    BluetoothScan,
+    BluetoothNone,
+    BluetoothHeadset,
+    BluetoothSpeaker,
+    BluetoothHeadphones,
+    BluetoothPortable,
+    BluetoothCar,
+
     Shutdown,
 }
 
@@ -141,6 +151,32 @@ struct Cli {
     books: std::path::PathBuf,
 }
 
+async fn bt_scan() -> Result<Vec<Device>, Box<dyn std::error::Error>> {
+    let bluez = Bluez::new().await?;
+
+    let powered = bluez.is_powered().await?;
+    println!("powered : {}", powered);
+
+    bluez.set_powered(true).await?;
+
+    let powered = bluez.is_powered().await?;
+    println!("powered : {}", powered);
+
+    bluez.start_scan().await?;
+    std::thread::sleep(std::time::Duration::from_secs(5));
+    let devices = bluez.list_audio_devices().await?;
+    bluez.stop_scan().await?;
+
+    for d in &devices {
+        println!(
+            "{} - {} (class=0x{:x} paired={} connected={} trusted={} RSSI={} kind={:?})",
+            d.address, d.name, d.class, d.paired, d.connected, d.trusted, d.rssi, d.kind
+        );
+    }
+
+    Ok(devices)
+}
+
 fn run() -> Result<u8, Box<dyn Error>> {
     let args = Cli::parse();
     let (tx, rx) = channel::<(KeyCode, Option<Status>, bool)>();
@@ -196,7 +232,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut player = Player::new()?;
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
-    let mut settings = false;
+    let mut access_point = false;
     let mut bluetooth = false;
     let mut status_code = 0;
 
@@ -259,18 +295,18 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         //// Access Point //////////////////////////////////////////////////////
 
-        if next == Next::Settings && settings {
+        if next == Next::AccessPoint && access_point {
             if services.stop_ap().is_ok() {
-                settings = false;
+                access_point = false;
                 books.reload();
                 next = Next::Normal;
                 continue; /* Restore image and/or audio */
             }
         }
 
-        if next == Next::Settings {
+        if next == Next::AccessPoint {
             if services.start_ap().is_ok() {
-                settings = true;
+                access_point = true;
                 player.stop();
 
                 let image = assets_dir.join("settings.png");
@@ -284,15 +320,15 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         //// Bluetooth /////////////////////////////////////////////////////////
 
-        if next == Next::Bluetooth && bluetooth {
-            if services.stop_ap().is_ok() {
+        if next == Next::BluetoothScan && bluetooth {
+            if services.stop_bluez().is_ok() {
                 bluetooth = false;
                 next = Next::Normal;
                 continue; /* Restore image and/or audio */
             }
         }
 
-        if next == Next::Bluetooth {
+        if next == Next::BluetoothScan {
             if services.start_bluez().is_ok() {
                 bluetooth = true;
                 player.stop();
@@ -303,6 +339,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 let mut file = FileReader::Plain(File::open(path)?);
                 screen.draw(&mut file, image::ImageFormat::Png)?;
                 screen.on()?;
+
+                let _devices = block_on(bt_scan());
             }
         }
 
@@ -348,11 +386,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
             Ok((code, status, eos)) => {
                 if let Some(status) = status {
                     if status.dpad_down && status.select && status.start {
-                        next = Next::Settings;
+                        next = Next::AccessPoint;
                         continue;
                     }
                     if status.dpad_up && status.select && status.start {
-                        next = Next::Bluetooth;
+                        next = Next::BluetoothScan;
                         continue;
                     }
                 }
@@ -362,7 +400,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 } else if code == KeyCode::KEY_POWER {
                     next = Next::Shutdown;
                     status_code = 42; // Poweroff
-                } else if settings == true {
+                } else if access_point == true || bluetooth == true {
                     next = Next::None;
                 } else if code == KeyCode::KEY_TIME {
                     next = Next::Image; // Restore screen
