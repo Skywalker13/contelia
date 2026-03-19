@@ -42,6 +42,7 @@ enum Next {
     Play,
     Timeout,
     Settings,
+    Bluetooth,
     Shutdown,
 }
 
@@ -196,6 +197,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
     let mut settings = false;
+    let mut bluetooth = false;
     let mut status_code = 0;
 
     let mut assets_dir = env::current_exe()?;
@@ -255,6 +257,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
             }
         }
 
+        //// Access Point //////////////////////////////////////////////////////
+
         if next == Next::Settings && settings {
             if services.stop_ap().is_ok() {
                 settings = false;
@@ -278,6 +282,32 @@ fn run() -> Result<u8, Box<dyn Error>> {
             }
         }
 
+        //// Bluetooth /////////////////////////////////////////////////////////
+
+        if next == Next::Bluetooth && bluetooth {
+            if services.stop_ap().is_ok() {
+                bluetooth = false;
+                next = Next::Normal;
+                continue; /* Restore image and/or audio */
+            }
+        }
+
+        if next == Next::Bluetooth {
+            if services.start_bluez().is_ok() {
+                bluetooth = true;
+                player.stop();
+
+                let image = assets_dir.join("bt_scanning.png");
+                let path = Path::new(&image);
+                println!("bt scanning image: {}", path.to_string_lossy().to_string());
+                let mut file = FileReader::Plain(File::open(path)?);
+                screen.draw(&mut file, image::ImageFormat::Png)?;
+                screen.on()?;
+            }
+        }
+
+        //// Volume ////////////////////////////////////////////////////////////
+
         if next == Next::Volume {
             let volume = player.get_volume();
             let image = assets_dir.join(format!("volume{:0>2}.png", volume));
@@ -292,6 +322,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true));
             }));
         }
+
+        //// Pause - Play //////////////////////////////////////////////////////
 
         if next == Next::Pause || next == Next::Play {
             let image = if next == Next::Play {
@@ -317,6 +349,10 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 if let Some(status) = status {
                     if status.dpad_down && status.select && status.start {
                         next = Next::Settings;
+                        continue;
+                    }
+                    if status.dpad_up && status.select && status.start {
+                        next = Next::Bluetooth;
                         continue;
                     }
                 }
