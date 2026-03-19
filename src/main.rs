@@ -297,9 +297,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 bluetooth = true;
                 player.stop();
 
-                let image = assets_dir.join("bt_scanning.png");
+                let image = assets_dir.join("bt_scan.png");
                 let path = Path::new(&image);
-                println!("bt scanning image: {}", path.to_string_lossy().to_string());
+                println!("bt scan image: {}", path.to_string_lossy().to_string());
                 let mut file = FileReader::Plain(File::open(path)?);
                 screen.draw(&mut file, image::ImageFormat::Png)?;
                 screen.on()?;
