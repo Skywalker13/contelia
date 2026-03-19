@@ -103,7 +103,11 @@ impl Bluez {
         Ok(())
     }
 
-    pub async fn list_devices(&self) -> Result<Vec<Device>, Box<dyn std::error::Error>> {
+    /// List detected and known audio devices by order of signal
+    ///
+    /// Note that if the signal is 0, it means that the device is known but the
+    /// scanning is not running.
+    pub async fn list_audio_devices(&self) -> Result<Vec<Device>, Box<dyn std::error::Error>> {
         let proxy = ObjectManagerProxy::builder(self.adapter.connection())
             .destination("org.bluez")?
             .path("/")?
