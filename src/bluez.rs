@@ -147,7 +147,7 @@ impl Bluez {
                 let rssi = props
                     .get("RSSI")
                     .and_then(|v| i16::try_from(v.clone()).ok())
-                    .unwrap_or(0);
+                    .unwrap_or_default();
 
                 devices.push(Device {
                     path: path.clone(),
