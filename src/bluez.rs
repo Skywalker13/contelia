@@ -40,6 +40,7 @@ pub struct Device {
     pub paired: bool,
     pub connected: bool,
     pub trusted: bool,
+    pub rssi: i16,
 }
 
 impl Bluez {
@@ -127,6 +128,10 @@ impl Bluez {
                     .get("Trusted")
                     .and_then(|v| bool::try_from(v.clone()).ok())
                     .unwrap_or(false);
+                let rssi = props
+                    .get("RSSI")
+                    .and_then(|v| i16::try_from(v.clone()).ok())
+                    .unwrap_or(0);
 
                 devices.push(Device {
                     path: path.clone(),
@@ -136,7 +141,10 @@ impl Bluez {
                     paired,
                     connected,
                     trusted,
+                    rssi,
                 });
+
+                devices.sort_by(|a, b| b.rssi.cmp(&a.rssi));
             }
         }
 
