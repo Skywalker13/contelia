@@ -42,12 +42,6 @@ impl Screen {
         let name = fs::read_to_string(format!("/sys/class/graphics/{}/name", dev))?
             .trim()
             .to_string();
-
-        /* Enable the screen (must be done only the first time), otherwise it
-         * can break the render (blackscreen, no more colors, etc.)
-         */
-        fs::write(format!("/sys/class/graphics/{}/blank", dev), "0")?;
-
         Ok(Self { fb, name })
     }
 
