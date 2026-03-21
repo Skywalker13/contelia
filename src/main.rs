@@ -21,16 +21,15 @@ use evdev::KeyCode;
 use futures_lite::future::block_on;
 use signal_hook::{consts::*, iterator::Signals};
 use std::env;
-use std::fs::File;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::process::ExitCode;
 use std::sync::mpsc::channel;
 use std::time::Duration;
 use std::{error::Error, thread};
 
 use contelia::{
-    Bluez, Books, Buttons, ControlSettings, Device, DeviceKind, FileReader, Player, Screen,
-    Services, Stage, Status, Timeout,
+    Bluez, Books, Buttons, ControlSettings, Device, DeviceKind, Player, Screen, Services, Stage,
+    Status, Timeout,
 };
 
 #[derive(Debug, PartialEq)]
