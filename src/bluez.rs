@@ -32,7 +32,7 @@ pub struct Bluez {
     props: Proxy<'static>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum DeviceKind {
     Headset,    /* 0x0404 */
     Speaker,    /* 0x0408 */

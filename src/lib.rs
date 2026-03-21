@@ -27,6 +27,7 @@ mod timeout;
 
 pub use bluez::Bluez;
 pub use bluez::Device;
+pub use bluez::DeviceKind;
 pub use book::Book;
 pub use book::ControlSettings;
 pub use book::Stage;
