@@ -307,12 +307,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 access_point = true;
                 player.stop();
 
-                let image = assets_dir.join("settings.png");
-                let path = Path::new(&image);
-                println!("settings image: {}", path.to_string_lossy().to_string());
-                let mut file = FileReader::Plain(File::open(path)?);
-                screen.draw(&mut file, image::ImageFormat::Png)?;
-                screen.on()?;
+                screen.draw_file(assets_dir.join("settings.png"))?;
             }
         }
 
@@ -377,12 +372,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         if next == Next::Volume {
             let volume = player.get_volume();
-            let image = assets_dir.join(format!("volume{:0>2}.png", volume));
-            let path = Path::new(&image);
-            println!("volume image: {}", path.to_string_lossy().to_string());
-            let mut file = FileReader::Plain(File::open(path)?);
-            screen.draw(&mut file, image::ImageFormat::Png)?;
-            screen.on()?;
+            screen.draw_file(assets_dir.join(format!("volume{:0>2}.png", volume)))?;
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(800), move || {
@@ -398,11 +388,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
             } else {
                 assets_dir.join("pause.png")
             };
-            let path = Path::new(&image);
-            println!("play/pause image: {}", path.to_string_lossy().to_string());
-            let mut file = FileReader::Plain(File::open(path)?);
-            screen.draw(&mut file, image::ImageFormat::Png)?;
-            screen.on()?;
+            screen.draw_file(image)?;
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(800), move || {
