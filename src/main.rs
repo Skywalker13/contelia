@@ -29,8 +29,8 @@ use std::time::Duration;
 use std::{error::Error, thread};
 
 use contelia::{
-    Bluez, Books, Buttons, ControlSettings, Device, FileReader, Player, Screen, Services, Stage,
-    Status, Timeout,
+    Bluez, Books, Buttons, ControlSettings, Device, DeviceKind, FileReader, Player, Screen,
+    Services, Stage, Status, Timeout,
 };
 
 #[derive(Debug, PartialEq)]
@@ -45,13 +45,9 @@ enum Next {
     Timeout,
     AccessPoint,
 
+    BluetoothStart,
     BluetoothScan,
-    BluetoothNone,
-    BluetoothHeadset,
-    BluetoothSpeaker,
-    BluetoothHeadphones,
-    BluetoothPortable,
-    BluetoothCar,
+    BluetoothSelect,
 
     Shutdown,
 }
@@ -230,6 +226,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut books = Books::from_dir(&path)?;
     let mut screen = Screen::new(fb.as_path())?;
     let mut player = Player::new()?;
+    let mut devices;
+    let mut device_kind = DeviceKind::Unknown;
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
     let mut access_point = false;
@@ -320,7 +318,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         //// Bluetooth /////////////////////////////////////////////////////////
 
-        if next == Next::BluetoothScan && bluetooth {
+        if next == Next::BluetoothStart && bluetooth {
             if services.stop_bluez().is_ok() {
                 bluetooth = false;
                 next = Next::Normal;
@@ -328,19 +326,50 @@ fn run() -> Result<u8, Box<dyn Error>> {
             }
         }
 
-        if next == Next::BluetoothScan {
+        if next == Next::BluetoothStart {
             if services.start_bluez().is_ok() {
                 bluetooth = true;
                 player.stop();
 
-                let image = assets_dir.join("bt_scan.png");
-                let path = Path::new(&image);
-                println!("bt scan image: {}", path.to_string_lossy().to_string());
-                let mut file = FileReader::Plain(File::open(path)?);
-                screen.draw(&mut file, image::ImageFormat::Png)?;
-                screen.on()?;
+                screen.draw_file(assets_dir.join("bt_scan.png"))?;
+                next = Next::BluetoothScan;
+                continue;
+            }
+        }
 
-                let _devices = block_on(bt_scan());
+        if next == Next::BluetoothScan {
+            devices = block_on(bt_scan())?;
+            match devices.first() {
+                Some(device) => {
+                    device_kind = device.kind.clone();
+                    next = Next::BluetoothSelect;
+                }
+                None => {
+                    continue; /* Scan again */
+                }
+            }
+        }
+
+        if next == Next::BluetoothSelect {
+            match device_kind {
+                DeviceKind::Headset => {
+                    screen.draw_file(assets_dir.join("bt_headset.png"))?;
+                }
+                DeviceKind::Speaker => {
+                    screen.draw_file(assets_dir.join("bt_speaker.png"))?;
+                }
+                DeviceKind::Headphones => {
+                    screen.draw_file(assets_dir.join("bt_headphone.png"))?;
+                }
+                DeviceKind::Portable => {
+                    screen.draw_file(assets_dir.join("bt_portable.png"))?;
+                }
+                DeviceKind::Car => {
+                    screen.draw_file(assets_dir.join("bt_car.png"))?;
+                }
+                DeviceKind::Unknown => {
+                    screen.draw_file(assets_dir.join("bt_unknown.png"))?;
+                }
             }
         }
 
@@ -390,7 +419,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         continue;
                     }
                     if status.dpad_up && status.select && status.start {
-                        next = Next::BluetoothScan;
+                        next = Next::BluetoothStart;
                         continue;
                     }
                 }
