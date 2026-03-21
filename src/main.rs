@@ -128,24 +128,6 @@ fn process_event(
     }
 }
 
-#[derive(Parser)]
-struct Cli {
-    /// Framebuffer device
-    #[arg(short, long, default_value = "/dev/fb2")]
-    fb: PathBuf,
-
-    /// Main buttons input device
-    #[arg(short, long, default_value = "/dev/input/tftbonnet13")]
-    input: PathBuf,
-
-    /// Power button input device
-    #[arg(short, long, default_value = "/dev/input/pisugar")]
-    power: PathBuf,
-
-    /// The path to the books directory
-    books: std::path::PathBuf,
-}
-
 async fn bt_scan() -> Result<Vec<Device>, Box<dyn std::error::Error>> {
     let bluez = Bluez::new().await?;
 
@@ -170,6 +152,24 @@ async fn bt_scan() -> Result<Vec<Device>, Box<dyn std::error::Error>> {
     }
 
     Ok(devices)
+}
+
+#[derive(Parser)]
+struct Cli {
+    /// Framebuffer device
+    #[arg(short, long, default_value = "/dev/fb2")]
+    fb: PathBuf,
+
+    /// Main buttons input device
+    #[arg(short, long, default_value = "/dev/input/tftbonnet13")]
+    input: PathBuf,
+
+    /// Power button input device
+    #[arg(short, long, default_value = "/dev/input/pisugar")]
+    power: PathBuf,
+
+    /// The path to the books directory
+    books: std::path::PathBuf,
 }
 
 fn run() -> Result<u8, Box<dyn Error>> {
