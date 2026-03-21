@@ -19,9 +19,9 @@ use anyhow::Result;
 use framebuffer::Framebuffer;
 use image::GenericImageView;
 use std::{
-    fs::{self},
+    fs::{self, File},
     io::{self, BufReader},
-    path::Path,
+    path::{Path, PathBuf},
 };
 
 use crate::decrypt::FileReader;
@@ -97,6 +97,15 @@ impl Screen {
             }
         }
 
+        Ok(())
+    }
+
+    pub fn draw_file(&mut self, image_file: PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+        let path = Path::new(&image_file);
+        println!("draw image: {}", path.to_string_lossy().to_string());
+        let mut file = FileReader::Plain(File::open(path)?);
+        self.draw(&mut file, image::ImageFormat::Png)?;
+        self.on()?;
         Ok(())
     }
 
