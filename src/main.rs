@@ -303,7 +303,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
             continue;
         }
 
-        /* See Next::BluetoothStart */
         if next == Next::BluetoothScan {
             bt_cancel.store(true, Ordering::Relaxed);
             screen.draw_file(assets_dir.join("bt_scan.png"))?;
