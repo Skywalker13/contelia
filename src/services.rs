@@ -15,19 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use anyhow::Result;
 use std::{io, process::Command};
 
 pub struct Services {}
 
 impl Services {
-    pub fn new() -> Result<Self> {
-        let services = Self {};
-
-        Ok(services)
-    }
-
-    fn exec(&self, args: Vec<&str>) -> io::Result<()> {
+    fn exec(args: Vec<&str>) -> io::Result<()> {
         let output = Command::new("sv").args(args).output()?;
 
         if !output.status.success() {
@@ -40,23 +33,23 @@ impl Services {
         Ok(())
     }
 
-    pub fn start_ap(&self) -> io::Result<()> {
-        self.exec(vec!["up", "wifi", "hostapd", "dnsmasq", "httpd"])?;
+    pub fn up_ap() -> io::Result<()> {
+        Self::exec(vec!["up", "wifi", "hostapd", "dnsmasq", "httpd"])?;
         Ok(())
     }
 
-    pub fn stop_ap(&self) -> io::Result<()> {
-        self.exec(vec!["down", "wifi", "hostapd", "dnsmasq", "httpd"])?;
+    pub fn down_ap() -> io::Result<()> {
+        Self::exec(vec!["down", "wifi", "hostapd", "dnsmasq", "httpd"])?;
         Ok(())
     }
 
-    pub fn start_bluez(&self) -> io::Result<()> {
-        self.exec(vec!["start", "dbus", "bluez", "bluealsa"])?;
+    pub fn start_bluez() -> io::Result<()> {
+        Self::exec(vec!["start", "dbus", "bluez", "bluealsa"])?;
         Ok(())
     }
 
-    pub fn stop_bluez(&self) -> io::Result<()> {
-        self.exec(vec!["down", "dbus", "bluez", "bluealsa"])?;
+    pub fn stop_bluez() -> io::Result<()> {
+        Self::exec(vec!["stop", "dbus", "bluez", "bluealsa"])?;
         Ok(())
     }
 }

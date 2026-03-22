@@ -530,6 +530,7 @@ name = "contelia"
 version = "0.5.6"
 dependencies = [
  "anyhow",
+ "async-io",
  "bytemuck",
  "byteorder",
  "clap",

@@ -21,11 +21,24 @@
  */
 
 use anyhow::Result;
-use zbus::{
-    Connection, Proxy,
-    fdo::ObjectManagerProxy,
-    zvariant::{OwnedObjectPath, Value},
+use evdev::KeyCode;
+use std::{
+    collections::HashMap,
+    sync::{
+        Arc,
+        atomic::{AtomicBool, Ordering},
+        mpsc::Sender,
+    },
 };
+use zbus::{
+    Connection, MatchRule, MessageStream, Proxy,
+    fdo::ObjectManagerProxy,
+    zvariant::{OwnedObjectPath, OwnedValue, Value},
+};
+
+use futures_lite::stream::StreamExt;
+
+use crate::Status;
 
 pub struct Bluez {
     adapter: Proxy<'static>,
@@ -73,7 +86,7 @@ impl Bluez {
         Ok(Self { adapter, props })
     }
 
-    pub async fn set_powered(&self, power: bool) -> Result<(), Box<dyn std::error::Error>> {
+    async fn set_powered(&self, power: bool) -> Result<(), Box<dyn std::error::Error>> {
         self.props
             .call_method(
                 "Set",
@@ -83,118 +96,201 @@ impl Bluez {
         Ok(())
     }
 
-    pub async fn is_powered(&self) -> Result<bool, Box<dyn std::error::Error>> {
-        let powered = self
-            .props
-            .call_method("Get", &("org.bluez.Adapter1", "Powered"))
-            .await?
-            .body();
-        let powered = powered.deserialize::<zbus::zvariant::Value>()?;
-        Ok(bool::try_from(powered)?)
-    }
-
-    pub async fn start_scan(&self) -> Result<(), Box<dyn std::error::Error>> {
+    async fn start_scan(&self) -> Result<(), Box<dyn std::error::Error>> {
         self.adapter.call_method("StartDiscovery", &()).await?;
         Ok(())
     }
 
-    pub async fn stop_scan(&self) -> Result<(), Box<dyn std::error::Error>> {
+    async fn stop_scan(&self) -> Result<(), Box<dyn std::error::Error>> {
         self.adapter.call_method("StopDiscovery", &()).await?;
         Ok(())
     }
 
-    /// List detected and known audio devices by order of signal
-    ///
-    /// Note that if the signal is 0, it means that the device is known but the
-    /// scanning is not running.
-    pub async fn list_audio_devices(&self) -> Result<Vec<Device>, Box<dyn std::error::Error>> {
-        let proxy = ObjectManagerProxy::builder(self.adapter.connection())
-            .destination("org.bluez")?
-            .path("/")?
-            .build()
-            .await?;
+    pub async fn scan_audio_devices(
+        &self,
+        tx: Sender<(KeyCode, Option<Status>, bool, Option<Device>)>,
+        cancel: Arc<AtomicBool>,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        self.set_powered(true).await?;
 
-        let objects = proxy.get_managed_objects().await?;
-        let mut devices = Vec::new();
+        let rule_added = MatchRule::builder()
+            .msg_type(zbus::message::Type::Signal)
+            .sender("org.bluez")?
+            .interface("org.freedesktop.DBus.ObjectManager")?
+            .member("InterfacesAdded")?
+            .build();
+        let rule_changed = MatchRule::builder()
+            .msg_type(zbus::message::Type::Signal)
+            .sender("org.bluez")?
+            .interface("org.freedesktop.DBus.Properties")?
+            .member("PropertiesChanged")?
+            .build();
 
-        const AUDIO_UUIDS: &[&str] = &[
-            "0000110b-0000-1000-8000-00805f9b34fb", /* A2DP Sink */
-            "00001108-0000-1000-8000-00805f9b34fb", /* HSP       */
-            "0000111e-0000-1000-8000-00805f9b34fb", /* HFP       */
-        ];
+        let mut stream_added =
+            MessageStream::for_match_rule(rule_added, self.adapter.connection(), None).await?;
+        let mut stream_changed =
+            MessageStream::for_match_rule(rule_changed, self.adapter.connection(), None).await?;
 
-        for (path, ifaces) in &objects {
-            if let Some(props) = ifaces.get("org.bluez.Device1") {
-                let uuids: Vec<String> = props
-                    .get("UUIDs")
-                    .and_then(|v| Vec::<String>::try_from(v.clone()).ok())
-                    .unwrap_or_default();
+        let mut known: HashMap<OwnedObjectPath, HashMap<String, OwnedValue>> = HashMap::new();
 
-                let is_audio = uuids.iter().any(|u| AUDIO_UUIDS.contains(&u.as_str()));
-                if !is_audio {
-                    continue;
+        self.start_scan().await?;
+
+        enum Event {
+            Added(OwnedObjectPath, HashMap<String, OwnedValue>),
+            Changed(OwnedObjectPath, HashMap<String, OwnedValue>),
+            Cancelled,
+            None,
+        }
+
+        while !cancel.load(Ordering::Relaxed) {
+            let event = futures_lite::future::or(
+                futures_lite::future::or(
+                    async {
+                        if let Ok(Some(msg)) = stream_added.try_next().await {
+                            if let Ok((path, ifaces)) = msg.body().deserialize::<(
+                                OwnedObjectPath,
+                                HashMap<String, HashMap<String, OwnedValue>>,
+                            )>() {
+                                if let Some(props) = ifaces.get("org.bluez.Device1") {
+                                    return Event::Added(path, props.clone());
+                                }
+                            }
+                        }
+                        Event::None
+                    },
+                    async {
+                        if let Ok(Some(msg)) = stream_changed.try_next().await {
+                            let header = msg.header();
+                            let Some(path) = header.path().map(|p| p.to_owned()) else {
+                                return Event::None;
+                            };
+                            if let Ok((iface, changed, _)) = msg.body().deserialize::<(
+                                String,
+                                HashMap<String, OwnedValue>,
+                                Vec<String>,
+                            )>(
+                            ) {
+                                if iface == "org.bluez.Device1" {
+                                    return Event::Changed(path.into(), changed);
+                                }
+                            }
+                        }
+                        Event::None
+                    },
+                ),
+                async {
+                    loop {
+                        if cancel.load(Ordering::Relaxed) {
+                            return Event::Cancelled;
+                        }
+                        async_io::Timer::after(std::time::Duration::from_millis(100)).await;
+                    }
+                },
+            )
+            .await;
+
+            match event {
+                Event::Added(path, props) => {
+                    known.entry(path).or_default().extend(props);
                 }
-
-                let rssi = props
-                    .get("RSSI")
-                    .and_then(|v| i16::try_from(v.clone()).ok())
-                    .unwrap_or_default();
-
-                if rssi == 0 {
-                    continue;
+                Event::Changed(path, props) => {
+                    known.entry(path).or_default().extend(props);
                 }
+                Event::Cancelled => break,
+                Event::None => {}
+            }
 
-                let name = props
-                    .get("Name")
-                    .and_then(|v| String::try_from(v.clone()).ok())
-                    .unwrap_or_default();
-                let address = props
-                    .get("Address")
-                    .and_then(|v| String::try_from(v.clone()).ok())
-                    .unwrap_or_default();
-                let class = props
-                    .get("Class")
-                    .and_then(|v| u32::try_from(v.clone()).ok())
-                    .unwrap_or_default();
-                let paired = props
-                    .get("Paired")
-                    .and_then(|v| bool::try_from(v.clone()).ok())
-                    .unwrap_or(false);
-                let connected = props
-                    .get("Connected")
-                    .and_then(|v| bool::try_from(v.clone()).ok())
-                    .unwrap_or(false);
-                let trusted = props
-                    .get("Trusted")
-                    .and_then(|v| bool::try_from(v.clone()).ok())
-                    .unwrap_or(false);
-
-                let kind = match class & 0x1FFF {
-                    0x0404 => DeviceKind::Headset,
-                    0x0408 => DeviceKind::Speaker,
-                    0x0410 => DeviceKind::Headphones,
-                    0x0418 => DeviceKind::Portable,
-                    0x0420 => DeviceKind::Car,
-                    _ => DeviceKind::Unknown,
-                };
-
-                devices.push(Device {
-                    path: path.clone(),
-                    name,
-                    address,
-                    class,
-                    paired,
-                    connected,
-                    trusted,
-                    rssi,
-                    kind,
-                });
+            for (path, props) in &known {
+                if let Some(device) = Self::parse_audio_device(path, props) {
+                    let _ = tx.send((KeyCode::KEY_BLUETOOTH, None, false, Some(device)));
+                }
             }
         }
 
-        devices.sort_by(|a, b| b.rssi.cmp(&a.rssi));
+        self.stop_scan().await?;
+        self.set_powered(false).await?;
 
-        Ok(devices)
+        Ok(())
+    }
+
+    fn parse_audio_device(
+        path: &OwnedObjectPath,
+        props: &HashMap<String, OwnedValue>,
+    ) -> Option<Device> {
+        const AUDIO_UUIDS: &[&str] = &[
+            "0000110b-0000-1000-8000-00805f9b34fb",
+            "00001108-0000-1000-8000-00805f9b34fb",
+            "0000111e-0000-1000-8000-00805f9b34fb",
+        ];
+
+        let name = props
+            .get("Name")
+            .and_then(|v| String::try_from(v.clone()).ok())
+            .unwrap_or_default();
+
+        println!("BT: {}", name);
+
+        let uuids: Vec<String> = props
+            .get("UUIDs")
+            .and_then(|v| Vec::<String>::try_from(v.clone()).ok())
+            .unwrap_or_default();
+
+        /* Only audio devices */
+        if !uuids.iter().any(|u| AUDIO_UUIDS.contains(&u.as_str())) {
+            return None;
+        }
+
+        let rssi = props
+            .get("RSSI")
+            .and_then(|v| i16::try_from(v.clone()).ok())
+            .unwrap_or_default();
+
+        /* Only reachable devices */
+        if rssi == 0 {
+            return None;
+        }
+
+        let address = props
+            .get("Address")
+            .and_then(|v| String::try_from(v.clone()).ok())
+            .unwrap_or_default();
+        let class = props
+            .get("Class")
+            .and_then(|v| u32::try_from(v.clone()).ok())
+            .unwrap_or_default();
+        let paired = props
+            .get("Paired")
+            .and_then(|v| bool::try_from(v.clone()).ok())
+            .unwrap_or_default();
+        let connected = props
+            .get("Connected")
+            .and_then(|v| bool::try_from(v.clone()).ok())
+            .unwrap_or_default();
+        let trusted = props
+            .get("Trusted")
+            .and_then(|v| bool::try_from(v.clone()).ok())
+            .unwrap_or_default();
+
+        let kind = match class & 0x1FFF {
+            0x0404 => DeviceKind::Headset,
+            0x0408 => DeviceKind::Speaker,
+            0x0410 => DeviceKind::Headphones,
+            0x0418 => DeviceKind::Portable,
+            0x0420 => DeviceKind::Car,
+            _ => DeviceKind::Unknown,
+        };
+
+        Some(Device {
+            path: OwnedObjectPath::default(),
+            name,
+            address,
+            class,
+            paired,
+            connected,
+            trusted,
+            rssi,
+            kind,
+        })
     }
 
     async fn get_default_adapter_path(

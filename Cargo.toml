@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 anyhow = "1.0"
+async-io = "2.6.0"
 bytemuck = { version = "1.24", features = ["derive", "min_const_generics"] }
 byteorder = "1.5"
 clap = { version = "4.0", features = ["derive"] }

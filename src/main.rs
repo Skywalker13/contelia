@@ -24,6 +24,10 @@ use std::env;
 use std::path::PathBuf;
 use std::process::ExitCode;
 use std::sync::mpsc::channel;
+use std::sync::{
+    Arc,
+    atomic::{AtomicBool, Ordering},
+};
 use std::time::Duration;
 use std::{error::Error, thread};
 
@@ -129,42 +133,21 @@ fn process_event(
     }
 }
 
-async fn bt_scan() -> Result<Vec<Device>, Box<dyn std::error::Error>> {
-    let bluez = Bluez::new().await?;
-
-    let powered = bluez.is_powered().await?;
-    println!("powered : {}", powered);
-
-    bluez.set_powered(true).await?;
-
-    let powered = bluez.is_powered().await?;
-    println!("powered : {}", powered);
-
-    bluez.start_scan().await?;
-    std::thread::sleep(std::time::Duration::from_secs(5));
-    let devices = bluez.list_audio_devices().await?;
-    bluez.stop_scan().await?;
-
-    for d in &devices {
-        println!(
-            "{} - {} (class=0x{:x} paired={} connected={} trusted={} RSSI={} kind={:?})",
-            d.address, d.name, d.class, d.paired, d.connected, d.trusted, d.rssi, d.kind
-        );
-    }
-
-    Ok(devices)
-}
-
 fn bt_scan_spawn(
-    tx: std::sync::mpsc::Sender<(KeyCode, Option<Status>, bool, Option<Vec<Device>>)>,
+    tx: std::sync::mpsc::Sender<(KeyCode, Option<Status>, bool, Option<Device>)>,
+    cancel: Arc<AtomicBool>,
 ) {
+    cancel.store(false, Ordering::Relaxed);
+
     thread::spawn(move || {
-        block_on(async move {
-            let scan_devices = bt_scan().await;
-            if let Ok(devices) = scan_devices {
-                let _ = tx.send((KeyCode::KEY_BLUETOOTH, None, false, Some(devices)));
-            }
-        });
+        if Services::start_bluez().is_ok() {
+            let _ = block_on(async move {
+                let bluez = Bluez::new().await?;
+                bluez.scan_audio_devices(tx, cancel).await
+            });
+
+            Services::stop_bluez().unwrap_or_default();
+        }
     });
 }
 
@@ -184,7 +167,7 @@ struct Cli {
 
 fn run() -> Result<u8, Box<dyn Error>> {
     let args = Cli::parse();
-    let (tx, rx) = channel::<(KeyCode, Option<Status>, bool, Option<Vec<Device>>)>();
+    let (tx, rx) = channel::<(KeyCode, Option<Status>, bool, Option<Device>)>();
 
     //// Listen for signals ////////////////////////////////////////////////////
     let mut signals = Signals::new(&[SIGTERM, SIGINT])?;
@@ -217,7 +200,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
     let path = args.books;
     let fb = args.fb;
-    let services = Services::new()?;
     let mut books = Books::from_dir(&path)?;
     let mut screen = Screen::new(fb.as_path())?;
     let mut player = Player::new()?;
@@ -226,6 +208,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut timeout: Option<Timeout> = None;
     let mut access_point = false;
     let mut bluetooth = false;
+    let bt_cancel = Arc::new(AtomicBool::new(false));
 
     let mut assets_dir = env::current_exe()?;
     assets_dir.pop();
@@ -287,7 +270,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         //// Access Point //////////////////////////////////////////////////////
 
         if next == Next::AccessPoint && access_point {
-            if services.stop_ap().is_ok() {
+            if Services::down_ap().is_ok() {
                 access_point = false;
                 books.reload();
                 next = Next::Normal;
@@ -298,7 +281,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::AccessPoint {
             player.stop();
 
-            if services.start_ap().is_ok() {
+            if Services::up_ap().is_ok() {
                 access_point = true;
                 screen.draw_file(assets_dir.join("settings.png"))?;
             }
@@ -307,28 +290,25 @@ fn run() -> Result<u8, Box<dyn Error>> {
         //// Bluetooth /////////////////////////////////////////////////////////
 
         if next == Next::BluetoothStop {
-            if services.stop_bluez().is_ok() {
-                bluetooth = false;
-                next = Next::Normal;
-                continue; /* Restore image and/or audio */
-            }
+            bt_cancel.store(true, Ordering::Relaxed);
+            bluetooth = false;
+            next = Next::Normal;
+            continue; /* Restore image and/or audio */
         }
 
         if next == Next::BluetoothStart {
             player.stop();
-
-            if services.start_bluez().is_ok() {
-                bluetooth = true;
-                next = Next::BluetoothScan;
-                /* See below */
-            }
+            bluetooth = true;
+            next = Next::BluetoothScan;
+            continue;
         }
 
         /* See Next::BluetoothStart */
         if next == Next::BluetoothScan {
+            bt_cancel.store(true, Ordering::Relaxed);
             screen.draw_file(assets_dir.join("bt_scan.png"))?;
             let tx_bluetooth = tx.clone();
-            bt_scan_spawn(tx_bluetooth);
+            bt_scan_spawn(tx_bluetooth, Arc::clone(&bt_cancel));
         }
 
         if next == Next::BluetoothSelect {
@@ -405,16 +385,10 @@ fn run() -> Result<u8, Box<dyn Error>> {
                     next = Next::Shutdown; /* Clean shutdown */
                 } else if code == KeyCode::KEY_BLUETOOTH {
                     match bt_devices {
-                        Some(devices) => match devices.first() {
-                            Some(device) => {
-                                device_kind = device.kind.clone();
-                                next = Next::BluetoothSelect;
-                            }
-                            None => {
-                                next = Next::BluetoothScan;
-                                continue; /* Scan again */
-                            }
-                        },
+                        Some(device) => {
+                            device_kind = device.kind.clone();
+                            next = Next::BluetoothSelect;
+                        }
                         None => {
                             next = Next::BluetoothScan;
                             continue; /* Scan again */
