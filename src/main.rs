@@ -45,6 +45,7 @@ enum Next {
     AccessPoint,
 
     BluetoothStart,
+    BluetoothStop,
     BluetoothScan,
     BluetoothSelect,
 
@@ -154,6 +155,19 @@ async fn bt_scan() -> Result<Vec<Device>, Box<dyn std::error::Error>> {
     Ok(devices)
 }
 
+fn bt_scan_spawn(
+    tx: std::sync::mpsc::Sender<(KeyCode, Option<Status>, bool, Option<Vec<Device>>)>,
+) {
+    thread::spawn(move || {
+        block_on(async move {
+            let scan_devices = bt_scan().await;
+            if let Ok(devices) = scan_devices {
+                let _ = tx.send((KeyCode::KEY_BLUETOOTH, None, false, Some(devices)));
+            }
+        });
+    });
+}
+
 #[derive(Parser)]
 struct Cli {
     /// Framebuffer device
@@ -174,7 +188,7 @@ struct Cli {
 
 fn run() -> Result<u8, Box<dyn Error>> {
     let args = Cli::parse();
-    let (tx, rx) = channel::<(KeyCode, Option<Status>, bool)>();
+    let (tx, rx) = channel::<(KeyCode, Option<Status>, bool, Option<Vec<Device>>)>();
 
     //// Listen for signals ////////////////////////////////////////////////////
     let mut signals = Signals::new(&[SIGTERM, SIGINT])?;
@@ -184,7 +198,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
             match sig {
                 SIGTERM | SIGINT => {
                     println!("{sig:?}");
-                    let _ = tx_sig.send((KeyCode::KEY_END, None, false));
+                    let _ = tx_sig.send((KeyCode::KEY_END, None, false, None));
                 }
                 _ => unreachable!(),
             }
@@ -200,7 +214,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
             if let Ok(code) = buttons.listen() {
                 let status = buttons.status().clone();
                 println!("{code:?}: {:?}", status);
-                let _ = tx_power_button.send((code, Some(status), false));
+                let _ = tx_power_button.send((code, Some(status), false, None));
             }
         }
     });
@@ -214,7 +228,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
             if let Ok(code) = buttons.listen() {
                 let status = buttons.status().clone();
                 println!("{code:?}: {:?}", status);
-                let _ = tx_main_buttons.send((code, Some(status), false));
+                let _ = tx_main_buttons.send((code, Some(status), false, None));
             }
         }
     });
@@ -225,7 +239,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut books = Books::from_dir(&path)?;
     let mut screen = Screen::new(fb.as_path())?;
     let mut player = Player::new()?;
-    let mut devices;
     let mut device_kind = DeviceKind::Unknown;
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
@@ -283,7 +296,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         } else {
                             return;
                         };
-                        let _ = tx_play.send((code, None, true));
+                        let _ = tx_play.send((code, None, true, None));
                     })?;
                 }
                 None => {}
@@ -312,7 +325,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         //// Bluetooth /////////////////////////////////////////////////////////
 
-        if next == Next::BluetoothStart && bluetooth {
+        if next == Next::BluetoothStop {
             if services.stop_bluez().is_ok() {
                 bluetooth = false;
                 next = Next::Normal;
@@ -324,24 +337,15 @@ fn run() -> Result<u8, Box<dyn Error>> {
             if services.start_bluez().is_ok() {
                 bluetooth = true;
                 player.stop();
-
-                screen.draw_file(assets_dir.join("bt_scan.png"))?;
                 next = Next::BluetoothScan;
                 continue;
             }
         }
 
         if next == Next::BluetoothScan {
-            devices = block_on(bt_scan())?;
-            match devices.first() {
-                Some(device) => {
-                    device_kind = device.kind.clone();
-                    next = Next::BluetoothSelect;
-                }
-                None => {
-                    continue; /* Scan again */
-                }
-            }
+            screen.draw_file(assets_dir.join("bt_scan.png"))?;
+            let tx_bluetooth = tx.clone();
+            bt_scan_spawn(tx_bluetooth);
         }
 
         if next == Next::BluetoothSelect {
@@ -372,7 +376,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(800), move || {
-                let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true));
+                let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true, None));
             }));
         }
 
@@ -388,20 +392,28 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(800), move || {
-                let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true));
+                let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true, None));
             }));
         }
 
         next = Next::Normal;
         match rx.recv() {
-            Ok((code, status, eos)) => {
+            Ok((code, status, eos, bt_devices)) => {
                 if let Some(status) = status {
-                    if status.dpad_down && status.select && status.start {
+                    if status.dpad_down && status.select && status.start && !bluetooth {
                         next = Next::AccessPoint;
                         continue;
                     }
-                    if status.dpad_up && status.select && status.start {
-                        next = Next::BluetoothStart;
+                    if status.dpad_up && status.select && status.start && !access_point {
+                        next = if bluetooth {
+                            Next::BluetoothStop
+                        } else {
+                            Next::BluetoothStart
+                        };
+                        continue;
+                    }
+                    if status.select && status.start {
+                        next = Next::None;
                         continue;
                     }
                 }
@@ -410,7 +422,24 @@ fn run() -> Result<u8, Box<dyn Error>> {
                     next = Next::Shutdown; // Clean shutdown
                 } else if code == KeyCode::KEY_POWER {
                     next = Next::Shutdown;
-                    status_code = 42; // Poweroff
+                    status_code = 42; /* Poweroff */
+                } else if code == KeyCode::KEY_BLUETOOTH {
+                    match bt_devices {
+                        Some(devices) => match devices.first() {
+                            Some(device) => {
+                                device_kind = device.kind.clone();
+                                next = Next::BluetoothSelect;
+                            }
+                            None => {
+                                next = Next::BluetoothScan;
+                                continue; /* Scan again */
+                            }
+                        },
+                        None => {
+                            next = Next::BluetoothScan;
+                            continue; /* Scan again */
+                        }
+                    }
                 } else if access_point == true || bluetooth == true {
                     next = Next::None;
                 } else if code == KeyCode::KEY_TIME {
