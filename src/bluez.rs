@@ -135,6 +135,15 @@ impl Bluez {
                     continue;
                 }
 
+                let rssi = props
+                    .get("RSSI")
+                    .and_then(|v| i16::try_from(v.clone()).ok())
+                    .unwrap_or_default();
+
+                if rssi == 0 {
+                    continue;
+                }
+
                 let name = props
                     .get("Name")
                     .and_then(|v| String::try_from(v.clone()).ok())
@@ -159,10 +168,6 @@ impl Bluez {
                     .get("Trusted")
                     .and_then(|v| bool::try_from(v.clone()).ok())
                     .unwrap_or(false);
-                let rssi = props
-                    .get("RSSI")
-                    .and_then(|v| i16::try_from(v.clone()).ok())
-                    .unwrap_or_default();
 
                 let kind = match class & 0x1FFF {
                     0x0404 => DeviceKind::Headset,
