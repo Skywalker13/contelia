@@ -296,10 +296,10 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
 
         if next == Next::AccessPoint {
+            player.stop();
+
             if services.start_ap().is_ok() {
                 access_point = true;
-                player.stop();
-
                 screen.draw_file(assets_dir.join("settings.png"))?;
             }
         }
@@ -315,9 +315,10 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
 
         if next == Next::BluetoothStart {
+            player.stop();
+
             if services.start_bluez().is_ok() {
                 bluetooth = true;
-                player.stop();
                 next = Next::BluetoothScan;
                 continue;
             }
