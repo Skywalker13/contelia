@@ -419,7 +419,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 }
 
                 if code == KeyCode::KEY_END {
-                    next = Next::Shutdown; // Clean shutdown
+                    next = Next::Shutdown; /* Clean shutdown */
                 } else if code == KeyCode::KEY_POWER {
                     next = Next::Shutdown;
                     status_code = 42; /* Poweroff */
@@ -443,9 +443,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 } else if access_point == true || bluetooth == true {
                     next = Next::None;
                 } else if code == KeyCode::KEY_TIME {
-                    next = Next::Image; // Restore screen
+                    next = Next::Image; /* Restore screen */
                 } else if eos && !state.control_settings.autoplay {
-                    // Ignore EOS when autoplay is disabled
+                    /* Ignore EOS when autoplay is disabled */
                     next = if timeout.is_none() {
                         Next::Image
                     } else {
