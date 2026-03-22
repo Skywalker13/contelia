@@ -34,7 +34,6 @@ pub struct Status {
     pub dpad_down: bool,
     pub start: bool,
     pub select: bool,
-    pub power: bool,
 }
 
 impl Buttons {
@@ -54,7 +53,6 @@ impl Buttons {
             dpad_down: false,
             start: false,
             select: false,
-            power: false,
         };
 
         Ok(Self {
@@ -102,10 +100,7 @@ impl Buttons {
                                 self.status.select = value == 1;
                                 self.status.select
                             }
-                            KeyCode::KEY_POWER => {
-                                self.status.power = value == 1;
-                                self.status.power
-                            }
+
                             _ => false,
                         } {
                             return Ok(code);
