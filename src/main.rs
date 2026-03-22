@@ -320,10 +320,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
             if services.start_bluez().is_ok() {
                 bluetooth = true;
                 next = Next::BluetoothScan;
-                continue;
+                /* See below */
             }
         }
 
+        /* See Next::BluetoothStart */
         if next == Next::BluetoothScan {
             screen.draw_file(assets_dir.join("bt_scan.png"))?;
             let tx_bluetooth = tx.clone();
