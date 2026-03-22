@@ -281,7 +281,7 @@ impl Bluez {
         };
 
         Some(Device {
-            path: OwnedObjectPath::default(),
+            path: path.clone(),
             name,
             address,
             class,
