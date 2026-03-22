@@ -349,14 +349,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 DeviceKind::Headset => {
                     screen.draw_file(assets_dir.join("bt_headset.png"))?;
                 }
-                DeviceKind::Speaker => {
-                    screen.draw_file(assets_dir.join("bt_speaker.png"))?;
-                }
                 DeviceKind::Headphones => {
                     screen.draw_file(assets_dir.join("bt_headphone.png"))?;
                 }
-                DeviceKind::Portable => {
-                    screen.draw_file(assets_dir.join("bt_portable.png"))?;
+                DeviceKind::Speaker | DeviceKind::Portable => {
+                    screen.draw_file(assets_dir.join("bt_speaker.png"))?;
                 }
                 DeviceKind::Car => {
                     screen.draw_file(assets_dir.join("bt_car.png"))?;
