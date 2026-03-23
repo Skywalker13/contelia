@@ -1,5 +1,5 @@
 /* Contelia
- * Copyright (C) 2025  Mathieu Schroeter <mathieu@schroetersa.ch>
+ * Copyright (C) 2025-2026  Mathieu Schroeter <mathieu@schroetersa.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
