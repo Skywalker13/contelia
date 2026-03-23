@@ -218,9 +218,9 @@ impl Bluez {
         props: &HashMap<String, OwnedValue>,
     ) -> Option<Device> {
         const AUDIO_UUIDS: &[&str] = &[
-            "0000110b-0000-1000-8000-00805f9b34fb",
-            "00001108-0000-1000-8000-00805f9b34fb",
-            "0000111e-0000-1000-8000-00805f9b34fb",
+            "0000110b-0000-1000-8000-00805f9b34fb", /* A2DP Sink */
+            "00001108-0000-1000-8000-00805f9b34fb", /* HSP       */
+            "0000111e-0000-1000-8000-00805f9b34fb", /* HFP       */
         ];
 
         let name = props
