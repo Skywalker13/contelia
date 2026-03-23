@@ -203,7 +203,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut books = Books::from_dir(&path)?;
     let mut screen = Screen::new(fb.as_path())?;
     let mut player = Player::new()?;
-    let mut device_kind = DeviceKind::Unknown;
+    let mut device: Option<Device> = None;
     let mut next = Next::Normal;
     let mut timeout: Option<Timeout> = None;
     let mut access_point = false;
@@ -311,22 +311,25 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
 
         if next == Next::BluetoothSelect {
-            match device_kind {
-                DeviceKind::Headset => {
-                    screen.draw_file(assets_dir.join("bt_headset.png"))?;
-                }
-                DeviceKind::Headphones => {
-                    screen.draw_file(assets_dir.join("bt_headphone.png"))?;
-                }
-                DeviceKind::Speaker | DeviceKind::Portable => {
-                    screen.draw_file(assets_dir.join("bt_speaker.png"))?;
-                }
-                DeviceKind::Car => {
-                    screen.draw_file(assets_dir.join("bt_car.png"))?;
-                }
-                DeviceKind::Unknown => {
-                    screen.draw_file(assets_dir.join("bt_unknown.png"))?;
-                }
+            match device {
+                Some(ref device) => match device.kind {
+                    DeviceKind::Headset => {
+                        screen.draw_file(assets_dir.join("bt_headset.png"))?;
+                    }
+                    DeviceKind::Headphones => {
+                        screen.draw_file(assets_dir.join("bt_headphone.png"))?;
+                    }
+                    DeviceKind::Speaker | DeviceKind::Portable => {
+                        screen.draw_file(assets_dir.join("bt_speaker.png"))?;
+                    }
+                    DeviceKind::Car => {
+                        screen.draw_file(assets_dir.join("bt_car.png"))?;
+                    }
+                    DeviceKind::Unknown => {
+                        screen.draw_file(assets_dir.join("bt_unknown.png"))?;
+                    }
+                },
+                None => {}
             }
         }
 
@@ -384,13 +387,13 @@ fn run() -> Result<u8, Box<dyn Error>> {
                     next = Next::Shutdown; /* Clean shutdown */
                 } else if code == KeyCode::KEY_BLUETOOTH {
                     match bt_devices {
-                        Some(device) => {
-                            device_kind = device.kind.clone();
+                        Some(dev) => {
+                            device = Some(dev);
                             next = Next::BluetoothSelect;
                         }
                         None => {
-                            next = Next::BluetoothScan;
-                            continue; /* Scan again */
+                            next = Next::None;
+                            continue;
                         }
                     }
                 } else if access_point == true || bluetooth == true {
