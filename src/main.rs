@@ -209,6 +209,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut access_point = false;
     let mut bluetooth = false;
     let mut status_code = 0;
+    let mut inactivity: Option<Timeout> = None;
     let bt_cancel = Arc::new(AtomicBool::new(false));
 
     let mut assets_dir = env::current_exe()?;
@@ -361,6 +362,31 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 let _ = tx_timeout.send((KeyCode::KEY_TIME, None, true, None));
             }));
         }
+
+        //// Inactivity - Timeout //////////////////////////////////////////////
+
+        /* When the screen is not cleared by using the menu excepted for the
+         * settings, then a timeout of 20s is started and the system is poweroff
+         * whe the timeout is reached.
+         */
+        if !screen.is_cleared() && !bluetooth && !access_point {
+            println!("Start inactivity timeout for 20s");
+            if let Some(ref mut inactivity) = inactivity {
+                inactivity.clear();
+            }
+            let tx_poweroff = tx.clone();
+            inactivity = Some(Timeout::set(Duration::from_secs(20), move || {
+                let _ = tx_poweroff.send((KeyCode::KEY_POWER, None, true, None));
+            }))
+        } else if inactivity.is_some() {
+            if let Some(ref mut inactivity) = inactivity {
+                println!("Stop inactivity timeout");
+                inactivity.clear();
+            }
+            inactivity = None;
+        }
+
+        //// Main events loop //////////////////////////////////////////////////
 
         next = Next::Normal;
         match rx.recv() {

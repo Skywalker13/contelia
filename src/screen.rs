@@ -29,6 +29,7 @@ use crate::decrypt::FileReader;
 pub struct Screen {
     fb: Framebuffer,
     name: String,
+    cleared: bool,
 }
 
 impl Screen {
@@ -42,7 +43,8 @@ impl Screen {
         let name = fs::read_to_string(format!("/sys/class/graphics/{}/name", dev))?
             .trim()
             .to_string();
-        Ok(Self { fb, name })
+        let cleared = true;
+        Ok(Self { fb, name, cleared })
     }
 
     pub fn off(&self) -> io::Result<()> {
@@ -60,6 +62,8 @@ impl Screen {
         image: &mut FileReader,
         format: image::ImageFormat,
     ) -> Result<(), Box<dyn std::error::Error>> {
+        self.cleared = false;
+
         let width = self.fb.var_screen_info.xres;
         let height = self.fb.var_screen_info.yres;
         let line_length = self.fb.fix_screen_info.line_length;
@@ -105,6 +109,11 @@ impl Screen {
 
     pub fn clear(&mut self) -> Result<(), Box<dyn std::error::Error>> {
         self.fb.frame.fill(0);
+        self.cleared = true;
         Ok(())
+    }
+
+    pub fn is_cleared(&mut self) -> bool {
+        self.cleared
     }
 }
