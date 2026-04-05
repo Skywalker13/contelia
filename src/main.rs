@@ -161,6 +161,10 @@ struct Cli {
     #[arg(short, long, default_value = "/dev/input/tftbonnet13")]
     input: PathBuf,
 
+    /// Timeout before poweroff
+    #[arg(short, long, default_value = "20")]
+    timeout: u64,
+
     /// The path to the books directory
     books: std::path::PathBuf,
 }
@@ -370,12 +374,12 @@ fn run() -> Result<u8, Box<dyn Error>> {
          * whe the timeout is reached.
          */
         if !screen.is_cleared() && !bluetooth && !access_point {
-            println!("Start inactivity timeout for 20s");
+            println!("Start inactivity timeout for {}s", args.timeout);
             if let Some(ref mut inactivity) = inactivity {
                 inactivity.clear();
             }
             let tx_poweroff = tx.clone();
-            inactivity = Some(Timeout::set(Duration::from_secs(20), move || {
+            inactivity = Some(Timeout::set(Duration::from_secs(args.timeout), move || {
                 let _ = tx_poweroff.send((KeyCode::KEY_POWER, None, true, None));
             }))
         } else if inactivity.is_some() {
