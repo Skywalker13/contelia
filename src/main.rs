@@ -208,6 +208,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut timeout: Option<Timeout> = None;
     let mut access_point = false;
     let mut bluetooth = false;
+    let mut status_code = 0;
     let bt_cancel = Arc::new(AtomicBool::new(false));
 
     let mut assets_dir = env::current_exe()?;
@@ -385,6 +386,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
                 if code == KeyCode::KEY_END {
                     next = Next::Shutdown; /* Clean shutdown */
+                } else if code == KeyCode::KEY_POWER {
+                    next = Next::Shutdown;
+                    status_code = 42; /* Poweroff */
                 } else if code == KeyCode::KEY_BLUETOOTH {
                     match bt_devices {
                         Some(dev) => {
@@ -420,7 +424,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         screen.clear()?;
     }
 
-    Ok(0)
+    Ok(status_code)
 }
 
 fn main() -> ExitCode {
