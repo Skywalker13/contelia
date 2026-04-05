@@ -52,6 +52,7 @@ enum Next {
     BluetoothStop,
     BluetoothScan,
     BluetoothSelect,
+    BluetoothOk,
 
     Shutdown,
 }
@@ -352,6 +353,28 @@ fn run() -> Result<u8, Box<dyn Error>> {
             }
         }
 
+        if next == Next::BluetoothOk {
+            match device {
+                Some(ref device) => {
+                    bt_cancel.store(true, Ordering::Relaxed);
+
+                    println!("Connect to {}", device.name);
+                    let result = block_on(async move {
+                        let bluez = Bluez::new().await?;
+                        bluez.connect(&device.path).await
+                    });
+
+                    if let Err(e) = result {
+                        println!("Connection error with {}: {}", device.name, e);
+                    } else {
+                        println!("Connected to {}", device.name);
+                        next = Next::BluetoothStop;
+                    }
+                }
+                None => {}
+            }
+        }
+
         //// Volume ////////////////////////////////////////////////////////////
 
         if next == Next::Volume {
@@ -443,8 +466,14 @@ fn run() -> Result<u8, Box<dyn Error>> {
                             continue;
                         }
                     }
-                } else if access_point == true || bluetooth == true {
+                } else if access_point == true {
                     next = Next::None;
+                } else if bluetooth == true {
+                    if code == KeyCode::BTN_START {
+                        next = Next::BluetoothOk;
+                    } else {
+                        next = Next::None;
+                    }
                 } else if code == KeyCode::KEY_TIME {
                     next = Next::Image; /* Restore screen */
                 } else if eos && !state.control_settings.autoplay {
