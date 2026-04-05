@@ -312,7 +312,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         if next == Next::BluetoothStop {
             bt_cancel.store(true, Ordering::Relaxed);
-            Services::stop_bluez()?;
+            Services::down_bluez()?;
             bluetooth = false;
             next = Next::Normal;
             continue; /* Restore image and/or audio */
@@ -328,7 +328,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::BluetoothScan {
             bt_cancel.store(true, Ordering::Relaxed);
             screen.draw_file(assets_dir.join("bt_scan.png"))?;
-            Services::start_bluez()?;
+            Services::up_bluez()?;
             let tx_bluetooth = tx.clone();
             bt_scan_spawn(tx_bluetooth, Arc::clone(&bt_cancel));
         }

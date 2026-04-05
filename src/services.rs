@@ -43,13 +43,13 @@ impl Services {
         Ok(())
     }
 
-    pub fn start_bluez() -> io::Result<()> {
-        Self::exec(vec!["start", "dbus", "bluez", "bluealsa"])?;
+    pub fn up_bluez() -> io::Result<()> {
+        Self::exec(vec!["up", "dbus", "bluez", "bluealsa"])?;
         Ok(())
     }
 
-    pub fn stop_bluez() -> io::Result<()> {
-        Self::exec(vec!["stop", "dbus", "bluez", "bluealsa"])?;
+    pub fn down_bluez() -> io::Result<()> {
+        Self::exec(vec!["down", "dbus", "bluez", "bluealsa"])?;
         Ok(())
     }
 }
