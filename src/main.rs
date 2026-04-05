@@ -370,8 +370,8 @@ fn run() -> Result<u8, Box<dyn Error>> {
         //// Inactivity - Timeout //////////////////////////////////////////////
 
         /* When the screen is not cleared by using the menu excepted for the
-         * settings, then a timeout of 20s is started and the system is poweroff
-         * whe the timeout is reached.
+         * settings, then a timeout of 20s is started and the system is
+         * poweroff when the timeout is reached (status code 42).
          */
         if !screen.is_cleared() && !bluetooth && !access_point {
             println!("Start inactivity timeout for {}s", args.timeout);
