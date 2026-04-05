@@ -106,6 +106,40 @@ impl Bluez {
         Ok(())
     }
 
+    pub async fn connect(
+        &self,
+        device_path: &OwnedObjectPath,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        self.set_powered(true).await?;
+        let _ = self.stop_scan().await;
+
+        let device = Proxy::new(
+            self.adapter.connection(),
+            "org.bluez",
+            device_path,
+            "org.bluez.Device1",
+        )
+        .await?;
+
+        device.call_method("Pair", &()).await?;
+
+        let props = Proxy::new(
+            self.adapter.connection(),
+            "org.bluez",
+            device_path,
+            "org.freedesktop.DBus.Properties",
+        )
+        .await?;
+
+        props
+            .call_method("Set", &("org.bluez.Device1", "Trusted", Value::from(true)))
+            .await?;
+
+        device.call_method("Connect", &()).await?;
+
+        Ok(())
+    }
+
     pub async fn scan_audio_devices(
         &self,
         tx: Sender<(KeyCode, Option<Status>, bool, Option<Device>)>,
