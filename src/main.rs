@@ -140,13 +140,24 @@ fn bt_scan_spawn(
     cancel.store(false, Ordering::Relaxed);
 
     thread::spawn(move || {
-        if Services::start_bluez().is_ok() {
-            let _ = block_on(async move {
+        loop {
+            let result = block_on(async {
                 let bluez = Bluez::new().await?;
-                bluez.scan_audio_devices(tx, cancel).await
+                bluez
+                    .scan_audio_devices(tx.clone(), Arc::clone(&cancel))
+                    .await
             });
 
-            Services::stop_bluez().unwrap_or_default();
+            if cancel.load(Ordering::Relaxed) {
+                break;
+            }
+
+            if let Err(e) = result {
+                eprintln!("Bluetooth scan error, retry: {}", e);
+                std::thread::sleep(std::time::Duration::from_millis(500));
+            } else {
+                break;
+            }
         }
     });
 }
@@ -297,6 +308,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         if next == Next::BluetoothStop {
             bt_cancel.store(true, Ordering::Relaxed);
+            Services::stop_bluez()?;
             bluetooth = false;
             next = Next::Normal;
             continue; /* Restore image and/or audio */
@@ -312,6 +324,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::BluetoothScan {
             bt_cancel.store(true, Ordering::Relaxed);
             screen.draw_file(assets_dir.join("bt_scan.png"))?;
+            Services::start_bluez()?;
             let tx_bluetooth = tx.clone();
             bt_scan_spawn(tx_bluetooth, Arc::clone(&bt_cancel));
         }
