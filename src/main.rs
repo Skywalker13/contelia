@@ -140,6 +140,7 @@ fn bt_scan_spawn(
 ) {
     cancel.store(false, Ordering::Relaxed);
 
+    println!("Start bluetooth scanning");
     thread::spawn(move || {
         loop {
             let result = block_on(async {
@@ -150,6 +151,7 @@ fn bt_scan_spawn(
             });
 
             if cancel.load(Ordering::Relaxed) {
+                println!("Stop bluetooth scanning");
                 break;
             }
 
@@ -157,6 +159,7 @@ fn bt_scan_spawn(
                 eprintln!("Bluetooth scan error, retry: {}", e);
                 std::thread::sleep(std::time::Duration::from_millis(500));
             } else {
+                println!("Stop bluetooth scanning");
                 break;
             }
         }
