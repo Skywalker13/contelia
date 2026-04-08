@@ -16,7 +16,13 @@
  */
 
 use anyhow::Result;
-use rodio::{OutputStream, OutputStreamBuilder, Sink, play, source::EmptyCallback};
+use rodio::DeviceTrait;
+use rodio::{
+    OutputStream, OutputStreamBuilder, Sink,
+    cpal::{self, traits::HostTrait},
+    play,
+    source::EmptyCallback,
+};
 use std::io::BufReader;
 
 use crate::FileReader;
@@ -29,6 +35,11 @@ pub struct Player {
 
 impl Player {
     pub fn new() -> Result<Self> {
+        let devices = cpal::default_host().output_devices()?;
+        for device in devices {
+            println!("Detected audio devices: {}", device.name()?);
+        }
+
         let stream_handle = OutputStreamBuilder::open_default_stream()?;
         Ok(Self {
             stream_handle,
