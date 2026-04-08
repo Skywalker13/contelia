@@ -155,23 +155,8 @@ impl Bluez {
             .unwrap_or(false);
 
         if !paired {
-            let adapter_props = Proxy::new(
-                self.adapter.connection(),
-                "org.bluez",
-                "/org/bluez/hci0",
-                "org.freedesktop.DBus.Properties",
-            )
-            .await?;
-
-            adapter_props
-                .call_method(
-                    "Set",
-                    &("org.bluez.Adapter1", "Pairable", Value::from(true)),
-                )
-                .await?;
-
+            self.set_pairable(true).await?;
             device.call_method("Pair", &()).await?;
-
             props
                 .call_method("Set", &("org.bluez.Device1", "Trusted", Value::from(true)))
                 .await?;
