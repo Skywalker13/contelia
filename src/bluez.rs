@@ -96,6 +96,25 @@ impl Bluez {
         Ok(())
     }
 
+    async fn set_pairable(&self, pair: bool) -> Result<(), Box<dyn std::error::Error>> {
+        let adapter_props = Proxy::new(
+            self.adapter.connection(),
+            "org.bluez",
+            "/org/bluez/hci0",
+            "org.freedesktop.DBus.Properties",
+        )
+        .await?;
+
+        adapter_props
+            .call_method(
+                "Set",
+                &("org.bluez.Adapter1", "Pairable", Value::from(pair)),
+            )
+            .await?;
+
+        Ok(())
+    }
+
     async fn start_scan(&self) -> Result<(), Box<dyn std::error::Error>> {
         self.adapter.call_method("StartDiscovery", &()).await?;
         Ok(())
