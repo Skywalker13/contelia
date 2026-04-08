@@ -121,8 +121,6 @@ impl Bluez {
         )
         .await?;
 
-        device.call_method("Pair", &()).await?;
-
         let props = Proxy::new(
             self.adapter.connection(),
             "org.bluez",
@@ -131,9 +129,34 @@ impl Bluez {
         )
         .await?;
 
-        props
-            .call_method("Set", &("org.bluez.Device1", "Trusted", Value::from(true)))
+        let paired: bool = props
+            .call_method("Get", &("org.bluez.Device1", "Paired"))
+            .await
+            .and_then(|r| r.body().deserialize())
+            .unwrap_or(false);
+
+        if !paired {
+            let adapter_props = Proxy::new(
+                self.adapter.connection(),
+                "org.bluez",
+                "/org/bluez/hci0",
+                "org.freedesktop.DBus.Properties",
+            )
             .await?;
+
+            adapter_props
+                .call_method(
+                    "Set",
+                    &("org.bluez.Adapter1", "Pairable", Value::from(true)),
+                )
+                .await?;
+
+            device.call_method("Pair", &()).await?;
+
+            props
+                .call_method("Set", &("org.bluez.Device1", "Trusted", Value::from(true)))
+                .await?;
+        }
 
         device.call_method("Connect", &()).await?;
 
