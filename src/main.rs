@@ -371,7 +371,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         println!("Connection error with {}: {}", device.name, e);
                     } else {
                         println!("Connected to {}", device.name);
-                        next = Next::BluetoothStop;
+
+                        bt_cancel.store(true, Ordering::Relaxed);
+                        bluetooth = false;
+                        next = Next::Normal;
+                        continue;
                     }
                 }
                 None => {}
