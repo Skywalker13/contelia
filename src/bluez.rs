@@ -242,7 +242,6 @@ impl Bluez {
         }
 
         self.stop_scan().await?;
-        self.set_powered(false).await?;
 
         Ok(())
     }
