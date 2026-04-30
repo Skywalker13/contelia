@@ -217,6 +217,19 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
     });
 
+    //// Check if a bluetooth device is already paired /////////////////////////
+    let device_paired = block_on(async move {
+        let bluez = Bluez::new().await;
+        match bluez {
+            Ok(bluez) => bluez.get_device_paired(),
+            Err(_) => false,
+        }
+    });
+
+    if device_paired {
+        println!("One device is already paired, enable bluetooth");
+    }
+
     let path = args.books;
     let fb = args.fb;
     let mut books = Books::from_dir(&path)?;

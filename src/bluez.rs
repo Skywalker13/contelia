@@ -42,6 +42,7 @@ use crate::Status;
 
 pub struct Bluez {
     adapter: Proxy<'static>,
+    device_paired: bool,
     props: Proxy<'static>,
 }
 
@@ -70,20 +71,29 @@ pub struct Device {
 impl Bluez {
     pub async fn new() -> Result<Self, Box<dyn std::error::Error>> {
         let conn = Connection::system().await?;
-        let adapter_path = Self::get_default_adapter_path(&conn).await?;
+        let (adapter_path, device_path) = Self::get_adapter_and_device_path(&conn).await?;
 
-        let adapter =
-            Proxy::new_owned(conn, "org.bluez", adapter_path, "org.bluez.Adapter1").await?;
+        match adapter_path {
+            Some(adapter_path) => {
+                let adapter =
+                    Proxy::new_owned(conn, "org.bluez", adapter_path, "org.bluez.Adapter1").await?;
 
-        let props = Proxy::new(
-            adapter.connection(),
-            "org.bluez",
-            adapter.path(),
-            "org.freedesktop.DBus.Properties",
-        )
-        .await?;
+                let props = Proxy::new(
+                    adapter.connection(),
+                    "org.bluez",
+                    adapter.path(),
+                    "org.freedesktop.DBus.Properties",
+                )
+                .await?;
 
-        Ok(Self { adapter, props })
+                Ok(Self {
+                    adapter,
+                    device_paired: device_path.is_some(),
+                    props,
+                })
+            }
+            None => Err("No default adapter".into()),
+        }
     }
 
     async fn set_powered(&self, power: bool) -> Result<(), Box<dyn std::error::Error>> {
@@ -351,9 +361,14 @@ impl Bluez {
         })
     }
 
-    async fn get_default_adapter_path(
+    pub fn get_device_paired(&self) -> bool {
+        self.device_paired
+    }
+
+    async fn get_adapter_and_device_path(
         conn: &Connection,
-    ) -> Result<OwnedObjectPath, Box<dyn std::error::Error>> {
+    ) -> Result<(Option<OwnedObjectPath>, Option<OwnedObjectPath>), Box<dyn std::error::Error>>
+    {
         let proxy = ObjectManagerProxy::builder(conn)
             .destination("org.bluez")?
             .path("/")?
@@ -361,13 +376,31 @@ impl Bluez {
             .await?;
 
         let objects = proxy.get_managed_objects().await?;
+        let mut device_path: Option<OwnedObjectPath> = None;
+        let mut adapter_path: Option<OwnedObjectPath> = None;
 
         for (path, ifaces) in &objects {
             if let Some(_props) = ifaces.get("org.bluez.Adapter1") {
-                return Ok(path.clone());
+                adapter_path = Some(path.clone());
+            }
+            if let Some(props) = ifaces.get("org.bluez.Device1") {
+                let paired = props
+                    .get("Paired")
+                    .and_then(|v| bool::try_from(v.clone()).ok())
+                    .unwrap_or(false);
+                let trusted = props
+                    .get("Trusted")
+                    .and_then(|v| bool::try_from(v.clone()).ok())
+                    .unwrap_or(false);
+
+                if !paired || !trusted {
+                    continue;
+                }
+
+                device_path = Some(path.clone());
             }
         }
 
-        Err("No default adapter".into())
+        Ok((adapter_path, device_path))
     }
 }
