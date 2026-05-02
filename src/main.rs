@@ -400,7 +400,10 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         if next == Next::Volume {
             let volume = player.get_volume();
-            screen.draw_file(assets_dir.join(format!("volume{:0>2}.png", volume)))?;
+
+            if volume > 0 {
+                screen.draw_file(assets_dir.join(format!("volume{:0>2}.png", volume)))?;
+            }
 
             let tx_timeout = tx.clone();
             timeout = Some(Timeout::set(Duration::from_millis(800), move || {
