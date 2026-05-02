@@ -33,25 +33,16 @@ pub struct Books {
 impl Books {
     pub fn from_dir(path: &Path) -> Result<Self> {
         let current_book_index = 0;
-        let mut books = Self::load(path).unwrap_or_default();
+        let books = vec![];
 
-        /* Load the "empty" book, because the user must enable the captive
-         * portal in order to load real books. In other words, it's empty.
-         */
-        if books.len() == 0 {
-            let mut base_books_dir = env::current_exe()?;
-            base_books_dir.pop();
-            base_books_dir.pop();
-            base_books_dir = base_books_dir.join("share/contelia/books");
-
-            books = Self::load(base_books_dir.as_path()).unwrap_or_default();
-        }
-
-        Ok(Self {
+        let mut me = Self {
             path: path.to_path_buf(),
             books,
             current_book_index,
-        })
+        };
+        me.reload();
+
+        Ok(me)
     }
 
     fn load(path: &Path) -> Result<Vec<Book>, Box<dyn Error>> {
@@ -89,7 +80,25 @@ impl Books {
     }
 
     pub fn reload(&mut self) {
-        let books = Self::load(&self.path).unwrap_or_default();
+        let mut books = Self::load(&self.path).unwrap_or_default();
+
+        /* Load the "empty" book, because the user must enable the captive
+         * portal in order to load real books. In other words, it's empty.
+         */
+        if books.len() == 0 {
+            match env::current_exe() {
+                Ok(current_exe) => {
+                    let mut base_books_dir = current_exe;
+                    base_books_dir.pop();
+                    base_books_dir.pop();
+                    base_books_dir = base_books_dir.join("share/contelia/books");
+
+                    books = Self::load(base_books_dir.as_path()).unwrap_or_default();
+                }
+                _ => {}
+            }
+        }
+
         self.books = books;
         self.current_book_index = 0;
     }
