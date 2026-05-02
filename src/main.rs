@@ -46,6 +46,7 @@ enum Next {
     Pause,
     Play,
     Timeout,
+
     AccessPoint,
 
     BluetoothStart,
