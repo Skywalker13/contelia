@@ -28,24 +28,35 @@ use std::io::BufReader;
 use crate::FileReader;
 
 pub struct Player {
-    stream_handle: OutputStream,
+    stream_handle: Option<OutputStream>,
     sink: Option<Sink>,
     volume: f32,
 }
 
 impl Player {
     pub fn new() -> Result<Self> {
+        let mut me = Self {
+            stream_handle: None,
+            sink: None,
+            volume: 0.2,
+        };
+        let _ = me.reload();
+
+        Ok(me)
+    }
+
+    pub fn reload(&mut self) -> Result<(), Box<dyn std::error::Error>> {
         let devices = cpal::default_host().output_devices()?;
         for device in devices {
             println!("Detected audio devices: {}", device.name()?);
         }
 
         let stream_handle = OutputStreamBuilder::open_default_stream()?;
-        Ok(Self {
-            stream_handle,
-            sink: None,
-            volume: 0.2,
-        })
+        self.stream_handle = Some(stream_handle);
+        self.sink = None;
+        self.volume = 0.2;
+
+        Ok(())
     }
 
     pub fn play<F>(
@@ -56,19 +67,23 @@ impl Player {
     where
         F: Fn() + Send + 'static,
     {
-        let mixer = self.stream_handle.mixer();
-        let reader = BufReader::new(audio);
-        let sink = play(mixer, reader)?;
+        if let Some(ref stream_handle) = self.stream_handle {
+            let mixer = stream_handle.mixer();
+            let reader = BufReader::new(audio);
+            let sink = play(mixer, reader)?;
 
-        sink.append(EmptyCallback::new(Box::new(move || {
-            println!("End of stream");
-            end_cb();
-        })));
+            sink.append(EmptyCallback::new(Box::new(move || {
+                println!("End of stream");
+                end_cb();
+            })));
 
-        sink.set_volume(self.volume);
-        self.sink = Some(sink);
+            sink.set_volume(self.volume);
+            self.sink = Some(sink);
 
-        Ok(())
+            return Ok(());
+        } else {
+            return Err("No stream handle".into());
+        }
     }
 
     pub fn stop(&self) {
