@@ -135,7 +135,7 @@ fn process_event(
     }
 }
 
-fn bt_scan_spawn(
+fn bt_new_scan_spawn(
     tx: std::sync::mpsc::Sender<(KeyCode, Option<Status>, bool, Option<Device>)>,
     cancel: Arc<AtomicBool>,
 ) {
@@ -146,6 +146,8 @@ fn bt_scan_spawn(
         loop {
             let result = block_on(async {
                 let bluez = Bluez::new().await?;
+                /* Remove all devices before a new scan (reset) */
+                bluez.remove_all_devices().await?;
                 bluez
                     .scan_audio_devices(tx.clone(), Arc::clone(&cancel))
                     .await
@@ -344,7 +346,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
             screen.draw_file(assets_dir.join("bt_scan.png"))?;
             Services::up_bluez()?;
             let tx_bluetooth = tx.clone();
-            bt_scan_spawn(tx_bluetooth, Arc::clone(&bt_cancel));
+            bt_new_scan_spawn(tx_bluetooth, Arc::clone(&bt_cancel));
         }
 
         if next == Next::BluetoothSelect {

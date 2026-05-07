@@ -283,6 +283,27 @@ impl Bluez {
         Ok(())
     }
 
+    pub async fn remove_all_devices(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let proxy = ObjectManagerProxy::builder(self.adapter.connection())
+            .destination("org.bluez")?
+            .path("/")?
+            .build()
+            .await?;
+
+        let objects = proxy.get_managed_objects().await?;
+
+        for (path, ifaces) in &objects {
+            if ifaces.contains_key("org.bluez.Device1") {
+                self.adapter
+                    .call_method("RemoveDevice", &(path.as_ref()))
+                    .await
+                    .ok(); // ignorer les erreurs individuelles
+            }
+        }
+
+        Ok(())
+    }
+
     fn parse_audio_device(
         path: &OwnedObjectPath,
         props: &HashMap<String, OwnedValue>,
