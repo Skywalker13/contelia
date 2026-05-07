@@ -92,6 +92,11 @@ impl Player {
         }
     }
 
+    pub fn drop(&mut self) {
+        self.sink = None;
+        self.stream_handle = None;
+    }
+
     pub fn toggle_pause(&self) {
         if let Some(sink) = &self.sink {
             if sink.is_paused() {
