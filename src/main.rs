@@ -514,7 +514,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 } else if access_point == true {
                     next = Next::None;
                 } else if bluetooth == true {
-                    if code == KeyCode::BTN_START {
+                    if code == KeyCode::BTN_START && next != Next::BluetoothOk {
                         next = Next::BluetoothOk;
                     } else {
                         next = Next::None;
