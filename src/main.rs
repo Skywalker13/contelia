@@ -391,6 +391,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
         if next == Next::BluetoothOk {
             match device {
                 Some(ref device) => {
+                    screen.draw_file(assets_dir.join("wait.png"))?;
                     bt_cancel.store(true, Ordering::Relaxed);
 
                     println!("Connect to {}", device.name);
