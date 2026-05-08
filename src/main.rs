@@ -331,6 +331,12 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         if next == Next::BluetoothStop {
             bt_cancel.store(true, Ordering::Relaxed);
+
+            let _ = block_on(async {
+                let bluez = Bluez::new().await?;
+                bluez.remove_all_devices().await
+            });
+
             Services::down_bluez()?;
 
             player.reload().unwrap_or_default();
