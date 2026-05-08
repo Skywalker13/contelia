@@ -339,7 +339,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             Services::down_bluez()?;
 
-            player.reload().unwrap_or_default();
+            player.reload().ok();
 
             bluetooth = false;
             next = Next::Normal;
@@ -396,7 +396,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         bluez.connect(&device.path).await
                     });
 
-                    player.reload().unwrap_or_default();
+                    player.reload().ok();
 
                     if let Err(e) = result {
                         println!("Connection error with {}: {}", device.name, e);
