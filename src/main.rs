@@ -356,8 +356,11 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         if next == Next::BluetoothScan {
             bt_cancel.store(true, Ordering::Relaxed);
+
+            screen.draw_file(assets_dir.join("wait.png"))?;
+            Services::start_bluez()?;
+
             screen.draw_file(assets_dir.join("bt_scan.png"))?;
-            Services::up_bluez()?;
             let tx_bluetooth = tx.clone();
             bt_new_scan_spawn(tx_bluetooth, Arc::clone(&bt_cancel));
         }
