@@ -495,7 +495,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 } else if code == KeyCode::KEY_POWER {
                     next = Next::Shutdown;
                     status_code = 42; /* Poweroff */
-                } else if code == KeyCode::KEY_BLUETOOTH {
+                } else if bluetooth == true && code == KeyCode::KEY_BLUETOOTH {
                     match bt_devices {
                         Some(dev) => {
                             device = Some(dev);
