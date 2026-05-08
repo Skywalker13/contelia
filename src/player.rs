@@ -46,6 +46,8 @@ impl Player {
     }
 
     pub fn reload(&mut self) -> Result<(), Box<dyn std::error::Error>> {
+        self.stop();
+
         let devices = cpal::default_host().output_devices()?;
         for device in devices {
             println!("Detected audio devices: {}", device.name()?);
