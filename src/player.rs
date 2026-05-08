@@ -61,9 +61,9 @@ impl Player {
             sink.set_volume(self.volume);
             self.sink = Some(sink);
 
-            return Ok(());
+            Ok(())
         } else {
-            return Err("No stream handle".into());
+            Err("No stream handle".into())
         }
     }
 
