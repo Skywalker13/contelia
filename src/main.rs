@@ -339,8 +339,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
             Services::down_bluez()?;
 
-            player.reload().ok();
-
             bluetooth = false;
             next = Next::Normal;
             continue; /* Restore image and/or audio */
@@ -348,7 +346,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
         if next == Next::BluetoothStart {
             player.stop();
-            player.drop();
             bluetooth = true;
             next = Next::BluetoothScan;
             continue;
@@ -399,8 +396,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         let bluez = Bluez::new().await?;
                         bluez.connect(&device.path).await
                     });
-
-                    player.reload().ok();
 
                     if let Err(e) = result {
                         println!("Connection error with {}: {}", device.name, e);

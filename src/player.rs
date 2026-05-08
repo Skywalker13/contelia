@@ -16,13 +16,8 @@
  */
 
 use anyhow::Result;
-use rodio::DeviceTrait;
-use rodio::{
-    OutputStream, OutputStreamBuilder, Sink,
-    cpal::{self, traits::HostTrait},
-    play,
-    source::EmptyCallback,
-};
+use rodio::OutputStream;
+use rodio::{OutputStreamBuilder, Sink, play, source::EmptyCallback};
 use std::io::BufReader;
 
 use crate::FileReader;
@@ -35,30 +30,11 @@ pub struct Player {
 
 impl Player {
     pub fn new() -> Result<Self> {
-        let mut me = Self {
+        Ok(Self {
             stream_handle: None,
             sink: None,
             volume: 0.2,
-        };
-        let _ = me.reload();
-
-        Ok(me)
-    }
-
-    pub fn reload(&mut self) -> Result<(), Box<dyn std::error::Error>> {
-        self.stop();
-
-        let devices = cpal::default_host().output_devices()?;
-        for device in devices {
-            println!("Detected audio devices: {}", device.name()?);
-        }
-
-        let stream_handle = OutputStreamBuilder::open_default_stream()?;
-        self.stream_handle = Some(stream_handle);
-        self.sink = None;
-        self.volume = 0.2;
-
-        Ok(())
+        })
     }
 
     pub fn play<F>(
@@ -69,6 +45,9 @@ impl Player {
     where
         F: Fn() + Send + 'static,
     {
+        self.stop();
+        self.stream_handle = OutputStreamBuilder::open_default_stream().ok();
+
         if let Some(ref stream_handle) = self.stream_handle {
             let mixer = stream_handle.mixer();
             let reader = BufReader::new(audio);
@@ -88,13 +67,11 @@ impl Player {
         }
     }
 
-    pub fn stop(&self) {
+    pub fn stop(&mut self) {
         if let Some(sink) = &self.sink {
             sink.stop();
         }
-    }
 
-    pub fn drop(&mut self) {
         self.sink = None;
         self.stream_handle = None;
     }
