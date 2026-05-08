@@ -229,10 +229,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
         }
     });
 
-    if device_paired {
-        println!("One device is already paired, enable bluetooth");
-    }
-
     let path = args.books;
     let fb = args.fb;
     let mut books = Books::from_dir(&path)?;
@@ -251,6 +247,13 @@ fn run() -> Result<u8, Box<dyn Error>> {
     assets_dir.pop();
     assets_dir.pop();
     assets_dir = assets_dir.join("share/contelia/assets");
+
+    if device_paired {
+        println!("One device is already paired, enable bluetooth");
+
+        screen.draw_file(assets_dir.join("wait.png"))?;
+        Services::start_bluez()?;
+    }
 
     while next != Next::Shutdown {
         let Some(book) = books.get() else {
