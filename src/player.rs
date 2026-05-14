@@ -17,6 +17,8 @@
 
 use anyhow::Result;
 use rodio::OutputStream;
+use rodio::cpal;
+use rodio::cpal::traits::HostTrait;
 use rodio::{OutputStreamBuilder, Sink, play, source::EmptyCallback};
 use std::io::BufReader;
 
@@ -46,7 +48,30 @@ impl Player {
         F: Fn() + Send + 'static,
     {
         self.stop();
-        self.stream_handle = OutputStreamBuilder::open_default_stream().ok();
+        self.stream_handle = OutputStreamBuilder::from_default_device()
+            .and_then(|builder| {
+                builder
+                    .with_error_callback(|err| eprintln!("Error: {}", err))
+                    .open_stream()
+            })
+            .or_else(|original_err| {
+                let mut devices = match cpal::default_host().output_devices() {
+                    Ok(devices) => devices,
+                    Err(_) => return Err(original_err),
+                };
+                devices
+                    .find_map(|d| {
+                        OutputStreamBuilder::from_device(d)
+                            .and_then(|builder| {
+                                builder
+                                    .with_error_callback(|err| eprintln!("Error: {}", err))
+                                    .open_stream_or_fallback()
+                            })
+                            .ok()
+                    })
+                    .ok_or(original_err)
+            })
+            .ok();
 
         if let Some(ref stream_handle) = self.stream_handle {
             let mixer = stream_handle.mixer();
