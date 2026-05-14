@@ -16,23 +16,23 @@
  */
 
 use anyhow::Result;
-use rodio::OutputStream;
-use rodio::{OutputStreamBuilder, Sink, play, source::EmptyCallback};
+use rodio::{DeviceSinkBuilder, MixerDeviceSink};
+use rodio::{play, source::EmptyCallback};
 use std::io::BufReader;
 
 use crate::FileReader;
 
 pub struct Player {
-    stream_handle: Option<OutputStream>,
-    sink: Option<Sink>,
+    device_sink: Option<MixerDeviceSink>,
+    player: Option<rodio::Player>,
     volume: f32,
 }
 
 impl Player {
     pub fn new() -> Result<Self> {
         Ok(Self {
-            stream_handle: None,
-            sink: None,
+            device_sink: None,
+            player: None,
             volume: 0.2,
         })
     }
@@ -46,10 +46,10 @@ impl Player {
         F: Fn() + Send + 'static,
     {
         self.stop();
-        self.stream_handle = OutputStreamBuilder::open_default_stream().ok();
+        self.device_sink = DeviceSinkBuilder::open_default_sink().ok();
 
-        if let Some(ref stream_handle) = self.stream_handle {
-            let mixer = stream_handle.mixer();
+        if let Some(ref device_sink) = self.device_sink {
+            let mixer = device_sink.mixer();
             let reader = BufReader::new(audio);
             let sink = play(mixer, reader)?;
 
@@ -59,7 +59,7 @@ impl Player {
             })));
 
             sink.set_volume(self.volume);
-            self.sink = Some(sink);
+            self.player = Some(sink);
         } else {
             eprintln!("No default stream found");
         }
@@ -68,16 +68,16 @@ impl Player {
     }
 
     pub fn stop(&mut self) {
-        if let Some(sink) = &self.sink {
+        if let Some(sink) = &self.player {
             sink.stop();
         }
 
-        self.sink = None;
-        self.stream_handle = None;
+        self.player = None;
+        self.device_sink = None;
     }
 
     pub fn toggle_pause(&self) {
-        if let Some(sink) = &self.sink {
+        if let Some(sink) = &self.player {
             if sink.is_paused() {
                 sink.play();
             } else {
@@ -87,21 +87,21 @@ impl Player {
     }
 
     pub fn is_paused(&self) -> bool {
-        match &self.sink {
+        match &self.player {
             Some(sink) => sink.is_paused(),
             None => false,
         }
     }
 
     pub fn get_volume(&self) -> usize {
-        match &self.sink {
+        match &self.player {
             Some(sink) => (sink.volume() * 10.0).round() as usize,
             None => 0,
         }
     }
 
     pub fn volume_up(&mut self) {
-        if let Some(sink) = &self.sink {
+        if let Some(sink) = &self.player {
             let mut volume = sink.volume();
             if volume < 1.0 {
                 volume = volume + 0.1;
@@ -112,7 +112,7 @@ impl Player {
     }
 
     pub fn volume_down(&mut self) {
-        if let Some(sink) = &self.sink {
+        if let Some(sink) = &self.player {
             let mut volume = sink.volume();
             if volume > 0.2 {
                 volume = volume - 0.1;
