@@ -60,11 +60,11 @@ impl Player {
 
             sink.set_volume(self.volume);
             self.sink = Some(sink);
-
-            Ok(())
         } else {
-            Err("No stream handle".into())
+            eprintln!("No default stream found");
         }
+
+        Ok(())
     }
 
     pub fn stop(&mut self) {
