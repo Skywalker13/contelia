@@ -42,7 +42,6 @@ use crate::Status;
 
 pub struct Bluez {
     adapter: Proxy<'static>,
-    device_paired: bool,
     props: Proxy<'static>,
 }
 
@@ -71,7 +70,7 @@ pub struct Device {
 impl Bluez {
     pub async fn new() -> Result<Self, Box<dyn std::error::Error>> {
         let conn = Connection::system().await?;
-        let (adapter_path, device_path) = Self::get_adapter_and_device_path(&conn).await?;
+        let adapter_path = Self::get_adapter_and_device_path(&conn).await?;
 
         match adapter_path {
             Some(adapter_path) => {
@@ -86,11 +85,7 @@ impl Bluez {
                 )
                 .await?;
 
-                Ok(Self {
-                    adapter,
-                    device_paired: device_path.is_some(),
-                    props,
-                })
+                Ok(Self { adapter, props })
             }
             None => Err("No default adapter".into()),
         }
@@ -387,15 +382,8 @@ impl Bluez {
         })
     }
 
-    pub fn get_device_paired(&self) -> bool {
-        self.device_paired
-    }
-
-    async fn get_adapter_and_device_path(
-        conn: &Connection,
-    ) -> Result<(Option<OwnedObjectPath>, Option<OwnedObjectPath>), Box<dyn std::error::Error>>
-    {
-        let proxy = ObjectManagerProxy::builder(conn)
+    pub async fn get_device(&self) -> Result<Option<OwnedObjectPath>, Box<dyn std::error::Error>> {
+        let proxy = ObjectManagerProxy::builder(self.adapter.connection())
             .destination("org.bluez")?
             .path("/")?
             .build()
@@ -403,12 +391,8 @@ impl Bluez {
 
         let objects = proxy.get_managed_objects().await?;
         let mut device_path: Option<OwnedObjectPath> = None;
-        let mut adapter_path: Option<OwnedObjectPath> = None;
 
         for (path, ifaces) in &objects {
-            if let Some(_props) = ifaces.get("org.bluez.Adapter1") {
-                adapter_path = Some(path.clone());
-            }
             if let Some(props) = ifaces.get("org.bluez.Device1") {
                 let paired = props
                     .get("Paired")
@@ -427,6 +411,27 @@ impl Bluez {
             }
         }
 
-        Ok((adapter_path, device_path))
+        Ok(device_path)
+    }
+
+    async fn get_adapter_and_device_path(
+        conn: &Connection,
+    ) -> Result<Option<OwnedObjectPath>, Box<dyn std::error::Error>> {
+        let proxy = ObjectManagerProxy::builder(conn)
+            .destination("org.bluez")?
+            .path("/")?
+            .build()
+            .await?;
+
+        let objects = proxy.get_managed_objects().await?;
+        let mut adapter_path: Option<OwnedObjectPath> = None;
+
+        for (path, ifaces) in &objects {
+            if let Some(_props) = ifaces.get("org.bluez.Adapter1") {
+                adapter_path = Some(path.clone());
+            }
+        }
+
+        Ok(adapter_path)
     }
 }

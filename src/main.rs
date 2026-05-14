@@ -221,13 +221,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     });
 
     //// Check if a bluetooth device is already paired /////////////////////////
-    let device_paired = block_on(async move {
-        let bluez = Bluez::new().await;
-        match bluez {
-            Ok(bluez) => bluez.get_device_paired(),
-            Err(_) => false,
-        }
-    });
+    // TODO: check in /usr/var/lib/bluetooth/*/*/info
 
     let path = args.books;
     let fb = args.fb;
@@ -247,13 +241,6 @@ fn run() -> Result<u8, Box<dyn Error>> {
     assets_dir.pop();
     assets_dir.pop();
     assets_dir = assets_dir.join("share/contelia/assets");
-
-    if device_paired {
-        println!("One device is already paired, enable bluetooth");
-
-        screen.draw_file(assets_dir.join("wait.png"))?;
-        Services::start_bluez()?;
-    }
 
     while next != Next::Shutdown {
         let Some(book) = books.get() else {
@@ -292,7 +279,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 Some(ref audio) => {
                     let audio = book.audio_file_get(&audio)?;
                     let tx_play = tx.clone();
-                    player.play(audio, move || {
+                    player.play(audio, true /* FIXME: reload */, move || {
                         let code = if state.control_settings.ok || state.control_settings.autoplay {
                             KeyCode::BTN_START
                         } else if state.control_settings.home {
