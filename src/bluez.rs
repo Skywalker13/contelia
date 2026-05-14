@@ -46,7 +46,7 @@ pub struct Bluez {
     props: Proxy<'static>,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum DeviceKind {
     Headset,    /* 0x0404 */
     Speaker,    /* 0x0408 */
@@ -308,31 +308,49 @@ impl Bluez {
         path: &OwnedObjectPath,
         props: &HashMap<String, OwnedValue>,
     ) -> Option<Device> {
-        // "00001108-0000-1000-8000-00805f9b34fb", /* HSP       */
-        // "0000111e-0000-1000-8000-00805f9b34fb", /* HFP       */
-        const AUDIO_UUIDS: &[&str] = &["0000110b-0000-1000-8000-00805f9b34fb" /* A2DP Sink */];
+        const AUDIO_UUIDS: &[&str] = &[
+            "00001108-0000-1000-8000-00805f9b34fb", /* HSP       */
+            "0000111e-0000-1000-8000-00805f9b34fb", /* HFP       */
+            "0000110b-0000-1000-8000-00805f9b34fb", /* A2DP Sink */
+        ];
 
         let name = props
             .get("Name")
             .and_then(|v| String::try_from(v.clone()).ok())
             .unwrap_or_default();
-
-        println!("BT: {}", name);
-
+        let class = props
+            .get("Class")
+            .and_then(|v| u32::try_from(v.clone()).ok())
+            .unwrap_or_default();
         let uuids: Vec<String> = props
             .get("UUIDs")
             .and_then(|v| Vec::<String>::try_from(v.clone()).ok())
             .unwrap_or_default();
 
+        println!("BT: {}, CLASS={:x}, UUIDs={:?}", name, class, uuids);
+
+        let kind = match class & 0x1FFF {
+            0x0404 => DeviceKind::Headset,
+            0x0408 => DeviceKind::Speaker,
+            0x0410 => DeviceKind::Headphones,
+            0x0418 => DeviceKind::Portable,
+            0x0420 => DeviceKind::Car,
+            _ => DeviceKind::Unknown,
+        };
+
         /* Only audio devices */
         if !uuids.iter().any(|u| AUDIO_UUIDS.contains(&u.as_str())) {
-            return None;
+            if kind == DeviceKind::Unknown {
+                return None;
+            }
         }
 
         let rssi = props
             .get("RSSI")
             .and_then(|v| i16::try_from(v.clone()).ok())
             .unwrap_or_default();
+
+        println!("BT: {}, RSSI={}", name, rssi);
 
         /* Only reachable devices */
         if rssi == 0 {
@@ -342,10 +360,6 @@ impl Bluez {
         let address = props
             .get("Address")
             .and_then(|v| String::try_from(v.clone()).ok())
-            .unwrap_or_default();
-        let class = props
-            .get("Class")
-            .and_then(|v| u32::try_from(v.clone()).ok())
             .unwrap_or_default();
         let paired = props
             .get("Paired")
@@ -359,15 +373,6 @@ impl Bluez {
             .get("Trusted")
             .and_then(|v| bool::try_from(v.clone()).ok())
             .unwrap_or_default();
-
-        let kind = match class & 0x1FFF {
-            0x0404 => DeviceKind::Headset,
-            0x0408 => DeviceKind::Speaker,
-            0x0410 => DeviceKind::Headphones,
-            0x0418 => DeviceKind::Portable,
-            0x0420 => DeviceKind::Car,
-            _ => DeviceKind::Unknown,
-        };
 
         Some(Device {
             path: path.clone(),
