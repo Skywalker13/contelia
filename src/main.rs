@@ -233,6 +233,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut timeout: Option<Timeout> = None;
     let mut access_point = false;
     let mut bluetooth = false;
+    let mut player_reload = true;
     let mut status_code = 0;
     let mut inactivity: Option<Timeout> = None;
     let bt_cancel = Arc::new(AtomicBool::new(false));
@@ -279,7 +280,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 Some(ref audio) => {
                     let audio = book.audio_file_get(&audio)?;
                     let tx_play = tx.clone();
-                    player.play(audio, true /* FIXME: reload */, move || {
+                    player.play(audio, player_reload, move || {
                         let code = if state.control_settings.ok || state.control_settings.autoplay {
                             KeyCode::BTN_START
                         } else if state.control_settings.home {
@@ -289,6 +290,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         };
                         let _ = tx_play.send((code, None, true, None));
                     })?;
+                    player_reload = false;
                 }
                 None => {}
             }
@@ -391,6 +393,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
                         bt_cancel.store(true, Ordering::Relaxed);
                         bluetooth = false;
+                        player_reload = true;
                         next = Next::Normal;
                         continue;
                     }
