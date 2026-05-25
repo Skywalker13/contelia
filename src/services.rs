@@ -20,7 +20,7 @@ use std::{io, process::Command};
 pub struct Services {}
 
 impl Services {
-    fn exec(args: Vec<&str>) -> io::Result<()> {
+    fn exec(args: Vec<&str>) -> io::Result<String> {
         let output = Command::new("sv").args(args).output()?;
 
         if !output.status.success() {
@@ -30,7 +30,7 @@ impl Services {
             ));
         }
 
-        Ok(())
+        Ok(String::from_utf8_lossy(&output.stdout).to_string())
     }
 
     pub fn up_ap() -> io::Result<()> {
@@ -51,5 +51,11 @@ impl Services {
     pub fn down_bluez() -> io::Result<()> {
         Self::exec(vec!["down", "dbus", "bluez", "bluealsa"])?;
         Ok(())
+    }
+
+    pub fn status_bluez() -> io::Result<bool> {
+        let output = Self::exec(vec!["status", "bluez"])?;
+        let result = output.starts_with("run: bluez:");
+        Ok(result)
     }
 }
