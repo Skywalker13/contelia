@@ -236,6 +236,7 @@ fn run() -> Result<u8, Box<dyn Error>> {
     let mut player_reload = true;
     let mut status_code = 0;
     let mut inactivity: Option<Timeout> = None;
+    let mut bt_connected = false;
     let bt_cancel = Arc::new(AtomicBool::new(false));
 
     let mut assets_dir = env::current_exe()?;
@@ -271,6 +272,39 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 None => {
                     screen.off()?;
                     screen.clear()?;
+                }
+            }
+        }
+
+        if next == Next::Audio {
+            if !player_reload {
+                let mut connected = false;
+                let running = Services::status_bluez()?;
+                if running {
+                    let is_connected: Result<bool, Box<dyn std::error::Error>> = block_on(async {
+                        let bluez = Bluez::new().await?;
+                        bluez.device_is_connected().await
+                    });
+                    if let Ok(is_connected) = is_connected {
+                        connected = is_connected;
+                    }
+
+                    if connected != bt_connected {
+                        bt_connected = connected;
+                        player_reload = true;
+                    }
+
+                    /* Stop the bluetooth when not connected anymore */
+                    if !bt_connected {
+                        let _ = block_on(async {
+                            let bluez = Bluez::new().await?;
+                            bluez.set_powered(false).await
+                        });
+                        Services::down_bluez()?;
+                    }
+                } else if bt_connected {
+                    bt_connected = false;
+                    player_reload = true;
                 }
             }
         }
