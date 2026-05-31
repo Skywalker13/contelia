@@ -91,7 +91,7 @@ impl Bluez {
         }
     }
 
-    async fn set_powered(&self, power: bool) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn set_powered(&self, power: bool) -> Result<(), Box<dyn std::error::Error>> {
         self.props
             .call_method(
                 "Set",
