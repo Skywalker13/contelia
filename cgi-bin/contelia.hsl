@@ -127,6 +127,8 @@ process_archive_upload() {
     return
   fi
 
+  sync
+
   # Check if there is only one root folder
   root_items=$(find "$dest_dir" -mindepth 1 -maxdepth 1 | wc -l)
   if [ $root_items -eq 1 ]; then
