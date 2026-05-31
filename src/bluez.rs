@@ -414,6 +414,28 @@ impl Bluez {
         Ok(device_path)
     }
 
+    pub async fn device_is_connected(&self) -> Result<bool, Box<dyn std::error::Error>> {
+        let proxy = ObjectManagerProxy::builder(self.adapter.connection())
+            .destination("org.bluez")?
+            .path("/")?
+            .build()
+            .await?;
+
+        let objects = proxy.get_managed_objects().await?;
+
+        for (_path, ifaces) in &objects {
+            if let Some(props) = ifaces.get("org.bluez.Device1") {
+                let connected = props
+                    .get("Connected")
+                    .and_then(|v| bool::try_from(v.clone()).ok())
+                    .unwrap_or(false);
+                return Ok(connected);
+            }
+        }
+
+        Ok(false)
+    }
+
     async fn get_adapter_and_device_path(
         conn: &Connection,
     ) -> Result<Option<OwnedObjectPath>, Box<dyn std::error::Error>> {
