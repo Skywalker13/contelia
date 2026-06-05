@@ -355,6 +355,11 @@ la grande boîte à histoire.
 
 ![](images/028.jpg)
 
+SI la batterie est complètement chargée, alors vous pouvez mettre le couvercle
+en place. Commencez par en haut à gauche et terminez de clipper en bas à droite.
+
+![](images/029.jpg)
+
 ---
 
 [balenaEtcher]: https://etcher.balena.io/
