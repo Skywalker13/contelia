@@ -1,0 +1,107 @@
+/* styles.css
+   ─────────────────────────────────────────────────────────────────────────
+   Donne l'effet "feuille blanche sur fond gris" (viewer PDF)
+   à ajouter dans _quarto.yml sous format.html.css
+   ─────────────────────────────────────────────────────────────────────────
+*/
+
+/* ── Corps de page : fond gris comme un viewer PDF ──────────────────────── */
+body {
+  background-color: #d0cfcf;
+  font-family: 'Linux Libertine', 'Palatino', 'Georgia', serif;
+  font-size: 110%;
+}
+
+/* ── Contenu principal : "feuille" blanche centrée ──────────────────────── */
+#quarto-content main,
+.content-body,
+#quarto-document-content {
+  background: #ffffff;
+  max-width: 21cm;          /* largeur A4 */
+  margin: 2.5rem auto;
+  padding: 2cm 2cm 2cm 3cm; /* marges style PDF */
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.20),
+    0 8px 32px rgba(0,0,0,0.12);
+  border-radius: 2px;
+  min-height: 29.7cm;       /* hauteur A4 */
+}
+
+/* ── Typographie ─────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'Linux Libertine', 'Palatino', 'Georgia', serif;
+  font-weight: bold;
+}
+
+h1.title {
+  font-size: 1.9rem;
+  text-align: center;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #444;
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+.quarto-title-author {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* ── Abstract ────────────────────────────────────────────────────────────── */
+#abstract {
+  border-left: 3px solid #888;
+  padding: 0.8rem 1.2rem;
+  margin: 1.5rem 2rem;
+  font-size: 0.95rem;
+  color: #333;
+  background: #f9f9f9;
+}
+
+/* ── Tableaux ────────────────────────────────────────────────────────────── */
+table {
+  margin: 1.5rem auto;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+thead tr th {
+  border-top: 2px solid #333;
+  border-bottom: 1px solid #555;
+  padding: 0.4rem 1rem;
+}
+tbody tr td {
+  padding: 0.35rem 1rem;
+}
+tbody tr:last-child td {
+  border-bottom: 2px solid #333;
+}
+
+/* ── Notes de bas de page ────────────────────────────────────────────────── */
+.footnotes {
+  font-size: 0.85rem;
+  border-top: 1px solid #ccc;
+  margin-top: 3rem;
+  padding-top: 0.8rem;
+  color: #555;
+}
+
+/* ── Équations ───────────────────────────────────────────────────────────── */
+.math.display {
+  margin: 1.5rem 0;
+}
+
+/* ── Responsive : supprimer l'effet "feuille" sur mobile ─────────────────── */
+@media (max-width: 1200px) {
+  #quarto-content main {
+    margin: 0;
+    padding: 1.5rem;
+    box-shadow: none;
+    min-height: unset;
+  }
+  body {
+    background-color: #fff;
+  }
+}

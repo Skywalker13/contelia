@@ -1,0 +1,50 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Contelia"
+  description: "Boîte à histoires"
+  favicon: favicon.ico
+
+  navbar:
+    left:
+      - href: project/kit.qmd
+        text: Kit de montage
+    right:
+      - icon: github
+        href: https://github.com/Skywalker13/contelia
+
+  page-footer:
+    left: "© 2025-2026 Mathieu Schroeter"
+
+  search: true
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    smooth-scroll: true
+    link-external-icon: true
+
+  pdf:
+    documentclass: article
+    classoption: [12pt, a4paper]
+    geometry:
+      - top=2cm
+      - bottom=2cm
+      - left=3cm
+      - right=2cm
+    fontfamily: libertinus
+    colorlinks: true
+    toc: true
+    number-sections: true
+    include-in-header:
+      text: |
+        \usepackage{microtype}  % meilleure typographie automatique
+        \usepackage{booktabs}   % jolis tableaux
+
+lang: fr
