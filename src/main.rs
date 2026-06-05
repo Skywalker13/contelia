@@ -422,6 +422,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
 
                     if let Err(e) = result {
                         println!("Connection error with {}: {}", device.name, e);
+
+                        next = Next::BluetoothScan;
+                        continue;
                     } else {
                         println!("Connected to {}", device.name);
 
