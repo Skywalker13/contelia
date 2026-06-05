@@ -1,12 +1,8 @@
 ---
 title: "Kit de montage"
 subtitle: "Assemblage de sa propre boîte à histoires"
-date: today
-date-format: "D MMMM YYYY"
 lang: fr
 ---
-
-# Kit de montage Contelia
 
 ## Composants
 
@@ -124,12 +120,12 @@ moins possible les contactes et les composants.
 
 Avant tout, insérez la carte micro-SD dans le Raspberry Pi.
 
-![](images/001.jpg)
+![](images/001.jpg){width=100%}
 
 Je vous invite alors à retourner le Raspberry Pi et à inspecter les contactes
 tout en haut à droite.
 
-![](images/002.jpg)
+![](images/002.jpg){width=100%}
 
 Vous devriez constater que 6 contactes sont légèrement différents où des
 soudures ont été refaîtes. En effet, ces 6 contactes vont être appuyés contre la
@@ -145,19 +141,19 @@ permet de maintenir en place la batterie. Si vous déconnectez l'aimant, faîtes
 attention de ne pas toucher des contactes de la carte avec la surface circulaire
 en acier. Le cas échéant, il pourrait se produire un court-circuit destructeur.
 
-![](images/003.jpg)
+![](images/003.jpg){width=100%}
 
 Posez la carte de telle manière que la batterie se situe en dessous. Vous
 devriez constater que les 4 trous filetés ont un autocollant semi-transparent
 orange collé dessus.
 
-![](images/004.jpg)
+![](images/004.jpg){width=100%}
 
 Vous devez enlever ces 4 autocollants sinon il ne sera pas possible de visser
 les cartes entre elles le temps venu. Pour y parvenir, utilisez (par exemple) la
 lame d'un cutter afin de soulever délicatement chaque autocollant.
 
-![](images/005.jpg)
+![](images/005.jpg){width=100%}
 
 ### Assemblage des cartes Raspberry Pi et Adafruit
 
@@ -170,17 +166,17 @@ faire, introduisez doucement le connecteur en veillant à ne pas appuyer avec vo
 doigts sur l'écran. Il serait dommage de l'abimer avec cette manipulation.
 Utilisez les zones libres du PCB comme appuis et prennez votre temps.
 
-![](images/006.jpg)
+![](images/006.jpg){width=100%}
 
 Une fois connectés, posez les deux cartes à plat et introduisez les entretoises
 entre deux puis faîtes glisser une vis nylon à l'intérieur afin de maintenir les
 entretoises en place.
 
-![](images/007.jpg)
+![](images/007.jpg){width=100%}
 
 Répétez cette manipulation avec les 4 coins.
 
-![](images/008.jpg)
+![](images/008.jpg){width=100%}
 
 Vous pouvez dès à présent laisser de côté ce montage car nous allons maintenant
 nous intéresser à la carte PiSugar 3.
@@ -200,7 +196,7 @@ Positionnez la carte Raspberry Pi par dessus la carte PiSugar, tout en alignant
 les vis. Les connecteurs de la carte PiSugar doivent s'appuyer proprement contre
 les contactes de la carte Raspberry Pi.
 
-![](images/024.jpg)
+![](images/024.jpg){width=100%}
 
 Serrez les vis en croix et assez fermement (mais pas trop non plus, il ne faut
 pas abîmer les pas de vis).
@@ -212,7 +208,7 @@ pendant les étapes "critiques" de la première initialisation du Contelia OS.
 
 **A EXPERIMENTER, MESURE LE TEMPS ET EXPLIQUER**
 
-![](images/025.jpg)
+![](images/025.jpg){width=100%}
 
 Attendez un instant, Carnotzet OS va s'éteindre de lui même puis débranchez le
 câble USB-C et dévissez toutes les vis. Pour la suite, il est nécessaire de
@@ -226,7 +222,7 @@ bouton ne peut pas tenir en place tant que la carte PiSugar n'est pas installée
 Si vous souhaitez vous simplifier la vie, utilisez un morceau de papier collant
 à l'extérieur afin de garder le bouton en place.
 
-![](images/009.jpg)
+![](images/009.jpg){width=100%}
 
 Regardez bien le sens de votre boîte, car vous devez insérer la carte PiSugar à
 l'intérieur et depuis le bon côté. La carte PiSugar a uniquement un connecteur
@@ -234,7 +230,7 @@ USB-C et c'est elle qui a le bouton d'alimentation. Par rapport à la photo
 ci-dessus, la carte PiSugar doit alors être insérée par le haut (car nous tenons
 la boîte à l'envers).
 
-![](images/010.jpg)
+![](images/010.jpg){width=100%}
 
 Vous devez glisser délicatement la carte PiSugar tout en faisant attention à ce
 que le bouton d'alimentation se situe bien devant le bouton que vous avez
@@ -243,7 +239,7 @@ la boîte.
 
 Saisissez la boîte en gardant appuyé avec un doigt, la carte PiSugar.
 
-![](images/011.jpg)
+![](images/011.jpg){width=100%}
 
 Alors vous ppuvez retourner l'assemblage pour y introduire de l'autre côté, la
 paire de carte Raspberry Pi et Adafruit que vous avez préparé tout à l'heure.
@@ -251,7 +247,7 @@ Tout en gardant bien en place la carte PiSugar, introduisez les autres cartes.
 Vous pouvez écarter légèrement les parois latérales de la boîte pour faciliter
 leur introduction.
 
-![](images/012.jpg)
+![](images/012.jpg){width=100%}
 
 Faîtes en sorte d'introduire les cartes en les gardant à plat autant que
 possible afin que les contactes entre la carte PiSugar et la carte Raspberry Pi
@@ -259,7 +255,7 @@ se fassent sans encombre. Une fois que vous avez bien introduit toutes les
 cartes, les connecteurs de la carte Raspberry Pi (ainsi que le connecteur USB-C
 de la PiSugar) devraient être alignés avec les trous du boîtier.
 
-![](images/013.jpg)
+![](images/013.jpg){width=100%}
 
 Tout en gardant bien en place avec une main, le trio de carte (je vous rappel
 d'éviter autant que possible de presser sur l'écran de la carte Adafruit),
@@ -269,7 +265,7 @@ comme un sourd car vous risqueriez d'abîmer le filetage des vis. Mais serrez
 fermement car il faut garantir les appuis avec les contactes de la carte
 Raspberry Pi.
 
-![](images/014.jpg)
+![](images/014.jpg){width=100%}
 
 ### Fermeture de la boîte à encaster
 
@@ -278,53 +274,53 @@ Raspberry Pi.
 Vous avez deux couvercles à disposition. Le couvercle plein sert évidemment à
 fermer l'ouverture sur la batterie.
 
-![](images/015.jpg)
+![](images/015.jpg){width=100%}
 
 Faîtes tenir le couvercle au moins d'un côté court et maintenez comme sur la
 photo avec une seule main. Utilisez votre seconde main pour courber (avec un peu
 de force) légèrement le couvercle afin de faire rentrer le second clip.
 
-![](images/016.jpg)
+![](images/016.jpg){width=100%}
 
 **Couvercle supérieure**
 
 Avant tout, vous devez introduire la vitre en plastique transparent dans les
 fentes du couvercle. Cette vitre est destinée à protéger l'écran des rayures.
 
-![](images/017.jpg)
+![](images/017.jpg){width=100%}
 
 Poussez la vitre autant que possible. Elle ne doit pas obstruer un bouton et
 elle doit complètement recouvrir le trou destiné à l'écran. Il est possible que
 votre vitre ne soit pas exactement de la même dimension que sur la photo
 ci-dessous.
 
-![](images/018.jpg)
+![](images/018.jpg){width=100%}
 
 Maintenant il faut préparer la carte Adafruit avant de refermer la boîte.
 Commencez par enfoncer le stick en caoutchouc. N'ayez pas peur de presser
 fermement sur le stick car il peut y avoir une certaine résistance.
 
-![](images/019.jpg)
+![](images/019.jpg){width=100%}
 
 Une fois le stick en place, enlevez délicatement le film protecteur de l'écran.
 
-![](images/020.jpg)
+![](images/020.jpg){width=100%}
 
 Déposez alors les deux boutons poussoir comme indiquez sur la photo. Si vous n'y
 arrivez pas car c'est un jeu d'équilibrisme, vous pouvez procéder comme avec le
 bouton d'alimentation en utilisant du papier collant en faisant tenir les
 boutons directement sur le couvercle.
 
-![](images/021.jpg)
+![](images/021.jpg){width=100%}
 
 Fixer le couvercle supérieure de la même manière que pour le couvercle
 inférieure.
 
-![](images/022.jpg)
+![](images/022.jpg){width=100%}
 
 Votre petite boîte à histoire est prête.
 
-![](images/023.jpg)
+![](images/023.jpg){width=100%}
 
 ### Mise en place de la boìte principale
 
@@ -338,7 +334,7 @@ nous y reviendrons dans la documentation utilisateur.
 Vous devez enrouler proprement le câble USB du haut-parleur dans la bride en
 forme de huit. Prennez votre temps, enroulez serrez.
 
-![](images/026.jpg)
+![](images/026.jpg){width=100%}
 
 Prennez alors la boîte principale, la petite boîte ainsi que le haut-parleur.
 Commencez par déposez la petite boîte en veillant bien à ce qu'elle soit
@@ -350,7 +346,7 @@ Une fois fait, encastrez le haut-parleur dans son emplacement réservé en
 veillant à ce que son câble sorte vers le bas et non vers le haut. Disposez le
 câble comme proposé sur la photo.
 
-![](images/027.jpg)
+![](images/027.jpg){width=100%}
 
 Il ne vous reste alors plus qu'un câble, c'est l'adapteur USB $ micro-USB. Je
 vous inv^te à enrouler le câble de l'adaptateur et d'utiliser les brides noirs
@@ -361,11 +357,11 @@ bien en place le câble de l'adaptateur afin de pouvoir le connecter avec le
 câble USB du haut-parleur sans que ça puisse empêcher de fermer le couvercle de
 la grande boîte à histoire.
 
-![](images/028.jpg)
+![](images/028.jpg){width=100%}
 
 Si la batterie est complètement chargée, alors vous pouvez mettre le couvercle
 en place. Commencez par en haut à gauche et terminez de clipper en bas à droite.
 
-![](images/029.jpg)
+![](images/029.jpg){width=100%}
 
 [balenaEtcher]: https://etcher.balena.io/

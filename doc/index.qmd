@@ -1,9 +1,46 @@
 ---
 title: "Contelia"
-subtitle: "Une boîte à histoires"
-date: today
-date-format: "D MMMM YYYY"
+subtitle: "Une boîte à histoires libre et open-source"
 lang: fr
 ---
 
-# Contelia
+![](images/contelia.jpg){width=100%}
+
+## Pourquoi faire
+
+Les boîtes à histoires telle que la Lunii sont très appréciées par les enfants
+(et les parents) mais...
+
+Contelia s'en inspire avec une conviction différente : tout ce qui fonctionne
+dessus est ouvert, compréhensible et modifiable.
+
+Pas de cloud, pas de contenu verrouillé, pas besoin d'une application pour le
+smartphone. L'objet vous appartient.
+
+## Libre et open-source
+
+Dans la mesure du possible...
+
+- 📦 Logiciel : le code source disponible, les format de contenu sont ouverts
+                et documentés. Elle est compatible aussi avec le format
+                propriétaire de Lunii. 
+
+- 🔩 Matériel : elle s'appuie sur des composants standards, modulables et
+                remplaçables.
+
+- 📐 Boîtier : les fichiers 3D publiés. N'importe qui peut les imprimer ou les
+                modifier à sa guise.
+
+## Les composants
+
+- 🍓 Cerveau : [Raspberry Pi Zero 2 W].
+
+- 🎛️ Interface : carte [Adafruit] avec écran et boutons physiques.
+
+- 🔋 Alimentation : carte [PiSugar] avec batterie intégrée.
+
+- 🔊 Son : haut-parleur externe et support du bluetooth.
+
+[Raspberry Pi Zero 2 W]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
+[Adafruit]: https://www.adafruit.com/product/4506
+[PiSugar]: https://www.pisugar.com/products/pisugar-3-raspberry-pi-zero-battery
