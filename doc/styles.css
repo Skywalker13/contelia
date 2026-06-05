@@ -1,33 +1,24 @@
-/* styles.css
-   ─────────────────────────────────────────────────────────────────────────
-   Donne l'effet "feuille blanche sur fond gris" (viewer PDF)
-   à ajouter dans _quarto.yml sous format.html.css
-   ─────────────────────────────────────────────────────────────────────────
-*/
-
-/* ── Corps de page : fond gris comme un viewer PDF ──────────────────────── */
 body {
   background-color: #d0cfcf;
   font-family: 'Linux Libertine', 'Palatino', 'Georgia', serif;
   font-size: 110%;
 }
 
-/* ── Contenu principal : "feuille" blanche centrée ──────────────────────── */
 #quarto-content main,
 .content-body,
 #quarto-document-content {
   background: #ffffff;
-  max-width: 21cm;          /* largeur A4 */
+  width: 21cm;
+  max-width: 21cm;
   margin: 2.5rem auto;
-  padding: 2cm 2cm 2cm 3cm; /* marges style PDF */
+  padding: 2cm 2cm 2cm 3cm;
   box-shadow:
     0 2px 8px rgba(0,0,0,0.20),
     0 8px 32px rgba(0,0,0,0.12);
   border-radius: 2px;
-  min-height: 29.7cm;       /* hauteur A4 */
+  min-height: 29.7cm;
 }
 
-/* ── Typographie ─────────────────────────────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: 'Linux Libertine', 'Palatino', 'Georgia', serif;
   font-weight: bold;
@@ -51,7 +42,6 @@ h1.title {
   margin: 1rem 0;
 }
 
-/* ── Abstract ────────────────────────────────────────────────────────────── */
 #abstract {
   border-left: 3px solid #888;
   padding: 0.8rem 1.2rem;
@@ -61,7 +51,6 @@ h1.title {
   background: #f9f9f9;
 }
 
-/* ── Tableaux ────────────────────────────────────────────────────────────── */
 table {
   margin: 1.5rem auto;
   border-collapse: collapse;
@@ -79,7 +68,6 @@ tbody tr:last-child td {
   border-bottom: 2px solid #333;
 }
 
-/* ── Notes de bas de page ────────────────────────────────────────────────── */
 .footnotes {
   font-size: 0.85rem;
   border-top: 1px solid #ccc;
@@ -88,12 +76,10 @@ tbody tr:last-child td {
   color: #555;
 }
 
-/* ── Équations ───────────────────────────────────────────────────────────── */
 .math.display {
   margin: 1.5rem 0;
 }
 
-/* ── Responsive : supprimer l'effet "feuille" sur mobile ─────────────────── */
 @media (max-width: 1200px) {
   #quarto-content main {
     margin: 0;
