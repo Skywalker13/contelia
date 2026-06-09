@@ -1,0 +1,36 @@
+---
+title: "Téléchargements"
+subtitle: "Ressources pour Contelia"
+lang: fr
+---
+
+## Pour les utilisateurs avancés
+
+La boîte à histoire contient une carte micro-SD préinstallée et qui peut être
+changée ou réinstallée avec une nouvelle version de Contelia OS, voir même
+votre propre OS (si vous avez l'âme d'un développeur).
+
+Pour accéder à la carte micro-SD, il est nécessaire de démonter partiellement
+la boîte à histoire en suivant [la procédure suivante][1].
+
+### Images de Contelia OS
+
+_Contelia OS_ : [contelia-os-1.0.0.zip][2]
+
+L'installation doit se faire comme expliqué avec [le kit de montage][3]. En
+quelques mots, vous allez utiliser le logiciel balenaEtcher pour déployer
+l'image décompressée de Contelia OS sur la carte micro-SD. Il est important de
+se référer complètement au kit de montage jusqu'à ce que la boîte soit remontée
+proprement.
+
+## Pour les développeurs et les makers
+
+### Le code source
+
+### Les modèles 3D
+
+### Le toolchain de compilation
+
+[1]: sd.html
+[2]: /downloads/contelia-os-1.0.0.zip
+[3]: kit.html#préparation

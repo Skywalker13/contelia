@@ -9,6 +9,8 @@ website:
 
   navbar:
     left:
+      - href: project/downloads.qmd
+        text: Téléchargements
       - href: project/kit.qmd
         text: Kit de montage
     right:
