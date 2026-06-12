@@ -7,6 +7,11 @@ website:
   description: "Boîte à histoires"
   favicon: favicon.ico
 
+  announcement: 
+    content: "Ce site est en cours de construction"
+    position: below-navbar
+    dismissable: false
+
   navbar:
     left:
       - href: project/downloads.qmd
@@ -19,6 +24,7 @@ website:
 
   page-footer:
     left: "© 2025-2026 Mathieu Schroeter"
+    center: "Ce site est hébergé par un Raspberry Pi 4 fonctionnant sous Carnotzet OS"
 
   search: true
 

@@ -15,7 +15,7 @@ la boîte à histoire en suivant [la procédure suivante][1].
 
 ### Images de Contelia OS
 
-_Contelia OS_ : [contelia-os-1.0.0.zip][2]
+_Contelia OS_ : [contelia-os-1.0.0.zip][2] (NON DISPONIBLE)
 
 L'installation doit se faire comme expliqué avec [le kit de montage][3]. En
 quelques mots, vous allez utiliser le logiciel balenaEtcher pour déployer

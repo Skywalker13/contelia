@@ -41,7 +41,7 @@ Cette boîte à histoire est aussi libre que possible...
 
 _Logiciel_ : le code source est entièrement disponible, les format de contenu
              sont ouverts et documentés. Elle est aussi compatible avec le format
-             propriétaire de Lunii. Le systpme d'exploiation peut entièrement
+             propriétaire de Lunii. Le système d'exploitation peut entièrement
              être recompilé par "n'importe qui".
 
 _Matériel_ : elle s'appuie sur des composants standards, modulables et

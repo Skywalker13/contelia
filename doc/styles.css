@@ -41,6 +41,10 @@ h1.title {
   margin: 1rem 0;
 }
 
+.nav-footer {
+  font-size: 1.25rem;
+}
+
 #abstract {
   border-left: 3px solid #888;
   padding: 0.8rem 1.2rem;
