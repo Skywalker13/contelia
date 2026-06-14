@@ -10,7 +10,7 @@ body {
   background: #ffffff;
   max-width: 21cm;
   margin: 2.5rem auto;
-  padding: 2cm 2cm 2cm 3cm;
+  padding: 1.5cm 1.5cm 1.5cm 1.5cm;
   box-shadow:
     0 2px 8px rgba(0,0,0,0.20),
     0 8px 32px rgba(0,0,0,0.12);
@@ -42,7 +42,7 @@ h1.title {
 }
 
 .nav-footer {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
 #abstract {
@@ -86,7 +86,7 @@ tbody tr:last-child td {
 @media (max-width: calc(21cm + 10cm)) {
   #quarto-content main {
     margin: 0;
-    padding: 1.5rem;
+    padding: 0.2rem;
     box-shadow: none;
     min-height: unset;
   }
