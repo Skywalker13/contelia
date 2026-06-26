@@ -16,6 +16,8 @@ website:
     left:
       - href: project/downloads.qmd
         text: Téléchargements
+      - href: project/stories.qmd
+        text: Des histoires
       - href: project/kit.qmd
         text: Kit de montage
     right:

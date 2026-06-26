@@ -20,14 +20,14 @@ micro-SD (qui peut être changée en cas de besoin).
 ## Evolution
 
 Cette boîte à histoire à un objectif à long terme. Une fois que l'endant est
-plus grand, elle doit pouvoir être transformée en (par exemple) simple lecteur
+plus grand, elle doit pouvoir être transformée en (par exemple) un simple lecteur
 de musique (lecteur mp3), en lecteur de livre audio avec toutes les
-fonctionnalités attendues pour un produit plus mature (navigation par phrase,
+fonctionnalités attendues pour un produit de ce type (navigation par phrase,
 chapitre, vitesse de lecture variable, ...).
 
 Aujourd'hui c'est une boîte à histoire, les évolutions ne sont pas disponible
 pour le moment. Ce projet est avant tout un projet artisanal où son
-développement suit quelques conditions :
+développement suit quelques règles :
 
 - Libre autant que possible 
 - **Sans IA** : fait par un humain pour les humains  
@@ -39,7 +39,7 @@ développement suit quelques conditions :
 
 Cette boîte à histoire est aussi libre que possible...
 
-_Logiciel_ : le code source est entièrement disponible, les format de contenu
+_Logiciel_ : le code source est entièrement disponible, les formats de contenu
              sont ouverts et documentés. Elle est aussi compatible avec le format
              propriétaire de Lunii. Le système d'exploitation peut entièrement
              être recompilé par "n'importe qui".
@@ -47,12 +47,12 @@ _Logiciel_ : le code source est entièrement disponible, les format de contenu
 _Matériel_ : elle s'appuie sur des composants standards, modulables et
              remplaçables.
 
-_Boîtier_ : les modèles 3D sont publiés. N'importe qui peut les imprimer ou les
+_Boîtier_ : les modèles 3D sont publiés. "N'importe qui" peut les imprimer ou les
             modifier à sa guise.
 
 ## Les composants
 
-- Cerveau : [Raspberry Pi Zero 2 W].
+- Cerveau (carte mère) : [Raspberry Pi Zero 2 W].
 - Interface : carte [Adafruit] avec écran et boutons physiques.
 - Alimentation : carte [PiSugar] avec batterie intégrée.
 - Son : haut-parleur externe et support du bluetooth.

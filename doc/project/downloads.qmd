@@ -8,7 +8,7 @@ lang: fr
 
 La boîte à histoire contient une carte micro-SD préinstallée et qui peut être
 changée ou réinstallée avec une nouvelle version de Contelia OS, voir même
-votre propre OS (si vous avez l'âme d'un développeur).
+votre propre OS (si vous avez l'âme d'un bidouilleur).
 
 Pour accéder à la carte micro-SD, il est nécessaire de démonter partiellement
 la boîte à histoire en suivant [la procédure suivante][1].

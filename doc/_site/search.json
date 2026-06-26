@@ -39,21 +39,21 @@
     "href": "index.html#evolution",
     "title": "Contelia",
     "section": "1 Evolution",
-    "text": "1 Evolution\nCette boîte à histoire à un objectif à long terme. Une fois que l’endant est plus grand, elle doit pouvoir être transformée en (par exemple) simple lecteur de musique (lecteur mp3), en lecteur de livre audio avec toutes les fonctionnalités attendues pour un produit plus mature (navigation par phrase, chapitre, vitesse de lecture variable, …).\nAujourd’hui c’est une boîte à histoire, les évolutions ne sont pas disponible pour le moment. Ce projet est avant tout un projet artisanal où son développement suit quelques conditions :\n\nLibre autant que possible\nSans IA : fait par un humain pour les humains\nL’objectif n’est pas la productivité à tout prix\nDans mon temps libre\nPour le plaisir"
+    "text": "1 Evolution\nCette boîte à histoire à un objectif à long terme. Une fois que l’endant est plus grand, elle doit pouvoir être transformée en (par exemple) un simple lecteur de musique (lecteur mp3), en lecteur de livre audio avec toutes les fonctionnalités attendues pour un produit de ce type (navigation par phrase, chapitre, vitesse de lecture variable, …).\nAujourd’hui c’est une boîte à histoire, les évolutions ne sont pas disponible pour le moment. Ce projet est avant tout un projet artisanal où son développement suit quelques règles :\n\nLibre autant que possible\nSans IA : fait par un humain pour les humains\nL’objectif n’est pas la productivité à tout prix\nDans mon temps libre\nPour le plaisir"
   },
   {
     "objectID": "index.html#libre-et-open-source",
     "href": "index.html#libre-et-open-source",
     "title": "Contelia",
     "section": "2 Libre et open-source",
-    "text": "2 Libre et open-source\nCette boîte à histoire est aussi libre que possible…\nLogiciel : le code source est entièrement disponible, les format de contenu sont ouverts et documentés. Elle est aussi compatible avec le format propriétaire de Lunii. Le système d’exploitation peut entièrement être recompilé par “n’importe qui”.\nMatériel : elle s’appuie sur des composants standards, modulables et remplaçables.\nBoîtier : les modèles 3D sont publiés. N’importe qui peut les imprimer ou les modifier à sa guise."
+    "text": "2 Libre et open-source\nCette boîte à histoire est aussi libre que possible…\nLogiciel : le code source est entièrement disponible, les formats de contenu sont ouverts et documentés. Elle est aussi compatible avec le format propriétaire de Lunii. Le système d’exploitation peut entièrement être recompilé par “n’importe qui”.\nMatériel : elle s’appuie sur des composants standards, modulables et remplaçables.\nBoîtier : les modèles 3D sont publiés. “N’importe qui” peut les imprimer ou les modifier à sa guise."
   },
   {
     "objectID": "index.html#les-composants",
     "href": "index.html#les-composants",
     "title": "Contelia",
     "section": "3 Les composants",
-    "text": "3 Les composants\n\nCerveau : Raspberry Pi Zero 2 W.\nInterface : carte Adafruit avec écran et boutons physiques.\nAlimentation : carte PiSugar avec batterie intégrée.\nSon : haut-parleur externe et support du bluetooth."
+    "text": "3 Les composants\n\nCerveau (carte mère) : Raspberry Pi Zero 2 W.\nInterface : carte Adafruit avec écran et boutons physiques.\nAlimentation : carte PiSugar avec batterie intégrée.\nSon : haut-parleur externe et support du bluetooth."
   },
   {
     "objectID": "project/downloads.html",
@@ -75,5 +75,19 @@
     "title": "Téléchargements",
     "section": "2 Pour les développeurs et les makers",
     "text": "2 Pour les développeurs et les makers\n\n2.1 Le code source\n\n\n2.2 Les modèles 3D\n\n\n2.3 Le toolchain de compilation"
+  },
+  {
+    "objectID": "project/stories.html",
+    "href": "project/stories.html",
+    "title": "Des histoires",
+    "section": "",
+    "text": "La boîte à histoire ne sert à rien sans contenu. Mais le contenu n’est bien souvent pas disponible gratuitement. Mais en cherchant bien, il existe quelques projets communautaires et de plus, si vous avez déjà une boîte à histoires Lunii, il est possible de les charger sur Contelia (attention, cela ne concerne pas la Flam).\nContelia ne contient aucune histoire de base, et c’est à vous d’en charger. Mais tout d’abord, où en trouver ?\n\n\nRécupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour celà il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait s’afficher en tant que disque USB.\nTODO\nVous trouverez une liste de dossiers avec des noms cryptiques. Ce sont les histoires. Copier tous les dossiers sur le disque de votre ordinateur. Puis pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront être chargé dans Contelia.\n\n\n\nIl existe des packs d’histoires disponibles gratuitement dans une communauté francophone que vous pouvez rejoindre par l’intermédiaire du logiciel Discord : https://monurl.ca/lunii.creations. Cette communauté met à dispositions de nombreux livres, donne des conseils, de l’aide et sert également de vitrine pour de nombreux autres projets qui partage le même esprit que Contelia, c’est à dire d’offrir des alternatives aux boîtes à histoires Lunii, etc. Que ce soit du matériel dédié ou du “recyclage” de smartphones en liseuses pour enfants.\nVous y trouverez également toute l’aide nécessaire pour pouvoir créer vos propres histoires si le coeur vous en dis."
+  },
+  {
+    "objectID": "project/stories.html#des-histoires",
+    "href": "project/stories.html#des-histoires",
+    "title": "Des histoires",
+    "section": "",
+    "text": "La boîte à histoire ne sert à rien sans contenu. Mais le contenu n’est bien souvent pas disponible gratuitement. Mais en cherchant bien, il existe quelques projets communautaires et de plus, si vous avez déjà une boîte à histoires Lunii, il est possible de les charger sur Contelia (attention, cela ne concerne pas la Flam).\nContelia ne contient aucune histoire de base, et c’est à vous d’en charger. Mais tout d’abord, où en trouver ?\n\n\nRécupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour celà il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait s’afficher en tant que disque USB.\nTODO\nVous trouverez une liste de dossiers avec des noms cryptiques. Ce sont les histoires. Copier tous les dossiers sur le disque de votre ordinateur. Puis pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront être chargé dans Contelia.\n\n\n\nIl existe des packs d’histoires disponibles gratuitement dans une communauté francophone que vous pouvez rejoindre par l’intermédiaire du logiciel Discord : https://monurl.ca/lunii.creations. Cette communauté met à dispositions de nombreux livres, donne des conseils, de l’aide et sert également de vitrine pour de nombreux autres projets qui partage le même esprit que Contelia, c’est à dire d’offrir des alternatives aux boîtes à histoires Lunii, etc. Que ce soit du matériel dédié ou du “recyclage” de smartphones en liseuses pour enfants.\nVous y trouverez également toute l’aide nécessaire pour pouvoir créer vos propres histoires si le coeur vous en dis."
   }
 ]

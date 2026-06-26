@@ -4,7 +4,7 @@ subtitle: "Assemblage de sa propre boîte à histoires"
 lang: fr
 abstract: Ce document présente pas à pas l'assemblage de la boîte à histoire.
   Vous pouvez vous y référer si vous souhaitez effectuer des modifications ou
-  des réparations. Tous les composants sont remplacables.
+  des réparations. Tous les composants sont remplaçables.
 ---
 
 ## Composants
