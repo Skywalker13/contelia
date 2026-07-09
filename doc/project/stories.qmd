@@ -6,7 +6,7 @@ lang: fr
 
 ## Des histoires
 
-La boîte à histoire ne sert à rien sans contenu. Mais le contenu n'est bien
+La boîte à histoires ne sert à rien sans contenu. Mais le contenu n'est bien
 souvent pas disponible gratuitement. Mais en cherchant bien, il existe
 quelques projets communautaires et de plus, si vous avez déjà une boîte à
 histoires Lunii, il est possible de les charger sur Contelia (attention, cela
@@ -26,7 +26,7 @@ TODO
 Vous trouverez une liste de dossiers avec des noms cryptiques. Ce sont les
 histoires. Copier tous les dossiers sur le disque de votre ordinateur. Puis
 pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront
-être chargé dans Contelia.
+être chargé dans la boîte à histoires Contelia.
 
 ### Communautaire
 

@@ -27,10 +27,25 @@ proprement.
 
 ### Le code source
 
+Le logiciel principal de Contelia est disponible sur [GitHub][4]. Il est écrit
+en Rust sous licence GPLv3+.
+
 ### Les modèles 3D
 
+Tous les modèles 3D sont disponibles dans le même dépôt de code-source que le
+logiciel. Ils ont été entièrement réalisé à l'aide de [FreeCAD] et suivent la
+même licence que le code source.
+
 ### Le toolchain de compilation
+
+Le toolchain de compilation se nomme Xcraft et permet de créer la distribution
+Linux Contelia OS. Cet OS est basé sur Carnotzet OS qui est un systpme
+d'exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour
+des projets annexes). Le système de base se nomme [Carnotzet OS][5].
 
 [1]: sd.html
 [2]: /downloads/contelia-os-1.0.0.zip
 [3]: kit.html#préparation
+[4]: https://github.com/Skywalker13/contelia
+[FreeCAD]: https://www.freecad.org/
+[5]: https://xcraft.ch/carnotzet/index.html

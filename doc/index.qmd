@@ -6,11 +6,8 @@ lang: fr
 
 ![](images/contelia.jpg){width=100%}
 
-Les boîtes à histoires du commerce sont très appréciées par les enfants
-(et les parents) mais...
-
-Contelia s'en inspire avec une conviction différente : elle doit être libre,
-compréhensible, modifiable et évolutive.
+Contelia s'inspire des boîtes à histoires du commerce mais avec une conviction
+différente&nbsp;: elle doit être libre, compréhensible, modifiable et évolutive.
 
 Pas de cloud, pas de contenu verrouillé, pas besoin d'une application pour le
 smartphone. L'objet vous appartient. Vous pourrez y ajouter les histoires que
@@ -25,7 +22,7 @@ de musique (lecteur mp3), en lecteur de livre audio avec toutes les
 fonctionnalités attendues pour un produit de ce type (navigation par phrase,
 chapitre, vitesse de lecture variable, ...).
 
-Aujourd'hui c'est une boîte à histoire, les évolutions ne sont pas disponible
+Aujourd'hui c'est une boîte à histoires, les évolutions ne sont pas disponible
 pour le moment. Ce projet est avant tout un projet artisanal où son
 développement suit quelques règles :
 

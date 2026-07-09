@@ -2,7 +2,7 @@
 title: "Kit de montage"
 subtitle: "Assemblage de sa propre boîte à histoires"
 lang: fr
-abstract: Ce document présente pas à pas l'assemblage de la boîte à histoire.
+abstract: Ce document présente pas à pas l'assemblage de la boîte à histoires.
   Vous pouvez vous y référer si vous souhaitez effectuer des modifications ou
   des réparations. Tous les composants sont remplaçables.
 ---
@@ -10,7 +10,7 @@ abstract: Ce document présente pas à pas l'assemblage de la boîte à histoire
 ## Composants
 
 Avant de commencer, veuillez contrôler que vous disposez bien de tous les
-composants de votre boîte à histoire Contelia.
+composants de votre boîte à histoires Contelia.
 
 - Éléments imprimés
   - Grande boîte principale (1×)
