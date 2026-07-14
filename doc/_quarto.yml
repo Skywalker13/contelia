@@ -14,12 +14,12 @@ website:
 
   navbar:
     left:
-      - href: project/downloads.qmd
-        text: Téléchargements
-      - href: project/stories.qmd
-        text: Des histoires
+      - href: project/manual.qmd
+        text: Prise en main
       - href: project/kit.qmd
         text: Kit de montage
+      - href: project/downloads.qmd
+        text: Téléchargements
     right:
       - icon: github
         href: https://github.com/Skywalker13/contelia

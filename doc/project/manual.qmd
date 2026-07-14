@@ -1,0 +1,136 @@
+---
+title: "Prise en main"
+subtitle: "Manuel d'utilisation de Contelia"
+lang: fr
+---
+
+## Contelia
+
+Contelia est conçu sous la forme de deux boîtes imbriquées. La boîte principale
+contient la petite boîte ainsi qu'une paire de haut-parleurs USB permettant
+directement l'écoute sans élément supplémentaire.
+
+[IMAGE qui détail chaque élément]
+
+### Recharger
+
+Pour recharger Contelia, vous devez utiliser un câble USB-C. C'est le câble
+que l'on utilise habituellement avec un smartphone.
+
+[IMAGE]
+
+Pendant la charge, Contelia peut être utilisé tout à fait normalement. Contelia
+est configuré pour protéger la batterie. Ce qui veut dire qu'elle ne sera
+jamais chargée à plus de 80% de sa capacité. Bien que celà entraîne une baisse
+d'autonomie, cette protection permet de prolonger sa durée de vie.
+
+[TODO: ajouter une config dans /boot permettant d'enlever cette protection]
+
+> Notez bien qu'il est possible de changer une batterie usagée en cas de
+> diminution trop impactante de l'autonomie.
+
+### Casque audio USB
+
+[permet aussi d'augmenter l'autonomie]
+
+### Bluetooth
+
+[permet aussi d'augmenter l'autonomie]
+
+## Premier démarrage et chargement des histoires
+
+Le premier démarrage (si aucun livre n'est chargé) va simplement vous montrer
+l'écran suivant qui signifie que Contelia est en attente de livres.
+
+[IMAGE]
+
+Contelia ne sert à rien sans contenu. Mais le contenu n'est bien
+souvent pas disponible gratuitement. Mais en cherchant bien, il existe
+quelques projets communautaires et de plus, si vous avez déjà une boîte à
+histoires Lunii, il est possible de les charger sur Contelia (attention, cela
+ne concerne pas la Flam).
+
+Contelia ne contient aucune histoire de base, et c'est à vous d'en charger.
+Mais tout d'abord, où en trouver ?
+
+#### Lunii
+
+[IMAGE DE LA LUNII]
+
+Récupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour celà
+il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait
+s'afficher en tant que disque USB.
+
+TODO
+
+Vous trouverez une liste de dossiers avec des noms cryptiques. Ce sont les
+histoires. Copier tous les dossiers sur le disque de votre ordinateur. Puis
+pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront
+être chargé dans la boîte à histoires Contelia.
+
+#### Communautaire
+
+Il existe des packs d'histoires disponibles gratuitement dans une communauté
+francophone que vous pouvez rejoindre par l'intermédiaire du
+[logiciel Discord][1]. Cette communauté met à
+dispositions de nombreux livres, donne des conseils, de l'aide et sert
+également de vitrine pour de nombreux autres projets qui partage le même esprit
+que Contelia, c'est à dire d'offrir des alternatives aux boîtes à histoires
+Lunii, etc. Que ce soit du matériel dédié ou du "recyclage" de smartphones en
+liseuses pour enfants.
+
+Vous y trouverez également toute l'aide nécessaire pour pouvoir créer vos
+propres histoires si le coeur vous en dis.
+
+### Charger des histoires
+
+Pour charger des histoires, vous devez mettre Contelia en mode configuration.
+Avant tout, il est recommandé de brancher le connecteur d'alimentation (charge)
+pour garantir que les transferts ne soient pas interrompus.
+
+TODO
+
+## Naviguation dans les menus
+
+Au démarrage, Contelia montre le premier livre. La bouton directionnel permet
+alors de se déplacer de livre en livre en utilisant les directions droite et
+gauche du bouton.
+
+[IMAGE]
+
+Une fois le livre choisis, le bouton de droite permet de l'ouvrir. Dès ce moment,
+la navigation se fait dans le livre et dépend directement du livre en question.
+Par exemple il peuzt y avoir une étape pour choisir un personnage, puis une
+prochaine étape pour choisir un objet et enfin l'histoire commence.
+
+[IMAGE]
+
+Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place
+uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec
+le bouton directionnel, permet de mettre la lecture en pause. Effectuer à nouveau
+ce même mouvement va permettre de continuer la lecture.
+
+[IMAGE]
+
+Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible
+d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu
+du livre. Chaque pression du bouton de gauche va faire remonter dans la
+navigation. Ainsi il est possible d'atteindre le menu principal pour
+de choisir un autre livre.
+
+[IMAGE]
+
+## Comment éteindre Contelia
+
+Contelia s'éteint automatiquement après 20 secondes d'inactivité. Ce qui signifie
+que si aucune histoire est en cours de lecture et qu'aucune action n'est effectuée
+dans le menu, alors Contelia s'éteind.
+
+Il y a deux exceptions. Quand Contelia est en mode configuration pour la
+modification des histoires ou en configuration du bluetooth, celle-ci reste
+active indéfiniment.
+
+> Il est possible de forcer l'extinction de Contelia en tennant pressé le bouton
+> d'alimentation pendant plus de 2 secondes.
+
+[1]: https://monurl.ca/lunii.creations

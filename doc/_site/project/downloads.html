@@ -95,16 +95,16 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../project/downloads.html" aria-current="page"> 
-<span class="menu-text">Téléchargements</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../project/stories.html"> 
-<span class="menu-text">Des histoires</span></a>
+    <a class="nav-link" href="../project/manual.html"> 
+<span class="menu-text">Prise en main</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../project/kit.html"> 
 <span class="menu-text">Kit de montage</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../project/downloads.html" aria-current="page"> 
+<span class="menu-text">Téléchargements</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Sur cette page</h2>
    
   <ul>
-  <li><a href="#pour-les-utilisateurs-avancés" id="toc-pour-les-utilisateurs-avancés" class="nav-link active" data-scroll-target="#pour-les-utilisateurs-avancés"><span class="header-section-number">1</span> Pour les utilisateurs avancés</a>
+  <li><a href="#pour-les-bidouilleurs" id="toc-pour-les-bidouilleurs" class="nav-link active" data-scroll-target="#pour-les-bidouilleurs"><span class="header-section-number">1</span> Pour les bidouilleurs</a>
   <ul class="collapse">
   <li><a href="#images-de-contelia-os" id="toc-images-de-contelia-os" class="nav-link" data-scroll-target="#images-de-contelia-os"><span class="header-section-number">1.1</span> Images de Contelia OS</a></li>
   </ul></li>
@@ -163,14 +163,20 @@ ul.task-list li input[type="checkbox"] {
     
   </div>
   
+<div>
+  <div class="abstract">
+    <div class="block-title">Résumé</div>
+    Une utilisation normal de Contelia ne nécessite pas de téléchargement particulier. Mais si vous avez l’âme d’un bidouilleur, ici vous trouverez toutes les ressources nécessaires pour réimaginer votre propre boîte à histoires; voir même en faire un nouveau projet complètement différent.
+  </div>
+</div>
 
 
 </header>
 
 
-<section id="pour-les-utilisateurs-avancés" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="pour-les-utilisateurs-avancés"><span class="header-section-number">1</span> Pour les utilisateurs avancés</h2>
-<p>La boîte à histoire contient une carte micro-SD préinstallée et qui peut être changée ou réinstallée avec une nouvelle version de Contelia OS, voir même votre propre OS (si vous avez l’âme d’un bidouilleur).</p>
+<section id="pour-les-bidouilleurs" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="pour-les-bidouilleurs"><span class="header-section-number">1</span> Pour les bidouilleurs</h2>
+<p>La boîte à histoire contient une carte micro-SD préinstallée et qui peut être changée ou réinstallée avec une nouvelle version de Contelia OS, voir même votre propre OS (si vous avez l’âme d’un <a href="https://fr.wikipedia.org/wiki/Hacker_(sous-culture)">hacker</a>).</p>
 <p>Pour accéder à la carte micro-SD, il est nécessaire de démonter partiellement la boîte à histoire en suivant <a href="sd.html">la procédure suivante</a>.</p>
 <section id="images-de-contelia-os" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="images-de-contelia-os"><span class="header-section-number">1.1</span> Images de Contelia OS</h3>
@@ -182,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="2" class="anchored" data-anchor-id="pour-les-développeurs-et-les-makers"><span class="header-section-number">2</span> Pour les développeurs et les makers</h2>
 <section id="le-code-source" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="le-code-source"><span class="header-section-number">2.1</span> Le code source</h3>
-<p>Le logiciel principal de Contelia est disponible sur <a href="https://github.com/Skywalker13/contelia">GitHub</a>. Il est écrit en Rust sous licence GPLv3+.</p>
+<p>Le logiciel principal de Contelia est disponible sur <a href="https://github.com/Skywalker13/contelia">GitHub</a>. Il est écrit en Rust sous licence libre GPLv3+.</p>
 </section>
 <section id="les-modèles-3d" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="les-modèles-3d"><span class="header-section-number">2.2</span> Les modèles 3D</h3>
@@ -190,7 +196,9 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="le-toolchain-de-compilation" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="le-toolchain-de-compilation"><span class="header-section-number">2.3</span> Le toolchain de compilation</h3>
-<p>Le toolchain de compilation se nomme Xcraft et permet de créer la distribution Linux Contelia OS. Cet OS est basé sur Carnotzet OS qui est un systpme d’exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour des projets annexes). Le système de base se nomme <a href="https://xcraft.ch/carnotzet/index.html">Carnotzet OS</a>.</p>
+<p>Le toolchain de compilation se nomme Xcraft et permet de créer la distribution Linux Contelia OS. Cet OS est basé sur Carnotzet OS qui est un système d’exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour des projets annexes). Le système de base se nomme <a href="https://xcraft.ch/carnotzet/index.html">Carnotzet OS</a>.</p>
+<p>Xcraft est un projet vaste et complexe. Compiler Contelia OS de zéro est tout a fait possible pour n’importe qui, qui est allaise avec les outils de développement et les conceptes sous-jacents comme le packaging, la compilation croisée, etc.</p>
+<p>[METTRE A DISPO UNE PROCEDURE PAS A PAS POUR CONTELIA OS]</p>
 
 
 </section>

@@ -2,13 +2,17 @@
 title: "Téléchargements"
 subtitle: "Ressources pour Contelia"
 lang: fr
+abstract: Une utilisation normal de Contelia ne nécessite pas de téléchargement
+  particulier. Mais si vous avez l'âme d'un bidouilleur, ici vous trouverez
+  toutes les ressources nécessaires pour réimaginer votre propre boîte à
+  histoires; voir même en faire un nouveau projet complètement différent.
 ---
 
-## Pour les utilisateurs avancés
+## Pour les bidouilleurs
 
 La boîte à histoire contient une carte micro-SD préinstallée et qui peut être
 changée ou réinstallée avec une nouvelle version de Contelia OS, voir même
-votre propre OS (si vous avez l'âme d'un bidouilleur).
+votre propre OS (si vous avez l'âme d'un [hacker]).
 
 Pour accéder à la carte micro-SD, il est nécessaire de démonter partiellement
 la boîte à histoire en suivant [la procédure suivante][1].
@@ -28,7 +32,7 @@ proprement.
 ### Le code source
 
 Le logiciel principal de Contelia est disponible sur [GitHub][4]. Il est écrit
-en Rust sous licence GPLv3+.
+en Rust sous licence libre GPLv3+.
 
 ### Les modèles 3D
 
@@ -39,9 +43,16 @@ même licence que le code source.
 ### Le toolchain de compilation
 
 Le toolchain de compilation se nomme Xcraft et permet de créer la distribution
-Linux Contelia OS. Cet OS est basé sur Carnotzet OS qui est un systpme
+Linux Contelia OS. Cet OS est basé sur Carnotzet OS qui est un système
 d'exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour
 des projets annexes). Le système de base se nomme [Carnotzet OS][5].
+
+Xcraft est un projet vaste et complexe. Compiler Contelia OS de zéro est tout
+a fait possible pour n'importe qui, qui est allaise avec les outils de
+développement et les conceptes sous-jacents comme le packaging, la
+compilation croisée, etc.
+
+[METTRE A DISPO UNE PROCEDURE PAS A PAS POUR CONTELIA OS]
 
 [1]: sd.html
 [2]: /downloads/contelia-os-1.0.0.zip
@@ -49,3 +60,4 @@ des projets annexes). Le système de base se nomme [Carnotzet OS][5].
 [4]: https://github.com/Skywalker13/contelia
 [FreeCAD]: https://www.freecad.org/
 [5]: https://xcraft.ch/carnotzet/index.html
+[hacker]: https://fr.wikipedia.org/wiki/Hacker_(sous-culture)
