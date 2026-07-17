@@ -64,7 +64,7 @@ s'afficher en tant que disque USB.
 TODO
 
 Vous trouverez une liste de dossiers avec des noms cryptiques. Ce sont les
-histoires. Copier tous les dossiers sur le disque de votre ordinateur. Puis
+histoires. Copiez tous les dossiers sur le disque de votre ordinateur. Puis
 pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront
 être chargé dans la boîte à histoires Contelia.
 
@@ -80,7 +80,7 @@ Lunii, etc. Que ce soit du matériel dédié ou du "recyclage" de smartphones en
 liseuses pour enfants.
 
 Vous y trouverez également toute l'aide nécessaire pour pouvoir créer vos
-propres histoires si le coeur vous en dis.
+propres histoires si le coeur vous en dit.
 
 ### Charger des histoires
 
@@ -100,8 +100,9 @@ gauche du bouton.
 
 Une fois le livre choisis, le bouton de droite permet de l'ouvrir. Dès ce moment,
 la navigation se fait dans le livre et dépend directement du livre en question.
-Par exemple il peuzt y avoir une étape pour choisir un personnage, puis une
-prochaine étape pour choisir un objet et enfin l'histoire commence.
+Par exemple il peut y avoir une étape pour choisir un personnage, puis une
+prochaine étape pour choisir un objet et enfin l'histoire commence. La navigation
+dans un livre dépend de celui qui l'a créé.
 
 [IMAGE]
 
@@ -116,7 +117,7 @@ Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible
 d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu
 du livre. Chaque pression du bouton de gauche va faire remonter dans la
 navigation. Ainsi il est possible d'atteindre le menu principal pour
-de choisir un autre livre.
+choisir un autre livre.
 
 [IMAGE]
 
@@ -124,13 +125,13 @@ de choisir un autre livre.
 
 Contelia s'éteint automatiquement après 20 secondes d'inactivité. Ce qui signifie
 que si aucune histoire est en cours de lecture et qu'aucune action n'est effectuée
-dans le menu, alors Contelia s'éteind.
+dans le menu, alors Contelia s'arrête.
 
 Il y a deux exceptions. Quand Contelia est en mode configuration pour la
 modification des histoires ou en configuration du bluetooth, celle-ci reste
 active indéfiniment.
 
-> Il est possible de forcer l'extinction de Contelia en tennant pressé le bouton
+> Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
 > d'alimentation pendant plus de 2 secondes.
 
 [1]: https://monurl.ca/lunii.creations

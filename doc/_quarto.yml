@@ -13,6 +13,7 @@ website:
     dismissable: false
 
   navbar:
+    logo: ''
     left:
       - href: project/manual.qmd
         text: Prise en main
