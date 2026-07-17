@@ -7,17 +7,29 @@ lang: fr
 ## Contelia
 
 Contelia est conçu sous la forme de deux boîtes imbriquées. La boîte principale
-contient la petite boîte ainsi qu'une paire de haut-parleurs USB permettant
-directement l'écoute sans élément supplémentaire.
+contient la boîte à histoires ainsi qu'une paire de haut-parleurs USB permettant
+directement l'écoute.
 
-[IMAGE qui détail chaque élément]
+Pour ouvrir la boîte, cherchez un petit décrochement qui vous permet, avec un
+ongle, de séparer le couvercle. Celui-ci est maintenu avec l'aide de clips.
+
+![](images/cases.jpg){width=100%}
+
+Observez bien les connecteurs de la boîte à histoires. Il est important de
+toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche.
+Le connecteur HDMI n'est pas utile aujourd'hui, à par pour les bidouilleurs.
+Mais il sera utilisé dans une version ultérieure du logiciel et qui
+permettra d'exploiter Contelia autrement. A propos du connecteur micro-USB
+de droite (non documenté sur l'image ci-dessous), vous pouvez le considéré
+comme étant inutilisé.
+
+![](images/connectors.jpg){width=100%}
 
 ### Recharger
 
 Pour recharger Contelia, vous devez utiliser un câble USB-C. C'est le câble
-que l'on utilise habituellement avec un smartphone.
-
-[IMAGE]
+que l'on utilise habituellement avec un smartphone. Le connecteur est
+clairement indiqué sur l'image précédente, c'est l'alimentation USB-C.
 
 Pendant la charge, Contelia peut être utilisé tout à fait normalement. Contelia
 est configuré pour protéger la batterie. Ce qui veut dire qu'elle ne sera
