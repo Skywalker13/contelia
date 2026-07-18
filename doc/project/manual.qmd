@@ -10,14 +10,23 @@ Contelia est conçu sous la forme de deux boîtes imbriquées. La boîte princip
 contient la boîte à histoires ainsi qu'une paire de haut-parleurs USB permettant
 directement l'écoute.
 
-Pour ouvrir la boîte, cherchez un petit décrochement qui vous permet, avec un
-ongle, de séparer le couvercle. Celui-ci est maintenu avec l'aide de clips.
+Pour ouvrir la boîte, cherchez un petit décrochement au centre du côté le plus
+long et qui vous permet, avec un ongle, de séparer le couvercle. Celui-ci est
+maintenu avec l'aide de clips.
+
+> Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
+> c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
+> possible d'accéder au connecteur USB-C tant qu'elle est fermée.
+
+La boîte à histoires est simplement posée à l'intérieur de la boîte principale.
+Le câbles USB enroulé sert uniquement à relier les haut-parleurs à la boîte à
+histoires.
 
 ![](images/cases.jpg){width=100%}
 
 Observez bien les connecteurs de la boîte à histoires. Il est important de
 toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche.
-Le connecteur HDMI n'est pas utile aujourd'hui, à par pour les bidouilleurs.
+Le connecteur HDMI n'est pas utile aujourd'hui (à par pour les bidouilleurs).
 Mais il sera utilisé dans une version ultérieure du logiciel et qui
 permettra d'exploiter Contelia autrement. A propos du connecteur micro-USB
 de droite (non documenté sur l'image ci-dessous), vous pouvez le considéré
@@ -25,7 +34,10 @@ comme étant inutilisé.
 
 ![](images/connectors.jpg){width=100%}
 
-### Recharger
+> Ne branchez pas les haut-parleurs sur le connecteur micro-USB de droite car
+> ça ne fonctionnera pas.
+
+### Recharger la batterie
 
 Pour recharger Contelia, vous devez utiliser un câble USB-C. C'est le câble
 que l'on utilise habituellement avec un smartphone. Le connecteur est
