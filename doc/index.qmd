@@ -16,7 +16,7 @@ micro-SD (qui peut être changée en cas de besoin).
 
 ## Evolution
 
-Cette boîte à histoire à un objectif à long terme. Une fois que l'endant est
+Cette boîte à histoire à un objectif à long terme. Une fois que l'enfant est
 plus grand, elle doit pouvoir être transformée en (par exemple) un simple lecteur
 de musique (lecteur mp3), en lecteur de livre audio avec toutes les
 fonctionnalités attendues pour un produit de ce type (navigation par phrase,

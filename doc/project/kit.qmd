@@ -15,9 +15,9 @@ composants de votre boîte à histoires Contelia.
 - Éléments imprimés
   - Grande boîte principale (1×)
   - Couvercle de la boîte principale (1×)
-  - Boîte à encaster (1×)
-  - Couvercle supérieur de la boîte à encaster (1×)
-  - Couvercle inférieur de la boîte à encaster (1×)
+  - Boîte à encastrer (1×)
+  - Couvercle supérieur de la boîte à encastrer (1×)
+  - Couvercle inférieur de la boîte à encastrer (1×)
   - Attache en forme de 8 (1×)
   - Entretoises (4×)
   - Boutons circulaires (2×)
@@ -270,7 +270,7 @@ Raspberry Pi.
 
 ![](images/014.jpg){width=100%}
 
-### Fermeture de la boîte à encaster
+### Fermeture de la boîte à encastrer
 
 **Couvercle inférieur**
 
@@ -331,7 +331,7 @@ Tout d'abord, vous devez vous occuper du haut-parleur. Celui-ci utilise un
 connecteur USB et il est donc tout à fait possible d'utiliser Contelia sans la
 boîte principale. C'est votre boîte à histoire, vous en faites ce que vous
 voulez. Vous pouvez imaginer utiliser uniquement des écouteurs USB, il est
-également possible d'exploiter des enceintes (ou des écouteurs) bluetooth mais
+également possible d'exploiter des enceintes (ou des écouteurs) Bluetooth mais
 nous y reviendrons dans la documentation utilisateur.
 
 Vous devez enrouler proprement le câble USB du haut-parleur dans la bride en

@@ -4,7 +4,7 @@ subtitle: "Ressources pour Contelia"
 lang: fr
 abstract: Une utilisation normal de Contelia ne nécessite pas de téléchargement
   particulier. Mais si vous avez l'âme d'un bidouilleur, ici vous trouverez
-  toutes les ressources nécessaires pour réimaginer votre propre boîte à
+  toutes les ressources nécessaires pour ré-imaginer votre propre boîte à
   histoires; voir même en faire un nouveau projet complètement différent.
 ---
 
@@ -48,8 +48,8 @@ d'exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour
 des projets annexes). Le système de base se nomme [Carnotzet OS][5].
 
 Xcraft est un projet vaste et complexe. Compiler Contelia OS de zéro est tout
-a fait possible pour n'importe qui, qui est allaise avec les outils de
-développement et les conceptes sous-jacents comme le packaging, la
+a fait possible pour n'importe qui, qui est alaise avec les outils de
+développement et les concepts sous-jacents comme le packaging, la
 compilation croisée, etc.
 
 [METTRE A DISPO UNE PROCEDURE PAS A PAS POUR CONTELIA OS]

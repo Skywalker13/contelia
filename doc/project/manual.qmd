@@ -33,7 +33,7 @@ clairement indiqué sur l'image précédente, c'est l'alimentation USB-C.
 
 Pendant la charge, Contelia peut être utilisé tout à fait normalement. Contelia
 est configuré pour protéger la batterie. Ce qui veut dire qu'elle ne sera
-jamais chargée à plus de 80% de sa capacité. Bien que celà entraîne une baisse
+jamais chargée à plus de 80% de sa capacité. Bien que cela entraîne une baisse
 d'autonomie, cette protection permet de prolonger sa durée de vie.
 
 [TODO: ajouter une config dans /boot permettant d'enlever cette protection]
@@ -69,7 +69,7 @@ Mais tout d'abord, où en trouver ?
 
 [IMAGE DE LA LUNII]
 
-Récupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour celà
+Récupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour cela
 il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait
 s'afficher en tant que disque USB.
 
@@ -92,7 +92,7 @@ Lunii, etc. Que ce soit du matériel dédié ou du "recyclage" de smartphones en
 liseuses pour enfants.
 
 Vous y trouverez également toute l'aide nécessaire pour pouvoir créer vos
-propres histoires si le coeur vous en dit.
+propres histoires si le cœur vous en dit.
 
 ### Charger des histoires
 
@@ -102,7 +102,7 @@ pour garantir que les transferts ne soient pas interrompus.
 
 TODO
 
-## Naviguation dans les menus
+## Navigation dans les menus
 
 Au démarrage, Contelia montre le premier livre. La bouton directionnel permet
 alors de se déplacer de livre en livre en utilisant les directions droite et
@@ -140,7 +140,7 @@ que si aucune histoire est en cours de lecture et qu'aucune action n'est effectu
 dans le menu, alors Contelia s'arrête.
 
 Il y a deux exceptions. Quand Contelia est en mode configuration pour la
-modification des histoires ou en configuration du bluetooth, celle-ci reste
+modification des histoires ou en configuration du Bluetooth, celle-ci reste
 active indéfiniment.
 
 > Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
