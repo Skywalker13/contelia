@@ -16,20 +16,21 @@ maintenu avec l'aide de clips.
 
 > Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
 > c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
-> possible d'accéder au connecteur USB-C tant qu'elle est fermée.
+> possible d'accéder au connecteur USB-C tant qu'elle est fermée. Voir la
+> section [Recharger la batterie](#recharger-la-batterie).
 
 La boîte à histoires est simplement posée à l'intérieur de la boîte principale.
-Le câbles USB enroulé sert uniquement à relier les haut-parleurs à la boîte à
+Le câble USB enroulé sert uniquement à relier les haut-parleurs à la boîte à
 histoires.
 
 ![](images/cases.jpg){width=100%}
 
 Observez bien les connecteurs de la boîte à histoires. Il est important de
 toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche.
-Le connecteur HDMI n'est pas utile aujourd'hui (à par pour les bidouilleurs).
+Le connecteur mini-HDMI n'est pas utile aujourd'hui (à par pour les bidouilleurs).
 Mais il sera utilisé dans une version ultérieure du logiciel et qui
 permettra d'exploiter Contelia autrement. A propos du connecteur micro-USB
-de droite (non documenté sur l'image ci-dessous), vous pouvez le considéré
+de droite (avec la croix rouge dans l'image ci-dessous), vous pouvez le considéré
 comme étant inutilisé.
 
 ![](images/connectors.jpg){width=100%}
@@ -39,27 +40,25 @@ comme étant inutilisé.
 
 ### Recharger la batterie
 
-Pour recharger Contelia, vous devez utiliser un câble USB-C. C'est le câble
-que l'on utilise habituellement avec un smartphone. Le connecteur est
-clairement indiqué sur l'image précédente, c'est l'alimentation USB-C.
+Pour recharger Contelia, vous devez utiliser un câble USB-C (ce câble ainsi
+que le chargeur ne sont pas livré avec Contelia). C'est le câble
+que l'on utilise habituellement avec un téléphone mobile. Le connecteur est
+clairement indiqué sur l'image précédente, c'est l'alimentation USB-C. Vous
+pouvez ainsi utiliser le même chargeur que pour votre téléphone.
 
 Pendant la charge, Contelia peut être utilisé tout à fait normalement. Contelia
 est configuré pour protéger la batterie. Ce qui veut dire qu'elle ne sera
 jamais chargée à plus de 80% de sa capacité. Bien que cela entraîne une baisse
 d'autonomie, cette protection permet de prolonger sa durée de vie.
 
+> Bien que Contelia peut être utilisé normalement pendant la charge, Si la
+> batterie est complètement déchargée, il peut être nécessaire d'attendre
+> au moins une minute ou deux avant de pouvoir allumer la boîte à histoires.
+
 [TODO: ajouter une config dans /boot permettant d'enlever cette protection]
 
 > Notez bien qu'il est possible de changer une batterie usagée en cas de
 > diminution trop impactante de l'autonomie.
-
-### Casque audio USB
-
-[permet aussi d'augmenter l'autonomie]
-
-### Bluetooth
-
-[permet aussi d'augmenter l'autonomie]
 
 ## Premier démarrage et chargement des histoires
 
@@ -74,8 +73,7 @@ quelques projets communautaires et de plus, si vous avez déjà une boîte à
 histoires Lunii, il est possible de les charger sur Contelia (attention, cela
 ne concerne pas la Flam).
 
-Contelia ne contient aucune histoire de base, et c'est à vous d'en charger.
-Mais tout d'abord, où en trouver ?
+Mais tout d'abord, où trouver des histoires ?
 
 #### Lunii
 
@@ -157,5 +155,26 @@ active indéfiniment.
 
 > Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
 > d'alimentation pendant plus de 2 secondes.
+
+## Casque audio USB
+
+Contelia peut être utilisée en dehors de sa boîte principale et sans les
+haut-parleurs USB. Vous pouvez brancher un casque USB directement dans
+l'adaptateur USB fourni.
+
+[IMAGE]
+
+Si vous avez un casque USB avec dongle (pour le sans-fil), vous pouvez brancher
+le dongle de la même manière.
+
+[permet aussi d'augmenter l'autonomie]
+
+## Bluetooth
+
+Contelia possède tout le nécessaire pour transmettre la lecture des histoires
+par Bluetooth. Elle devrait fonctionner directement avec les casques sans-fils,
+les haut-parleurs sans-fils ainsi que les voitures.
+
+[permet aussi d'augmenter l'autonomie]
 
 [1]: https://monurl.ca/lunii.creations
