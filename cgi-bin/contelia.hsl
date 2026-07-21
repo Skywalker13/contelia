@@ -598,20 +598,39 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       display: block;
     }
 
-    .spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #2196f3;
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-right: 8px;
-      vertical-align: middle;
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: #cfe8fc;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 10px;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2196f3;
+      border-radius: 4px;
+      transition: width 0.2s ease;
+    }
+
+    .progress-bar-fill.indeterminate {
+      width: 100% !important;
+      background: repeating-linear-gradient(45deg, #2196f3, #2196f3 10px, #64b5f6 10px, #64b5f6 20px);
+      background-size: 28px 28px;
+      animation: progress-stripes 1s linear infinite;
+    }
+
+    @keyframes progress-stripes {
+      from { background-position: 0 0; }
+      to { background-position: 28px 0; }
+    }
+
+    .progress-text {
+      font-size: 13px;
+      margin-top: 6px;
+      color: #1976d2;
     }
 
     button:disabled {
@@ -697,8 +716,10 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
         <button type="submit" id="submitBtn">Charger</button>
       </form>
       <div class="upload-progress" id="uploadProgress">
-        <span class="spinner"></span>
-        Chargement et décompression en cours...
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">Préparation...</div>
       </div>
       <div class="info-text">
         <strong>Format :</strong> ZIP uniquement<br>
@@ -852,16 +873,68 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     document.getElementById('batchActions').value = JSON.stringify(actionsArray);
   });
 
-  // Handle upload form
+  function formatBytesJS(bytes) {
+    if (bytes < 1024) {
+      return bytes + 'B';
+    }
+    if (bytes < 1048576) {
+      return Math.round(bytes / 1024) + 'KB';
+    }
+    return (bytes / 1048576).toFixed(1) + 'MB';
+  }
+
   document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
     const fileInput = document.getElementById('fileInput');
+    if (!fileInput.files.length) {
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('archive', file, file.name);
+
     const submitBtn = document.getElementById('submitBtn');
     const progress = document.getElementById('uploadProgress');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
 
-    if (fileInput.files.length > 0) {
-      submitBtn.disabled = true;
-      progress.classList.add('active');
-    }
+    submitBtn.disabled = true;
+    progress.classList.add('active');
+    progressBar.classList.remove('indeterminate');
+    progressBar.style.width = '0%';
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.upload.addEventListener('progress', function(evt) {
+      if (evt.lengthComputable) {
+        const percent = Math.round((evt.loaded / evt.total) * 100);
+        progressBar.style.width = percent + '%';
+        progressText.textContent = percent + '% — ' + formatBytesJS(evt.loaded) + ' / ' + formatBytesJS(evt.total);
+      }
+    });
+
+    xhr.upload.addEventListener('load', function() {
+      progressBar.classList.add('indeterminate');
+      progressText.textContent = 'Décompression en cours...';
+    });
+
+    xhr.onload = function() {
+      document.open();
+      document.write(xhr.responseText);
+      document.close();
+    };
+
+    xhr.onerror = function() {
+      progress.classList.remove('active');
+      submitBtn.disabled = false;
+      progressText.textContent = '';
+      alert("Erreur réseau pendant l'envoi.");
+    };
+
+    xhr.open('POST', window.location.pathname + window.location.search, true);
+    xhr.send(formData);
   });
   </script>
 </body>
