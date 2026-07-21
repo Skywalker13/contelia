@@ -65,10 +65,10 @@ d'autonomie, cette protection permet de prolonger sa durée de vie.
 Le premier démarrage (si aucun livre n'est chargé) va simplement vous montrer
 l'écran suivant qui signifie que Contelia est en attente de livres.
 
-[IMAGE]
+![](images/bookshelf.png){width=20%}
 
 Contelia ne sert à rien sans contenu. Mais le contenu n'est bien
-souvent pas disponible gratuitement. Mais en cherchant bien, il existe
+souvent pas disponible gratuitement. En cherchant bien, il existe
 quelques projets communautaires et de plus, si vous avez déjà une boîte à
 histoires Lunii, il est possible de les charger sur Contelia (attention, cela
 ne concerne pas la Flam).
