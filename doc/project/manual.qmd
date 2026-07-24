@@ -30,7 +30,7 @@ toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche.
 Le connecteur mini-HDMI n'est pas utile aujourd'hui (à par pour les bidouilleurs).
 Mais il sera utilisé dans une version ultérieure du logiciel et qui
 permettra d'exploiter Contelia autrement. A propos du connecteur micro-USB
-de droite (avec la croix rouge dans l'image ci-dessous), vous pouvez le considéré
+de droite (avec la croix rouge dans l'image ci-dessous), vous pouvez le considérer
 comme étant inutilisé.
 
 ![](images/connectors.jpg){width=100%}
@@ -41,7 +41,7 @@ comme étant inutilisé.
 ### Recharger la batterie
 
 Pour recharger Contelia, vous devez utiliser un câble USB-C (ce câble ainsi
-que le chargeur ne sont pas livré avec Contelia). C'est le câble
+que le chargeur ne sont pas livrés avec Contelia). C'est le câble
 que l'on utilise habituellement avec un téléphone mobile. Le connecteur est
 clairement indiqué sur l'image précédente, c'est l'alimentation USB-C. Vous
 pouvez ainsi utiliser le même chargeur que pour votre téléphone.
@@ -75,20 +75,63 @@ ne concerne pas la Flam).
 
 Mais tout d'abord, où trouver des histoires ?
 
+{{< pagebreak >}}
+
 #### Lunii
 
-[IMAGE DE LA LUNII]
+Si vous n'avez pas de boîte à histoires Lunii, vous pouvez sauter ce chapitre
+et dorectement passer au chapitre [cf. Communautaire](#communautaire).
+
+![](images/lunii/lunii.jpg){width=100%}
 
 Récupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour cela
 il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait
 s'afficher en tant que disque USB.
 
-TODO
+| macOS | Windows |
+| --- | --- |
+| Vous devez autoriser ce périphérique. ||
+| ![](images/lunii/001.png){width=100%} ||
+| Alors une nouvelle icône de disque devrait apparaître sur le bureau de votre Mac. | Un nouveau lecteur de disque devrait se monter dans l'explorateur de fichiers. |
+| ![](images/lunii/000.png){width=100%} | ![](images/lunii/010.png){width=100%} |
 
-Vous trouverez une liste de dossiers avec des noms cryptiques. Ce sont les
-histoires. Copiez tous les dossiers sur le disque de votre ordinateur. Puis
-pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront
-être chargé dans la boîte à histoires Contelia.
+L'ouverture de ce disque va vous montrer différents fichiers. Il va falloir
+(sous macOS et Linux) afficher les fichiers cachés afin de mettre la main sur
+les histoires de votre Lunii.
+
+| macOS | Windows |
+| --- | --- |
+| [![](images/lunii/002.png){width=100%}](images/lunii/002.png) ||
+| Faîtes {{< kbd Shift-Command-. >}} pour révéler les fichiers cachés. | Sous Windows, il n'est pas nécessaire de forcer l'affichage des fichiers cachés. |
+| [![](images/lunii/003.png){width=100%}](images/lunii/003.png) | [![](images/lunii/012.png){width=100%}](images/lunii/012.png) |
+
+Cherchez le dossier nommé `.content` car c'est lui qui contient toutes vos
+histoires. Dedans vous trouverez une liste de dossiers avec des noms cryptiques.
+
+| macOS | Windows |
+| --- | --- |
+| [![](images/lunii/004.png){width=100%}](images/lunii/004.png) | [![](images/lunii/014.png){width=100%}](images/lunii/004.png) |
+
+Copiez le dossier `.content` sur le disque de votre ordinateur (par exemple sur
+le bureau). Une fois la copie terminée, je vous invite à éjecter la Lunii car
+nous avons désormais tout ce qu'il nous faut.
+
+| macOS | Windows |
+| --- | --- |
+| [![](images/lunii/006.png){width=100%}](images/lunii/006.png) | [![](images/lunii/016.png){width=100%}](images/lunii/006.png) |
+
+Ouvrez le dossier`.content` que vous avez transféré sur votre bureau. Dedans il
+y a un dossier par histoire. Pour chaque dossier, créez un fichier ZIP. Ce sont
+ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Contelia.
+
+| macOS | Windows |
+| --- | --- |
+| [![](images/lunii/005.png){width=100%}](images/lunii/005.png) | [![](images/lunii/015.png){width=100%}](images/lunii/015.png) |
+
+Ne vous inquiété par des noms car une fois chargé dans Contelia, les images
+de chaque histoire permettront de les identifier clairement.
+
+{{< pagebreak >}}
 
 #### Communautaire
 

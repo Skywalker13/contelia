@@ -44,6 +44,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-9362f8cd02121a1f53f712f520c243c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -179,14 +181,14 @@ ul.task-list li input[type="checkbox"] {
 </blockquote>
 <p>La boîte à histoires est simplement posée à l’intérieur de la boîte principale. Le câble USB enroulé sert uniquement à relier les haut-parleurs à la boîte à histoires.</p>
 <p><img src="images/cases.jpg" class="img-fluid" style="width:100.0%"></p>
-<p>Observez bien les connecteurs de la boîte à histoires. Il est important de toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche. Le connecteur mini-HDMI n’est pas utile aujourd’hui (à par pour les bidouilleurs). Mais il sera utilisé dans une version ultérieure du logiciel et qui permettra d’exploiter Contelia autrement. A propos du connecteur micro-USB de droite (avec la croix rouge dans l’image ci-dessous), vous pouvez le considéré comme étant inutilisé.</p>
+<p>Observez bien les connecteurs de la boîte à histoires. Il est important de toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche. Le connecteur mini-HDMI n’est pas utile aujourd’hui (à par pour les bidouilleurs). Mais il sera utilisé dans une version ultérieure du logiciel et qui permettra d’exploiter Contelia autrement. A propos du connecteur micro-USB de droite (avec la croix rouge dans l’image ci-dessous), vous pouvez le considérer comme étant inutilisé.</p>
 <p><img src="images/connectors.jpg" class="img-fluid" style="width:100.0%"></p>
 <blockquote class="blockquote">
 <p>Ne branchez pas les haut-parleurs sur le connecteur micro-USB de droite car ça ne fonctionnera pas.</p>
 </blockquote>
 <section id="recharger-la-batterie" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="recharger-la-batterie"><span class="header-section-number">1.1</span> Recharger la batterie</h3>
-<p>Pour recharger Contelia, vous devez utiliser un câble USB-C (ce câble ainsi que le chargeur ne sont pas livré avec Contelia). C’est le câble que l’on utilise habituellement avec un téléphone mobile. Le connecteur est clairement indiqué sur l’image précédente, c’est l’alimentation USB-C. Vous pouvez ainsi utiliser le même chargeur que pour votre téléphone.</p>
+<p>Pour recharger Contelia, vous devez utiliser un câble USB-C (ce câble ainsi que le chargeur ne sont pas livrés avec Contelia). C’est le câble que l’on utilise habituellement avec un téléphone mobile. Le connecteur est clairement indiqué sur l’image précédente, c’est l’alimentation USB-C. Vous pouvez ainsi utiliser le même chargeur que pour votre téléphone.</p>
 <p>Pendant la charge, Contelia peut être utilisé tout à fait normalement. Contelia est configuré pour protéger la batterie. Ce qui veut dire qu’elle ne sera jamais chargée à plus de 80% de sa capacité. Bien que cela entraîne une baisse d’autonomie, cette protection permet de prolonger sa durée de vie.</p>
 <blockquote class="blockquote">
 <p>Bien que Contelia peut être utilisé normalement pendant la charge, Si la batterie est complètement déchargée, il peut être nécessaire d’attendre au moins une minute ou deux avant de pouvoir allumer la boîte à histoires.</p>
@@ -203,12 +205,112 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="images/bookshelf.png" class="img-fluid" style="width:20.0%"></p>
 <p>Contelia ne sert à rien sans contenu. Mais le contenu n’est bien souvent pas disponible gratuitement. En cherchant bien, il existe quelques projets communautaires et de plus, si vous avez déjà une boîte à histoires Lunii, il est possible de les charger sur Contelia (attention, cela ne concerne pas la Flam).</p>
 <p>Mais tout d’abord, où trouver des histoires ?</p>
+<div style="page-break-after: always;"></div>
 <section id="lunii" class="level4" data-number="2.0.1">
 <h4 data-number="2.0.1" class="anchored" data-anchor-id="lunii"><span class="header-section-number">2.0.1</span> Lunii</h4>
-<p>[IMAGE DE LA LUNII]</p>
+<p>Si vous n’avez pas de boîte à histoires Lunii, vous pouvez sauter ce chapitre et dorectement passer au chapitre <a href="#communautaire">cf.&nbsp;Communautaire</a>.</p>
+<p><img src="images/lunii/lunii.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Récupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour cela il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait s’afficher en tant que disque USB.</p>
-<p>TODO</p>
-<p>Vous trouverez une liste de dossiers avec des noms cryptiques. Ce sont les histoires. Copiez tous les dossiers sur le disque de votre ordinateur. Puis pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront être chargé dans la boîte à histoires Contelia.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>macOS</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vous devez autoriser ce périphérique.</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><img src="images/lunii/001.png" class="img-fluid" style="width:100.0%"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Alors une nouvelle icône de disque devrait apparaître sur le bureau de votre Mac.</td>
+<td>Un nouveau lecteur de disque devrait se monter dans l’explorateur de fichiers.</td>
+</tr>
+<tr class="even">
+<td><img src="images/lunii/000.png" class="img-fluid" style="width:100.0%"></td>
+<td><img src="images/lunii/010.png" class="img-fluid" style="width:100.0%"></td>
+</tr>
+</tbody>
+</table>
+<p>L’ouverture de ce disque va vous montrer différents fichiers. Il va falloir (sous macOS et Linux) afficher les fichiers cachés afin de mettre la main sur les histoires de votre Lunii.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>macOS</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="images/lunii/002.png"><img src="images/lunii/002.png" class="img-fluid" style="width:100.0%"></a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Faîtes <kbd title="Shift-Command-." aria-hidden="true">Shift-Command-.</kbd><span class="visually-hidden">Shift-Command-.</span> pour révéler les fichiers cachés.</td>
+<td>Sous Windows, il n’est pas nécessaire de forcer l’affichage des fichiers cachés.</td>
+</tr>
+<tr class="odd">
+<td><a href="images/lunii/003.png"><img src="images/lunii/003.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/012.png"><img src="images/lunii/012.png" class="img-fluid" style="width:100.0%"></a></td>
+</tr>
+</tbody>
+</table>
+<p>Cherchez le dossier nommé <code>.content</code> car c’est lui qui contient toutes vos histoires. Dedans vous trouverez une liste de dossiers avec des noms cryptiques.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>macOS</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="images/lunii/004.png"><img src="images/lunii/004.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/004.png"><img src="images/lunii/014.png" class="img-fluid" style="width:100.0%"></a></td>
+</tr>
+</tbody>
+</table>
+<p>Copiez le dossier <code>.content</code> sur le disque de votre ordinateur (par exemple sur le bureau). Une fois la copie terminée, je vous invite à éjecter la Lunii car nous avons désormais tout ce qu’il nous faut.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>macOS</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="images/lunii/006.png"><img src="images/lunii/006.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/006.png"><img src="images/lunii/016.png" class="img-fluid" style="width:100.0%"></a></td>
+</tr>
+</tbody>
+</table>
+<p>Ouvrez le dossier<code>.content</code> que vous avez transféré sur votre bureau. Dedans il y a un dossier par histoire. Pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Contelia.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>macOS</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="images/lunii/005.png"><img src="images/lunii/005.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/015.png"><img src="images/lunii/015.png" class="img-fluid" style="width:100.0%"></a></td>
+</tr>
+</tbody>
+</table>
+<p>Ne vous inquiété par des noms car une fois chargé dans Contelia, les images de chaque histoire permettront de les identifier clairement.</p>
+<div style="page-break-after: always;"></div>
 </section>
 <section id="communautaire" class="level4" data-number="2.0.2">
 <h4 data-number="2.0.2" class="anchored" data-anchor-id="communautaire"><span class="header-section-number">2.0.2</span> Communautaire</h4>
