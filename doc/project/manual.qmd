@@ -80,7 +80,7 @@ Mais tout d'abord, où trouver des histoires ?
 #### Lunii
 
 Si vous n'avez pas de boîte à histoires Lunii, vous pouvez sauter ce chapitre
-et dorectement passer au chapitre [cf. Communautaire](#communautaire).
+et directement passer au chapitre « [Communautaire](#communautaire) ».
 
 ![](images/lunii/lunii.jpg){width=100%}
 
@@ -110,7 +110,7 @@ histoires. Dedans vous trouverez une liste de dossiers avec des noms cryptiques.
 
 | macOS | Windows |
 | --- | --- |
-| [![](images/lunii/004.png){width=100%}](images/lunii/004.png) | [![](images/lunii/014.png){width=100%}](images/lunii/004.png) |
+| [![](images/lunii/004.png){width=100%}](images/lunii/004.png) | [![](images/lunii/014.png){width=100%}](images/lunii/014.png) |
 
 Copiez le dossier `.content` sur le disque de votre ordinateur (par exemple sur
 le bureau). Une fois la copie terminée, je vous invite à éjecter la Lunii car
@@ -118,7 +118,7 @@ nous avons désormais tout ce qu'il nous faut.
 
 | macOS | Windows |
 | --- | --- |
-| [![](images/lunii/006.png){width=100%}](images/lunii/006.png) | [![](images/lunii/016.png){width=100%}](images/lunii/006.png) |
+| [![](images/lunii/006.png){width=100%}](images/lunii/006.png) | [![](images/lunii/016.png){width=100%}](images/lunii/016.png) |
 
 Ouvrez le dossier`.content` que vous avez transféré sur votre bureau. Dedans il
 y a un dossier par histoire. Pour chaque dossier, créez un fichier ZIP. Ce sont
@@ -128,7 +128,7 @@ ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Conteli
 | --- | --- |
 | [![](images/lunii/005.png){width=100%}](images/lunii/005.png) | [![](images/lunii/015.png){width=100%}](images/lunii/015.png) |
 
-Ne vous inquiété par des noms car une fois chargé dans Contelia, les images
+Ne vous inquiétez pas des noms car une fois chargé dans Contelia, les images
 de chaque histoire permettront de les identifier clairement.
 
 {{< pagebreak >}}
