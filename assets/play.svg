@@ -9,7 +9,7 @@
    id="svg1"
    inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
    sodipodi:docname="play.svg"
-   inkscape:export-filename="pause.png"
+   inkscape:export-filename="play.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -55,28 +55,14 @@
        dotted="false" />
   </sodipodi:namedview>
   <defs
-     id="defs1">
-    <filter
-       inkscape:collect="always"
-       style="color-interpolation-filters:sRGB"
-       id="filter18"
-       x="-0.040195102"
-       y="-0.061218311"
-       width="1.0803902"
-       height="1.1224396">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.55260472"
-         id="feGaussianBlur18" />
-    </filter>
-  </defs>
+     id="defs1" />
   <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1">
     <path
        id="rect9"
-       style="fill:#ffffff;stroke:#ffffff;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;filter:url(#filter18)"
+       style="fill:#ffffff;stroke:#ffffff;stroke-width:8;stroke-linecap:round;stroke-linejoin:round"
        transform="rotate(89.999889,90.875131,104.62514)"
        d="m 106.25013,30.500301 66.24983,86.999969 H 40.00013 Z"
        sodipodi:nodetypes="cccc" />
