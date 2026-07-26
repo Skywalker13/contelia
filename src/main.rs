@@ -267,6 +267,9 @@ fn run() -> Result<u8, Box<dyn Error>> {
                 Some(ref image) => {
                     let (mut image, format) = book.images_file_get(&image)?;
                     screen.draw(&mut image, format)?;
+                    if Services::status_bluez()? {
+                        screen.draw_file(assets_dir.join("bt_overlay.png"))?;
+                    }
                     screen.on()?;
                 }
                 None => {
