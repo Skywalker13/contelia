@@ -82,6 +82,9 @@ impl Screen {
 
                 if y >= h_offset && y - h_offset < h {
                     let pixel = img.get_pixel(x, y - h_offset);
+                    if pixel[3] == 0x00 {
+                        continue;
+                    }
                     let rgb565 = ((pixel[0] as u16 >> 3) << 11)
                         | ((pixel[1] as u16 >> 2) << 5)
                         | (pixel[2] as u16 >> 3);
