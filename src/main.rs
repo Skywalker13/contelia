@@ -511,7 +511,13 @@ fn run() -> Result<u8, Box<dyn Error>> {
                         };
                         continue;
                     }
-                    if status.select && status.start {
+                    let just_one =
+                        (status.select && !status.start) || (!status.select && status.start);
+                    if (status.select && status.start)
+                        /* Ignore to prevent menu navigation */
+                        || (status.dpad_down && just_one)
+                        || (status.dpad_up && just_one)
+                    {
                         next = Next::None;
                         continue;
                     }
