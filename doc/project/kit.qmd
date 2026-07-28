@@ -15,9 +15,9 @@ composants de votre boîte à histoires Contelia.
 - Éléments imprimés
   - Grande boîte principale (1×)
   - Couvercle de la boîte principale (1×)
-  - Boîte à encastrer (1×)
-  - Couvercle supérieur de la boîte à encastrer (1×)
-  - Couvercle inférieur de la boîte à encastrer (1×)
+  - Petite boîte à encastrer (1×)
+  - Couvercle supérieur de la petite boîte à encastrer (1×)
+  - Couvercle inférieur de la petite boîte à encastrer (1×)
   - Attache en forme de 8 (1×)
   - Entretoises (4×)
   - Boutons circulaires (2×)
@@ -27,7 +27,7 @@ composants de votre boîte à histoires Contelia.
 - Carte Raspberry Pi Zero 2 WH (1×)
 - Carte Adafruit 1.3" TFT Bonnet avec son stick en caoutchouc (1×)
 - Carte PiSugar 3 avec batterie (1×)
-- Haut-parleur USB (1×)
+- Haut-parleurs USB (1×)
 - Câble adaptateur micro-USB / USB (1×)
 - Carte micro-SD de 64 GB avec son adaptateur SD (1×)
 
@@ -85,7 +85,7 @@ détruire un de vos périphériques. Rappelez-vous que `if` signifie Input File,
 
 ```
 # Veuillez remplacer ici le sdX par le numéro qui correspond à votre carte
-dd if=~/carnotzet-os-X.Y.Z-rpi4b.img of=/dev/sdX bs=1M status=progress
+dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/sdX bs=1M status=progress
 ```
 
 **macOS**
@@ -98,7 +98,7 @@ diskutil list
 
 # Démontez la carte micro-SD (remplacer diskX par le bon identifiant), puis flashez
 diskutil unmountDisk /dev/diskX
-sudo dd if=~/carnotzet-os-X.Y.Z-rpi4b.img of=/dev/diskX bs=1m status=progress
+sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=progress
 ```
 
 ### Ejection
@@ -144,6 +144,9 @@ permet de maintenir en place la batterie. Si vous déconnectez l'aimant, faites
 attention de ne pas toucher des contacts de la carte avec la surface circulaire
 en acier. Le cas échéant, il pourrait se produire un court-circuit destructeur.
 
+> Bien que la batterie soit soudée à la carte, ce n'est pas un problème de la
+> changer dans le futur.
+
 ![](images/003.jpg){width=100%}
 
 Posez la carte de telle manière que la batterie se situe en dessous. Vous
@@ -154,7 +157,9 @@ orange collé dessus.
 
 Vous devez enlever ces 4 autocollants sinon il ne sera pas possible de visser
 les cartes entre elles le temps venu. Pour y parvenir, utilisez (par exemple) la
-lame d'un cutter afin de soulever délicatement chaque autocollant.
+lame d'un cutter afin de soulever délicatement chaque autocollant. Vous pouvez
+également utiliser une vis que vous insérer dans le côté opposé et qui, en se
+vissant, décollera simplement l'autocollant.
 
 ![](images/005.jpg){width=100%}
 
@@ -162,12 +167,13 @@ lame d'un cutter afin de soulever délicatement chaque autocollant.
 
 Pour commencer, l'assemblage des cartes ne concernera que la carte Raspberry Pi
 et la carte Adafruit 1.3" TFT Bonnet. N'enlevez pas encore la protection sur
-l'écran de la carte Adafruit et laissez le stick de côté pour le moment.
+l'écran de la carte Adafruit et laissez le stick en caoutchouc de côté pour le moment.
 
 Connectez délicatement la carte Adafruit avec la carte Raspberry Pi. Pour se
 faire, introduisez doucement le connecteur en veillant à ne pas appuyer avec vos
 doigts sur l'écran. Il serait dommage de l'abîmer avec cette manipulation.
-Utilisez les zones libres du PCB comme appuis et prenez votre temps.
+Utilisez les zones libres du PCB comme appuis et prenez votre temps. Gardez bien
+les deux cartes parallèles l'une avec l'autre.
 
 ![](images/006.jpg){width=100%}
 
@@ -207,9 +213,10 @@ pas abîmer les pas de vis).
 Pour ce premier démarrage, je vous invite à brancher un câble d'alimentation
 USB-C sur la carte PiSugar. Bien que la batterie devrait être suffisamment
 chargée, il est plus sage de s'assurer que la tension électrique ne chute pas
-pendant les étapes "critiques" de la première initialisation du Contelia OS.
+pendant les étapes "critiques" de la première initialisation du système
+d'exploitation Contelia.
 
-**A EXPERIMENTER, MESURE LE TEMPS ET EXPLIQUER**
+**TODO: A EXPERIMENTER, MESURE LE TEMPS ET EXPLIQUER**
 
 ![](images/025.jpg){width=100%}
 
@@ -223,7 +230,7 @@ Avant tout, prenez la petite boîte et le bouton d'alimentation (en forme
 rectangulaire). Introduisez le bouton dans la boîte depuis l'intérieur. Ce
 bouton ne peut pas tenir en place tant que la carte PiSugar n'est pas installée.
 Si vous souhaitez vous simplifier la vie, utilisez un morceau de papier collant
-à l'extérieur afin de garder le bouton en place.
+(scotch) à l'extérieur afin de garder le bouton en place.
 
 ![](images/009.jpg){width=100%}
 
@@ -240,12 +247,13 @@ que le bouton d'alimentation se situe bien devant le bouton que vous avez
 positionné précédemment avec du papier collant. Une fois fait, ne retournez pas
 la boîte.
 
-Saisissez la boîte en gardant appuyé avec un doigt, la carte PiSugar.
+Saisissez la boîte en gardant appuyé avec un doigt la carte PiSugar (pour ne pas
+qu'elle tombe).
 
 ![](images/011.jpg){width=100%}
 
 Alors vous pouvez retourner l'assemblage pour y introduire de l'autre côté, la
-paire de cartes Raspberry Pi et Adafruit que vous avez préparée tout à l'heure.
+paire de cartes Raspberry Pi et Adafruit que vous avez préparé tout à l'heure.
 Tout en gardant bien en place la carte PiSugar, introduisez les autres cartes.
 Vous pouvez écarter légèrement les parois latérales de la boîte pour faciliter
 leur introduction.
@@ -327,19 +335,19 @@ Votre petite boîte à histoire est prête.
 
 ### Mise en place de la boîte principale
 
-Tout d'abord, vous devez vous occuper du haut-parleur. Celui-ci utilise un
+Tout d'abord, vous devez vous occuper des haut-parleurs. Ceux-ci utilisent un
 connecteur USB et il est donc tout à fait possible d'utiliser Contelia sans la
 boîte principale. C'est votre boîte à histoire, vous en faites ce que vous
 voulez. Vous pouvez imaginer utiliser uniquement des écouteurs USB, il est
 également possible d'exploiter des enceintes (ou des écouteurs) Bluetooth mais
 nous y reviendrons dans la documentation utilisateur.
 
-Vous devez enrouler proprement le câble USB du haut-parleur dans la bride en
-forme de huit. Prenez votre temps, enroulez serré.
+Vous devez enrouler proprement le câble USB des haut-parleurs dans la bride en
+forme de huit. Prenez votre temps et enroulez serré.
 
 ![](images/026.jpg){width=100%}
 
-Prenez alors la boîte principale, la petite boîte ainsi que le haut-parleur.
+Prenez alors la boîte principale, la petite boîte ainsi que les haut-parleurs.
 Commencez par déposer la petite boîte en veillant bien à ce qu'elle soit
 parfaitement encastrée. Le plat du couvercle de la petite boîte ne doit en aucun
 cas dépasser la hauteur des parois de la grande boîte. Si c'est le cas, alors
@@ -357,7 +365,7 @@ pour faire tenir la boucle. Observez bien la photo suivante. Connectez le
 micro-USB de l'adaptateur sur l'entrée **gauche** de la petite boîte à histoire.
 L'entrée micro-USB droite supérieure n'est **jamais** utilisée. Mettez alors
 bien en place le câble de l'adaptateur afin de pouvoir le connecter avec le
-câble USB du haut-parleur sans que ça puisse empêcher de fermer le couvercle de
+câble USB des haut-parleurs sans que ça puisse empêcher de fermer le couvercle de
 la grande boîte à histoire.
 
 ![](images/028.jpg){width=100%}
