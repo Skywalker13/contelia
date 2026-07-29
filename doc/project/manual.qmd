@@ -51,14 +51,15 @@ est configuré pour protéger la batterie. Ce qui veut dire qu'elle ne sera
 jamais chargée à plus de 80% de sa capacité. Bien que cela entraîne une baisse
 d'autonomie, cette protection permet de prolonger sa durée de vie.
 
-> Bien que Contelia peut être utilisé normalement pendant la charge, Si la
+[IMAGE de la charge]
+
+> Bien que Contelia peut être utilisé pendant la charge, Si la
 > batterie est complètement déchargée, il peut être nécessaire d'attendre
 > au moins une minute ou deux avant de pouvoir allumer la boîte à histoires.
-
-[TODO: ajouter une config dans /boot permettant d'enlever cette protection]
-
+>
 > Notez bien qu'il est possible de changer une batterie usagée en cas de
-> diminution trop impactante de l'autonomie.
+> diminution trop impactante de l'autonomie. L'opération nécessite quand même
+> l'utilisation d'un fer à souder.
 
 ## Premier démarrage et chargement des histoires
 
