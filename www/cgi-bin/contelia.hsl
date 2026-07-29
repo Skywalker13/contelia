@@ -40,7 +40,7 @@ if [ -n "$FORM_download" ]; then
       echo "Content-Disposition: attachment; filename=\"${folder_name}.zip\""
       echo ""
       # Compress and send to the stdout
-      (cd "$CONTELIA_DIR" && zip -q -r - "$folder_name")
+      (cd "$CONTELIA_DIR" && zip -x \*.factory_disabled -q -r - "$folder_name")
       exit 0
     fi
   fi
