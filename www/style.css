@@ -6,7 +6,7 @@
 
 body {
     font-family: sans-serif;
-    background: #f5f5f5;
+    background: #cfe6f3;
     padding: 12px;
     font-size: 16px;
     line-height: 1.5;
@@ -102,7 +102,7 @@ input[type="file"] {
 
 button,
 .download-btn {
-    background: #007bff;
+    background: #35a2e0;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -123,7 +123,7 @@ button:hover,
 button:active,
 .download-btn:hover,
 .download-btn:active {
-    background: #3898ffff;
+    background: #1a96dd;
 }
 
 .download-btn {
