@@ -269,7 +269,8 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 </head>
 <body>
   <div class="container">
-    <h1>📦 Gestionnaire d'histoires Contelia</h1>
+    <img class="img-header" src="/contelia-256.png"></img>
+    <h1>Gestionnaire d'histoires Contelia</h1>
 
     <div class="stats">
       <div class="stat-item">
