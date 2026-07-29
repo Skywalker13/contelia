@@ -153,7 +153,38 @@ Pour charger des histoires, vous devez mettre Contelia en mode configuration.
 Avant tout, il est recommandé de brancher le connecteur d'alimentation (charge)
 pour garantir que les transferts ne soient pas interrompus.
 
-TODO
+Pour activer le mode configuration vous devez effectuer la combinaison de boutons
+suivante :
+
+1. Tenez le joystick vers le **bas**
+2. Pressez **simultanément** les deux boutons
+
+Pour quitter ce mode, procédez exactement de la même manière.
+
+![](images/041.jpg){width=100%}
+
+Si vous voyez bien le même écran que sur la photo ci-dessus, alors le mode
+configuration est activé et vous pouvez procéder aux modifications des histoires
+qui sont actuellement sauvegardées dans votre boîte à histoires.
+
+A partir de maintenant, Contelia est en mode portail captif (captive portal).
+Cela veut dire qu'un nouveau réseau Wifi est apparu et se nomme Contelia.
+Vous pouvez alors utiliser un ordinateur ou un smartphone pour vous connecter
+à ce nouveau réseau. En vous connectant, votre ordinateur devrait vous proposer
+d'accéder à la page de connexion du réseau Contelia. Cette page permet de
+modifier le contenu de votre boîte à histoires.
+
+Si votre ordinateur ne vous propose rien, ouvrez votre navigateur internet.
+Si le navigateur internet ne propose pas d'accéder au portail captif, alors
+entrer l'adresse de n'importe quel site internet et vous serez automatiquement
+redirigé sur la page de configuration de Contelia.
+
+> Bien entendu, quand vous êtes connecté au Wifi Contelia, vous ne pouvez plus
+> utiliser votre réseau Wifi habituel et donc vous ne pouvez plus utiliser
+> internet. Cela implique que vous avez déjà préparé dans votre ordinateur (ou
+> votre smartphone), les histoires que vous souhaitez charger dans Contelia.
+
+TODO: expliquer la page web
 
 ## Navigation dans les menus
 
@@ -217,6 +248,16 @@ le dongle de la même manière.
 Contelia possède tout le nécessaire pour transmettre la lecture des histoires
 par Bluetooth. Elle devrait fonctionner directement avec les casques sans-fils,
 les haut-parleurs sans-fils ainsi que les voitures.
+
+Pour activer le mode Bluetooth vous devez effectuer la combinaison de boutons
+suivante :
+
+1. Tenez le joystick vers le **haut**
+2. Pressez **simultanément** les deux boutons
+
+Pour quitter ce mode, procédez exactement de la même manière.
+
+![](images/040.jpg){width=100%}
 
 [permet aussi d'augmenter l'autonomie]
 
