@@ -1,4 +1,4 @@
-#!/usr/bin/haserl --upload-limit=1048576 --upload-dir=/tmp
+#!/usr/bin/haserl --upload-limit=2097152 --upload-dir=/tmp
 <%
 # Contelia
 # Copyright (C) 2025-2026  Mathieu Schroeter <mathieu@schroetersa.ch>
@@ -18,7 +18,7 @@
 
 # Configuration
 CONTELIA_DIR="/var/lib/contelia"
-MAX_ZIP_SIZE=1073741824  # 1024 MB
+MAX_ZIP_SIZE=2147483648  # 2048 MB
 
 mkdir -p "$CONTELIA_DIR"
 
