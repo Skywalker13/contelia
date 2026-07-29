@@ -13,7 +13,7 @@ website:
     dismissable: false
 
   navbar:
-    logo: ''
+    logo: images/contelia-256.png
     left:
       - href: project/manual.qmd
         text: Prise en main
