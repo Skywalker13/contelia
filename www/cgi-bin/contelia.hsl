@@ -1,6 +1,4 @@
 #!/usr/bin/haserl --upload-limit=1048576 --upload-dir=/tmp
-content-type: text/html
-
 <%
 # Contelia
 # Copyright (C) 2025-2026  Mathieu Schroeter <mathieu@schroetersa.ch>
@@ -23,6 +21,33 @@ CONTELIA_DIR="/var/lib/contelia"
 MAX_ZIP_SIZE=1073741824  # 1024 MB
 
 mkdir -p "$CONTELIA_DIR"
+
+is_valid_folder_name() {
+  echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
+}
+
+# Zip download on the fly
+if [ -n "$FORM_download" ]; then
+  folder_name="$FORM_download"
+  folder_path="$CONTELIA_DIR/$folder_name"
+
+  if is_valid_folder_name "$folder_name" && [ -d "$folder_path" ]; then
+    real_base=$(cd "$CONTELIA_DIR" && pwd)
+    real_path=$(cd "$folder_path" 2>/dev/null && pwd)
+
+    if [ -n "$real_path" ] && echo "$real_path" | grep -q "^$real_base/"; then
+      echo "Content-Type: application/zip"
+      echo "Content-Disposition: attachment; filename=\"${folder_name}.zip\""
+      echo ""
+      # Compress and send to the stdout
+      (cd "$CONTELIA_DIR" && zip -q -r - "$folder_name")
+      exit 0
+    fi
+  fi
+fi
+
+echo "Content-Type: text/html"
+echo ""
 
 format_size() {
   local size=$1
@@ -49,10 +74,6 @@ has_thumbnail() {
 
 is_disabled() {
   [ -f "$1/.factory_disabled" ] && echo "true" || echo "false"
-}
-
-is_valid_folder_name() {
-  echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
 }
 
 # is in CONTELIA_DIR
@@ -328,6 +349,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
               </div>
 
               <div class="book-actions">
+                <a href="?download=<%= $folder_name %>" class="download-btn" target="_blank">⬇️ Télécharger</a>
                 <% if [ "$is_disabled_flag" = "true" ]; then %>
                   <button type="button" class="toggle disabled" onclick="toggleStory(this, '<%= $folder_name %>')">✔ Activer</button>
                 <% else %>
