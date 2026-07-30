@@ -46,6 +46,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-9362f8cd02121a1f53f712f520c243c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/kbd/kbd.js"></script>
 <link href="../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -194,17 +197,26 @@ ul.task-list li input[type="checkbox"] {
 <h3 data-number="1.1" class="anchored" data-anchor-id="recharger-la-batterie"><span class="header-section-number">1.1</span> Recharger la batterie</h3>
 <p>Pour recharger Contelia, vous devez utiliser un câble USB-C (ce câble ainsi que le chargeur ne sont pas livrés avec Contelia). C’est le câble que l’on utilise habituellement avec un téléphone mobile. Le connecteur est clairement indiqué sur l’image précédente, c’est l’alimentation USB-C. Vous pouvez ainsi utiliser le même chargeur que pour votre téléphone.</p>
 <p>Pendant la charge, Contelia peut être utilisé tout à fait normalement. Contelia est configuré pour protéger la batterie. Ce qui veut dire qu’elle ne sera jamais chargée à plus de 80% de sa capacité. Bien que cela entraîne une baisse d’autonomie, cette protection permet de prolonger sa durée de vie.</p>
-<p>[IMAGE de la charge]</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/load.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:35.0%"></p>
+</figure>
+</div>
+<p>Bien que Contelia peut être utilisé pendant la charge, Si la batterie est complètement déchargée, il est nécessaire d’attendre au moins une minute ou deux avant de pouvoir allumer la boîte à histoires.</p>
 <blockquote class="blockquote">
-<p>Bien que Contelia peut être utilisé pendant la charge, Si la batterie est complètement déchargée, il peut être nécessaire d’attendre au moins une minute ou deux avant de pouvoir allumer la boîte à histoires.</p>
 <p>Notez bien qu’il est possible de changer une batterie usagée en cas de diminution trop impactante de l’autonomie. L’opération nécessite quand même l’utilisation d’un fer à souder.</p>
 </blockquote>
+<p>Tant que Contelia est connecté à une alimentation externe par l’USB-C, des lumières vertes vont clignoter de gauche à droite. Cet indicateur ne permet pas vraiment de savoir quand la charge est complète même si le clignotement se fait avec les 4 lumières. Un meilleur indicateur est de simplement mettre la main sur le chargeur USB-C. Si après un certain temps, celui-ci n’est plus chaud, c’est qu’il ne charge plus rien et que vous pouvez alors le déconnecter.</p>
 </section>
 </section>
 <section id="premier-démarrage-et-chargement-des-histoires" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="premier-démarrage-et-chargement-des-histoires"><span class="header-section-number">2</span> Premier démarrage et chargement des histoires</h2>
-<p>Le premier démarrage (si aucun livre n’est chargé) va simplement vous montrer l’écran suivant qui signifie que Contelia est en attente de livres.</p>
-<p><img src="images/bookshelf.png" class="img-fluid" style="width:20.0%"></p>
+<p>Le premier démarrage (<strong>si aucun livre n’est chargé</strong>) va simplement vous montrer l’écran suivant qui signifie que Contelia est en attente de livres.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/bookshelf.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:20.0%"></p>
+</figure>
+</div>
 <p>Contelia ne sert à rien sans contenu. Mais le contenu n’est bien souvent pas disponible gratuitement. En cherchant bien, il existe quelques projets communautaires et de plus, si vous avez déjà une boîte à histoires Lunii, il est possible de les charger sur Contelia (attention, cela ne concerne pas la Flam).</p>
 <p>Mais tout d’abord, où trouver des histoires ?</p>
 <div style="page-break-after: always;"></div>
@@ -245,6 +257,10 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p>L’ouverture de ce disque va vous montrer différents fichiers. Il va falloir (sous macOS et Linux) afficher les fichiers cachés afin de mettre la main sur les histoires de votre Lunii.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>macOS</th>
@@ -253,7 +269,7 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="images/lunii/002.png"><img src="images/lunii/002.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/002.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/lunii/002.png" class="img-fluid" style="width:100.0%"></a></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -261,13 +277,17 @@ ul.task-list li input[type="checkbox"] {
 <td>Sous Windows, il n’est pas nécessaire de forcer l’affichage des fichiers cachés.</td>
 </tr>
 <tr class="odd">
-<td><a href="images/lunii/003.png"><img src="images/lunii/003.png" class="img-fluid" style="width:100.0%"></a></td>
-<td><a href="images/lunii/012.png"><img src="images/lunii/012.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/003.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="images/lunii/003.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/012.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="images/lunii/012.png" class="img-fluid" style="width:100.0%"></a></td>
 </tr>
 </tbody>
 </table>
 <p>Cherchez le dossier nommé <code>.content</code> car c’est lui qui contient toutes vos histoires. Dedans vous trouverez une liste de dossiers avec des noms cryptiques.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>macOS</th>
@@ -276,13 +296,17 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="images/lunii/004.png"><img src="images/lunii/004.png" class="img-fluid" style="width:100.0%"></a></td>
-<td><a href="images/lunii/014.png"><img src="images/lunii/014.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/004.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="images/lunii/004.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/014.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="images/lunii/014.png" class="img-fluid" style="width:100.0%"></a></td>
 </tr>
 </tbody>
 </table>
 <p>Copiez le dossier <code>.content</code> sur le disque de votre ordinateur (par exemple sur le bureau). Une fois la copie terminée, je vous invite à éjecter la Lunii car nous avons désormais tout ce qu’il nous faut.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>macOS</th>
@@ -291,13 +315,21 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="images/lunii/006.png"><img src="images/lunii/006.png" class="img-fluid" style="width:100.0%"></a></td>
-<td><a href="images/lunii/016.png"><img src="images/lunii/016.png" class="img-fluid" style="width:100.0%"></a></td>
+<td>Depuis le Finder</td>
+<td>Depuis la barre de statut</td>
+</tr>
+<tr class="even">
+<td><a href="images/lunii/006.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="images/lunii/006.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/016.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="images/lunii/016.png" class="img-fluid" style="width:100.0%"></a></td>
 </tr>
 </tbody>
 </table>
 <p>Ouvrez le dossier<code>.content</code> que vous avez transféré sur votre bureau. Dedans il y a un dossier par histoire. Pour chaque dossier, créez un fichier ZIP. Ce sont ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Contelia.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>macOS</th>
@@ -306,8 +338,8 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="images/lunii/005.png"><img src="images/lunii/005.png" class="img-fluid" style="width:100.0%"></a></td>
-<td><a href="images/lunii/015.png"><img src="images/lunii/015.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/005.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="images/lunii/005.png" class="img-fluid" style="width:100.0%"></a></td>
+<td><a href="images/lunii/015.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="images/lunii/015.png" class="img-fluid" style="width:100.0%"></a></td>
 </tr>
 </tbody>
 </table>
@@ -318,36 +350,80 @@ ul.task-list li input[type="checkbox"] {
 <h4 data-number="2.0.2" class="anchored" data-anchor-id="communautaire"><span class="header-section-number">2.0.2</span> Communautaire</h4>
 <p>Il existe des packs d’histoires disponibles gratuitement dans une communauté francophone que vous pouvez rejoindre par l’intermédiaire du <a href="https://monurl.ca/lunii.creations">logiciel Discord</a>. Cette communauté met à disposition de nombreux livres, donne des conseils, de l’aide et sert également de vitrine pour de nombreux autres projets qui partage le même esprit que Contelia, c’est à dire d’offrir des alternatives aux boîtes à histoires Lunii, etc. Que ce soit du matériel dédié ou du “recyclage” de smartphones en liseuses pour enfants.</p>
 <p>Vous y trouverez également toute l’aide nécessaire pour pouvoir créer vos propres histoires si le cœur vous en dit.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/rmuh.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="images/rmuh.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></a></p>
+</figure>
+</div>
+<p>L’utilisation du logiciel Discord est discutable, mais c’est le seul moyen de pouvoir accéder à cette communauté. Les livres téléchargeables chez eux peuvent être directement exploités dans Contelia. Je vous encourage fortement d’y aller faire un tour car leur bibliothèque est plutôt impressionnante.</p>
 </section>
 <section id="charger-des-histoires" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="charger-des-histoires"><span class="header-section-number">2.1</span> Charger des histoires</h3>
 <p>Pour charger des histoires, vous devez mettre Contelia en mode configuration. Avant tout, il est recommandé de brancher le connecteur d’alimentation (charge) pour garantir que les transferts ne soient pas interrompus.</p>
 <p>Pour activer le mode configuration vous devez effectuer la combinaison de boutons suivante :</p>
 <ol type="1">
-<li>Tenez le joystick vers le <strong>bas</strong></li>
+<li>Tenez le joystick vers le <strong>bas</strong> (ne lâchez pas)</li>
 <li>Pressez <strong>simultanément</strong> les deux boutons</li>
+<li>Relâchez tout</li>
 </ol>
 <p>Pour quitter ce mode, procédez exactement de la même manière.</p>
 <p><img src="images/041.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Si vous voyez bien le même écran que sur la photo ci-dessus, alors le mode configuration est activé et vous pouvez procéder aux modifications des histoires qui sont actuellement sauvegardées dans votre boîte à histoires.</p>
 <p>A partir de maintenant, Contelia est en mode portail captif (captive portal). Cela veut dire qu’un nouveau réseau Wifi est apparu et se nomme Contelia. Vous pouvez alors utiliser un ordinateur ou un smartphone pour vous connecter à ce nouveau réseau. En vous connectant, votre ordinateur devrait vous proposer d’accéder à la page de connexion du réseau Contelia. Cette page permet de modifier le contenu de votre boîte à histoires.</p>
-<p>Si votre ordinateur ne vous propose rien, ouvrez votre navigateur internet. Si le navigateur internet ne propose pas d’accéder au portail captif, alors entrer l’adresse de n’importe quel site internet et vous serez automatiquement redirigé sur la page de configuration de Contelia.</p>
+<p>Si votre ordinateur ne vous propose rien, ouvrez votre navigateur internet. Si le navigateur internet ne propose pas d’accéder au portail captif, alors entrez l’adresse de n’importe quel site internet et vous serez automatiquement redirigé sur la page de configuration de Contelia.</p>
 <blockquote class="blockquote">
 <p>Bien entendu, quand vous êtes connecté au Wifi Contelia, vous ne pouvez plus utiliser votre réseau Wifi habituel et donc vous ne pouvez plus utiliser internet. Cela implique que vous avez déjà préparé dans votre ordinateur (ou votre smartphone), les histoires que vous souhaitez charger dans Contelia.</p>
 </blockquote>
-<p>TODO: expliquer la page web</p>
+<section id="portail" class="level4" data-number="2.1.1">
+<h4 data-number="2.1.1" class="anchored" data-anchor-id="portail"><span class="header-section-number">2.1.1</span> Portail</h4>
+<p>Le portail (ou gestionnaire) Contelia se présente sous la forme d’un formulaire permettant de charger une histoire au format ZIP, puis de modifier le contenu actuellement disponible dans la boîte à histoires. L’utilisation de cette page devrait être auto-explicative. Certaines actions nécessites de cliquer sur le bouton “Appliquer les modifications” pour que ce soit pris en compte.</p>
+<p><img src="images/portal.png" class="img-fluid" style="width:100.0%"></p>
+<p>Dans la copie d’écran ci-dessus on peut voir que Contelia contient deux histoires et que l’utilisateur a choisi de désactiver l’une d’elle.</p>
+<p><strong>Fonctionnalités</strong></p>
+<ul>
+<li>Charger une nouvelle histoire avec le formulaire en tête de page</li>
+<li>Télécharger une histoire depuis la boîte à histoires</li>
+<li>Désactiver une histoire pour la garder dans la boîte à histoire mais sans la rendre visible</li>
+<li>Supprimer une histoire</li>
+</ul>
+<blockquote class="blockquote">
+<p>Il n’est (pour le moment) pas possible de modifier l’ordre des histoires.</p>
+</blockquote>
+</section>
 </section>
 </section>
 <section id="navigation-dans-les-menus" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="navigation-dans-les-menus"><span class="header-section-number">3</span> Navigation dans les menus</h2>
-<p>Au démarrage, Contelia montre le premier livre. La bouton directionnel permet alors de se déplacer de livre en livre en utilisant les directions droite et gauche du bouton.</p>
-<p>[IMAGE]</p>
-<p>Une fois le livre choisis, le bouton de droite permet de l’ouvrir. Dès ce moment, la navigation se fait dans le livre et dépend directement du livre en question. Par exemple il peut y avoir une étape pour choisir un personnage, puis une prochaine étape pour choisir un objet et enfin l’histoire commence. La navigation dans un livre dépend de celui qui l’a créé.</p>
-<p>[IMAGE]</p>
-<p>Lorsque l’histoire commence, l’écran s’éteint automatiquement pour laisser place uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec le bouton directionnel, permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement va permettre de continuer la lecture.</p>
-<p>[IMAGE]</p>
-<p>Pour quitter la lecture sans atteindre la fin de l’histoire, il est possible d’utiliser le bouton de gauche qui va alors permettre de revenir dans le menu du livre. Chaque pression du bouton de gauche va faire remonter dans la navigation. Ainsi il est possible d’atteindre le menu principal pour choisir un autre livre.</p>
-<p>[IMAGE]</p>
+<p>Au démarrage, Contelia montre le premier livre. La bouton directionnel (joystick) permet alors de se déplacer de livre en livre en utilisant les directions gauche et droite.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/joystick.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><img src="images/button-right.png" class="img-fluid" style="width:80.0%"></td>
+<td>Une fois le livre choisis, le bouton de droite permet de l’ouvrir. C’est le bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et dépend directement du livre en question. Par exemple il peut y avoir une étape pour choisir un personnage, puis une prochaine étape pour choisir un objet et enfin l’histoire commence. Notez bien que la navigation dans un livre dépend de celui qui l’a créé.</td>
+</tr>
+<tr class="even">
+<td><img src="images/joystick-right.png" class="img-fluid" style="width:95.0%"></td>
+<td>Lorsque l’histoire commence, l’écran s’éteint automatiquement pour laisser place uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec le bouton directionnel, permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement va permettre de continuer la lecture.</td>
+</tr>
+<tr class="odd">
+<td><img src="images/button-left.png" class="img-fluid" style="width:80.0%"></td>
+<td>Pour quitter la lecture sans atteindre la fin de l’histoire, il est possible d’utiliser le bouton de gauche qui va alors permettre de revenir dans le menu du livre. C’est en quelque sorte le bouton de retour en arrière. Chaque pression du bouton de gauche va faire remonter dans la navigation. Ainsi il est possible d’atteindre le menu principal pour choisir un autre livre.</td>
+</tr>
+<tr class="even">
+<td><img src="images/joystick-up-down.png" class="img-fluid" style="width:80.0%"></td>
+<td>Le dernier mouvement important concerne le réglage du volume. Pour cela il faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé, et plus la consommation de la batterie sera importante. Contelia est configuré avec une limitation interne afin d’éviter un volume excessif.</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="comment-éteindre-contelia" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="comment-éteindre-contelia"><span class="header-section-number">4</span> Comment éteindre Contelia</h2>
@@ -369,8 +445,9 @@ ul.task-list li input[type="checkbox"] {
 <p>Contelia possède tout le nécessaire pour transmettre la lecture des histoires par Bluetooth. Elle devrait fonctionner directement avec les casques sans-fils, les haut-parleurs sans-fils ainsi que les voitures.</p>
 <p>Pour activer le mode Bluetooth vous devez effectuer la combinaison de boutons suivante :</p>
 <ol type="1">
-<li>Tenez le joystick vers le <strong>haut</strong></li>
+<li>Tenez le joystick vers le <strong>haut</strong> (ne lâchez pas)</li>
 <li>Pressez <strong>simultanément</strong> les deux boutons</li>
+<li>Relâchez tout</li>
 </ol>
 <p>Pour quitter ce mode, procédez exactement de la même manière.</p>
 <p><img src="images/040.jpg" class="img-fluid" style="width:100.0%"></p>
@@ -796,6 +873,38 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

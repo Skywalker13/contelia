@@ -27,7 +27,7 @@ pour le moment. Ce projet est avant tout un projet artisanal où son
 développement suit quelques règles :
 
 - Libre autant que possible 
-- **Sans IA** : fait par un humain pour les humains  
+- Fait par un humain pour les humains  
   _L'objectif n'est pas la productivité à tout prix_
 - Dans mon temps libre
 - Pour le plaisir
