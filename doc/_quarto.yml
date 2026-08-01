@@ -42,10 +42,11 @@ format:
     link-external-icon: true
 
   pdf:
+    author: Mathieu Schroeter
     documentclass: article
     classoption: [12pt, a4paper]
     geometry:
-      - top=2cm
+      - top=3cm
       - bottom=2cm
       - left=3cm
       - right=2cm
@@ -55,7 +56,14 @@ format:
     number-sections: true
     include-in-header:
       text: |
-        \usepackage{microtype}  % meilleure typographie automatique
-        \usepackage{booktabs}   % jolis tableaux
+        \usepackage{microtype}
+        \usepackage{booktabs}
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[L]{\leftmark}
+        \fancyfoot[L]{contelia.schroetersa.ch}
+        \fancyfoot[R]{\thepage}
+        \renewcommand{\headrulewidth}{0pt}
 
 lang: fr

@@ -1,7 +1,7 @@
 ---
 title: "Prise en main"
 subtitle: "Manuel d'utilisation de Contelia"
-lang: fr
+lang: fr-CH
 ---
 
 ## Contelia
@@ -68,12 +68,19 @@ se fait avec les 4 lumières. Un meilleur indicateur est de simplement mettre
 la main sur le chargeur USB-C. Si après un certain temps, celui-ci n'est plus
 chaud, c'est qu'il ne charge plus rien et que vous pouvez alors le déconnecter.
 
-## Premier démarrage et chargement des histoires
+## Premier démarrage
 
 Le premier démarrage (**si aucun livre n'est chargé**) va simplement vous montrer
 l'écran suivant qui signifie que Contelia est en attente de livres.
 
 ![](images/bookshelf.png){width=20% fig-align="center"}
+
+Dans le cas contraire, le premier livre va s'afficher et (s'il y en a plus d'un)
+vous pouvez naviguer très simplement dans les livres (voir la section
+«&nbsp;[Navigation dans les menus](#navigation-dans-les-menus)&nbsp;» pour plus
+de détails).
+
+## Chargement des histoires
 
 Contelia ne sert à rien sans contenu. Mais le contenu n'est bien
 souvent pas disponible gratuitement. En cherchant bien, il existe
@@ -81,11 +88,7 @@ quelques projets communautaires et de plus, si vous avez déjà une boîte à
 histoires Lunii, il est possible de les charger sur Contelia (attention, cela
 ne concerne pas la Flam).
 
-Mais tout d'abord, où trouver des histoires ?
-
-{{< pagebreak >}}
-
-#### Lunii
+### Lunii
 
 Si vous n'avez pas de boîte à histoires Lunii, vous pouvez sauter ce chapitre
 et directement passer au chapitre « [Communautaire](#communautaire) ».
@@ -140,9 +143,7 @@ ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Conteli
 Ne vous inquiétez pas des noms car une fois chargé dans Contelia, les images
 de chaque histoire permettront de les identifier clairement.
 
-{{< pagebreak >}}
-
-#### Communautaire
+### Communautaire
 
 Il existe des packs d'histoires disponibles gratuitement dans une communauté
 francophone que vous pouvez rejoindre par l'intermédiaire du
@@ -169,7 +170,7 @@ Avant tout, il est recommandé de brancher le connecteur d'alimentation (charge)
 pour garantir que les transferts ne soient pas interrompus.
 
 Pour activer le mode configuration vous devez effectuer la combinaison de boutons
-suivante :
+suivante&nbsp;:
 
 1. Tenez le joystick vers le **bas** (ne lâchez pas)
 2. Pressez **simultanément** les deux boutons
@@ -225,22 +226,105 @@ histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
 
 ## Navigation dans les menus
 
-Au démarrage, Contelia montre le premier livre. La bouton directionnel (joystick)
-permet alors de se déplacer de livre en livre en utilisant les directions gauche et
-droite.
+Au démarrage, Contelia montre le premier livre ([s'il y en a au moins un](#premier-démarrage)).
+La bouton directionnel (joystick) permet alors de se déplacer de livre en livre
+en utilisant les directions gauche et droite.
 
-![](images/joystick.png){width=30% fig-align="center"} 
+![](images/joystick.png){width=30% fig-align="center"}
 
-|||
-| --- | --- |
-| ![](images/button-right.png){width=80%} | Une fois le livre choisis, le bouton de droite permet de l'ouvrir. C'est le bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et dépend directement du livre en question. Par exemple il peut y avoir une étape pour choisir un personnage, puis une prochaine étape pour choisir un objet et enfin l'histoire commence. Notez bien que la navigation dans un livre dépend de celui qui l'a créé. |
-| ![](images/joystick-right.png){width=95%} | Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec le bouton directionnel, permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement va permettre de continuer la lecture. |
-| ![](images/button-left.png){width=80%} | Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu du livre. C'est en quelque sorte le bouton de retour en arrière. Chaque pression du bouton de gauche va faire remonter dans la navigation. Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre. |
-| ![](images/joystick-up-down.png){width=80%} | Le dernier mouvement important concerne le réglage du volume. Pour cela il faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé, et plus la consommation de la batterie sera importante. Contelia est configuré avec une limitation interne afin d'éviter un volume excessif. |
+---
 
-: {tbl-colwidths="[25,75]"}
+:::: {layout="[20,5,75]"}
 
-## Comment éteindre Contelia
+![](images/button-right.png)
+
+&nbsp;
+
+::: {}
+Une fois le livre choisis, le bouton de droite permet de l'ouvrir. C'est le
+bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et
+dépend directement du livre en question. Par exemple il peut y avoir une étape
+pour choisir un personnage, puis une prochaine étape pour choisir un objet et
+enfin l'histoire commence.
+
+```{=latex}
+\par\medskip
+```
+
+Notez bien que la navigation dans un livre dépend de celui qui l'a créé.
+:::
+
+&nbsp;
+
+&nbsp;
+
+---
+
+![](images/joystick-right.png)
+
+&nbsp;
+
+::: {}
+Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place
+uniquement à la narration.
+
+```{=latex}
+\par\medskip
+```
+
+Pendant la lecture, un mouvement vers la droite avec le bouton directionnel,
+permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement
+va permettre de continuer la lecture.
+:::
+
+&nbsp;
+
+&nbsp;
+
+---
+
+![](images/button-left.png)
+
+&nbsp;
+
+::: {}
+Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible
+d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu
+du livre. C'est en quelque sorte le bouton de retour en arrière.
+
+```{=latex}
+\par\medskip
+```
+
+Chaque pression du bouton de gauche va faire remonter dans la navigation.
+Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre.
+:::
+
+&nbsp;
+
+&nbsp;
+
+---
+
+![](images/joystick-up-down.png)
+
+&nbsp;
+
+::: {}
+Le dernier mouvement important concerne le réglage du volume. Pour cela il
+faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé,
+et plus la consommation de la batterie sera importante.
+
+```{=latex}
+\par\medskip
+```
+
+Contelia est configuré avec une limitation interne afin d'éviter un volume excessif.
+:::
+
+::::
+
+## Éteindre Contelia
 
 Contelia s'éteint automatiquement après 20 secondes d'inactivité. Ce qui signifie
 que si aucune histoire est en cours de lecture et qu'aucune action n'est effectuée
@@ -253,11 +337,18 @@ active indéfiniment.
 > Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
 > d'alimentation pendant plus de 2 secondes.
 
-## Casque audio USB
+## Audio
 
 Contelia peut être utilisée en dehors de sa boîte principale et sans les
-haut-parleurs USB. Vous pouvez brancher un casque USB directement dans
-l'adaptateur USB fourni.
+haut-parleurs USB. Ce chapitre vous présente deux possibilités. Mais sachez
+que vous ne pouvez pas connecter directement un câbles analogique de type
+jack. Si c'est nécessaire pour vous, il vous faudra acheter un adaptateur
+jack → USB.
+
+### Casque audio USB
+
+Vous pouvez brancher un casque USB (à la place des haut-parleurs d'origine)
+directement dans l'adaptateur USB fourni.
 
 [IMAGE]
 
@@ -266,14 +357,14 @@ le dongle de la même manière.
 
 [permet aussi d'augmenter l'autonomie]
 
-## Bluetooth
+### Bluetooth
 
 Contelia possède tout le nécessaire pour transmettre la lecture des histoires
 par Bluetooth. Elle devrait fonctionner directement avec les casques sans-fils,
 les haut-parleurs sans-fils ainsi que les voitures.
 
 Pour activer le mode Bluetooth vous devez effectuer la combinaison de boutons
-suivante :
+suivante&nbsp;:
 
 1. Tenez le joystick vers le **haut** (ne lâchez pas)
 2. Pressez **simultanément** les deux boutons

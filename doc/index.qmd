@@ -1,7 +1,13 @@
 ---
 title: "Contelia"
 subtitle: "Une boîte à histoires libre et open-source"
-lang: fr
+lang: fr-CH
+abstract: Bienvenue sur le site de la boîte à histoires Contelia. C'est un
+  projet avant tout personnel mais librement partagé pour tous.
+  Ce n'est pas qu'une boîte à histoires de plus, mais un objet dont vous
+  pouvez vous approprier son fonctionnement. Contelia est destiné
+  à ne pas rester cantonner aux histoires pour enfants, mais à évoluer avec
+  eux.
 ---
 
 ![](images/contelia.jpg){width=100%}
@@ -14,6 +20,18 @@ smartphone. L'objet vous appartient. Vous pourrez y ajouter les histoires que
 vous voulez sans aucune limite à part la capacité de la mémoire sur la carte
 micro-SD (qui peut être changée en cas de besoin).
 
+## Le site internet
+
+Ce site a pour vocation de répondre aux besoins des acquéreurs de Contelia.
+Il existe aujourd'hui deux variantes de la boîte à histoires. La première
+variante est la version assemblée et prête à l'emploi. Dans ce cas, la
+section «&nbsp;[Prise en main][1]&nbsp;» permet de se familiariser avec son fonctionnement.
+C'est en quelque sorte le manuel utilisateur de Contelia. La seconde variante
+concerne les acquéreurs du kit. La section «&nbsp;[Kit de montage][2]&nbsp;» présente toutes
+les étapes pour assembler Contelia. Cette section est aussi utile en cas de
+réparation. Elle permet de se familiariser avec ce qui est à l'intérieur de
+la boîte à histoires.
+
 ## Evolution
 
 Cette boîte à histoire à un objectif à long terme. Une fois que l'enfant est
@@ -22,9 +40,9 @@ de musique (lecteur mp3), en lecteur de livre audio avec toutes les
 fonctionnalités attendues pour un produit de ce type (navigation par phrase,
 chapitre, vitesse de lecture variable, ...).
 
-Aujourd'hui c'est une boîte à histoires, les évolutions ne sont pas disponible
+Aujourd'hui c'est une boîte à histoires, les évolutions **ne sont pas disponible**
 pour le moment. Ce projet est avant tout un projet artisanal où son
-développement suit quelques règles :
+développement suit quelques règles&nbsp;:
 
 - Libre autant que possible 
 - Fait par un humain pour les humains  
@@ -49,11 +67,18 @@ _Boîtier_ : les modèles 3D sont publiés. "N'importe qui" peut les imprimer ou
 
 ## Les composants
 
+Les composants utilisés aujourd'hui sont les suivants&nbsp;:
+
 - Cerveau (carte mère) : [Raspberry Pi Zero 2 W].
 - Interface : carte [Adafruit] avec écran et boutons physiques.
 - Alimentation : carte [PiSugar] avec batterie intégrée.
-- Son : haut-parleur externe et support du bluetooth.
+- Son : haut-parleurs externes et support du Bluetooth.
+
+Cette liste n'est pas figée. A l'avenir, il pourrait y avoir d'autres composants
+ou d'autres variantes de cette boîte.
 
 [Raspberry Pi Zero 2 W]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
 [Adafruit]: https://www.adafruit.com/product/4506
 [PiSugar]: https://www.pisugar.com/products/pisugar-3-raspberry-pi-zero-battery
+[1]: /project/manual.qmd
+[2]: /project/kit.qmd

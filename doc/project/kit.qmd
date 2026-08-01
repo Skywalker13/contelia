@@ -1,7 +1,7 @@
 ---
 title: "Kit de montage"
 subtitle: "Assemblage de sa propre boîte à histoires"
-lang: fr
+lang: fr-CH
 abstract: Ce document présente pas à pas l'assemblage de la boîte à histoires.
   Vous pouvez vous y référer si vous souhaitez effectuer des modifications ou
   des réparations. Tous les composants sont remplaçables.
@@ -216,13 +216,12 @@ chargée, il est plus sage de s'assurer que la tension électrique ne chute pas
 pendant les étapes "critiques" de la première initialisation du système
 d'exploitation Contelia.
 
-**TODO: A EXPERIMENTER, MESURE LE TEMPS ET EXPLIQUER**
-
 ![](images/025.jpg){width=100%}
 
-Attendez un instant, Contelia OS va s'éteindre de lui même puis débranchez le
-câble USB-C et dévissez toutes les vis. Pour la suite, il est nécessaire de
-monter la PiSugar séparément des deux autres cartes.
+Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour
+enfin s'éteindre de lui même. Débranchez alors le câble USB-C et dévissez
+toutes les vis. Pour la suite, il est nécessaire de monter la PiSugar séparément
+des deux autres cartes.
 
 ### Assemblage de la carte PiSugar 3
 
@@ -375,4 +374,9 @@ en place. Commencez par en haut à gauche et terminez de clipper en bas à droit
 
 ![](images/029.jpg){width=100%}
 
+## Bravo, vous avez terminé
+
+Je vous invite à lire la documentation de [prise en main][1] de Contelia.
+
 [balenaEtcher]: https://etcher.balena.io/
+[1]: /project/manual.qmd

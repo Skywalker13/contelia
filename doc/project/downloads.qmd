@@ -1,7 +1,7 @@
 ---
 title: "Téléchargements"
 subtitle: "Ressources pour Contelia"
-lang: fr
+lang: fr-CH
 abstract: Une utilisation normal de Contelia ne nécessite pas de téléchargement
   particulier. Mais si vous avez l'âme d'un bidouilleur, ici vous trouverez
   toutes les ressources nécessaires pour ré-imaginer votre propre boîte à
