@@ -444,7 +444,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
   }
 
   // Handle form submission
-  document.getElementById('batchForm').addEventListener('submit', function(e) {
+  document.getElementById('batchForm')?.addEventListener('submit', function(e) {
     if (pendingActions.size === 0) {
       e.preventDefault();
       return;
