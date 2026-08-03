@@ -46,9 +46,6 @@ if [ -n "$FORM_download" ]; then
   fi
 fi
 
-echo "Content-Type: text/html"
-echo ""
-
 format_size() {
   local size=$1
   if [ $size -lt 1024 ]; then
@@ -249,7 +246,25 @@ MSG_TYPE=""
 MSG_TEXT=""
 
 process_archive_upload
+
+case "$QUERY_STRING" in
+  *ajax=1*)
+    echo "Content-Type: application/json"
+    echo ""
+    jq -n --arg type "$MSG_TYPE" --arg text "$MSG_TEXT" '{type:$type, text:$text}'
+    exit 0
+    ;;
+esac
+
+echo "Content-Type: text/html"
+echo ""
+
 process_batch_actions
+
+if [ -z "$MSG_TEXT" ] && [ -n "$FORM_msg_text" ]; then
+  MSG_TYPE="$FORM_msg_type"
+  MSG_TEXT="$FORM_msg_text"
+fi
 
 folder_count=$(find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
 total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
@@ -371,6 +386,10 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
   </div>
 
   <script>
+  if (window.location.search.includes('msg_text=')) {
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+
   const pendingActions = new Map();
 
   function updateUI() {
@@ -517,9 +536,20 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
     });
 
     xhr.onload = function() {
-      document.open();
-      document.write(xhr.responseText);
-      document.close();
+      let type = 'error';
+      let text = 'Réponse inattendue du serveur.';
+      try {
+        const data = JSON.parse(xhr.responseText);
+        type = data.type || type;
+        text = data.text || text;
+      } catch (e) {/* ... */ }
+
+      const url = new URL(window.location.pathname, window.location.origin);
+      if (text) {
+        url.searchParams.set('msg_type', type);
+        url.searchParams.set('msg_text', text);
+      }
+      window.location.href = url.toString();
     };
 
     xhr.onerror = function() {
@@ -529,7 +559,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       alert("Erreur réseau pendant l'envoi.");
     };
 
-    xhr.open('POST', window.location.pathname + window.location.search, true);
+    xhr.open('POST', window.location.pathname + '?ajax=1', true);
     xhr.send(formData);
   });
   </script>
