@@ -50,10 +50,12 @@ format_size() {
   local size=$1
   if [ $size -lt 1024 ]; then
     echo "${size}B"
-  elif  [ $size -lt 1048576 ]; then
+  elif [ $size -lt 1048576 ]; then
     echo "$((size / 1024))KB"
-  else
+  elif [ $size -lt 1073741824 ]; then
     echo "$((size / 1048576))MB"
+  else
+    awk -v s="$size" 'BEGIN { printf "%.1fGB", s / 1073741824 }'
   fi
 }
 
@@ -294,6 +296,7 @@ fi
 
 folder_count=$(find "$CONTELIA_DIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)
 total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
+free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
 %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -320,7 +323,7 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
       </div>
       <div class="stat-item">
         <span>💾</span>
-        <span><strong><% format_size $total_size %></strong> utilisé</span>
+        <span><strong><% format_size $total_size %></strong> / <strong><% format_size $free_size %></strong> utilisé</span>
       </div>
     </div>
 
