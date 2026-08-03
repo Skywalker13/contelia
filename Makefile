@@ -1,19 +1,38 @@
-all:
-	cargo build
+CARGO    ?= cargo
+PROFILE  ?= release
+TARGET   ?=
+DESTDIR  ?=
+PREFIX   ?= /usr/local
 
-preview:
-	cd doc && quarto preview
+ifeq ($(TARGET),)
+  BIN_PATH    := target/$(PROFILE)/contelia
+else
+  TARGET_FLAG := --target $(TARGET)
+  BIN_PATH    := target/$(TARGET)/$(PROFILE)/contelia
+endif
 
-doc:
-	cd doc && quarto render
+BINDIR := $(DESTDIR)$(PREFIX)/bin
+SHAREDIR := $(DESTDIR)$(PREFIX)/share/contelia
 
-www:
-	open http://localhost:8080/cgi-bin/contelia.hsl
-	busybox httpd -f -p8080 -h www/
+.PHONY: build test install install-bin install-www clean
 
-cross:
-	PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu \
-	RUSTFLAGS="-C linker=aarch64-linux-gnu-gcc" \
-	cargo build -r --target aarch64-unknown-linux-gnu
+build:
+	$(CARGO) build --$(PROFILE) $(TARGET_FLAG)
 
-.PHONY: www doc
+test:
+	$(CARGO) test $(TARGET_FLAG)
+
+install-bin: build
+	install -D -m755 $(BIN_PATH) $(BINDIR)/contelia
+	install -d $(SHAREDIR)/assets
+	install -m644 assets/*.png $(SHAREDIR)/assets/
+	cp -r books $(SHAREDIR)/
+
+install-www:
+	$(MAKE) -C www install DESTDIR=$(DESTDIR)
+
+install: install-bin install-www
+
+clean:
+	$(CARGO) clean
+	$(MAKE) -C www clean
