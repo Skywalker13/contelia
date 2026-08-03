@@ -240,19 +240,12 @@ en utilisant les directions gauche et droite.
 
 &nbsp;
 
-::: {}
 Une fois le livre choisis, le bouton de droite permet de l'ouvrir. C'est le
 bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et
 dépend directement du livre en question. Par exemple il peut y avoir une étape
 pour choisir un personnage, puis une prochaine étape pour choisir un objet et
-enfin l'histoire commence.
-
-```{=latex}
-\par\medskip
-```
-
-Notez bien que la navigation dans un livre dépend de celui qui l'a créé.
-:::
+enfin l'histoire commence. Notez bien que la navigation dans un livre dépend de
+celui qui l'a créé.
 
 &nbsp;
 
@@ -264,18 +257,10 @@ Notez bien que la navigation dans un livre dépend de celui qui l'a créé.
 
 &nbsp;
 
-::: {}
 Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place
-uniquement à la narration.
-
-```{=latex}
-\par\medskip
-```
-
-Pendant la lecture, un mouvement vers la droite avec le bouton directionnel,
-permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement
-va permettre de continuer la lecture.
-:::
+uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec
+le bouton directionnel, permet de mettre la lecture en pause. Effectuer à
+nouveau ce même mouvement va permettre de continuer la lecture.
 
 &nbsp;
 
@@ -287,18 +272,11 @@ va permettre de continuer la lecture.
 
 &nbsp;
 
-::: {}
 Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible
 d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu
 du livre. C'est en quelque sorte le bouton de retour en arrière.
-
-```{=latex}
-\par\medskip
-```
-
 Chaque pression du bouton de gauche va faire remonter dans la navigation.
 Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre.
-:::
 
 &nbsp;
 
@@ -310,17 +288,10 @@ Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre.
 
 &nbsp;
 
-::: {}
 Le dernier mouvement important concerne le réglage du volume. Pour cela il
 faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé,
-et plus la consommation de la batterie sera importante.
-
-```{=latex}
-\par\medskip
-```
-
-Contelia est configuré avec une limitation interne afin d'éviter un volume excessif.
-:::
+et plus la consommation de la batterie sera importante. Contelia est configuré
+avec une limitation interne afin d'éviter un volume excessif.
 
 ::::
 
