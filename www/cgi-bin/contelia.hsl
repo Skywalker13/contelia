@@ -133,11 +133,19 @@ process_archive_upload() {
       ;;
   esac
 
-  mkdir -p "$dest_dir"
-  error_log=$(unzip -q "$FORM_archive" -d "$dest_dir" 2>&1)
+  # Extract to /tmp
+  extract_dir=$(mktemp -d "/tmp/extract.XXXXXX")
+  if [ -z "$extract_dir" ] || [ ! -d "$extract_dir" ]; then
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Impossible de créer un dossier temporaire"
+    rm -f "$FORM_archive"
+    return
+  fi
+
+  error_log=$(unzip -q "$FORM_archive" -d "$extract_dir" 2>&1)
 
   if [ $? -ne 0 ]; then
-    rm -rf "$dest_dir"
+    rm -rf "$extract_dir"
     MSG_TYPE="error"
     MSG_TEXT="✗ Erreur lors de la décompression: $error_log"
     logger -t contelia "Extract error: $archive_name - $error_log"
@@ -148,17 +156,35 @@ process_archive_upload() {
   sync
 
   # Check if there is only one root folder
-  root_items=$(find "$dest_dir" -mindepth 1 -maxdepth 1 | wc -l)
+  root_items=$(find "$extract_dir" -mindepth 1 -maxdepth 1 | wc -l)
   if [ $root_items -eq 1 ]; then
-    first_item=$(find "$dest_dir" -mindepth 1 -maxdepth 1)
+    first_item=$(find "$extract_dir" -mindepth 1 -maxdepth 1)
     if [ -d "$first_item" ]; then
-      # Only one folder, move its content
-      temp_dir="${dest_dir}_temp"
-      mv "$first_item" "$temp_dir"
-      rm -rf "$dest_dir"
-      mv "$temp_dir" "$dest_dir"
+      # Only one folder, squash its content up one level
+      squash_dir=$(mktemp -u "/tmp/squash.XXXXXX")
+      mv "$first_item" "$squash_dir"
+      rm -rf "$extract_dir"
+      extract_dir="$squash_dir"
       logger -t contelia "Squashed archive: $archive_name"
     fi
+  fi
+
+  # Atomic move (same fs)
+  if [ -d "$dest_dir" ]; then
+    rm -rf "$extract_dir"
+    MSG_TYPE="error"
+    MSG_TEXT="✗ L'histoire '$folder_name' existe déjà"
+    rm -f "$FORM_archive"
+    return
+  fi
+
+  if ! mv -T "$extract_dir" "$dest_dir" 2>/dev/null; then
+    rm -rf "$extract_dir"
+    MSG_TYPE="error"
+    MSG_TEXT="✗ Erreur lors de la finalisation de l'histoire"
+    logger -t contelia "Move error: $archive_name -> $folder_name"
+    rm -f "$FORM_archive"
+    return
   fi
 
   MSG_TYPE="success"
