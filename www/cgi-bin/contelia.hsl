@@ -488,15 +488,30 @@ total_size=$(du -sb "$CONTELIA_DIR" 2>/dev/null | awk '{print $1}')
 
     const xhr = new XMLHttpRequest();
 
+    let switchedToDecompress = false;
+
     xhr.upload.addEventListener('progress', function(evt) {
-      if (evt.lengthComputable) {
-        const percent = Math.round((evt.loaded / evt.total) * 100);
-        progressBar.style.width = percent + '%';
-        progressText.textContent = percent + '% — ' + formatBytesJS(evt.loaded) + ' / ' + formatBytesJS(evt.total);
+      if (!evt.lengthComputable) {
+        return;
+      }
+
+      const percent = Math.round((evt.loaded / evt.total) * 100);
+      progressBar.style.width = percent + '%';
+      progressText.textContent = percent + '% — ' + formatBytesJS(evt.loaded) + ' / ' + formatBytesJS(evt.total);
+
+      if (percent >= 100 && !switchedToDecompress) {
+        switchedToDecompress = true;
+        progressBar.classList.add('indeterminate');
+        progressText.textContent = 'Décompression en cours...';
       }
     });
 
     xhr.upload.addEventListener('load', function() {
+      if (switchedToDecompress) {
+        return;
+      }
+
+      switchedToDecompress = true;
       progressBar.classList.add('indeterminate');
       progressText.textContent = 'Décompression en cours...';
     });
