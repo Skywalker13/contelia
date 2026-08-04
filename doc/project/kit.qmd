@@ -190,7 +190,7 @@ Répétez cette manipulation avec les 4 coins.
 Vous pouvez dès à présent laisser de côté ce montage car nous allons maintenant
 nous intéresser à la carte PiSugar 3.
 
-### Assemblage temporaire et premier démarrage
+### Assemblage temporaire
 
 Avant de se lancer plus loin dans le montage, il est judicieux d'effectuer le
 tout premier démarrage de Contelia pour s'assurer que tout fonctionne comme
@@ -201,14 +201,21 @@ par défaut un système de protection pour éviter d'allumer la carte par mégar
 il vaut mieux éviter ce bouton tant que toutes les cartes ne sont pas
 correctement vissées entre elles.
 
+> Le mode de protection du bouton est désactivé une fois que le premier
+> démarrage de Contelia a été réalisé.
+
 Positionnez la carte Raspberry Pi par dessus la carte PiSugar, tout en alignant
 les vis. Les connecteurs de la carte PiSugar doivent s'appuyer proprement contre
 les contacts de la carte Raspberry Pi.
 
-![](images/024.jpg){width=100%}
+![](images/030.jpg){width=100%}
 
 Serrez les vis en croix et assez fermement (mais pas trop non plus, il ne faut
 pas abîmer les pas de vis).
+
+![](images/024.jpg){width=100%}
+
+#### Premier démarrage
 
 Pour ce premier démarrage, je vous invite à brancher un câble d'alimentation
 USB-C sur la carte PiSugar. Bien que la batterie devrait être suffisamment
@@ -216,12 +223,23 @@ chargée, il est plus sage de s'assurer que la tension électrique ne chute pas
 pendant les étapes "critiques" de la première initialisation du système
 d'exploitation Contelia.
 
-![](images/025.jpg){width=100%}
+Utilisez le bouton de gauche de la PiSugar afin de la mettre sous tension.
+
+![](images/031.jpg){width=100%}
+
+Si c'est la toute première fois que cette carte PiSugar va être configurée avec
+Contelia, il faut effectuer un "click and hold". Cela consiste à appuyer sur le
+bouton comme si on faisait un clic de souris, puis à appuyer à nouveau mais en
+tenant enfoncé. Alors, les lumières vertes vont s'allumer les une après les
+autres jusqu'à ce qu'une lumière bleue s'active sur le côté de la carte.
 
 Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour
-enfin s'éteindre de lui même. Débranchez alors le câble USB-C et dévissez
-toutes les vis. Pour la suite, il est nécessaire de monter la PiSugar séparément
-des deux autres cartes.
+enfin afficher l'image de livres (comme ci-dessous) et s'éteindre de lui même
+après 20 secondes (tout le processus devrait se passer en moins d'une minute).
+Débranchez alors le câble USB-C et dévissez toutes les vis. Pour la suite,
+il est nécessaire de monter la PiSugar séparément des deux autres cartes.
+
+![](images/025.jpg){width=100%}
 
 ### Assemblage de la carte PiSugar 3
 

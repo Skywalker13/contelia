@@ -319,14 +319,12 @@ jack → USB.
 ### Casque audio USB
 
 Vous pouvez brancher un casque USB (à la place des haut-parleurs d'origine)
-directement dans l'adaptateur USB fourni.
+directement avec l'adaptateur USB fourni (dans la boîte principale).
 
 [IMAGE]
 
 Si vous avez un casque USB avec dongle (pour le sans-fil), vous pouvez brancher
 le dongle de la même manière.
-
-[permet aussi d'augmenter l'autonomie]
 
 ### Bluetooth
 
@@ -341,10 +339,33 @@ suivante&nbsp;:
 2. Pressez **simultanément** les deux boutons
 3. Relâchez tout
 
-Pour quitter ce mode, procédez exactement de la même manière.
-
 ![](images/040.jpg){width=100%}
 
-[permet aussi d'augmenter l'autonomie]
+> Pour quitter ce mode, procédez exactement de la même manière.
+
+Pendant l'activation de ce mode, un sablier peut s'afficher sur l'écran. Une
+fois que le Bluetooth est actif, le symbole Bluetooth s'affiche à la place du
+sablier et des périphériques audio vont être recherchés (scannés) à proximité.
+
+Pour qu'un périphérique soit détecté, il doit impérativement être en mode
+d'appairage.
+
+| 1. Activation | 2. Scan | 3. Détection |
+| --- | --- | --- |
+| ![](images/wait.png){width=60%} | ![](images/bt_scan.png){width=60%} | ![](images/bt_unknown.png){width=60%} |
+
+Tant que l'image du scan persiste, c'est que Contelia ne trouve aucun périphérique
+audio disponible (ou compatible) à proximité. Si la détection réussi, vous
+pouvez presser le bouton de droite afin de confirmer. Dès ce moment là, les
+histoires seront lues à travers le périphérique Bluetooth.
+
+> Veuillez noter que le Bluetooth est toujours désactivé si Contelia a été
+> éteint. Il est alors nécessaire de reproduire à nouveau cette procédure
+> d'appairage.
+
+Quand vous utilisez le Bluetooth, c'est une bonne idée de séparer la boîte
+à histoires des haut-parleurs USB afin de gagner en autonomie. En effet, dès le
+moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas utilisés
+pour le son, ils vont consommer de l'énergie inutilement.
 
 [1]: https://monurl.ca/lunii.creations

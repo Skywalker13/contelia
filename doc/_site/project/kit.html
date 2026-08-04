@@ -151,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#préparation-de-la-carte-raspberry-pi" id="toc-préparation-de-la-carte-raspberry-pi" class="nav-link" data-scroll-target="#préparation-de-la-carte-raspberry-pi"><span class="header-section-number">3.1</span> Préparation de la carte Raspberry Pi</a></li>
   <li><a href="#préparation-de-la-carte-pisugar-3" id="toc-préparation-de-la-carte-pisugar-3" class="nav-link" data-scroll-target="#préparation-de-la-carte-pisugar-3"><span class="header-section-number">3.2</span> Préparation de la carte PiSugar 3</a></li>
   <li><a href="#assemblage-des-cartes-raspberry-pi-et-adafruit" id="toc-assemblage-des-cartes-raspberry-pi-et-adafruit" class="nav-link" data-scroll-target="#assemblage-des-cartes-raspberry-pi-et-adafruit"><span class="header-section-number">3.3</span> Assemblage des cartes Raspberry Pi et Adafruit</a></li>
-  <li><a href="#assemblage-temporaire-et-premier-démarrage" id="toc-assemblage-temporaire-et-premier-démarrage" class="nav-link" data-scroll-target="#assemblage-temporaire-et-premier-démarrage"><span class="header-section-number">3.4</span> Assemblage temporaire et premier démarrage</a></li>
+  <li><a href="#assemblage-temporaire" id="toc-assemblage-temporaire" class="nav-link" data-scroll-target="#assemblage-temporaire"><span class="header-section-number">3.4</span> Assemblage temporaire</a></li>
   <li><a href="#assemblage-de-la-carte-pisugar-3" id="toc-assemblage-de-la-carte-pisugar-3" class="nav-link" data-scroll-target="#assemblage-de-la-carte-pisugar-3"><span class="header-section-number">3.5</span> Assemblage de la carte PiSugar 3</a></li>
   <li><a href="#fermeture-de-la-boîte-à-encastrer" id="toc-fermeture-de-la-boîte-à-encastrer" class="nav-link" data-scroll-target="#fermeture-de-la-boîte-à-encastrer"><span class="header-section-number">3.6</span> Fermeture de la boîte à encastrer</a></li>
   <li><a href="#mise-en-place-de-la-boîte-principale" id="toc-mise-en-place-de-la-boîte-principale" class="nav-link" data-scroll-target="#mise-en-place-de-la-boîte-principale"><span class="header-section-number">3.7</span> Mise en place de la boîte principale</a></li>
@@ -284,16 +284,26 @@ sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=p
 <p><img src="images/008.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Vous pouvez dès à présent laisser de côté ce montage car nous allons maintenant nous intéresser à la carte PiSugar 3.</p>
 </section>
-<section id="assemblage-temporaire-et-premier-démarrage" class="level3" data-number="3.4">
-<h3 data-number="3.4" class="anchored" data-anchor-id="assemblage-temporaire-et-premier-démarrage"><span class="header-section-number">3.4</span> Assemblage temporaire et premier démarrage</h3>
+<section id="assemblage-temporaire" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="assemblage-temporaire"><span class="header-section-number">3.4</span> Assemblage temporaire</h3>
 <p>Avant de se lancer plus loin dans le montage, il est judicieux d’effectuer le tout premier démarrage de Contelia pour s’assurer que tout fonctionne comme prévu. Si cette étape échoue, il est inutile d’aller plus loin.</p>
 <p>Ici, évitez de toucher au bouton d’alimentation de la PiSugar. Bien qu’il y a par défaut un système de protection pour éviter d’allumer la carte par mégarde, il vaut mieux éviter ce bouton tant que toutes les cartes ne sont pas correctement vissées entre elles.</p>
+<blockquote class="blockquote">
+<p>Le mode de protection du bouton est désactivé une fois que le premier démarrage de Contelia a été réalisé.</p>
+</blockquote>
 <p>Positionnez la carte Raspberry Pi par dessus la carte PiSugar, tout en alignant les vis. Les connecteurs de la carte PiSugar doivent s’appuyer proprement contre les contacts de la carte Raspberry Pi.</p>
-<p><img src="images/024.jpg" class="img-fluid" style="width:100.0%"></p>
+<p><img src="images/030.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Serrez les vis en croix et assez fermement (mais pas trop non plus, il ne faut pas abîmer les pas de vis).</p>
+<p><img src="images/024.jpg" class="img-fluid" style="width:100.0%"></p>
+<section id="premier-démarrage" class="level4" data-number="3.4.1">
+<h4 data-number="3.4.1" class="anchored" data-anchor-id="premier-démarrage"><span class="header-section-number">3.4.1</span> Premier démarrage</h4>
 <p>Pour ce premier démarrage, je vous invite à brancher un câble d’alimentation USB-C sur la carte PiSugar. Bien que la batterie devrait être suffisamment chargée, il est plus sage de s’assurer que la tension électrique ne chute pas pendant les étapes “critiques” de la première initialisation du système d’exploitation Contelia.</p>
+<p>Utilisez le bouton de gauche de la PiSugar afin de la mettre sous tension.</p>
+<p><img src="images/031.jpg" class="img-fluid" style="width:100.0%"></p>
+<p>Si c’est la toute première fois que cette carte PiSugar va être configurée avec Contelia, il faut effectuer un “click and hold”. Cela consiste à appuyer sur le bouton comme si on faisait un clic de souris, puis à appuyer à nouveau mais en tenant enfoncé. Alors, les lumières vertes vont s’allumer les une après les autres jusqu’à ce qu’une lumière bleue s’active sur le côté de la carte.</p>
+<p>Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour enfin afficher l’image de livres (comme ci-dessous) et s’éteindre de lui même après 20 secondes (tout le processus devrait se passer en moins d’une minute). Débranchez alors le câble USB-C et dévissez toutes les vis. Pour la suite, il est nécessaire de monter la PiSugar séparément des deux autres cartes.</p>
 <p><img src="images/025.jpg" class="img-fluid" style="width:100.0%"></p>
-<p>Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour enfin s’éteindre de lui même. Débranchez alors le câble USB-C et dévissez toutes les vis. Pour la suite, il est nécessaire de monter la PiSugar séparément des deux autres cartes.</p>
+</section>
 </section>
 <section id="assemblage-de-la-carte-pisugar-3" class="level3" data-number="3.5">
 <h3 data-number="3.5" class="anchored" data-anchor-id="assemblage-de-la-carte-pisugar-3"><span class="header-section-number">3.5</span> Assemblage de la carte PiSugar 3</h3>
