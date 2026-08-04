@@ -290,6 +290,22 @@ Faites tenir le couvercle au moins d'un côté court et maintenez comme sur la
 photo avec une seule main. Utilisez votre seconde main pour courber (avec un peu
 de force) légèrement le couvercle afin de faire rentrer le second clip.
 
+::: {.content-visible when-format="html"}
+:::: {layout="[50,50]"}
+
+![](images/clip.png){width=100% .lightbox}
+
+![](images/clip.webm){width=100%}
+
+::::
+:::
+
+::: {.content-visible when-format="pdf"}
+![](images/clip.png){width=100%}
+
+[▶ Voir la vidéo en ligne](https://contelia.schroetersa.ch/project/kit.html)
+:::
+
 ![](images/016.jpg){width=100%}
 
 **Couvercle supérieur**
@@ -323,10 +339,9 @@ boutons directement sur le couvercle.
 
 ![](images/021.jpg){width=100%}
 
-Fixez le couvercle supérieur de la même manière que pour le couvercle
-inférieur.
-
-![](images/022.jpg){width=100%}
+Fixez le couvercle supérieur de la même manière
+[que pour le couvercle inférieur](#fermeture-de-la-boîte-à-encastrer)
+(en courbant légèrement celui-ci).
 
 Votre petite boîte à histoire est prête.
 

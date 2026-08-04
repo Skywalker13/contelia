@@ -62,7 +62,7 @@ format:
         \pagestyle{fancy}
         \fancyhf{}
         \fancyhead[L]{\leftmark}
-        \fancyfoot[L]{contelia.schroetersa.ch}
+        \fancyfoot[L]{https://contelia.schroetersa.ch}
         \fancyfoot[R]{\thepage}
         \renewcommand{\headrulewidth}{0pt}
 

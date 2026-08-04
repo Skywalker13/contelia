@@ -44,6 +44,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-9362f8cd02121a1f53f712f520c243c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -314,6 +317,16 @@ sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=p
 <p>Vous avez deux couvercles à disposition. Le couvercle plein sert évidemment à fermer l’ouverture sur la batterie.</p>
 <p><img src="images/015.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Faites tenir le couvercle au moins d’un côté court et maintenez comme sur la photo avec une seule main. Utilisez votre seconde main pour courber (avec un peu de force) légèrement le couvercle afin de faire rentrer le second clip.</p>
+<div class="quarto-layout-panel" data-layout="[50,50]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><a href="images/clip.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/clip.png" class="img-fluid"></a></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><video src="images/clip.webm" class="img-fluid" controls=""><a href="images/clip.webm">Video</a></video></p>
+</div>
+</div>
+</div>
 <p><img src="images/016.jpg" class="img-fluid" style="width:100.0%"></p>
 <p><strong>Couvercle supérieur</strong></p>
 <p>Avant tout, vous devez introduire la vitre en plastique transparent dans les fentes du couvercle. Cette vitre est destinée à protéger l’écran des rayures.</p>
@@ -326,8 +339,7 @@ sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=p
 <p><img src="images/020.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Déposez alors les deux boutons poussoir comme indiqué sur la photo. Si vous n’y arrivez pas car c’est un jeu d’équilibrisme, vous pouvez procéder comme avec le bouton d’alimentation en utilisant du papier collant en faisant tenir les boutons directement sur le couvercle.</p>
 <p><img src="images/021.jpg" class="img-fluid" style="width:100.0%"></p>
-<p>Fixez le couvercle supérieur de la même manière que pour le couvercle inférieur.</p>
-<p><img src="images/022.jpg" class="img-fluid" style="width:100.0%"></p>
+<p>Fixez le couvercle supérieur de la même manière <a href="#fermeture-de-la-boîte-à-encastrer">que pour le couvercle inférieur</a> (en courbant légèrement celui-ci).</p>
 <p>Votre petite boîte à histoire est prête.</p>
 <p><img src="images/023.jpg" class="img-fluid" style="width:100.0%"></p>
 </section>
@@ -769,6 +781,38 @@ sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=p
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

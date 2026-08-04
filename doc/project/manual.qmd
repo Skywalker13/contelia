@@ -132,7 +132,7 @@ nous avons désormais tout ce qu'il nous faut.
 | Depuis le Finder | Depuis la barre de statut |
 | ![](images/lunii/006.png){width=100% .lightbox} | ![](images/lunii/016.png){width=100% .lightbox} |
 
-Ouvrez le dossier`.content` que vous avez transféré sur votre bureau. Dedans il
+Ouvrez le dossier `.content` que vous avez transféré sur votre bureau. Dedans il
 y a un dossier par histoire. Pour chaque dossier, créez un fichier ZIP. Ce sont
 ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Contelia.
 
