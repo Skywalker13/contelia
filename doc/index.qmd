@@ -2,12 +2,7 @@
 title: "Contelia"
 subtitle: "Une boîte à histoires libre et open-source"
 lang: fr-CH
-abstract: Bienvenue sur le site de la boîte à histoires Contelia. C'est un
-  projet avant tout personnel mais librement partagé pour tous.
-  Ce n'est pas qu'une boîte à histoires de plus, mais un objet dont vous
-  pouvez vous approprier son fonctionnement. Contelia est destiné
-  à ne pas rester cantonner aux histoires pour enfants, mais à évoluer avec
-  eux.
+abstract: Bienvenue sur le site de la boîte à histoires libre Contelia.
 ---
 
 ![](images/contelia.jpg){width=100%}
@@ -20,17 +15,17 @@ smartphone. L'objet vous appartient. Vous pourrez y ajouter les histoires que
 vous voulez sans aucune limite à part la capacité de la mémoire sur la carte
 micro-SD (qui peut être changée en cas de besoin).
 
-## Le site internet
+Ce site internet a pour vocation de répondre aux besoins des acquéreurs de Contelia.
+Il existe aujourd'hui deux variantes de la boîte à histoires.
 
-Ce site a pour vocation de répondre aux besoins des acquéreurs de Contelia.
-Il existe aujourd'hui deux variantes de la boîte à histoires. La première
-variante est la version assemblée et prête à l'emploi. Dans ce cas, la
+La première variante est la version assemblée et prête à l'emploi. Dans ce cas, la
 section «&nbsp;[Prise en main][1]&nbsp;» permet de se familiariser avec son fonctionnement.
-C'est en quelque sorte le manuel utilisateur de Contelia. La seconde variante
-concerne les acquéreurs du kit. La section «&nbsp;[Kit de montage][2]&nbsp;» présente toutes
-les étapes pour assembler Contelia. Cette section est aussi utile en cas de
-réparation. Elle permet de se familiariser avec ce qui est à l'intérieur de
-la boîte à histoires.
+C'est en quelque sorte le manuel utilisateur de Contelia.
+
+La seconde variante concerne les acquéreurs du kit. La section «&nbsp;[Kit de montage][2]&nbsp;»
+présente toutes les étapes pour assembler Contelia. Cette section est aussi
+utile en cas de réparation. Elle permet de se familiariser avec ce qui est à
+l'intérieur de la boîte à histoires.
 
 ## Evolution
 

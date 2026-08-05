@@ -88,35 +88,28 @@
     "href": "index.html",
     "title": "Contelia",
     "section": "",
-    "text": "Contelia s’inspire des boîtes à histoires du commerce mais avec une conviction différente : elle doit être libre, compréhensible, modifiable et évolutive.\nPas de cloud, pas de contenu verrouillé, pas besoin d’une application pour le smartphone. L’objet vous appartient. Vous pourrez y ajouter les histoires que vous voulez sans aucune limite à part la capacité de la mémoire sur la carte micro-SD (qui peut être changée en cas de besoin)."
-  },
-  {
-    "objectID": "index.html#le-site-internet",
-    "href": "index.html#le-site-internet",
-    "title": "Contelia",
-    "section": "1 Le site internet",
-    "text": "1 Le site internet\nCe site a pour vocation de répondre aux besoins des acquéreurs de Contelia. Il existe aujourd’hui deux variantes de la boîte à histoires. La première variante est la version assemblée et prête à l’emploi. Dans ce cas, la section « Prise en main » permet de se familiariser avec son fonctionnement. C’est en quelque sorte le manuel utilisateur de Contelia. La seconde variante concerne les acquéreurs du kit. La section « Kit de montage » présente toutes les étapes pour assembler Contelia. Cette section est aussi utile en cas de réparation. Elle permet de se familiariser avec ce qui est à l’intérieur de la boîte à histoires."
+    "text": "Contelia s’inspire des boîtes à histoires du commerce mais avec une conviction différente : elle doit être libre, compréhensible, modifiable et évolutive.\nPas de cloud, pas de contenu verrouillé, pas besoin d’une application pour le smartphone. L’objet vous appartient. Vous pourrez y ajouter les histoires que vous voulez sans aucune limite à part la capacité de la mémoire sur la carte micro-SD (qui peut être changée en cas de besoin).\nCe site internet a pour vocation de répondre aux besoins des acquéreurs de Contelia. Il existe aujourd’hui deux variantes de la boîte à histoires.\nLa première variante est la version assemblée et prête à l’emploi. Dans ce cas, la section « Prise en main » permet de se familiariser avec son fonctionnement. C’est en quelque sorte le manuel utilisateur de Contelia.\nLa seconde variante concerne les acquéreurs du kit. La section « Kit de montage » présente toutes les étapes pour assembler Contelia. Cette section est aussi utile en cas de réparation. Elle permet de se familiariser avec ce qui est à l’intérieur de la boîte à histoires."
   },
   {
     "objectID": "index.html#evolution",
     "href": "index.html#evolution",
     "title": "Contelia",
-    "section": "2 Evolution",
-    "text": "2 Evolution\nCette boîte à histoire à un objectif à long terme. Une fois que l’enfant est plus grand, elle doit pouvoir être transformée en (par exemple) un simple lecteur de musique (lecteur mp3), en lecteur de livre audio avec toutes les fonctionnalités attendues pour un produit de ce type (navigation par phrase, chapitre, vitesse de lecture variable, …).\nAujourd’hui c’est une boîte à histoires, les évolutions ne sont pas disponible pour le moment. Ce projet est avant tout un projet artisanal où son développement suit quelques règles :\n\nLibre autant que possible\nFait par un humain pour les humains\nL’objectif n’est pas la productivité à tout prix\nDans mon temps libre\nPour le plaisir"
+    "section": "1 Evolution",
+    "text": "1 Evolution\nCette boîte à histoire à un objectif à long terme. Une fois que l’enfant est plus grand, elle doit pouvoir être transformée en (par exemple) un simple lecteur de musique (lecteur mp3), en lecteur de livre audio avec toutes les fonctionnalités attendues pour un produit de ce type (navigation par phrase, chapitre, vitesse de lecture variable, …).\nAujourd’hui c’est une boîte à histoires, les évolutions ne sont pas disponible pour le moment. Ce projet est avant tout un projet artisanal où son développement suit quelques règles :\n\nLibre autant que possible\nFait par un humain pour les humains\nL’objectif n’est pas la productivité à tout prix\nDans mon temps libre\nPour le plaisir"
   },
   {
     "objectID": "index.html#libre-et-open-source",
     "href": "index.html#libre-et-open-source",
     "title": "Contelia",
-    "section": "3 Libre et open-source",
-    "text": "3 Libre et open-source\nCette boîte à histoire est aussi libre que possible…\nLogiciel : le code source est entièrement disponible, les formats de contenu sont ouverts et documentés. Elle est aussi compatible avec le format propriétaire de Lunii. Le système d’exploitation peut entièrement être recompilé par “n’importe qui”.\nMatériel : elle s’appuie sur des composants standards, modulables et remplaçables.\nBoîtier : les modèles 3D sont publiés. “N’importe qui” peut les imprimer ou les modifier à sa guise."
+    "section": "2 Libre et open-source",
+    "text": "2 Libre et open-source\nCette boîte à histoire est aussi libre que possible…\nLogiciel : le code source est entièrement disponible, les formats de contenu sont ouverts et documentés. Elle est aussi compatible avec le format propriétaire de Lunii. Le système d’exploitation peut entièrement être recompilé par “n’importe qui”.\nMatériel : elle s’appuie sur des composants standards, modulables et remplaçables.\nBoîtier : les modèles 3D sont publiés. “N’importe qui” peut les imprimer ou les modifier à sa guise."
   },
   {
     "objectID": "index.html#les-composants",
     "href": "index.html#les-composants",
     "title": "Contelia",
-    "section": "4 Les composants",
-    "text": "4 Les composants\nLes composants utilisés aujourd’hui sont les suivants :\n\nCerveau (carte mère) : Raspberry Pi Zero 2 W.\nInterface : carte Adafruit avec écran et boutons physiques.\nAlimentation : carte PiSugar avec batterie intégrée.\nSon : haut-parleurs externes et support du Bluetooth.\n\nCette liste n’est pas figée. A l’avenir, il pourrait y avoir d’autres composants ou d’autres variantes de cette boîte."
+    "section": "3 Les composants",
+    "text": "3 Les composants\nLes composants utilisés aujourd’hui sont les suivants :\n\nCerveau (carte mère) : Raspberry Pi Zero 2 W.\nInterface : carte Adafruit avec écran et boutons physiques.\nAlimentation : carte PiSugar avec batterie intégrée.\nSon : haut-parleurs externes et support du Bluetooth.\n\nCette liste n’est pas figée. A l’avenir, il pourrait y avoir d’autres composants ou d’autres variantes de cette boîte."
   },
   {
     "objectID": "project/downloads.html",
