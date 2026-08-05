@@ -193,8 +193,8 @@ modifier le contenu de votre boîte à histoires.
 
 Si votre ordinateur ne vous propose rien, ouvrez votre navigateur internet.
 Si le navigateur internet ne propose pas d'accéder au portail captif, alors
-entrez l'adresse de n'importe quel site internet et vous serez automatiquement
-redirigé sur la page de configuration de Contelia.
+entrez l'adresse suivante ([http://192.168.42.1](http://192.168.42.1)) pour
+accéder à la page de configuration de Contelia.
 
 > Bien entendu, quand vous êtes connecté au Wifi Contelia, vous ne pouvez plus
 > utiliser votre réseau Wifi habituel et donc vous ne pouvez plus utiliser
