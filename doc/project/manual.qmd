@@ -347,7 +347,7 @@ Contelia peut être utilisée en dehors de sa boîte principale et sans les
 haut-parleurs USB. Ce chapitre vous présente deux possibilités. Mais sachez
 que vous ne pouvez pas connecter directement un câbles analogique de type
 jack. Si c'est nécessaire pour vous, il vous faudra acheter un adaptateur
-jack → USB.
+jack → USB du même genre que sur l'image ci-contre.
 
 ![](images/jack.jpg){width=100%}
 
@@ -357,11 +357,22 @@ jack → USB.
 
 Vous pouvez brancher un casque USB (à la place des haut-parleurs d'origine)
 directement avec l'adaptateur USB fourni (dans la boîte principale).
+L'adaptateur micro-USB est utilisé avec le câble USB du casque. Notez bien qu'il
+vous faut aussi un adaptateur si votre casque utilise la norme USB-C.
 
-[IMAGE]
+![⮚ Casque USB connecté à l'adaptateur micro-USB de Contelia.](images/051.jpg)
 
 Si vous avez un casque USB avec dongle (pour le sans-fil), vous pouvez brancher
-le dongle de la même manière.
+le dongle de la même manière, en utilisant l'adaptateur micro-USB. Avec ce type
+de branchement, vous pouvez même cacher le dongle du casque directement dans la
+boîte principale.
+
+![⮚ Casque sans-fil, le dongle USB est connecté à l'adaptateur micro-USB de Contelia](images/050.jpg)
+
+Si vous voulez faire du sans-fil sans le dongle, il existe l'alternative
+Bluetooth documentée ci-dessous. Néanmoins si vous avez un dongle, je vous
+recommande de l'utiliser car dans ce cas tout fonctionnera tout de suite sans
+paramétrage supplémentaire de Contelia.
 
 ### Bluetooth
 
