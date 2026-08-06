@@ -367,7 +367,7 @@ le dongle de la même manière, en utilisant l'adaptateur micro-USB. Avec ce typ
 de branchement, vous pouvez même cacher le dongle du casque directement dans la
 boîte principale.
 
-![⮚ Casque sans-fil, le dongle USB est connecté à l'adaptateur micro-USB de Contelia](images/050.jpg)
+![⮚ Casque sans-fil, le dongle USB est connecté à l'adaptateur micro-USB de Contelia.](images/050.jpg)
 
 Si vous voulez faire du sans-fil sans le dongle, il existe l'alternative
 Bluetooth documentée ci-dessous. Néanmoins si vous avez un dongle, je vous
@@ -396,7 +396,7 @@ fois que le Bluetooth est actif, le symbole Bluetooth s'affiche à la place du
 sablier et des périphériques audio vont être recherchés (scannés) à proximité.
 
 Pour qu'un périphérique soit détecté, il doit impérativement être en mode
-d'appairage.
+d'appairage. L'activation de l'appairage dépend de chaque matériel.
 
 | 1. Activation | 2. Scan | 3. Détection |
 | --- | --- | --- |
@@ -412,7 +412,7 @@ histoires seront lues à travers le périphérique Bluetooth.
 > d'appairage.
 
 Quand vous utilisez le Bluetooth, c'est une bonne idée de séparer la boîte
-à histoires des haut-parleurs USB afin de gagner en autonomie. En effet, dès le
+à histoires des haut-parleurs USB afin de **gagner en autonomie**. En effet, dès le
 moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas utilisés
 pour le son, ils vont consommer de l'énergie inutilement.
 
