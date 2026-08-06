@@ -55,7 +55,7 @@ d'autonomie, cette protection permet de prolonger sa durée de vie.
 
 Bien que Contelia peut être utilisé pendant la charge, Si la
 batterie est complètement déchargée, il est nécessaire d'attendre
-au moins une minute ou deux avant de pouvoir allumer la boîte à histoires.
+au moins **une minute ou deux** avant de pouvoir allumer la boîte à histoires.
 
 > Notez bien qu'il est possible de changer une batterie usagée en cas de
 > diminution trop impactante de l'autonomie. L'opération nécessite quand même
@@ -86,7 +86,13 @@ Contelia ne sert à rien sans contenu. Mais le contenu n'est bien
 souvent pas disponible gratuitement. En cherchant bien, il existe
 quelques projets communautaires et de plus, si vous avez déjà une boîte à
 histoires Lunii, il est possible de les charger sur Contelia (attention, cela
-ne concerne pas la Flam).
+ne concerne pas la FLAM).
+
+> La Lunii et la FLAM sont des boîtes à histoires éditées par la société
+> française Lunii. Les livres achetés pour la Lunii ne sont, à l'origine,
+> pas exploitables sur d'autres matériels. Mais la pugnacité de quelques
+> personnes a permis de libérer ces histoires et ainsi Contelia est
+> compatible avec les histoires pour la Lunii.
 
 ### Lunii
 
@@ -95,7 +101,7 @@ et directement passer au chapitre « [Communautaire](#communautaire) ».
 
 ![](images/lunii/lunii.jpg){width=100%}
 
-Récupérer les histoires que vous avez acheté avec la Lunii fait sens. Pour cela
+Récupérer les histoires que vous avez acheté pour la Lunii fait sens. Pour cela
 il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait
 s'afficher en tant que disque USB.
 
@@ -145,9 +151,16 @@ de chaque histoire permettront de les identifier clairement.
 
 ### Communautaire
 
-Il existe des packs d'histoires disponibles gratuitement dans une communauté
-francophone que vous pouvez rejoindre par l'intermédiaire du
-[logiciel Discord][1]. Cette communauté met à disposition de nombreux livres,
+Il existe des packs d'histoires disponibles gratuitement dans
+[une communauté francophone][1] que vous pouvez rejoindre par l'intermédiaire
+du logiciel Discord
+
+> Discord est une plateforme de messagerie instantanée. Il est possible de
+> l'utiliser entièrement avec le navigateur internet. Il n'y a donc aucune
+> obligation d'installer un logiciel sur votre ordinateur ou sur votre
+> téléphone mobile.
+
+Cette communauté met à disposition de nombreux livres,
 donne des conseils, de l'aide et sert également de vitrine pour de nombreux
 autres projets qui partage le même esprit que Contelia, c'est à dire d'offrir
 des alternatives aux boîtes à histoires Lunii, etc. Que ce soit du matériel
@@ -156,7 +169,7 @@ dédié ou du "recyclage" de smartphones en liseuses pour enfants.
 Vous y trouverez également toute l'aide nécessaire pour pouvoir créer vos
 propres histoires si le cœur vous en dit.
 
-![](images/rmuh.png){width=80% fig-align="center" .lightbox}
+![⮚ Copie d'écran de la communauté francophone depuis le logiciel Discord.](images/rmuh.png){width=100% fig-align="center" .lightbox}
 
 L'utilisation du logiciel Discord est discutable, mais c'est le seul moyen de
 pouvoir accéder à cette communauté. Les livres téléchargeables chez eux peuvent
@@ -191,14 +204,15 @@ Vous pouvez alors utiliser un ordinateur ou un smartphone pour vous connecter
 d'accéder à la page de connexion du réseau Contelia. Cette page permet de
 modifier le contenu de votre boîte à histoires.
 
-Si votre ordinateur ne vous propose rien, ouvrez votre navigateur internet.
+Si votre ordinateur ne vous propose rien, ouvrez votre navigateur internet
+(Firefox, Chrome, Safari, Edge, ...).
 Si le navigateur internet ne propose pas d'accéder au portail captif, alors
 entrez l'adresse suivante ([http://192.168.42.1](http://192.168.42.1)) pour
 accéder à la page de configuration de Contelia.
 
-> Bien entendu, quand vous êtes connecté au Wifi Contelia, vous ne pouvez plus
-> utiliser votre réseau Wifi habituel et donc vous ne pouvez plus utiliser
-> internet. Cela implique que vous avez déjà préparé dans votre ordinateur (ou
+> Bien entendu, quand vous êtes connecté au réseau Wifi Contelia, vous ne pouvez
+> plus utiliser votre réseau Wifi habituel et donc vous ne pouvez plus utiliser
+> internet. Cela implique que vous avez déjà préparé sur votre ordinateur (ou
 > votre smartphone), les histoires que vous souhaitez charger dans Contelia.
 
 #### Portail
@@ -216,25 +230,42 @@ histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
 
 **Fonctionnalités**
 
-- Charger une nouvelle histoire avec le formulaire en tête de page
-- Télécharger une histoire depuis la boîte à histoires
-- Désactiver une histoire pour la garder dans la boîte à histoire mais sans
-  la rendre visible
-- Supprimer une histoire
+- Charger une nouvelle histoire avec le formulaire en tête de page.  
+  Cliquez sur le bouton "Browse" ou "Parcourir" en dessous de "Déployer une histoire".
+  Une fenêtre va s'ouvrir depuis laquelle vous pourrez aller chercher le fichier
+  ZIP de l'histoire que vous souhaiter charger dans Contelia. Une fois fait,
+  cliquez sur le bouton "Charger" et patientez.
 
-> Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
+- Télécharger une histoire depuis la boîte à histoires.  
+  Vous pouvez ainsi récupérer le fichier ZIP correspondant pour le sauvegarder
+  sur votre ordinateur.
+
+- Désactiver une histoire pour la garder dans la boîte à histoire mais sans
+  la rendre visible.
+
+- Supprimer une histoire de la boîte à histoire.  
+  Si vous supprimer une histoire, veillez à garder une copie sur votre
+  ordinateur car cette opération n'est pas réversible.
+
+> ⚠ Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
 
 ## Navigation dans les menus
 
+:::: {layout="[20,5,75]"}
+
+![](images/joystick.png)
+
+&nbsp;
+
 Au démarrage, Contelia montre le premier livre ([s'il y en a au moins un](#premier-démarrage)).
-La bouton directionnel (joystick) permet alors de se déplacer de livre en livre
+Le bouton directionnel (joystick) permet alors de se déplacer de livre en livre
 en utilisant les directions gauche et droite.
 
-![](images/joystick.png){width=30% fig-align="center"}
+&nbsp;
+
+&nbsp;
 
 ---
-
-:::: {layout="[20,5,75]"}
 
 ![](images/button-right.png)
 
@@ -310,11 +341,17 @@ active indéfiniment.
 
 ## Audio
 
+:::: {layout="[80,20]"}
+
 Contelia peut être utilisée en dehors de sa boîte principale et sans les
 haut-parleurs USB. Ce chapitre vous présente deux possibilités. Mais sachez
 que vous ne pouvez pas connecter directement un câbles analogique de type
 jack. Si c'est nécessaire pour vous, il vous faudra acheter un adaptateur
 jack → USB.
+
+![](images/jack.jpg){width=100%}
+
+::::
 
 ### Casque audio USB
 

@@ -462,6 +462,11 @@ sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=p
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
             // default icon
             link.classList.add("external");
         }
