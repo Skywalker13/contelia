@@ -108,9 +108,11 @@ s'afficher en tant que disque USB.
 | macOS | Windows |
 | --- | --- |
 | Vous devez autoriser ce périphérique. ||
-| ![](images/lunii/001.png){width=100%} ||
+| ![](images/lunii/001.png){} ||
 | Alors une nouvelle icône de disque devrait apparaître sur le bureau de votre Mac. | Un nouveau lecteur de disque devrait se monter dans l'explorateur de fichiers. |
-| ![](images/lunii/000.png){width=100%} | ![](images/lunii/010.png){width=100%} |
+| ![](images/lunii/000.png){} | ![](images/lunii/010.png){} |
+
+: {tbl-colwidths="[50,50]"}
 
 L'ouverture de ce disque va vous montrer différents fichiers. Il va falloir
 (sous macOS et Linux) afficher les fichiers cachés afin de mettre la main sur
@@ -118,16 +120,20 @@ les histoires de votre Lunii.
 
 | macOS | Windows |
 | --- | --- |
-| ![](images/lunii/002.png){width=100% .lightbox} ||
+| ![](images/lunii/002.png){.lightbox} ||
 | Faîtes {{< kbd Shift-Command-. >}} pour révéler les fichiers cachés. | Sous Windows, il n'est pas nécessaire de forcer l'affichage des fichiers cachés. |
-| ![](images/lunii/003.png){width=100% .lightbox} | ![](images/lunii/012.png){width=100% .lightbox}|
+| ![](images/lunii/003.png){.lightbox} | ![](images/lunii/012.png){.lightbox}|
+
+: {tbl-colwidths="[50,50]"}
 
 Cherchez le dossier nommé `.content` car c'est lui qui contient toutes vos
 histoires. Dedans vous trouverez une liste de dossiers avec des noms cryptiques.
 
 | macOS | Windows |
 | --- | --- |
-| ![](images/lunii/004.png){width=100% .lightbox} | ![](images/lunii/014.png){width=100% .lightbox} |
+| ![](images/lunii/004.png){.lightbox} | ![](images/lunii/014.png){.lightbox} |
+
+: {tbl-colwidths="[50,50]"}
 
 Copiez le dossier `.content` sur le disque de votre ordinateur (par exemple sur
 le bureau). Une fois la copie terminée, je vous invite à éjecter la Lunii car
@@ -136,7 +142,9 @@ nous avons désormais tout ce qu'il nous faut.
 | macOS | Windows |
 | --- | --- |
 | Depuis le Finder | Depuis la barre de statut |
-| ![](images/lunii/006.png){width=100% .lightbox} | ![](images/lunii/016.png){width=100% .lightbox} |
+| ![](images/lunii/006.png){.lightbox} | ![](images/lunii/016.png){.lightbox} |
+
+: {tbl-colwidths="[50,50]"}
 
 Ouvrez le dossier `.content` que vous avez transféré sur votre bureau. Dedans il
 y a un dossier par histoire. Pour chaque dossier, créez un fichier ZIP. Ce sont
@@ -144,7 +152,9 @@ ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Conteli
 
 | macOS | Windows |
 | --- | --- |
-| ![](images/lunii/005.png){width=100% .lightbox} | ![](images/lunii/015.png){width=100% .lightbox} |
+| ![](images/lunii/005.png){.lightbox} | ![](images/lunii/015.png){.lightbox} |
+
+: {tbl-colwidths="[50,50]"}
 
 Ne vous inquiétez pas des noms car une fois chargé dans Contelia, les images
 de chaque histoire permettront de les identifier clairement.
@@ -169,7 +179,7 @@ dédié ou du "recyclage" de smartphones en liseuses pour enfants.
 Vous y trouverez également toute l'aide nécessaire pour pouvoir créer vos
 propres histoires si le cœur vous en dit.
 
-![⮚ Copie d'écran de la communauté francophone depuis le logiciel Discord.](images/rmuh.png){width=100% fig-align="center" .lightbox}
+![Copie d'écran de la communauté francophone depuis le logiciel Discord.](images/rmuh.png){width=100% fig-align="center" .lightbox}
 
 L'utilisation du logiciel Discord est discutable, mais c'est le seul moyen de
 pouvoir accéder à cette communauté. Les livres téléchargeables chez eux peuvent
@@ -247,84 +257,21 @@ histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
   Si vous supprimer une histoire, veillez à garder une copie sur votre
   ordinateur car cette opération n'est pas réversible.
 
-> ⚠ Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
+> Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
 
 ## Navigation dans les menus
 
-:::: {layout="[20,5,75]"}
-
-![](images/joystick.png)
-
-&nbsp;
-
 Au démarrage, Contelia montre le premier livre ([s'il y en a au moins un](#premier-démarrage)).
-Le bouton directionnel (joystick) permet alors de se déplacer de livre en livre
-en utilisant les directions gauche et droite.
 
-&nbsp;
+| Action | Description |
+| --- | --- |
+| • ![](images/joystick.png) | Le bouton directionnel (joystick) permet alors de se déplacer de livre en livre en utilisant les directions gauche et droite. |
+| • ![](images/button-right.png) | Une fois le livre choisis, le bouton de droite permet de l'ouvrir. C'est le bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et dépend directement du livre en question. Par exemple il peut y avoir une étape pour choisir un personnage, puis une prochaine étape pour choisir un objet et enfin l'histoire commence. Notez bien que la navigation dans un livre dépend de celui qui l'a créé. |
+| • ![](images/joystick-right.png) | Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec le bouton directionnel, permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement va permettre de continuer la lecture. |
+| • ![](images/button-left.png) | Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu du livre. C'est en quelque sorte le bouton de retour en arrière. Chaque pression du bouton de gauche va faire remonter dans la navigation. Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre. |
+| • ![](images/joystick-up-down.png) | Le dernier mouvement important concerne le réglage du volume. Pour cela il faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé, et plus la consommation de la batterie sera importante. Contelia est configuré avec une limitation interne afin d'éviter un volume excessif. |
 
-&nbsp;
-
----
-
-![](images/button-right.png)
-
-&nbsp;
-
-Une fois le livre choisis, le bouton de droite permet de l'ouvrir. C'est le
-bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et
-dépend directement du livre en question. Par exemple il peut y avoir une étape
-pour choisir un personnage, puis une prochaine étape pour choisir un objet et
-enfin l'histoire commence. Notez bien que la navigation dans un livre dépend de
-celui qui l'a créé.
-
-&nbsp;
-
-&nbsp;
-
----
-
-![](images/joystick-right.png)
-
-&nbsp;
-
-Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place
-uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec
-le bouton directionnel, permet de mettre la lecture en pause. Effectuer à
-nouveau ce même mouvement va permettre de continuer la lecture.
-
-&nbsp;
-
-&nbsp;
-
----
-
-![](images/button-left.png)
-
-&nbsp;
-
-Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible
-d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu
-du livre. C'est en quelque sorte le bouton de retour en arrière.
-Chaque pression du bouton de gauche va faire remonter dans la navigation.
-Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre.
-
-&nbsp;
-
-&nbsp;
-
----
-
-![](images/joystick-up-down.png)
-
-&nbsp;
-
-Le dernier mouvement important concerne le réglage du volume. Pour cela il
-faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé,
-et plus la consommation de la batterie sera importante. Contelia est configuré
-avec une limitation interne afin d'éviter un volume excessif.
-
-::::
+: {tbl-colwidths="[20,80]"}
 
 ## Éteindre Contelia
 
@@ -341,17 +288,13 @@ active indéfiniment.
 
 ## Audio
 
-:::: {layout="[80,20]"}
-
 Contelia peut être utilisée en dehors de sa boîte principale et sans les
 haut-parleurs USB. Ce chapitre vous présente deux possibilités. Mais sachez
 que vous ne pouvez pas connecter directement un câbles analogique de type
 jack. Si c'est nécessaire pour vous, il vous faudra acheter un adaptateur
-jack → USB du même genre que sur l'image ci-contre.
+jack → USB du même genre que sur l'image ci-dessous.
 
-![](images/jack.jpg){width=100%}
-
-::::
+![](images/jack.jpg){width=30% fig-align="center"}
 
 ### Casque audio USB
 
@@ -360,14 +303,14 @@ directement avec l'adaptateur USB fourni (dans la boîte principale).
 L'adaptateur micro-USB est utilisé avec le câble USB du casque. Notez bien qu'il
 vous faut aussi un adaptateur si votre casque utilise la norme USB-C.
 
-![⮚ Casque USB connecté à l'adaptateur micro-USB de Contelia.](images/051.jpg)
+![Casque USB connecté à l'adaptateur micro-USB de Contelia.](images/051.jpg)
 
 Si vous avez un casque USB avec dongle (pour le sans-fil), vous pouvez brancher
 le dongle de la même manière, en utilisant l'adaptateur micro-USB. Avec ce type
 de branchement, vous pouvez même cacher le dongle du casque directement dans la
 boîte principale.
 
-![⮚ Casque sans-fil, le dongle USB est connecté à l'adaptateur micro-USB de Contelia.](images/050.jpg)
+![Casque sans-fil, le dongle USB est connecté à l'adaptateur micro-USB de Contelia.](images/050.jpg)
 
 Si vous voulez faire du sans-fil sans le dongle, il existe l'alternative
 Bluetooth documentée ci-dessous. Néanmoins si vous avez un dongle, je vous
