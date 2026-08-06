@@ -230,19 +230,22 @@ ul.task-list li input[type="checkbox"] {
 <p>Sous Linux, identifiez l’adresse de votre carte micro-SD avec la commande dmesg.</p>
 <pre><code>dmesg | grep sd</code></pre>
 <p>Qui par exemple, pourrait vous retourner ceci :</p>
-<pre><code>[35574.947414] sd 6:0:0:0: [sde] 249737216 512-byte logical blocks: (128 GB/119 GiB)
-[35574.949519] sde: detected capacity change from 0 to 249737216
-[35574.981583]  sde: sde1 sde2</code></pre>
+<pre><code>sd 6:0:0:0: [sde] 249737216 512-byte logical blocks: (128 GB/119 GiB)
+sde: detected capacity change from 0 to 249737216
+  sde: sde1 sde2</code></pre>
 <p>Ce qui nous indique que la carte est accessible en <code>/dev/sde</code>. Faites très attention avec <code>dd</code>. Ne vous mélangez pas les pinceaux avec le <code>if=</code> et surtout le <code>of=</code>. Vous allez avoir besoin des droits root et il serait dommage de détruire un de vos périphériques. Rappelez-vous que <code>if</code> signifie Input File, et <code>of</code> signifie Output File.</p>
 <pre><code># Veuillez remplacer ici le sdX par le numéro qui correspond à votre carte
-dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/sdX bs=1M status=progress</code></pre>
+dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
+   of=/dev/sdX bs=1M status=progress</code></pre>
 <p><strong>macOS</strong></p>
 <p>La bonne nouvelle c’est que sous macOS c’est presque la même chose. Comme avec Linux, faites attention avec les <code>if=</code> et <code>of=</code>.</p>
 <pre><code>diskutil list
 
-# Démontez la carte micro-SD (remplacer diskX par le bon identifiant), puis flashez
+# Démontez la carte micro-SD (remplacer diskX par le bon identifiant),
+# puis flashez
 diskutil unmountDisk /dev/diskX
-sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=progress</code></pre>
+dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
+   of=/dev/diskX bs=1m status=progress</code></pre>
 </section>
 <section id="ejection" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="ejection"><span class="header-section-number">2.3</span> Ejection</h3>

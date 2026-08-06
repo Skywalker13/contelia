@@ -72,9 +72,9 @@ dmesg | grep sd
 Qui par exemple, pourrait vous retourner ceci :
 
 ```
-[35574.947414] sd 6:0:0:0: [sde] 249737216 512-byte logical blocks: (128 GB/119 GiB)
-[35574.949519] sde: detected capacity change from 0 to 249737216
-[35574.981583]  sde: sde1 sde2
+sd 6:0:0:0: [sde] 249737216 512-byte logical blocks: (128 GB/119 GiB)
+sde: detected capacity change from 0 to 249737216
+  sde: sde1 sde2
 ```
 
 Ce qui nous indique que la carte est accessible en `/dev/sde`. Faites très
@@ -85,7 +85,8 @@ détruire un de vos périphériques. Rappelez-vous que `if` signifie Input File,
 
 ```
 # Veuillez remplacer ici le sdX par le numéro qui correspond à votre carte
-dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/sdX bs=1M status=progress
+dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
+   of=/dev/sdX bs=1M status=progress
 ```
 
 **macOS**
@@ -96,9 +97,11 @@ Linux, faites attention avec les `if=` et `of=`.
 ```
 diskutil list
 
-# Démontez la carte micro-SD (remplacer diskX par le bon identifiant), puis flashez
+# Démontez la carte micro-SD (remplacer diskX par le bon identifiant),
+# puis flashez
 diskutil unmountDisk /dev/diskX
-sudo dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img of=/dev/diskX bs=1m status=progress
+dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
+   of=/dev/diskX bs=1m status=progress
 ```
 
 ### Ejection
