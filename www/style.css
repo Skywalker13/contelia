@@ -32,6 +32,10 @@ h1 {
     word-break: break-word;
 }
 
+small {
+    font-size: 60%;
+}
+
 .stats {
     color: #666;
     font-size: 14px;

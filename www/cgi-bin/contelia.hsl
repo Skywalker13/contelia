@@ -18,12 +18,17 @@
 
 # Configuration
 CONTELIA_DIR="/var/lib/contelia"
+CONTELIA_UPDATE="/tmp/contelia_update"
 MAX_ZIP_SIZE=2147483648  # 2048 MB
 
 mkdir -p "$CONTELIA_DIR"
 
 is_valid_folder_name() {
   echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
+}
+
+is_update() {
+  echo "$1" | grep -qE '^carnotzet-os-contelia-[0-9]+[.][0-9]+[.][0-9]+-rpiz2w[.]update[.]zip$'
 }
 
 # Zip download on the fly
@@ -89,6 +94,8 @@ is_path_safe() {
 }
 
 process_archive_upload() {
+  local update=0
+
   if [ -z "$FORM_archive" ] || [ ! -f "$FORM_archive" ]; then
     return
   fi
@@ -103,12 +110,22 @@ process_archive_upload() {
     return
   fi
 
-  dest_dir="$CONTELIA_DIR/$folder_name"
+  if is_update "$archive_name"; then
+    dest_dir="$CONTELIA_UPDATE"
+    update=1
 
-  # Check the parent path
-  real_base=$(cd "$CONTELIA_DIR" && pwd)
-  parent_dir=$(dirname "$dest_dir")
-  real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
+    # Check the update parent path
+    real_base=$(cd /tmp && pwd)
+    parent_dir=$(dirname "$dest_dir")
+    real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
+  else
+    dest_dir="$CONTELIA_DIR/$folder_name"
+
+    # Check the parent path
+    real_base=$(cd "$CONTELIA_DIR" && pwd)
+    parent_dir=$(dirname "$dest_dir")
+    real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
+  fi
 
   if [ "$real_parent" != "$real_base" ]; then
     MSG_TYPE="error"
@@ -117,7 +134,7 @@ process_archive_upload() {
     return
   fi
 
-  if [ -d "$dest_dir" ]; then
+  if [ "$update" = 0 ] && [ -d "$dest_dir" ]; then
     MSG_TYPE="error"
     MSG_TEXT="✗ L'histoire '$folder_name' existe déjà"
     rm -f "$FORM_archive"
@@ -129,7 +146,7 @@ process_archive_upload() {
       ;;
     *)
       MSG_TYPE="error"
-      MSG_TEXT="✗ Seules les histoires au format ZIP sont supportées"
+      MSG_TEXT="✗ Seules les archives au format ZIP sont supportées"
       rm -f "$FORM_archive"
       return
       ;;
@@ -158,21 +175,23 @@ process_archive_upload() {
   sync
 
   # Check if there is only one root folder
-  root_items=$(find "$extract_dir" -mindepth 1 -maxdepth 1 | wc -l)
-  if [ $root_items -eq 1 ]; then
-    first_item=$(find "$extract_dir" -mindepth 1 -maxdepth 1)
-    if [ -d "$first_item" ]; then
-      # Only one folder, squash its content up one level
-      squash_dir=$(mktemp -u "/tmp/squash.XXXXXX")
-      mv "$first_item" "$squash_dir"
-      rm -rf "$extract_dir"
-      extract_dir="$squash_dir"
-      logger -t contelia "Squashed archive: $archive_name"
+  if [ "$update" = 0 ]; then
+    root_items=$(find "$extract_dir" -mindepth 1 -maxdepth 1 | wc -l)
+    if [ $root_items -eq 1 ]; then
+      first_item=$(find "$extract_dir" -mindepth 1 -maxdepth 1)
+      if [ -d "$first_item" ]; then
+        # Only one folder, squash its content up one level
+        squash_dir=$(mktemp -u "/tmp/squash.XXXXXX")
+        mv "$first_item" "$squash_dir"
+        rm -rf "$extract_dir"
+        extract_dir="$squash_dir"
+        logger -t contelia "Squashed archive: $archive_name"
+      fi
     fi
   fi
 
   # Atomic move (same fs)
-  if [ -d "$dest_dir" ]; then
+  if [ "$update" = 0 ] && [ -d "$dest_dir" ]; then
     rm -rf "$extract_dir"
     MSG_TYPE="error"
     MSG_TEXT="✗ L'histoire '$folder_name' existe déjà"
@@ -183,16 +202,28 @@ process_archive_upload() {
   if ! mv -T "$extract_dir" "$dest_dir" 2>/dev/null; then
     rm -rf "$extract_dir"
     MSG_TYPE="error"
-    MSG_TEXT="✗ Erreur lors de la finalisation de l'histoire"
+    MSG_TEXT="✗ Erreur lors du déploiement de l'archive"
     logger -t contelia "Move error: $archive_name -> $folder_name"
     rm -f "$FORM_archive"
     return
   fi
 
+  if [ "$update" = 1 ]; then
+    echo "TODO: add the local repository and apply the update"
+  fi
+
   MSG_TYPE="success"
-  MSG_TEXT="✓ Histoire '$archive_name' chargée"
+  if [ "$update" = 1 ]; then
+    MSG_TEXT="✓ Mise à jour '$archive_name' appliquée - redémarrage"
+  else
+    MSG_TEXT="✓ Histoire '$archive_name' chargée"
+  fi
   logger -t contelia "Upload OK: $archive_name -> $folder_name"
   rm -f "$FORM_archive"
+
+  if [ "$update" = 1 ]; then
+    reboot -d 5 &
+  fi
 }
 
 process_batch_actions() {
@@ -330,7 +361,7 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
     <% fi %>
 
     <div class="upload-section">
-      <h2>📤 Déployer une histoire</h2>
+      <h2>📤 Déployer une histoire<br/><small>Ce formulaire permet également de déployer une mise à jour de Contelia.</small></h2>
       <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
         <input type="file" name="archive" accept=".zip" required id="fileInput">
         <button type="submit" id="submitBtn">Charger</button>
