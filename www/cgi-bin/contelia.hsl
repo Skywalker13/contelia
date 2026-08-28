@@ -303,11 +303,7 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <script>
-    if (/android/i.test(navigator.userAgent)) {
-      window.location.href = 'intent://${window.location.host}${window.location.pathname}#Intent;scheme=http;end';
-    }
-  </script>
+  <script src="/header.js"></script>
   <title>Gestionnaire d'histoires Contelia</title>
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -414,6 +410,6 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
     <% fi %>
   </div>
 
-  <script src="/contelia.js"></script>
+  <script src="/body.js"></script>
 </body>
 </html>

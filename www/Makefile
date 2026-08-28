@@ -10,7 +10,8 @@ preview:
 install:
 	install -D -m644 cgi-bin/contelia.hsl $(WWWDIR)/cgi-bin/contelia
 	install -D -m644 style.css            $(WWWDIR)/style.css
-	install -D -m644 contelia.js          $(WWWDIR)/contelia.js
+	install -D -m644 header.js            $(WWWDIR)/header.js
+	install -D -m644 body.js              $(WWWDIR)/body.js
 	install -D -m644 contelia-256.png     $(WWWDIR)/contelia-256.png
 
 clean:
