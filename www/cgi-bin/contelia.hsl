@@ -27,6 +27,34 @@ is_valid_folder_name() {
   echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
 }
 
+is_path_safe() {
+  local target_path="$1"
+  local base="$2"
+  local real_base real_target
+
+  real_base=$(cd "$base" 2>/dev/null && pwd) || return 1
+  real_target=$(cd "$target_path" 2>/dev/null && pwd) || return 1
+
+  [ -n "$real_base" ] || return 1
+  [ "$real_target" != "$real_base" ] || return 1
+
+  case "$real_target" in
+    "$real_base"/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+is_parent_path_safe() {
+  local target_path="$1"
+  local base="$2"
+  local real_base real_parent
+
+  real_base=$(cd "$base" 2>/dev/null && pwd) || return 1
+  real_parent=$(cd "$(dirname "$target_path")" 2>/dev/null && pwd) || return 1
+
+  [ "$real_parent" = "$real_base" ]
+}
+
 is_update() {
   echo "$1" | grep -qE '^carnotzet-os-contelia-[0-9]+[.][0-9]+[.][0-9]+-rpiz2w[.]update[.]zip$'
 }
@@ -36,18 +64,12 @@ if [ -n "$FORM_download" ]; then
   folder_name="$FORM_download"
   folder_path="$CONTELIA_DIR/$folder_name"
 
-  if is_valid_folder_name "$folder_name" && [ -d "$folder_path" ]; then
-    real_base=$(cd "$CONTELIA_DIR" && pwd)
-    real_path=$(cd "$folder_path" 2>/dev/null && pwd)
-
-    if [ -n "$real_path" ] && echo "$real_path" | grep -q "^$real_base/"; then
-      echo "Content-Type: application/zip"
-      echo "Content-Disposition: attachment; filename=\"${folder_name}.zip\""
-      echo ""
-      # Compress and send to the stdout
-      (cd "$CONTELIA_DIR" && zip -x \*.factory_disabled -q -r - "$folder_name")
-      exit 0
-    fi
+  if is_valid_folder_name "$folder_name" && [ -d "$folder_path" ] && is_path_safe "$folder_path" "$CONTELIA_DIR"; then
+    echo "Content-Type: application/zip"
+    echo "Content-Disposition: attachment; filename=\"${folder_name}.zip\""
+    echo ""
+    (cd "$CONTELIA_DIR" && zip -x \*.factory_disabled -q -r - "$folder_name")
+    exit 0
   fi
 fi
 
@@ -114,24 +136,21 @@ process_archive_upload() {
     dest_dir="$CONTELIA_UPDATE"
     update=1
 
-    # Check the update parent path
-    real_base=$(cd /tmp && pwd)
-    parent_dir=$(dirname "$dest_dir")
-    real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
+    if ! is_parent_path_safe "$dest_dir" /tmp; then
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Chemin invalide"
+      rm -f "$FORM_archive"
+      return
+    fi
   else
     dest_dir="$CONTELIA_DIR/$folder_name"
 
-    # Check the parent path
-    real_base=$(cd "$CONTELIA_DIR" && pwd)
-    parent_dir=$(dirname "$dest_dir")
-    real_parent=$(cd "$parent_dir" 2>/dev/null && pwd)
-  fi
-
-  if [ "$real_parent" != "$real_base" ]; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ Chemin invalide"
-    rm -f "$FORM_archive"
-    return
+    if ! is_parent_path_safe "$dest_dir" "$CONTELIA_DIR"; then
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Chemin invalide"
+      rm -f "$FORM_archive"
+      return
+    fi
   fi
 
   if [ "$update" = 0 ] && [ -d "$dest_dir" ]; then
@@ -245,16 +264,8 @@ process_batch_actions() {
     fi
 
     folder_path="$CONTELIA_DIR/$folder_name"
-    real_base=$(cd "$CONTELIA_DIR" && pwd)
-    real_path=$(cd "$folder_path" 2>/dev/null && pwd)
 
-    if [ -z "$real_path" ] || [ "$real_path" = "$real_base" ]; then
-      errors_count=$((errors_count + 1))
-      continue
-    fi
-
-    if ! echo "$real_path" | grep -q "^$real_base/"; then
-      errors_count=$((errors_count + 1))
+    if ! is_path_safe "$folder_path" "$CONTELIA_DIR"; then
       continue
     fi
 
