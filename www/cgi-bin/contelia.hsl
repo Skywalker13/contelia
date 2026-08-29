@@ -19,6 +19,7 @@
 # Configuration
 CONTELIA_DIR="/var/lib/contelia"
 CONTELIA_UPDATE="/tmp/contelia_update"
+SOURCES="/boot/sources.list"
 MAX_ZIP_SIZE=2147483648  # 2048 MB
 
 mkdir -p "$CONTELIA_DIR"
@@ -105,17 +106,19 @@ is_disabled() {
   [ -f "$1/.factory_disabled" ] && echo "true" || echo "false"
 }
 
-# is in CONTELIA_DIR
-is_path_safe() {
-  local target_path="$1"
-  local real_base=$(cd "$CONTELIA_DIR" && pwd)
-  local real_target=$(cd "$target_path" 2>/dev/null && pwd)
+wpkg_upgrade() {
+  local result=1
+  local backup="/tmp/sources.list.update"
 
-  if [ -z "$real_target" ] || [ "$real_target" = "$real_base" ]; then
-    return 1
+  cp -f "$SOURCES" "$backup"
+  echo "wpkg file:///tmp/contelia_update/ rpiz2w/" >"$SOURCES"
+
+  if wpkg --update && wpkg --upgrade; then
+    result=0
   fi
 
-  echo "$real_target" | grep -q "^$real_base/"
+  cp -f "$backup" "$SOURCES"
+  return $result
 }
 
 process_archive_upload() {
@@ -191,6 +194,7 @@ process_archive_upload() {
     MSG_TEXT="✗ Erreur lors de la décompression: $error_log"
     logger -t contelia "Extract error: $archive_name - $error_log"
     rm -f "$FORM_archive"
+    rm -rf "$CONTELIA_UPDATE"
     return
   fi
 
@@ -218,6 +222,7 @@ process_archive_upload() {
     MSG_TYPE="error"
     MSG_TEXT="✗ L'histoire '$folder_name' existe déjà"
     rm -f "$FORM_archive"
+    rm -rf "$CONTELIA_UPDATE"
     return
   fi
 
@@ -227,11 +232,20 @@ process_archive_upload() {
     MSG_TEXT="✗ Erreur lors du déploiement de l'archive"
     logger -t contelia "Move error: $archive_name -> $folder_name"
     rm -f "$FORM_archive"
+    rm -rf "$CONTELIA_UPDATE"
     return
   fi
 
   if [ "$update" = 1 ]; then
-    echo "TODO: add the local repository and apply the update"
+    if ! wpkg_upgrade; then
+      rm -rf "$extract_dir"
+      MSG_TYPE="error"
+      MSG_TEXT="✗ Erreur lors de la mise à jour"
+      logger -t contelia "Upgrade error"
+      rm -f "$FORM_archive"
+      rm -rf "$CONTELIA_UPDATE"
+      return
+    fi
   fi
 
   MSG_TYPE="success"
@@ -242,6 +256,7 @@ process_archive_upload() {
   fi
   logger -t contelia "Upload OK: $archive_name -> $folder_name"
   rm -f "$FORM_archive"
+  rm -rf "$CONTELIA_UPDATE"
 
   if [ "$update" = 1 ]; then
     reboot -d 5 &
