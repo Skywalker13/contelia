@@ -24,6 +24,9 @@ MAX_ZIP_SIZE=2147483648  # 2048 MB
 mkdir -p "$CONTELIA_DIR"
 
 is_valid_folder_name() {
+  case "$1" in
+    ""|"."|"..") return 1 ;;
+  esac
   echo "$1" | grep -qE '^[a-zA-Z0-9._-]+$'
 }
 
