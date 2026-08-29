@@ -250,16 +250,11 @@ process_batch_actions() {
     return
   fi
 
-  # Parse JSON actions
-  actions_count=0
-  errors_count=0
-
   echo "$FORM_batch_actions" | jq -c '.[]' 2>/dev/null | while read -r action; do
     action_type=$(echo "$action" | jq -r '.type')
     folder_name=$(echo "$action" | jq -r '.folder')
 
-    if echo "$folder_name" | grep -qE '(/|\.\.)'; then
-      errors_count=$((errors_count + 1))
+    if ! is_valid_folder_name "$folder_name"; then
       continue
     fi
 
@@ -273,43 +268,23 @@ process_batch_actions() {
       "delete")
         rm -rf "$folder_path" 2>/dev/null
         if [ $? -eq 0 ]; then
-          actions_count=$((actions_count + 1))
           logger -t contelia "Batch delete OK: $folder_name"
-        else
-          errors_count=$((errors_count + 1))
         fi
         ;;
       "enable")
         rm -f "$folder_path/.factory_disabled" 2>/dev/null
         if [ $? -eq 0 ]; then
-          actions_count=$((actions_count + 1))
           logger -t contelia "Batch enable OK: $folder_name"
-        else
-          errors_count=$((errors_count + 1))
         fi
         ;;
       "disable")
         touch "$folder_path/.factory_disabled" 2>/dev/null
         if [ $? -eq 0 ]; then
-          actions_count=$((actions_count + 1))
           logger -t contelia "Batch disable OK: $folder_name"
-        else
-          errors_count=$((errors_count + 1))
         fi
         ;;
     esac
   done
-
-  if [ $actions_count -gt 0 ]; then
-    MSG_TYPE="success"
-    MSG_TEXT="✓ $actions_count modification(s) appliquée(s)"
-    if [ $errors_count -gt 0 ]; then
-      MSG_TEXT="$MSG_TEXT ($errors_count erreur(s))"
-    fi
-  elif [ $errors_count -gt 0 ]; then
-    MSG_TYPE="error"
-    MSG_TEXT="✗ $errors_count erreur(s) lors de l'application"
-  fi
 }
 
 MSG_TYPE=""
