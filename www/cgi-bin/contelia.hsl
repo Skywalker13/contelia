@@ -113,7 +113,7 @@ wpkg_upgrade() {
   cp -f "$SOURCES" "$backup"
   echo "wpkg file:///tmp/contelia_update/ rpiz2w/" >"$SOURCES"
 
-  if wpkg --update && wpkg --upgrade; then
+  if wpkg --update && wpkg --upgrade && wpkg --autoremove; then
     result=0
   fi
 
