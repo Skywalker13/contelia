@@ -8,7 +8,7 @@ preview:
 	busybox httpd -f -p8080 -h ./
 
 install:
-	install -D -m644 cgi-bin/contelia.hsl $(WWWDIR)/cgi-bin/contelia
+	install -D       cgi-bin/contelia.hsl $(WWWDIR)/cgi-bin/contelia
 	install -D -m644 style.css            $(WWWDIR)/style.css
 	install -D -m644 header.js            $(WWWDIR)/header.js
 	install -D -m644 body.js              $(WWWDIR)/body.js
