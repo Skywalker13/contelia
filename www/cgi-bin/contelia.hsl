@@ -19,7 +19,6 @@
 # Configuration
 CONTELIA_DIR="/var/lib/contelia"
 CONTELIA_UPDATE="/tmp/contelia_update"
-SOURCES="/boot/sources.list"
 MAX_ZIP_SIZE=2147483648  # 2048 MB
 
 mkdir -p "$CONTELIA_DIR"
@@ -104,21 +103,6 @@ has_thumbnail() {
 
 is_disabled() {
   [ -f "$1/.factory_disabled" ] && echo "true" || echo "false"
-}
-
-wpkg_upgrade() {
-  local result=1
-  local backup="/tmp/sources.list.update"
-
-  cp -f "$SOURCES" "$backup"
-  echo "wpkg file:///tmp/contelia_update/ rpiz2w/" >"$SOURCES"
-
-  if wpkg --update && wpkg --upgrade && wpkg --autoremove; then
-    result=0
-  fi
-
-  cp -f "$backup" "$SOURCES"
-  return $result
 }
 
 process_archive_upload() {
@@ -237,7 +221,7 @@ process_archive_upload() {
   fi
 
   if [ "$update" = 1 ]; then
-    if ! wpkg_upgrade; then
+    if ! contelia_upgrade | logger -t contelia; then
       rm -rf "$extract_dir"
       MSG_TYPE="error"
       MSG_TEXT="✗ Erreur lors de la mise à jour"
