@@ -1,6 +1,6 @@
 [package]
 name = "contelia"
-version = "0.9.16"
+version = "0.10.0"
 edition = "2024"
 
 [dependencies]
