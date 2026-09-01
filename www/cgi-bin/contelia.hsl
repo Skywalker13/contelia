@@ -241,10 +241,6 @@ process_archive_upload() {
   logger -t contelia "Upload OK: $archive_name -> $folder_name"
   rm -f "$FORM_archive"
   rm -rf "$CONTELIA_UPDATE"
-
-  if [ "$update" = 1 ]; then
-    reboot -d 5 &
-  fi
 }
 
 process_batch_actions() {
