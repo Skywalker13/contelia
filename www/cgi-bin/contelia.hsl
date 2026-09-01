@@ -221,7 +221,7 @@ process_archive_upload() {
   fi
 
   if [ "$update" = 1 ]; then
-    if ! contelia_upgrade | logger -t contelia; then
+    if ! contelia_upgrade; then
       rm -rf "$extract_dir"
       MSG_TYPE="error"
       MSG_TEXT="✗ Erreur lors de la mise à jour"
