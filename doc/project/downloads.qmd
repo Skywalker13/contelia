@@ -8,6 +8,13 @@ abstract: Une utilisation normal de Contelia ne nécessite pas de téléchargeme
   histoires; voir même en faire un nouveau projet complètement différent.
 ---
 
+## Pour les utilisateurs
+
+Des mises à jour des logiciels de Contelia sont disponibles lorsque des
+corrections ou de nouvelles fonctionnalités sont apportées. Etant donné
+que Contelia ne se connecte jamais à internet, c'est à vous d'effectuer la
+mise à jour en suivant [ce guide][6].
+
 ## Pour les bidouilleurs
 
 La boîte à histoire contient une carte micro-SD préinstallée et qui peut être
@@ -61,3 +68,4 @@ compilation croisée, etc.
 [FreeCAD]: https://www.freecad.org/
 [5]: https://xcraft.ch/carnotzet/index.html
 [hacker]: https://fr.wikipedia.org/wiki/Hacker_(sous-culture)
+[6]: manual.qmd#mises-à-jour

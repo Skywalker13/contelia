@@ -65,13 +65,13 @@ faire ce travail.
 
 Sous Linux, identifiez l'adresse de votre carte micro-SD avec la commande dmesg.
 
-```
+```bash
 dmesg | grep sd
 ```
 
 Qui par exemple, pourrait vous retourner ceci :
 
-```
+```bash
 sd 6:0:0:0: [sde] 249737216 512-byte logical blocks: (128 GB/119 GiB)
 sde: detected capacity change from 0 to 249737216
   sde: sde1 sde2
@@ -83,7 +83,7 @@ le `of=`. Vous allez avoir besoin des droits root et il serait dommage de
 détruire un de vos périphériques. Rappelez-vous que `if` signifie Input File, et
 `of` signifie Output File.
 
-```
+```bash
 # Veuillez remplacer ici le sdX par le numéro qui correspond à votre carte
 dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
    of=/dev/sdX bs=1M status=progress
@@ -94,7 +94,7 @@ dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
 La bonne nouvelle c'est que sous macOS c'est presque la même chose. Comme avec
 Linux, faites attention avec les `if=` et `of=`.
 
-```
+```bash
 diskutil list
 
 # Démontez la carte micro-SD (remplacer diskX par le bon identifiant),
@@ -147,8 +147,10 @@ permet de maintenir en place la batterie. Si vous déconnectez l'aimant, faites
 attention de ne pas toucher des contacts de la carte avec la surface circulaire
 en acier. Le cas échéant, il pourrait se produire un court-circuit destructeur.
 
-> Bien que la batterie soit soudée à la carte, ce n'est pas un problème de la
-> changer dans le futur.
+::: {.callout-note}
+Bien que la batterie soit soudée à la carte, ce n'est pas un problème de la
+changer dans le futur.
+:::
 
 ![](images/003.jpg){width=100%}
 
@@ -204,8 +206,10 @@ par défaut un système de protection pour éviter d'allumer la carte par mégar
 il vaut mieux éviter ce bouton tant que toutes les cartes ne sont pas
 correctement vissées entre elles.
 
-> Le mode de protection du bouton est désactivé une fois que le premier
-> démarrage de Contelia a été réalisé.
+::: {.callout-note}
+Le mode de protection du bouton est désactivé une fois que le premier
+démarrage de Contelia a été réalisé.
+:::
 
 Positionnez la carte Raspberry Pi par dessus la carte PiSugar, tout en alignant
 les vis. Les connecteurs de la carte PiSugar doivent s'appuyer proprement contre
@@ -415,4 +419,4 @@ en place. Commencez par en haut à gauche et terminez de clipper en bas à droit
 Je vous invite à lire la documentation de [prise en main][1] de Contelia.
 
 [balenaEtcher]: https://etcher.balena.io/
-[1]: /project/manual.qmd
+[1]: manual.qmd

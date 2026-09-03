@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -228,24 +263,24 @@ ul.task-list li input[type="checkbox"] {
 <p>Si votre système d’exploitation est Linux ou macOS, je ne recommande pas l’utilisation de <a href="https://etcher.balena.io/">balenaEtcher</a> car c’est comme utiliser un canon pour écraser une mouche. Le déploiement de Contelia OS est très simple et ne nécessite aucune subtilité. Vous pouvez utiliser (en root comme les vrais) la commande <code>dd</code> pour faire ce travail.</p>
 <p><strong>Linux</strong></p>
 <p>Sous Linux, identifiez l’adresse de votre carte micro-SD avec la commande dmesg.</p>
-<pre><code>dmesg | grep sd</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmesg</span> <span class="kw">|</span> <span class="fu">grep</span> sd</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Qui par exemple, pourrait vous retourner ceci :</p>
-<pre><code>sd 6:0:0:0: [sde] 249737216 512-byte logical blocks: (128 GB/119 GiB)
-sde: detected capacity change from 0 to 249737216
-  sde: sde1 sde2</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sd</span> 6:0:0:0: <span class="pp">[</span><span class="ss">sde</span><span class="pp">]</span> 249737216 512-byte logical blocks: <span class="er">(</span><span class="ex">128</span> GB/119 GiB<span class="kw">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sde:</span> detected capacity change from 0 to 249737216</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">sde:</span> sde1 sde2</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Ce qui nous indique que la carte est accessible en <code>/dev/sde</code>. Faites très attention avec <code>dd</code>. Ne vous mélangez pas les pinceaux avec le <code>if=</code> et surtout le <code>of=</code>. Vous allez avoir besoin des droits root et il serait dommage de détruire un de vos périphériques. Rappelez-vous que <code>if</code> signifie Input File, et <code>of</code> signifie Output File.</p>
-<pre><code># Veuillez remplacer ici le sdX par le numéro qui correspond à votre carte
-dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
-   of=/dev/sdX bs=1M status=progress</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Veuillez remplacer ici le sdX par le numéro qui correspond à votre carte</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>   of=/dev/sdX bs=1M status=progress</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>macOS</strong></p>
 <p>La bonne nouvelle c’est que sous macOS c’est presque la même chose. Comme avec Linux, faites attention avec les <code>if=</code> et <code>of=</code>.</p>
-<pre><code>diskutil list
-
-# Démontez la carte micro-SD (remplacer diskX par le bon identifiant),
-# puis flashez
-diskutil unmountDisk /dev/diskX
-dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
-   of=/dev/diskX bs=1m status=progress</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">diskutil</span> list</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Démontez la carte micro-SD (remplacer diskX par le bon identifiant),</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># puis flashez</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">diskutil</span> unmountDisk /dev/diskX</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   of=/dev/diskX bs=1m status=progress</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ejection" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="ejection"><span class="header-section-number">2.3</span> Ejection</h3>
@@ -267,9 +302,19 @@ dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
 <section id="préparation-de-la-carte-pisugar-3" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="préparation-de-la-carte-pisugar-3"><span class="header-section-number">3.2</span> Préparation de la carte PiSugar 3</h3>
 <p>La carte PiSugar 3 est directement attachée à sa batterie au lithium. Un aimant permet de maintenir en place la batterie. Si vous déconnectez l’aimant, faites attention de ne pas toucher des contacts de la carte avec la surface circulaire en acier. Le cas échéant, il pourrait se produire un court-circuit destructeur.</p>
-<blockquote class="blockquote">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Bien que la batterie soit soudée à la carte, ce n’est pas un problème de la changer dans le futur.</p>
-</blockquote>
+</div>
+</div>
 <p><img src="images/003.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Posez la carte de telle manière que la batterie se situe en dessous. Vous devriez constater que les 4 trous filetés ont un autocollant semi-transparent orange collé dessus.</p>
 <p><img src="images/004.jpg" class="img-fluid" style="width:100.0%"></p>
@@ -291,9 +336,19 @@ dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
 <h3 data-number="3.4" class="anchored" data-anchor-id="assemblage-temporaire"><span class="header-section-number">3.4</span> Assemblage temporaire</h3>
 <p>Avant de se lancer plus loin dans le montage, il est judicieux d’effectuer le tout premier démarrage de Contelia pour s’assurer que tout fonctionne comme prévu. Si cette étape échoue, il est inutile d’aller plus loin.</p>
 <p>Ici, évitez de toucher au bouton d’alimentation de la PiSugar. Bien qu’il y a par défaut un système de protection pour éviter d’allumer la carte par mégarde, il vaut mieux éviter ce bouton tant que toutes les cartes ne sont pas correctement vissées entre elles.</p>
-<blockquote class="blockquote">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Le mode de protection du bouton est désactivé une fois que le premier démarrage de Contelia a été réalisé.</p>
-</blockquote>
+</div>
+</div>
 <p>Positionnez la carte Raspberry Pi par dessus la carte PiSugar, tout en alignant les vis. Les connecteurs de la carte PiSugar doivent s’appuyer proprement contre les contacts de la carte Raspberry Pi.</p>
 <p><img src="images/030.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Serrez les vis en croix et assez fermement (mais pas trop non plus, il ne faut pas abîmer les pas de vis).</p>

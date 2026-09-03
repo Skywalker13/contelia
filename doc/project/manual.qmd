@@ -14,10 +14,12 @@ Pour ouvrir la boîte, cherchez un petit décrochement au centre du côté le pl
 long et qui vous permet, avec un ongle, de séparer le couvercle. Celui-ci est
 maintenu avec l'aide de clips.
 
-> Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
-> c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
-> possible d'accéder au connecteur USB-C tant qu'elle est fermée. Voir la
-> section [Recharger la batterie](#recharger-la-batterie).
+::: {.callout-note}
+Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
+c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
+possible d'accéder au connecteur USB-C tant qu'elle est fermée. Voir la
+section [Recharger la batterie](#recharger-la-batterie).
+:::
 
 La boîte à histoires est simplement posée à l'intérieur de la boîte principale.
 Le câble USB enroulé sert uniquement à relier les haut-parleurs à la boîte à
@@ -35,8 +37,10 @@ comme étant inutilisé.
 
 ![](images/connectors.jpg){width=100%}
 
-> Ne branchez pas les haut-parleurs sur le connecteur micro-USB de droite car
-> ça ne fonctionnera pas.
+::: {.callout-warning}
+Ne branchez pas les haut-parleurs sur le connecteur micro-USB de droite car
+ça ne fonctionnera pas.
+:::
 
 ### Recharger la batterie
 
@@ -57,9 +61,11 @@ Bien que Contelia peut être utilisé pendant la charge, Si la
 batterie est complètement déchargée, il est nécessaire d'attendre
 au moins **une minute ou deux** avant de pouvoir allumer la boîte à histoires.
 
-> Notez bien qu'il est possible de changer une batterie usagée en cas de
-> diminution trop impactante de l'autonomie. L'opération nécessite quand même
-> l'utilisation d'un fer à souder.
+::: {.callout-note}
+Notez bien qu'il est possible de changer une batterie usagée en cas de
+diminution trop impactante de l'autonomie. L'opération nécessite quand même
+l'utilisation d'un fer à souder.
+:::
 
 Tant que Contelia est connecté à une alimentation externe par l'USB-C, des
 lumières vertes vont clignoter de gauche à droite. Cet indicateur ne permet
@@ -88,11 +94,19 @@ quelques projets communautaires et de plus, si vous avez déjà une boîte à
 histoires Lunii, il est possible de les charger sur Contelia (attention, cela
 ne concerne pas la FLAM).
 
-> La Lunii et la FLAM sont des boîtes à histoires éditées par la société
-> française Lunii. Les livres achetés pour la Lunii ne sont, à l'origine,
-> pas exploitables sur d'autres matériels. Mais la pugnacité de quelques
-> personnes a permis de libérer ces histoires et ainsi Contelia est
-> compatible avec les histoires pour la Lunii.
+::: {.callout-note}
+La Lunii et la FLAM sont des boîtes à histoires éditées par la société
+française Lunii. Les livres achetés pour la Lunii ne sont, à l'origine,
+pas exploitables sur d'autres matériels. Mais la pugnacité de quelques
+personnes a permis de libérer ces histoires et ainsi Contelia est
+compatible avec les histoires pour la Lunii.
+:::
+
+::: {.callout-warning}
+Comprenez bien que sur ce site internet, **il ne met pas possible** de vous
+mettre à disposition des histoires car je n'ai aucun droit pour en redistribuer
+tout comme je ne suis pas créateur d'histoires.
+:::
 
 ### Lunii
 
@@ -105,12 +119,12 @@ Récupérer les histoires que vous avez acheté pour la Lunii fait sens. Pour ce
 il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait
 s'afficher en tant que disque USB.
 
-| macOS | Windows |
-| --- | --- |
-| Vous devez autoriser ce périphérique. ||
-| ![](images/lunii/001.png){} ||
+| macOS                                 | Windows                              |
+| ------------------------------------- | ------------------------------------ |
+| Vous devez autoriser ce périphérique. |                                      |
+| ![](images/lunii/001.png){}           |                                      |
 | Alors une nouvelle icône de disque devrait apparaître sur le bureau de votre Mac. | Un nouveau lecteur de disque devrait se monter dans l'explorateur de fichiers. |
-| ![](images/lunii/000.png){} | ![](images/lunii/010.png){} |
+| ![](images/lunii/000.png){}           | ![](images/lunii/010.png){}          |
 
 : {tbl-colwidths="[50,50]"}
 
@@ -118,19 +132,19 @@ L'ouverture de ce disque va vous montrer différents fichiers. Il va falloir
 (sous macOS et Linux) afficher les fichiers cachés afin de mettre la main sur
 les histoires de votre Lunii.
 
-| macOS | Windows |
-| --- | --- |
-| ![](images/lunii/002.png){.lightbox} ||
+| macOS                                | Windows                              |
+| ------------------------------------ | ------------------------------------ |
+| ![](images/lunii/002.png){.lightbox} |                                      |
 | Faîtes {{< kbd Shift-Command-. >}} pour révéler les fichiers cachés. | Sous Windows, il n'est pas nécessaire de forcer l'affichage des fichiers cachés. |
-| ![](images/lunii/003.png){.lightbox} | ![](images/lunii/012.png){.lightbox}|
+| ![](images/lunii/003.png){.lightbox} | ![](images/lunii/012.png){.lightbox} |
 
 : {tbl-colwidths="[50,50]"}
 
 Cherchez le dossier nommé `.content` car c'est lui qui contient toutes vos
 histoires. Dedans vous trouverez une liste de dossiers avec des noms cryptiques.
 
-| macOS | Windows |
-| --- | --- |
+| macOS                                | Windows                              |
+| ------------------------------------ | ------------------------------------ |
 | ![](images/lunii/004.png){.lightbox} | ![](images/lunii/014.png){.lightbox} |
 
 : {tbl-colwidths="[50,50]"}
@@ -139,9 +153,9 @@ Copiez le dossier `.content` sur le disque de votre ordinateur (par exemple sur
 le bureau). Une fois la copie terminée, je vous invite à éjecter la Lunii car
 nous avons désormais tout ce qu'il nous faut.
 
-| macOS | Windows |
-| --- | --- |
-| Depuis le Finder | Depuis la barre de statut |
+| macOS                                | Windows                              |
+| ------------------------------------ | ------------------------------------ |
+| Depuis le Finder                     | Depuis la barre de statut            |
 | ![](images/lunii/006.png){.lightbox} | ![](images/lunii/016.png){.lightbox} |
 
 : {tbl-colwidths="[50,50]"}
@@ -150,8 +164,8 @@ Ouvrez le dossier `.content` que vous avez transféré sur votre bureau. Dedans 
 y a un dossier par histoire. Pour chaque dossier, créez un fichier ZIP. Ce sont
 ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Contelia.
 
-| macOS | Windows |
-| --- | --- |
+| macOS                                | Windows                              |
+| ------------------------------------ | ------------------------------------ |
 | ![](images/lunii/005.png){.lightbox} | ![](images/lunii/015.png){.lightbox} |
 
 : {tbl-colwidths="[50,50]"}
@@ -165,10 +179,12 @@ Il existe des packs d'histoires disponibles gratuitement dans
 [une communauté francophone][1] que vous pouvez rejoindre par l'intermédiaire
 du logiciel Discord
 
-> Discord est une plateforme de messagerie instantanée. Il est possible de
-> l'utiliser entièrement avec le navigateur internet. Il n'y a donc aucune
-> obligation d'installer un logiciel sur votre ordinateur ou sur votre
-> téléphone mobile.
+::: {.callout-note}
+Discord est une plateforme de messagerie instantanée. Il est possible de
+l'utiliser entièrement avec le navigateur internet. Il n'y a donc aucune
+obligation d'installer un logiciel sur votre ordinateur ou sur votre
+téléphone mobile.
+:::
 
 Cette communauté met à disposition de nombreux livres,
 donne des conseils, de l'aide et sert également de vitrine pour de nombreux
@@ -220,18 +236,21 @@ Si le navigateur internet ne propose pas d'accéder au portail captif, alors
 entrez l'adresse suivante ([http://192.168.42.1](http://192.168.42.1)) pour
 accéder à la page de configuration de Contelia.
 
-> Bien entendu, quand vous êtes connecté au réseau Wifi Contelia, vous ne pouvez
-> plus utiliser votre réseau Wifi habituel et donc vous ne pouvez plus utiliser
-> internet. Cela implique que vous avez déjà préparé sur votre ordinateur (ou
-> votre smartphone), les histoires que vous souhaitez charger dans Contelia.
+::: {.callout-warning}
+Bien entendu, quand vous êtes connecté au réseau Wifi Contelia, vous ne pouvez
+plus utiliser votre réseau Wifi habituel et donc vous ne pouvez plus utiliser
+internet. Cela implique que vous avez déjà préparé sur votre ordinateur (ou
+votre smartphone), les histoires que vous souhaitez charger dans Contelia.
+:::
 
 #### Portail
 
 Le portail (ou gestionnaire) Contelia se présente sous la forme d'un formulaire
-permettant de charger une histoire au format ZIP, puis de modifier le contenu
-actuellement disponible dans la boîte à histoires. L'utilisation de cette
-page devrait être auto-explicative. Certaines actions nécessites de cliquer
-sur le bouton "Appliquer les modifications" pour que ce soit pris en compte.
+permettant de charger une histoire au format ZIP (ou une mise à jour de Contelia),
+puis de modifier le contenu actuellement disponible dans la boîte à histoires.
+L'utilisation de cette page devrait être auto-explicative. Certaines actions
+nécessites de cliquer sur le bouton "Appliquer les modifications" pour que ce
+soit pris en compte (ce bouton est tout au fond de la page).
 
 ![](images/portal.png){width=100%}
 
@@ -257,19 +276,23 @@ histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
   Si vous supprimer une histoire, veillez à garder une copie sur votre
   ordinateur car cette opération n'est pas réversible.
 
-> Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
+- Charger une [mise à jour][3] de Contelia.
+
+::: {.callout-note}
+Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
+:::
 
 ## Navigation dans les menus
 
 Au démarrage, Contelia montre le premier livre ([s'il y en a au moins un](#premier-démarrage)).
 
-| Action | Description |
-| --- | --- |
-| • ![](images/joystick.png) | Le bouton directionnel (joystick) permet alors de se déplacer de livre en livre en utilisant les directions gauche et droite. |
-| • ![](images/button-right.png) | Une fois le livre choisis, le bouton de droite permet de l'ouvrir. C'est le bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et dépend directement du livre en question. Par exemple il peut y avoir une étape pour choisir un personnage, puis une prochaine étape pour choisir un objet et enfin l'histoire commence. Notez bien que la navigation dans un livre dépend de celui qui l'a créé. |
-| • ![](images/joystick-right.png) | Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec le bouton directionnel, permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement va permettre de continuer la lecture. |
-| • ![](images/button-left.png) | Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu du livre. C'est en quelque sorte le bouton de retour en arrière. Chaque pression du bouton de gauche va faire remonter dans la navigation. Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre. |
-| • ![](images/joystick-up-down.png) | Le dernier mouvement important concerne le réglage du volume. Pour cela il faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé, et plus la consommation de la batterie sera importante. Contelia est configuré avec une limitation interne afin d'éviter un volume excessif. |
+| Action                             | Description |
+| ---------------------------------- | ----------- |
+| ° ![](images/joystick.png)         | Le bouton directionnel (joystick) permet alors de se déplacer de livre en livre en utilisant les directions gauche et droite. |
+| ° ![](images/button-right.png)     | Une fois le livre choisis, le bouton de droite permet de l'ouvrir. C'est le bouton de confirmation. Dès ce moment, la navigation se fait dans le livre et dépend directement du livre en question. Par exemple il peut y avoir une étape pour choisir un personnage, puis une prochaine étape pour choisir un objet et enfin l'histoire commence. Notez bien que la navigation dans un livre dépend de celui qui l'a créé. |
+| ° ![](images/joystick-right.png)   | Lorsque l'histoire commence, l'écran s'éteint automatiquement pour laisser place uniquement à la narration. Pendant la lecture, un mouvement vers la droite avec le bouton directionnel, permet de mettre la lecture en pause. Effectuer à nouveau ce même mouvement va permettre de continuer la lecture. |
+| ° ![](images/button-left.png)      | Pour quitter la lecture sans atteindre la fin de l'histoire, il est possible d'utiliser le bouton de gauche qui va alors permettre de revenir dans le menu du livre. C'est en quelque sorte le bouton de retour en arrière. Chaque pression du bouton de gauche va faire remonter dans la navigation. Ainsi il est possible d'atteindre le menu principal pour choisir un autre livre. |
+| ° ![](images/joystick-up-down.png) | Le dernier mouvement important concerne le réglage du volume. Pour cela il faut utiliser les mouvements haut et bas du joystick. Plus le volume est élevé, et plus la consommation de la batterie sera importante. Contelia est configuré avec une limitation interne afin d'éviter un volume excessif. |
 
 : {tbl-colwidths="[20,80]"}
 
@@ -283,8 +306,10 @@ Il y a deux exceptions. Quand Contelia est en mode configuration pour la
 modification des histoires ou en configuration du Bluetooth, celle-ci reste
 active indéfiniment.
 
-> Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
-> d'alimentation pendant plus de 2 secondes.
+::: {.callout-note}
+Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
+d'alimentation pendant plus de 2 secondes.
+:::
 
 ## Audio
 
@@ -332,7 +357,9 @@ suivante&nbsp;:
 
 ![](images/040.jpg){width=100%}
 
-> Pour quitter ce mode, procédez exactement de la même manière.
+::: {.callout-note}
+Pour quitter ce mode, procédez exactement de la même manière.
+:::
 
 Pendant l'activation de ce mode, un sablier peut s'afficher sur l'écran. Une
 fois que le Bluetooth est actif, le symbole Bluetooth s'affiche à la place du
@@ -341,8 +368,8 @@ sablier et des périphériques audio vont être recherchés (scannés) à proxim
 Pour qu'un périphérique soit détecté, il doit impérativement être en mode
 d'appairage. L'activation de l'appairage dépend de chaque matériel.
 
-| 1. Activation | 2. Scan | 3. Détection |
-| --- | --- | --- |
+| 1. Activation                   | 2. Scan                            | 3. Détection                          |
+| ------------------------------- | ---------------------------------- | ------------------------------------- |
 | ![](images/wait.png){width=60%} | ![](images/bt_scan.png){width=60%} | ![](images/bt_unknown.png){width=60%} |
 
 Tant que l'image du scan persiste, c'est que Contelia ne trouve aucun périphérique
@@ -350,13 +377,30 @@ audio disponible (ou compatible) à proximité. Si la détection réussi, vous
 pouvez presser le bouton de droite afin de confirmer. Dès ce moment là, les
 histoires seront lues à travers le périphérique Bluetooth.
 
-> Veuillez noter que le Bluetooth est toujours désactivé si Contelia a été
-> éteint. Il est alors nécessaire de reproduire à nouveau cette procédure
-> d'appairage.
+::: {.callout-note}
+Veuillez noter que le Bluetooth est toujours désactivé si Contelia a été
+éteint. Il est alors nécessaire de reproduire à nouveau cette procédure
+d'appairage.
+:::
 
 Quand vous utilisez le Bluetooth, c'est une bonne idée de séparer la boîte
 à histoires des haut-parleurs USB afin de **gagner en autonomie**. En effet, dès le
 moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas utilisés
 pour le son, ils vont consommer de l'énergie inutilement.
 
+## Mises à jour
+
+La page de configuration [présentée ici][4], permet également de charger une mise à
+jour de la boîte à histoires. Pour se faire, il suffit de charger le
+fichier ZIP de la mise à jour au lieu du fichier ZIP d'une histoire.
+
+Une fois les mises à jour appliquées, Contelia va automatiquement redémarrer
+et désactiver son réseau Wifi.
+
+Les mises à jour sont disponibles dans la section dédiée aux
+[téléchargements][2].
+
 [1]: https://monurl.ca/lunii.creations
+[2]: downloads.qmd
+[3]: manual.qmd#mises-à-jour
+[4]: manual.qmd#portail
