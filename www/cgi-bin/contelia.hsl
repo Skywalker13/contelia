@@ -349,7 +349,10 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
     <% fi %>
 
     <div class="upload-section">
-      <h2>📤 Déployer une histoire<br/><small>Ce formulaire permet également de déployer une mise à jour de Contelia.</small></h2>
+      <h2>📤 Déployer une histoire</h2>
+      <span class="small-text">
+        Ce formulaire permet également de déployer une mise à jour de Contelia.
+      </span>
       <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
         <input type="file" name="archive" accept=".zip" required id="fileInput">
         <button type="submit" id="submitBtn">Charger</button>
@@ -364,10 +367,16 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
         <strong>Format :</strong> ZIP uniquement<br>
         <strong>Taille max :</strong> <% format_size $MAX_ZIP_SIZE %><br>
       </div>
+      <span class="small-text">
+        Si le bouton ci-dessus ne fonctionne pas, veuillez ouvrir ce site dans votre navigateur internet habituel
+        (Firefox, Chrome, Safari, Edge, ...) en utilisant l'adresse
+        <code>http://192.168.42.1</code>
+        <button type="button" class="simple" title="Copier l'adresse" onclick="navigator.clipboard.writeText('http://192.168.42.1'); this.textContent='✅'; setTimeout(() => this.textContent='📋', 1000);">📋</button>
+      </span>
     </div>
 
     <h2 class="section-title">
-      <span>📚 Histoires déployées</span>
+      <span>📚 Histoires</span>
       <span class="pending-changes" id="pendingCount" style="display: none;">0 modification(s) en attente</span>
     </h2>
 
