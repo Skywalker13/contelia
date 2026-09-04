@@ -36,6 +36,12 @@ small {
     font-size: 60%;
 }
 
+.version {
+    font-size: 50%;
+    color: gray;
+    font-weight: 600;
+}
+
 .stats {
     color: #666;
     font-size: 14px;

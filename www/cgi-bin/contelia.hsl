@@ -23,6 +23,10 @@ MAX_ZIP_SIZE=2147483648  # 2048 MB
 
 mkdir -p "$CONTELIA_DIR"
 
+get_version() {
+  echo "$(. /etc/os-release && echo -n $PRETTY_NAME)"
+}
+
 is_valid_folder_name() {
   case "$1" in
     ""|"."|"..") return 1 ;;
@@ -325,7 +329,7 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
 <body>
   <div class="container">
     <img class="img-header" src="/contelia-256.png"></img>
-    <h1>Gestionnaire d'histoires Contelia</h1>
+    <h1>Gestionnaire d'histoires Contelia<br/><sup class="version"><% get_version %></sup></h1>
 
     <div class="stats">
       <div class="stat-item">
