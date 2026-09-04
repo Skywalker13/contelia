@@ -329,7 +329,7 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
 <body>
   <div class="container">
     <img class="img-header" src="/contelia-256.png"></img>
-    <h1>Gestionnaire d'histoires Contelia<br/><sup class="version"><% get_version %></sup></h1>
+    <h1>Gestionnaire d'histoires Contelia<br/><span class="version"><% get_version %></span></h1>
 
     <div class="stats">
       <div class="stat-item">
@@ -354,7 +354,7 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
         Ce formulaire permet également de déployer une mise à jour de Contelia.
       </span>
       <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
-        <input type="file" name="archive" accept=".zip" required id="fileInput">
+        <input type="file" name="archive" accept=".zip" required id="fileInput">&nbsp;
         <button type="submit" id="submitBtn">Charger</button>
       </form>
       <div class="upload-progress" id="uploadProgress">
@@ -369,7 +369,7 @@ free_size=$(df -P "$CONTELIA_DIR" 2>/dev/null | awk 'NR==2 {print $4 * 1024}')
       </div>
       <span class="small-text">
         Si le bouton ci-dessus ne fonctionne pas, veuillez ouvrir ce site dans votre navigateur internet habituel
-        (Firefox, Chrome, Safari, Edge, ...) en utilisant l'adresse
+        (Firefox, Chrome, Safari, Edge, ...) en utilisant l'adresse :
         <code>http://192.168.42.1</code>
         <button type="button" class="simple" title="Copier l'adresse" onclick="navigator.clipboard.writeText('http://192.168.42.1'); this.textContent='✅'; setTimeout(() => this.textContent='📋', 1000);">📋</button>
       </span>

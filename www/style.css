@@ -37,9 +37,11 @@ small {
 }
 
 .version {
-    font-size: 50%;
+    display: block;
+    font-size: 45%;
     color: gray;
     font-weight: 600;
+    margin-top: -3px;
 }
 
 .small-text {
