@@ -177,7 +177,7 @@ de chaque histoire permettront de les identifier clairement.
 
 Il existe des packs d'histoires disponibles gratuitement dans
 [une communauté francophone][1] que vous pouvez rejoindre par l'intermédiaire
-du logiciel Discord
+du logiciel **Discord**.
 
 ::: {.callout-note}
 Discord est une plateforme de messagerie instantanée. Il est possible de
@@ -186,11 +186,11 @@ obligation d'installer un logiciel sur votre ordinateur ou sur votre
 téléphone mobile.
 :::
 
-Cette communauté met à disposition de nombreux livres,
-donne des conseils, de l'aide et sert également de vitrine pour de nombreux
-autres projets qui partage le même esprit que Contelia, c'est à dire d'offrir
-des alternatives aux boîtes à histoires Lunii, etc. Que ce soit du matériel
-dédié ou du "recyclage" de smartphones en liseuses pour enfants.
+Cette communauté met à disposition de nombreux livres, donne des conseils,
+de l'aide et sert également de vitrine pour de nombreux autres projets qui
+partagent le même esprit que Contelia, c'est à dire d'offrir des alternatives
+aux boîtes à histoires Lunii, etc. Que ce soit du matériel dédié ou du
+"recyclage" de smartphones en liseuses pour enfants.
 
 Vous y trouverez également toute l'aide nécessaire pour pouvoir créer vos
 propres histoires si le cœur vous en dit.
@@ -208,8 +208,8 @@ Pour charger des histoires, vous devez mettre Contelia en mode configuration.
 Avant tout, il est recommandé de brancher le connecteur d'alimentation (charge)
 pour garantir que les transferts ne soient pas interrompus.
 
-Pour activer le mode configuration vous devez effectuer la combinaison de boutons
-suivante&nbsp;:
+Pour activer le mode configuration vous devez effectuer la combinaison de
+boutons suivante&nbsp;:
 
 1. Tenez le joystick vers le **bas** (ne lâchez pas)
 2. Pressez **simultanément** les deux boutons
@@ -246,11 +246,12 @@ votre smartphone), les histoires que vous souhaitez charger dans Contelia.
 #### Portail
 
 Le portail (ou gestionnaire) Contelia se présente sous la forme d'un formulaire
-permettant de charger une histoire au format ZIP (ou une mise à jour de Contelia),
-puis de modifier le contenu actuellement disponible dans la boîte à histoires.
-L'utilisation de cette page devrait être auto-explicative. Certaines actions
-nécessites de cliquer sur le bouton "Appliquer les modifications" pour que ce
-soit pris en compte (ce bouton est tout au fond de la page).
+permettant de charger une histoire au format ZIP (ou une mise à jour de
+Contelia), puis de modifier le contenu actuellement disponible dans la boîte
+à histoires. L'utilisation de cette page devrait être auto-explicative.
+Certaines actions nécessites de cliquer sur le bouton "Appliquer les
+modifications" pour que ce soit pris en compte (ce bouton est tout au fond
+de la page).
 
 ![](images/portal.png){width=100%}
 
@@ -260,10 +261,10 @@ histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
 **Fonctionnalités**
 
 - Charger une nouvelle histoire avec le formulaire en tête de page.  
-  Cliquez sur le bouton "Browse" ou "Parcourir" en dessous de "Déployer une histoire".
-  Une fenêtre va s'ouvrir depuis laquelle vous pourrez aller chercher le fichier
-  ZIP de l'histoire que vous souhaiter charger dans Contelia. Une fois fait,
-  cliquez sur le bouton "Charger" et patientez.
+  Cliquez sur le bouton "Browse" ou "Parcourir" en dessous de "Déployer une
+  histoire". Une fenêtre va s'ouvrir depuis laquelle vous pourrez aller
+  chercher le fichier ZIP de l'histoire que vous souhaiter charger dans
+  Contelia. Une fois fait, cliquez sur le bouton "Charger" et patientez.
 
 - Télécharger une histoire depuis la boîte à histoires.  
   Vous pouvez ainsi récupérer le fichier ZIP correspondant pour le sauvegarder
@@ -273,7 +274,7 @@ histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
   la rendre visible.
 
 - Supprimer une histoire de la boîte à histoire.  
-  Si vous supprimer une histoire, veillez à garder une copie sur votre
+  Si vous supprimez une histoire, veillez à garder une copie sur votre
   ordinateur car cette opération n'est pas réversible.
 
 - Charger une [mise à jour][3] de Contelia.
@@ -298,13 +299,18 @@ Au démarrage, Contelia montre le premier livre ([s'il y en a au moins un](#prem
 
 ## Éteindre Contelia
 
-Contelia s'éteint automatiquement après 20 secondes d'inactivité. Ce qui signifie
-que si aucune histoire est en cours de lecture et qu'aucune action n'est effectuée
-dans le menu, alors Contelia s'arrête.
+Contelia s'éteint automatiquement après 20 secondes d'inactivité. Ce qui
+signifie que si aucune histoire est en cours de lecture et qu'aucune action
+n'est effectuée dans le menu, alors Contelia s'arrête.
+
+::: {.callout-note}
+Ce comportement est particulièrement utile si l'enfant s'endort en écoutant
+une histoire. Contelia s'éteint alors automatiquement à la fin de celle-ci.
+:::
 
 Il y a deux exceptions. Quand Contelia est en mode configuration pour la
 modification des histoires ou en configuration du Bluetooth, celle-ci reste
-active indéfiniment.
+active tant qu'il y a assez d'énergie.
 
 ::: {.callout-note}
 Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
@@ -315,7 +321,7 @@ d'alimentation pendant plus de 2 secondes.
 
 Contelia peut être utilisée en dehors de sa boîte principale et sans les
 haut-parleurs USB. Ce chapitre vous présente deux possibilités. Mais sachez
-que vous ne pouvez pas connecter directement un câbles analogique de type
+que vous ne pouvez pas connecter directement un câble analogique de type
 jack. Si c'est nécessaire pour vous, il vous faudra acheter un adaptateur
 jack → USB du même genre que sur l'image ci-dessous.
 
@@ -327,6 +333,12 @@ Vous pouvez brancher un casque USB (à la place des haut-parleurs d'origine)
 directement avec l'adaptateur USB fourni (dans la boîte principale).
 L'adaptateur micro-USB est utilisé avec le câble USB du casque. Notez bien qu'il
 vous faut aussi un adaptateur si votre casque utilise la norme USB-C.
+
+::: {.callout-warning}
+Si vous avez un casque audio USB-C, n'essayez pas de le brancher sur la prise
+USB-C de Contelia car ça ne fonctionnera pas. La prise USB-C de Contelia est
+uniquement desténé à la recharge de la batterie.
+:::
 
 ![Casque USB connecté à l'adaptateur micro-USB de Contelia.](images/051.jpg)
 
@@ -368,14 +380,14 @@ sablier et des périphériques audio vont être recherchés (scannés) à proxim
 Pour qu'un périphérique soit détecté, il doit impérativement être en mode
 d'appairage. L'activation de l'appairage dépend de chaque matériel.
 
-| 1. Activation                   | 2. Scan                            | 3. Détection                          |
-| ------------------------------- | ---------------------------------- | ------------------------------------- |
-| ![](images/wait.png){width=60%} | ![](images/bt_scan.png){width=60%} | ![](images/bt_unknown.png){width=60%} |
+| 1. Activation                         | 2. Scan                               | 3. Détection                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| ![](images/wait.png){width=60%}       | ![](images/bt_scan.png){width=60%}    | ![](images/bt_unknown.png){width=60%} |
 
-Tant que l'image du scan persiste, c'est que Contelia ne trouve aucun périphérique
-audio disponible (ou compatible) à proximité. Si la détection réussi, vous
-pouvez presser le bouton de droite afin de confirmer. Dès ce moment là, les
-histoires seront lues à travers le périphérique Bluetooth.
+Tant que l'image du scan persiste, c'est que Contelia ne trouve aucun
+périphérique audio disponible (ou compatible) à proximité. Si la détection
+réussi, vous pouvez presser le bouton de droite afin de confirmer. Dès ce
+moment là, les histoires seront lues à travers le périphérique Bluetooth.
 
 ::: {.callout-note}
 Veuillez noter que le Bluetooth est toujours désactivé si Contelia a été
@@ -384,14 +396,14 @@ d'appairage.
 :::
 
 Quand vous utilisez le Bluetooth, c'est une bonne idée de séparer la boîte
-à histoires des haut-parleurs USB afin de **gagner en autonomie**. En effet, dès le
-moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas utilisés
-pour le son, ils vont consommer de l'énergie inutilement.
+à histoires des haut-parleurs USB afin de **gagner en autonomie**. En effet,
+dès le moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas
+utilisés pour le son, ils vont consommer de l'énergie inutilement.
 
 ## Mises à jour
 
-La page de configuration [présentée ici][4], permet également de charger une mise à
-jour de la boîte à histoires. Pour se faire, il suffit de charger le
+La page de configuration [présentée ici][4], permet également de charger une
+mise à jour de la boîte à histoires. Pour se faire, il suffit de charger le
 fichier ZIP de la mise à jour au lieu du fichier ZIP d'une histoire.
 
 Une fois les mises à jour appliquées, Contelia va automatiquement redémarrer
