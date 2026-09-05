@@ -75,5 +75,5 @@ ou d'autres variantes de cette boîte.
 [Raspberry Pi Zero 2 W]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
 [Adafruit]: https://www.adafruit.com/product/4506
 [PiSugar]: https://www.pisugar.com/products/pisugar-3-raspberry-pi-zero-battery
-[1]: /project/manual.qmd
-[2]: /project/kit.qmd
+[1]: /project/manual.html
+[2]: /project/kit.html

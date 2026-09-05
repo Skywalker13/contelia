@@ -22,7 +22,8 @@ changée ou réinstallée avec une nouvelle version de Contelia OS, voir même
 votre propre OS (si vous avez l'âme d'un [hacker]).
 
 Pour accéder à la carte micro-SD, il est nécessaire de démonter partiellement
-la boîte à histoire en suivant [la procédure suivante][1].
+la boîte à histoire. Je vous invite à consulter le guide du [kit de montage][3]
+pour vous documenter sur l'assemblage de Contelia.
 
 ### Images de Contelia OS
 
@@ -59,7 +60,10 @@ a fait possible pour n'importe qui, qui est alaise avec les outils de
 développement et les concepts sous-jacents comme le packaging, la
 compilation croisée, etc.
 
-[METTRE A DISPO UNE PROCEDURE PAS A PAS POUR CONTELIA OS]
+::: {.callout-warning}
+A l'heure actuelle il n'existe pas de guide pour Xcraft. Ce n'est pas exclus
+que cela change à l'avenir.
+:::
 
 [1]: sd.html
 [2]: /downloads/contelia-os-1.0.0.zip
@@ -68,4 +72,4 @@ compilation croisée, etc.
 [FreeCAD]: https://www.freecad.org/
 [5]: https://xcraft.ch/carnotzet/index.html
 [hacker]: https://fr.wikipedia.org/wiki/Hacker_(sous-culture)
-[6]: manual.qmd#mises-à-jour
+[6]: manual.html#mises-à-jour

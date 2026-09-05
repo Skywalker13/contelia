@@ -20,7 +20,7 @@ maintenu avec l'aide de clips.
 Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
 c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
 possible d'accéder au connecteur USB-C tant qu'elle est fermée. Voir la
-section [Recharger la batterie](#recharger-la-batterie).
+section @sec-battery.
 :::
 
 La boîte à histoires est simplement posée à l'intérieur de la boîte principale.
@@ -46,7 +46,7 @@ Ne branchez pas les haut-parleurs sur le connecteur micro-USB de droite car
 ça ne fonctionnera pas.
 :::
 
-### Recharger la batterie
+### Recharger la batterie {#sec-battery}
 
 Pour recharger Contelia, vous devez utiliser un câble USB-C (ce câble ainsi
 que le chargeur ne sont pas livrés avec Contelia). C'est le câble
@@ -78,7 +78,7 @@ se fait avec les 4 lumières. Un meilleur indicateur est de simplement mettre
 la main sur le chargeur USB-C. Si après un certain temps, celui-ci n'est plus
 chaud, c'est qu'il ne charge plus rien et que vous pouvez alors le déconnecter.
 
-## Premier démarrage
+## Premier démarrage {#sec-firstrun}
 
 Le premier démarrage (**si aucun livre n'est chargé**) va simplement vous montrer
 l'écran suivant qui signifie que Contelia est en attente de livres.
@@ -87,7 +87,7 @@ l'écran suivant qui signifie que Contelia est en attente de livres.
 
 Dans le cas contraire, le premier livre va s'afficher et (s'il y en a plus d'un)
 vous pouvez naviguer très simplement dans les livres (voir la section
-«&nbsp;[Navigation dans les menus](#navigation-dans-les-menus)&nbsp;» pour plus
+@sec-menus &nbsp;» pour plus
 de détails).
 
 ## Chargement des histoires
@@ -115,7 +115,7 @@ tout comme je ne suis pas créateur d'histoires.
 ### Lunii
 
 Si vous n'avez pas de boîte à histoires Lunii, vous pouvez sauter ce chapitre
-et directement passer au chapitre « [Communautaire](#communautaire) ».
+et directement passer au chapitre @sec-community.
 
 ![](images/lunii/lunii.jpg){width=100%}
 
@@ -177,7 +177,7 @@ ces fichiers ZIP qui pourront être chargés dans la boîte à histoires Conteli
 Ne vous inquiétez pas des noms car une fois chargé dans Contelia, les images
 de chaque histoire permettront de les identifier clairement.
 
-### Communautaire
+### Communautaire {#sec-community}
 
 Il existe des packs d'histoires disponibles gratuitement dans
 [une communauté francophone][1] que vous pouvez rejoindre par l'intermédiaire
@@ -249,7 +249,7 @@ votre smartphone), les histoires que vous souhaitez charger dans Contelia.
 
 {{< pagebreak >}}
 
-#### Portail
+#### Portail {#sec-portal}
 
 Le portail (ou gestionnaire) Contelia se présente sous la forme d'un formulaire
 permettant de charger une histoire au format ZIP (ou une mise à jour de
@@ -285,15 +285,15 @@ histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
   Si vous supprimez une histoire, veillez à garder une copie sur votre
   ordinateur car cette opération n'est pas réversible.
 
-- Charger une [mise à jour][3] de Contelia.
+- Charger une une mise à jour de Contelia (consultez la @sec-update).
 
 ::: {.callout-note}
 Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
 :::
 
-## Navigation dans les menus
+## Navigation dans les menus {#sec-menus}
 
-Au démarrage, Contelia montre le premier livre ([s'il y en a au moins un](#premier-démarrage)).
+Au démarrage, Contelia montre le premier livre, voir @sec-firstrun.
 
 | Action                             | Description |
 | ---------------------------------- | ----------- |
@@ -410,9 +410,9 @@ Quand vous utilisez le Bluetooth, c'est une bonne idée de séparer la boîte
 dès le moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas
 utilisés pour le son, ils vont consommer de l'énergie inutilement.
 
-## Mises à jour
+## Mises à jour {#sec-update}
 
-La page de configuration [présentée ici][4], permet également de charger une
+La page de configuration présentée en @sec-portal, permet également de charger une
 mise à jour de la boîte à histoires. Pour se faire, il suffit de charger le
 fichier ZIP de la mise à jour au lieu du fichier ZIP d'une histoire.
 
@@ -423,6 +423,4 @@ Les mises à jour sont disponibles dans la section dédiée aux
 [téléchargements][2].
 
 [1]: https://monurl.ca/lunii.creations
-[2]: downloads.qmd
-[3]: manual.qmd#mises-à-jour
-[4]: manual.qmd#portail
+[2]: downloads.html#images-de-contelia-os
