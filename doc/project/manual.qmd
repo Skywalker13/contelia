@@ -4,6 +4,8 @@ subtitle: "Manuel d'utilisation de Contelia"
 lang: fr-CH
 ---
 
+{{< pagebreak >}}
+
 ## Contelia
 
 Contelia est conçu sous la forme de deux boîtes imbriquées. La boîte principale
@@ -26,6 +28,8 @@ Le câble USB enroulé sert uniquement à relier les haut-parleurs à la boîte 
 histoires.
 
 ![](images/cases.jpg){width=100%}
+
+{{< pagebreak >}}
 
 Observez bien les connecteurs de la boîte à histoires. Il est important de
 toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche.
@@ -217,7 +221,7 @@ boutons suivante&nbsp;:
 
 Pour quitter ce mode, procédez exactement de la même manière.
 
-![](images/041.jpg){width=100%}
+![](images/041.jpg){width=80% fig-align="center"}
 
 Si vous voyez bien le même écran que sur la photo ci-dessus, alors le mode
 configuration est activé et vous pouvez procéder aux modifications des histoires
@@ -243,6 +247,8 @@ internet. Cela implique que vous avez déjà préparé sur votre ordinateur (ou
 votre smartphone), les histoires que vous souhaitez charger dans Contelia.
 :::
 
+{{< pagebreak >}}
+
 #### Portail
 
 Le portail (ou gestionnaire) Contelia se présente sous la forme d'un formulaire
@@ -257,6 +263,8 @@ de la page).
 
 Dans la copie d'écran ci-dessus on peut voir que Contelia contient deux
 histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
+
+{{< pagebreak >}}
 
 **Fonctionnalités**
 
@@ -317,6 +325,8 @@ Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
 d'alimentation pendant plus de 2 secondes.
 :::
 
+{{< pagebreak >}}
+
 ## Audio
 
 Contelia peut être utilisée en dehors de sa boîte principale et sans les
@@ -337,7 +347,7 @@ vous faut aussi un adaptateur si votre casque utilise la norme USB-C.
 ::: {.callout-warning}
 Si vous avez un casque audio USB-C, n'essayez pas de le brancher sur la prise
 USB-C de Contelia car ça ne fonctionnera pas. La prise USB-C de Contelia est
-uniquement desténé à la recharge de la batterie.
+uniquement destinée à la recharge de la batterie.
 :::
 
 ![Casque USB connecté à l'adaptateur micro-USB de Contelia.](images/051.jpg)
@@ -367,7 +377,7 @@ suivante&nbsp;:
 2. Pressez **simultanément** les deux boutons
 3. Relâchez tout
 
-![](images/040.jpg){width=100%}
+![](images/040.jpg){width=80% fig-align="center"}
 
 ::: {.callout-note}
 Pour quitter ce mode, procédez exactement de la même manière.
