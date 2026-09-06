@@ -12,16 +12,11 @@ Contelia est conçu sous la forme de deux boîtes imbriquées. La boîte princip
 contient la boîte à histoires ainsi qu'une paire de haut-parleurs USB permettant
 directement l'écoute.
 
-Pour ouvrir la boîte, cherchez un petit décrochement au centre du côté le plus
-long et qui vous permet, avec un ongle, de séparer le couvercle. Celui-ci est
-maintenu avec l'aide de clips.
+Pour ouvrir la boîte principale, cherchez un petit décrochement au centre du
+côté le plus long et qui vous permet, avec un ongle, de séparer le couvercle.
+Celui-ci est maintenu avec l'aide de clips.
 
-::: {.callout-note}
-Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
-c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
-possible d'accéder au connecteur USB-C tant qu'elle est fermée. Voir la
-section @sec-battery.
-:::
+![](images/062.jpg){width=60% fig-align="center"}
 
 La boîte à histoires est simplement posée à l'intérieur de la boîte principale.
 Le câble USB enroulé sert uniquement à relier les haut-parleurs à la boîte à
@@ -29,7 +24,12 @@ histoires.
 
 ![](images/cases.jpg){width=100%}
 
-{{< pagebreak >}}
+::: {.callout-note}
+Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
+c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
+possible d'accéder au connecteur USB-C tant qu'elle est fermée. Voir la
+section @sec-battery.
+:::
 
 Observez bien les connecteurs de la boîte à histoires. Il est important de
 toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche.
@@ -42,9 +42,11 @@ comme étant inutilisé.
 ![](images/connectors.jpg){width=100%}
 
 ::: {.callout-warning}
-Ne branchez pas les haut-parleurs sur le connecteur micro-USB de droite car
-ça ne fonctionnera pas.
+Ne branchez pas les haut-parleurs sur le connecteur micro-USB de droite
+(biffé par une croix rouge) car ça ne fonctionnera pas.
 :::
+
+{{< pagebreak >}}
 
 ### Recharger la batterie {#sec-battery}
 
@@ -78,17 +80,18 @@ se fait avec les 4 lumières. Un meilleur indicateur est de simplement mettre
 la main sur le chargeur USB-C. Si après un certain temps, celui-ci n'est plus
 chaud, c'est qu'il ne charge plus rien et que vous pouvez alors le déconnecter.
 
+{{< pagebreak >}}
+
 ## Premier démarrage {#sec-firstrun}
 
-Le premier démarrage (**si aucun livre n'est chargé**) va simplement vous montrer
-l'écran suivant qui signifie que Contelia est en attente de livres.
+Le premier démarrage (**si aucun livre n'est chargé**) va simplement vous
+montrer l'écran suivant qui signifie que Contelia est en attente de livres.
 
 ![](images/bookshelf.png){width=20% fig-align="center"}
 
 Dans le cas contraire, le premier livre va s'afficher et (s'il y en a plus d'un)
 vous pouvez naviguer très simplement dans les livres (voir la section
-@sec-menus &nbsp;» pour plus
-de détails).
+@sec-menus pour plus de détails).
 
 ## Chargement des histoires
 

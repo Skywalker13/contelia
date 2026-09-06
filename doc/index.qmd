@@ -2,10 +2,13 @@
 title: "Contelia"
 subtitle: "Une boîte à histoires libre et open-source"
 lang: fr-CH
-abstract: Bienvenue sur le site de la boîte à histoires libre Contelia.
+abstract: Bienvenue sur le site de la boîte à histoires libre Contelia, une
+  boîte à histoires artisanale et complètement libre.
 ---
 
-![](images/contelia.jpg){width=100%}
+![](images/contelia.jpg){width=80% fig-align="center"}
+
+{{< pagebreak >}}
 
 Contelia s'inspire des boîtes à histoires du commerce mais avec une conviction
 différente&nbsp;: elle doit être libre, compréhensible, modifiable et évolutive.
@@ -16,18 +19,19 @@ vous voulez sans aucune limite à part la capacité de la mémoire sur la carte
 micro-SD (qui peut être changée en cas de besoin).
 
 Ce site internet a pour vocation de répondre aux besoins des acquéreurs de
-Contelia. Il existe aujourd'hui deux variantes de la boîte à histoires.
+Contelia. Sa distribution existe aujourd'hui sous la forme de deux variantes.
 
-La première variante est la version assemblée et prête à l'emploi. Dans ce cas,
-la section «&nbsp;[Prise en main][1]&nbsp;» permet de se familiariser avec son
-fonctionnement. C'est en quelque sorte le manuel utilisateur de Contelia.
+-- La première variante est la version assemblée et prête à l'emploi. Dans ce
+cas, la section «&nbsp;[**Prise en main**][1]&nbsp;» permet de se familiariser
+avec son fonctionnement. C'est en quelque sorte le manuel utilisateur de
+Contelia.
 
-La seconde variante concerne les acquéreurs du kit. La section
-«&nbsp;[Kit de montage][2]&nbsp;» présente toutes les étapes pour assembler
+-- La seconde variante concerne les acquéreurs du kit. La section
+«&nbsp;[**Kit de montage**][2]&nbsp;» présente toutes les étapes pour assembler
 Contelia. Cette section est aussi utile en cas de réparation. Elle permet de
 se familiariser avec ce qui est à l'intérieur de la boîte à histoires.
 
-## Evolution
+## Une boîte évolutive
 
 Cette boîte à histoire à un objectif à long terme. Une fois que l'enfant est
 plus grand, elle doit pouvoir être transformée en (par exemple) un simple
@@ -35,9 +39,9 @@ lecteur de musique (lecteur mp3), en lecteur de livre audio avec toutes les
 fonctionnalités attendues pour un produit de ce type (navigation par phrase,
 chapitre, vitesse de lecture variable, ...).
 
-Aujourd'hui c'est une boîte à histoires, les évolutions **ne sont pas disponible**
-pour le moment. Ce projet est avant tout un projet artisanal où son
-développement suit quelques règles&nbsp;:
+Aujourd'hui c'est une boîte à histoires, les évolutions **ne sont pas
+disponible** pour le moment. Ce projet est avant tout un projet artisanal où
+son développement suit quelques règles&nbsp;:
 
 - Libre autant que possible 
 - Fait par un humain pour les humains  
@@ -45,35 +49,19 @@ développement suit quelques règles&nbsp;:
 - Dans mon temps libre
 - Pour le plaisir
 
-## Libre et open-source
+## Complètement libre
 
-Cette boîte à histoire est aussi libre que possible...
+Cette boîte à histoire est aussi libre que possible.
 
-_Logiciel_ : le code source est entièrement disponible, les formats de contenu
-             sont ouverts et documentés. Elle est aussi compatible avec le format
-             propriétaire de Lunii. Le système d'exploitation peut entièrement
-             être recompilé par "n'importe qui".
+Le code source du logiciel est entièrement disponible, les formats de contenu
+sont ouverts et documentés. Elle est aussi compatible avec le format
+propriétaire de Lunii. Le système d'exploitation peut entièrement être
+recompilé par "n'importe qui".
 
-_Matériel_ : elle s'appuie sur des composants standards, modulables et
-             remplaçables.
+Le matériel utilisé est standard, modulable et remplaçable.
 
-_Boîtier_ : les modèles 3D sont publiés. "N'importe qui" peut les imprimer ou les
-            modifier à sa guise.
+Les modèles 3D du boîter sont publiés publiquement. "N'importe qui" peut les
+imprimer ou les modifier à sa guise.
 
-## Les composants
-
-Les composants utilisés aujourd'hui sont les suivants&nbsp;:
-
-- Cerveau (carte mère) : [Raspberry Pi Zero 2 W].
-- Interface : carte [Adafruit] avec écran et boutons physiques.
-- Alimentation : carte [PiSugar] avec batterie intégrée.
-- Son : haut-parleurs externes et support du Bluetooth.
-
-Cette liste n'est pas figée. A l'avenir, il pourrait y avoir d'autres composants
-ou d'autres variantes de cette boîte.
-
-[Raspberry Pi Zero 2 W]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
-[Adafruit]: https://www.adafruit.com/product/4506
-[PiSugar]: https://www.pisugar.com/products/pisugar-3-raspberry-pi-zero-battery
-[1]: /project/manual.html
-[2]: /project/kit.html
+[1]: manual.html
+[2]: kit.html

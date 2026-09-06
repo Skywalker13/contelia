@@ -26,9 +26,9 @@ composants de votre boîte à histoires Contelia.
   - Bouton d'alimentation (1×)
 - Vitre en plastique (1×)
 - Vis nylon (4×)
-- Carte Raspberry Pi Zero 2 WH (1×)
-- Carte Adafruit 1.3" TFT Bonnet avec son joystick en caoutchouc (1×)
-- Carte PiSugar 3 avec batterie (1×)
+- Carte [Raspberry Pi Zero 2 WH] (1×)
+- Carte [Adafruit 1.3" TFT Bonnet] avec son joystick en caoutchouc (1×)
+- Carte [PiSugar 3] avec batterie (1×)
 - Haut-parleurs USB (1×)
 - Câble adaptateur micro-USB / USB (1×)
 - Carte micro-SD de 64 GB avec son adaptateur SD (1×)
@@ -370,7 +370,7 @@ de force) légèrement le couvercle afin de faire rentrer le second clip.
 ::: {.content-visible when-format="pdf"}
 ![](images/clip.png){width=100%}
 
-[▶ Voir la vidéo en ligne](https://contelia.schroetersa.ch/project/kit.html)
+[▶ Voir la vidéo en ligne][3]
 :::
 
 ![](images/016.jpg){width=100%}
@@ -488,6 +488,10 @@ en place. Commencez par en haut à gauche et terminez de clipper en bas à droit
 
 Je vous invite à lire la documentation de [prise en main][1] de Contelia.
 
+[Raspberry Pi Zero 2 WH]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
+[Adafruit 1.3" TFT Bonnet]: https://www.adafruit.com/product/4506
+[PiSugar 3]: https://www.pisugar.com/products/pisugar-3-raspberry-pi-zero-battery
 [balenaEtcher]: https://etcher.balena.io/
 [1]: manual.html
 [2]: downloads.qmd#images-de-contelia-os
+[3]: kit.html#fermeture-de-la-boîte-à-encastrer

@@ -5,7 +5,7 @@ project:
 website:
   title: "Contelia"
   description: "Boîte à histoires"
-  favicon: favicon.ico
+  favicon: contelia.ico
 
   announcement: 
     content: "Ce site est en cours de construction"
