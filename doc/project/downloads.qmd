@@ -10,10 +10,13 @@ abstract: Une utilisation normal de Contelia ne nécessite pas de téléchargeme
 
 ## Pour les utilisateurs
 
-Des mises à jour des logiciels de Contelia sont disponibles lorsque des
+Des mises à jour du système Contelia sont disponibles lorsque des
 corrections ou de nouvelles fonctionnalités sont apportées. Etant donné
 que Contelia ne se connecte jamais à internet, c'est à vous d'effectuer la
 mise à jour en suivant [ce guide][6].
+
+Mise à jour
+: [carnotzet-os-contelia-1.0.7-rpiz2w.update.zip][3] (NON DISPONIBLE)
 
 ## Pour les bidouilleurs
 
@@ -27,13 +30,14 @@ pour vous documenter sur l'assemblage de Contelia.
 
 ### Images de Contelia OS
 
-_Contelia OS_ : [contelia-os-1.0.0.zip][2] (NON DISPONIBLE)
-
 L'installation doit se faire comme expliqué avec [le kit de montage][3]. En
 quelques mots, vous allez utiliser le logiciel balenaEtcher pour déployer
 l'image décompressée de Contelia OS sur la carte micro-SD. Il est important de
 se référer complètement au kit de montage jusqu'à ce que la boîte soit remontée
 proprement.
+
+Image complète
+: [carnotzet-os-contelia-1.0.7-rpiz2w.zip][2] (NON DISPONIBLE)
 
 ## Pour les développeurs et les makers
 
@@ -72,4 +76,4 @@ que cela change à l'avenir.
 [FreeCAD]: https://www.freecad.org/
 [5]: https://xcraft.ch/carnotzet/index.html
 [hacker]: https://fr.wikipedia.org/wiki/Hacker_(sous-culture)
-[6]: manual.html#mises-à-jour
+[6]: manual.html#sec-update

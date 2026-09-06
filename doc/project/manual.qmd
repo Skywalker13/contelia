@@ -267,6 +267,12 @@ de la page).
 Dans la copie d'écran ci-dessus on peut voir que Contelia contient deux
 histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
 
+::: {.callout-note}
+Si le bouton "Parcourir..." (qui permet de sélectionner le fichier ZIP depuis
+votre ordinateur) ne fonctionne pas, c'est certainement que vous ne visualisez
+pas ce portail depuis votre navigateur internet habituel.
+:::
+
 {{< pagebreak >}}
 
 **Fonctionnalités**
@@ -419,11 +425,22 @@ La page de configuration présentée en @sec-portal, permet également de charge
 mise à jour de la boîte à histoires. Pour se faire, il suffit de charger le
 fichier ZIP de la mise à jour au lieu du fichier ZIP d'une histoire.
 
+Tout d'abord, vérifiez la version du logiciel depuis la page de configuration,
+elle est indiquée en dessous du titre (comme l'exemple ci-dessous).
+
+![](images/update.png){.border width=60% fig-align="center"}
+
 Une fois les mises à jour appliquées, Contelia va automatiquement redémarrer
 et désactiver son réseau Wifi.
 
 Les mises à jour sont disponibles dans la section dédiée aux
 [téléchargements][2].
+
+::: {.callout-caution}
+Lors des mises à jour, il est **impératif** de connecter la boîte à histoires
+à un câble USB-C afin de garantir qu'il n'y aura pas de coupure. Une mise à
+jour peut être très gourmande en énergie.
+:::
 
 [1]: https://monurl.ca/lunii.creations
 [2]: downloads.html#images-de-contelia-os
