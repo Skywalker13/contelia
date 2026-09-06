@@ -273,8 +273,6 @@ votre ordinateur) ne fonctionne pas, c'est certainement que vous ne visualisez
 pas ce portail depuis votre navigateur internet habituel.
 :::
 
-{{< pagebreak >}}
-
 **Fonctionnalités**
 
 - Charger une nouvelle histoire avec le formulaire en tête de page.  
