@@ -7,10 +7,10 @@ website:
   description: "Boîte à histoires"
   favicon: contelia.ico
 
-  announcement: 
-    content: "Ce site est en cours de construction"
-    position: below-navbar
-    dismissable: false
+  # announcement: 
+  #   content: "Ce site est en cours de construction"
+  #   position: below-navbar
+  #   dismissable: false
 
   navbar:
     logo: images/contelia-256.png

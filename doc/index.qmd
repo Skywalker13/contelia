@@ -63,5 +63,5 @@ Le matériel utilisé est standard, modulable et remplaçable.
 Les modèles 3D du boîter sont publiés publiquement. "N'importe qui" peut les
 imprimer ou les modifier à sa guise.
 
-[1]: manual.html
-[2]: kit.html
+[1]: project/manual.html
+[2]: project/kit.html
