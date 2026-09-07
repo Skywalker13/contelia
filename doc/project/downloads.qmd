@@ -16,7 +16,7 @@ que Contelia ne se connecte jamais à internet, c'est à vous d'effectuer la
 mise à jour en suivant [ce guide][6].
 
 Mise à jour
-: [carnotzet-os-contelia-1.0.7-rpiz2w.update.zip][3] (NON DISPONIBLE)
+: [carnotzet-os-contelia-1.0.8-rpiz2w.update.zip][7]
 
 ## Pour les bidouilleurs
 
@@ -37,7 +37,7 @@ se référer complètement au kit de montage jusqu'à ce que la boîte soit remo
 proprement.
 
 Image complète
-: [carnotzet-os-contelia-1.0.7-rpiz2w.zip][2] (NON DISPONIBLE)
+: [carnotzet-os-contelia-1.0.8-rpiz2w.zip][2]
 
 ## Pour les développeurs et les makers
 
@@ -70,10 +70,11 @@ que cela change à l'avenir.
 :::
 
 [1]: sd.html
-[2]: /downloads/contelia-os-1.0.0.zip
+[2]: https://schroetersa.ch/downloads/carnotzet-os-contelia-1.0.8-rpiz2w.zip
 [3]: kit.html#préparation
 [4]: https://github.com/Skywalker13/contelia
 [FreeCAD]: https://www.freecad.org/
 [5]: https://xcraft.ch/carnotzet/index.html
 [hacker]: https://fr.wikipedia.org/wiki/Hacker_(sous-culture)
 [6]: manual.html#sec-update
+[7]: https://schroetersa.ch/downloads/carnotzet-os-contelia-1.0.8-rpiz2w.update.zip
