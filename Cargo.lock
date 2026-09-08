@@ -547,7 +547,7 @@ dependencies = [
 
 [[package]]
 name = "contelia"
-version = "0.10.9"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "async-io",
