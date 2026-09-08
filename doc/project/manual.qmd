@@ -2,6 +2,11 @@
 title: "Prise en main"
 subtitle: "Manuel d'utilisation de Contelia"
 lang: fr-CH
+date: today
+date-format: "D MMMM YYYY"
+abstract: Ce manuel couvre l'ensemble des fonctionalités de Contelia. Vous
+  trouverez la version la plus à jour sur
+  [contelia.schroetersa.ch](https://contelia.schroetersa.ch).
 ---
 
 {{< pagebreak >}}

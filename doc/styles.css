@@ -1,7 +1,8 @@
 body {
   background-color: #d0cfcf;
-  font-family: 'Linux Libertine', 'Palatino', 'Georgia', serif;
-  font-size: 110%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 100%;
 }
 
 #quarto-content main,
@@ -19,7 +20,8 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Linux Libertine', 'Palatino', 'Georgia', serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: bold;
 }
 

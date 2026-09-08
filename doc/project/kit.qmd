@@ -1,10 +1,13 @@
 ---
 title: "Kit de montage"
-subtitle: "Assemblage de sa propre boîte à histoires"
+subtitle: "Assemblage de Contelia"
 lang: fr-CH
+date: today
+date-format: "D MMMM YYYY"
 abstract: Ce document présente pas à pas l'assemblage de la boîte à histoires.
   Vous pouvez vous y référer si vous souhaitez effectuer des modifications ou
-  des réparations. Tous les composants sont remplaçables.
+  des réparations. La version la plus à jour de ce document se trouve sur
+  [contelia.schroetersa.ch](https://contelia.schroetersa.ch).
 ---
 
 {{< pagebreak >}}
