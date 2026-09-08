@@ -102,21 +102,21 @@
     "href": "project/downloads.html",
     "title": "Téléchargements",
     "section": "",
-    "text": "Des mises à jour du système Contelia sont disponibles lorsque des corrections ou de nouvelles fonctionnalités sont apportées. Etant donné que Contelia ne se connecte jamais à internet, c’est à vous d’effectuer la mise à jour en suivant ce guide.\n\nMise à jour\n\ncarnotzet-os-contelia-1.0.8-rpiz2w.update.zip"
+    "text": "Des mises à jour du système Contelia sont disponibles lorsque des corrections ou de nouvelles fonctionnalités sont apportées. Etant donné que Contelia ne se connecte jamais à internet, c’est à vous d’effectuer la mise à jour en suivant ce guide.\n\nMise à jour\n\ncarnotzet-os-contelia-1.1.0-rpiz2w.update.zip"
   },
   {
     "objectID": "project/downloads.html#pour-les-utilisateurs",
     "href": "project/downloads.html#pour-les-utilisateurs",
     "title": "Téléchargements",
     "section": "",
-    "text": "Des mises à jour du système Contelia sont disponibles lorsque des corrections ou de nouvelles fonctionnalités sont apportées. Etant donné que Contelia ne se connecte jamais à internet, c’est à vous d’effectuer la mise à jour en suivant ce guide.\n\nMise à jour\n\ncarnotzet-os-contelia-1.0.8-rpiz2w.update.zip"
+    "text": "Des mises à jour du système Contelia sont disponibles lorsque des corrections ou de nouvelles fonctionnalités sont apportées. Etant donné que Contelia ne se connecte jamais à internet, c’est à vous d’effectuer la mise à jour en suivant ce guide.\n\nMise à jour\n\ncarnotzet-os-contelia-1.1.0-rpiz2w.update.zip"
   },
   {
     "objectID": "project/downloads.html#pour-les-bidouilleurs",
     "href": "project/downloads.html#pour-les-bidouilleurs",
     "title": "Téléchargements",
     "section": "2 Pour les bidouilleurs",
-    "text": "2 Pour les bidouilleurs\nLa boîte à histoire contient une carte micro-SD préinstallée et qui peut être changée ou réinstallée avec une nouvelle version de Contelia OS, voir même votre propre OS (si vous avez l’âme d’un hacker).\nPour accéder à la carte micro-SD, il est nécessaire de démonter partiellement la boîte à histoire. Je vous invite à consulter le guide du kit de montage pour vous documenter sur l’assemblage de Contelia.\n\n2.1 Images de Contelia OS\nL’installation doit se faire comme expliqué avec le kit de montage. En quelques mots, vous allez utiliser le logiciel balenaEtcher pour déployer l’image décompressée de Contelia OS sur la carte micro-SD. Il est important de se référer complètement au kit de montage jusqu’à ce que la boîte soit remontée proprement.\n\nImage complète\n\ncarnotzet-os-contelia-1.0.8-rpiz2w.zip"
+    "text": "2 Pour les bidouilleurs\nLa boîte à histoire contient une carte micro-SD préinstallée et qui peut être changée ou réinstallée avec une nouvelle version de Contelia OS, voir même votre propre OS (si vous avez l’âme d’un hacker).\nPour accéder à la carte micro-SD, il est nécessaire de démonter partiellement la boîte à histoire. Je vous invite à consulter le guide du kit de montage pour vous documenter sur l’assemblage de Contelia.\n\n2.1 Images de Contelia OS\nL’installation doit se faire comme expliqué avec le kit de montage. En quelques mots, vous allez utiliser le logiciel balenaEtcher pour déployer l’image décompressée de Contelia OS sur la carte micro-SD. Il est important de se référer complètement au kit de montage jusqu’à ce que la boîte soit remontée proprement.\n\nImage complète\n\ncarnotzet-os-contelia-1.1.0-rpiz2w.zip"
   },
   {
     "objectID": "project/downloads.html#pour-les-développeurs-et-les-makers",
