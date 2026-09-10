@@ -185,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#assemblage-des-cartes-raspberry-pi-et-adafruit" id="toc-assemblage-des-cartes-raspberry-pi-et-adafruit" class="nav-link" data-scroll-target="#assemblage-des-cartes-raspberry-pi-et-adafruit"><span class="header-section-number">3.3</span> Assemblage des cartes Raspberry Pi et Adafruit</a></li>
   <li><a href="#assemblage-temporaire" id="toc-assemblage-temporaire" class="nav-link" data-scroll-target="#assemblage-temporaire"><span class="header-section-number">3.4</span> Assemblage temporaire</a></li>
   <li><a href="#assemblage-de-la-carte-pisugar-3" id="toc-assemblage-de-la-carte-pisugar-3" class="nav-link" data-scroll-target="#assemblage-de-la-carte-pisugar-3"><span class="header-section-number">3.5</span> Assemblage de la carte PiSugar 3</a></li>
-  <li><a href="#fermeture-de-la-boîte-à-encastrer" id="toc-fermeture-de-la-boîte-à-encastrer" class="nav-link" data-scroll-target="#fermeture-de-la-boîte-à-encastrer"><span class="header-section-number">3.6</span> Fermeture de la boîte à encastrer</a></li>
+  <li><a href="#sec-cover" id="toc-sec-cover" class="nav-link" data-scroll-target="#sec-cover"><span class="header-section-number">3.6</span> Fermeture de la boîte à encastrer</a></li>
   <li><a href="#mise-en-place-de-la-boîte-principale" id="toc-mise-en-place-de-la-boîte-principale" class="nav-link" data-scroll-target="#mise-en-place-de-la-boîte-principale"><span class="header-section-number">3.7</span> Mise en place de la boîte principale</a></li>
   </ul></li>
   <li><a href="#bravo-vous-avez-terminé" id="toc-bravo-vous-avez-terminé" class="nav-link" data-scroll-target="#bravo-vous-avez-terminé"><span class="header-section-number">4</span> Bravo, vous avez terminé</a></li>
@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Date de publication</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">8 septembre 2026</p>
+      <p class="date">10 septembre 2026</p>
     </div>
   </div>
   
@@ -272,9 +272,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="b.-ligne-de-commande" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="b.-ligne-de-commande"><span class="header-section-number">2.2</span> B. Ligne de commande</h3>
 <p>Si votre système d’exploitation est Linux ou macOS, je ne recommande pas l’utilisation de <a href="https://etcher.balena.io/">balenaEtcher</a> car c’est comme utiliser un canon pour écraser une mouche. Le déploiement de Contelia OS est très simple et ne nécessite aucune subtilité. Vous pouvez utiliser (en root comme les vrais) la commande <code>dd</code> pour faire ce travail.</p>
+<div style="page-break-after: always;"></div>
 <p><strong>Linux</strong></p>
 <p>Sous Linux, identifiez l’adresse de votre carte micro-SD avec la commande dmesg.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmesg</span> <span class="kw">|</span> <span class="fu">grep</span> sd</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmesg</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-e</span> sd <span class="at">-e</span> mmc</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Qui par exemple, pourrait vous retourner ceci :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sd</span> 6:0:0:0: <span class="pp">[</span><span class="ss">sde</span><span class="pp">]</span> 249737216 512-byte logical blocks: <span class="er">(</span><span class="ex">128</span> GB/119 GiB<span class="kw">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sde:</span> detected capacity change from 0 to 249737216</span>
@@ -329,7 +330,7 @@ Note
 <p><img src="images/003.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Posez la carte de telle manière que la batterie se situe en dessous. Vous devriez constater que les 4 trous filetés ont un autocollant semi-transparent orange collé dessus.</p>
 <p><img src="images/004.jpg" class="img-fluid" style="width:100.0%"></p>
-<p>Vous devez enlever ces 4 autocollants sinon il ne sera pas possible de visser les cartes entre elles le temps venu. Pour y parvenir, utilisez (par exemple) la lame d’un cutter afin de soulever délicatement chaque autocollant. Vous pouvez également utiliser une vis que vous insérer dans le côté opposé et qui, en se vissant, décollera simplement l’autocollant.</p>
+<p>Vous devez enlever ces 4 autocollants sinon il ne sera pas possible de visser les cartes entre elles le temps venu. Pour y parvenir, utilisez (par exemple) la lame d’un cutter afin de soulever délicatement chaque autocollant. Vous pouvez également utiliser une vis que vous insérez dans le côté opposé et qui, en se vissant, décollera simplement l’autocollant.</p>
 <p><img src="images/060.jpg" class="img-fluid" style="width:100.0%"></p>
 <p><img src="images/005.jpg" class="img-fluid" style="width:100.0%"></p>
 </section>
@@ -422,6 +423,7 @@ Note
 <p><img src="images/013.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
+<div style="page-break-after: always;"></div>
 <p>Tout en gardant bien en place avec une main, le trio de cartes (je vous rappelle d’éviter autant que possible de presser sur l’écran de la carte Adafruit), commencez par visser (en croix) les vis nylons. Vissez bien en croix et gentiment afin que les cartes restent toujours bien plaquées. Ne serrez pas comme un sourd car vous risqueriez d’abîmer le filetage des vis. Mais serrez fermement car il faut garantir les appuis avec les contacts de la carte Raspberry Pi.</p>
 <p><img src="images/014.jpg" class="img-fluid" style="width:100.0%"></p>
 <section id="démarrage-de-test" class="level4" data-number="3.5.1">
@@ -429,8 +431,8 @@ Note
 <p>Une fois que tout est bien vissé, il est judicieux d’effectuer un nouveau démarrage de test afin de s’assurer que l’alimentation fonctionne bien entre les deux cartes. En principe il n’est pas nécessaire de connecter le câble USB-C. Pressez simplement sur le bouton d’alimentation, attendez quelques secondes (moins de 10 secondes). L’écran devrait afficher à nouveau une image de livres, puis Contelia va s’éteindre automatiquement après 20 secondes.</p>
 </section>
 </section>
-<section id="fermeture-de-la-boîte-à-encastrer" class="level3" data-number="3.6">
-<h3 data-number="3.6" class="anchored" data-anchor-id="fermeture-de-la-boîte-à-encastrer"><span class="header-section-number">3.6</span> Fermeture de la boîte à encastrer</h3>
+<section id="sec-cover" class="level3" data-number="3.6">
+<h3 data-number="3.6" class="anchored" data-anchor-id="sec-cover"><span class="header-section-number">3.6</span> Fermeture de la boîte à encastrer</h3>
 <p><strong>Couvercle inférieur</strong></p>
 <p>Vous avez deux couvercles à disposition. Le couvercle plein sert évidemment à fermer l’ouverture sur la batterie. Regardez bien ce couvercle car il est asymétrique. Positionnez le bien dans la bonne orientation.</p>
 <p><img src="images/015.jpg" class="img-fluid" style="width:100.0%"></p>
@@ -470,7 +472,7 @@ Note
 <p><img src="images/020.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Déposez alors les deux boutons poussoir comme indiqué sur la photo. Si vous n’y arrivez pas car c’est un jeu d’équilibrisme, vous pouvez procéder comme avec le bouton d’alimentation en utilisant du papier collant en faisant tenir les boutons directement sur le couvercle (en les faisant passer à travers les trous au préalable évidemment).</p>
 <p><img src="images/021.jpg" class="img-fluid" style="width:100.0%"></p>
-<p>Fixez le couvercle supérieur de la même manière <a href="#fermeture-de-la-boîte-à-encastrer">que pour le couvercle inférieur</a> (en courbant légèrement celui-ci).</p>
+<p>Fixez le couvercle supérieur de la même manière que pour le couvercle inférieur comme expliqué à la <a href="#sec-cover" class="quarto-xref">Section&nbsp;3.6</a> (en courbant légèrement celui-ci).</p>
 <p>Votre petite boîte à histoire est prête.</p>
 <p><img src="images/023.jpg" class="img-fluid" style="width:100.0%"></p>
 </section>

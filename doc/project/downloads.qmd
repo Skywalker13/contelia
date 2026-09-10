@@ -60,7 +60,7 @@ d'exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour
 des projets annexes). Le système de base se nomme [Carnotzet OS][5].
 
 Xcraft est un projet vaste et complexe. Compiler Contelia OS de zéro est tout
-a fait possible pour n'importe qui, qui est alaise avec les outils de
+a fait possible pour n'importe qui, qui est à l'aise avec les outils de
 développement et les concepts sous-jacents comme le packaging, la
 compilation croisée, etc.
 

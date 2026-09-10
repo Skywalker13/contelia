@@ -32,8 +32,8 @@ histoires.
 ::: {.callout-note}
 Si vous vous demandez pourquoi est-ce important de savoir ouvrir la boîte,
 c'est tout simplement pour pouvoir la recharger. En effet, il n'est pas
-possible d'accéder au connecteur USB-C tant qu'elle est fermée. Voir la
-section @sec-battery.
+possible d'accéder au connecteur USB-C tant qu'elle est fermée;
+voir la @sec-battery.
 :::
 
 Observez bien les connecteurs de la boîte à histoires. Il est important de
@@ -95,8 +95,8 @@ montrer l'écran suivant qui signifie que Contelia est en attente de livres.
 ![](images/bookshelf.png){width=20% fig-align="center"}
 
 Dans le cas contraire, le premier livre va s'afficher et (s'il y en a plus d'un)
-vous pouvez naviguer très simplement dans les livres (voir la section
-@sec-menus pour plus de détails).
+vous pouvez naviguer très simplement dans les livres (voir la @sec-menus pour
+plus de détails).
 
 ## Chargement des histoires
 
@@ -123,7 +123,7 @@ tout comme je ne suis pas créateur d'histoires.
 ### Lunii
 
 Si vous n'avez pas de boîte à histoires Lunii, vous pouvez sauter ce chapitre
-et directement passer au chapitre @sec-community.
+et directement passer à la @sec-community.
 
 ![](images/lunii/lunii.jpg){width=100%}
 
@@ -190,6 +190,10 @@ de chaque histoire permettront de les identifier clairement.
 Il existe des packs d'histoires disponibles gratuitement dans
 [une communauté francophone][1] que vous pouvez rejoindre par l'intermédiaire
 du logiciel **Discord**.
+
+::: {.content-visible when-format="pdf"}
+▶ [https://monurl.ca/lunii.creations][1]
+:::
 
 ::: {.callout-note}
 Discord est une plateforme de messagerie instantanée. Il est possible de
@@ -305,7 +309,7 @@ Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
 
 ## Navigation dans les menus {#sec-menus}
 
-Au démarrage, Contelia montre le premier livre, voir @sec-firstrun.
+Au démarrage, Contelia montre le premier livre, voir la @sec-firstrun.
 
 | Action                             | Description |
 | ---------------------------------- | ----------- |
@@ -439,6 +443,10 @@ et désactiver son réseau Wifi.
 Les mises à jour sont disponibles dans la section dédiée aux
 [téléchargements][2].
 
+::: {.content-visible when-format="pdf"}
+▶ [https://contelia.schroetersa.ch/project/downloads.html][2]
+:::
+
 ::: {.callout-caution}
 Lors des mises à jour, il est **impératif** de connecter la boîte à histoires
 à un câble USB-C afin de garantir qu'il n'y aura pas de coupure. Une mise à
@@ -446,4 +454,4 @@ jour peut être très gourmande en énergie.
 :::
 
 [1]: https://monurl.ca/lunii.creations
-[2]: downloads.html#images-de-contelia-os
+[2]: downloads.html

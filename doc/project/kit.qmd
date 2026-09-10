@@ -52,6 +52,10 @@ déployer l'image sur votre carte micro-SD.
 Avant tout, vous devez télécharger la dernière version de Contelia OS, que vous
 trouverez à la [page des téléchargements][2].
 
+::: {.content-visible when-format="pdf"}
+▶ [https://contelia.schroetersa.ch/project/downloads.html][2]
+:::
+
 ### A. balenaEtcher
 
 Le logiciel [balenaEtcher] est un outil graphique très connu permettant de
@@ -63,6 +67,10 @@ assez vite vous en sortir. Un avantage de l'utiliser par rapport à une ligne de
 commande, c'est qu'il y a moins de risques de faire une bêtise en écrivant
 l'image sur le mauvais périphérique.
 
+::: {.content-visible when-format="pdf"}
+▶ [https://etcher.balena.io][balenaEtcher]
+:::
+
 ![](images/balena.png){width=100%}
 
 ### B. Ligne de commande
@@ -73,12 +81,14 @@ une mouche. Le déploiement de Contelia OS est très simple et ne nécessite auc
 subtilité. Vous pouvez utiliser (en root comme les vrais) la commande `dd` pour
 faire ce travail.
 
+{{< pagebreak >}}
+
 **Linux**
 
 Sous Linux, identifiez l'adresse de votre carte micro-SD avec la commande dmesg.
 
 ```bash
-dmesg | grep sd
+dmesg | grep -e sd -e mmc
 ```
 
 Qui par exemple, pourrait vous retourner ceci :
@@ -175,7 +185,7 @@ orange collé dessus.
 Vous devez enlever ces 4 autocollants sinon il ne sera pas possible de visser
 les cartes entre elles le temps venu. Pour y parvenir, utilisez (par exemple) la
 lame d'un cutter afin de soulever délicatement chaque autocollant. Vous pouvez
-également utiliser une vis que vous insérer dans le côté opposé et qui, en se
+également utiliser une vis que vous insérez dans le côté opposé et qui, en se
 vissant, décollera simplement l'autocollant.
 
 ![](images/060.jpg){width=100%}
@@ -327,6 +337,8 @@ de la PiSugar) devraient être alignés avec les trous du boîtier.
 
 ![](images/013.jpg){width=80% fig-align="center"}
 
+{{< pagebreak >}}
+
 Tout en gardant bien en place avec une main, le trio de cartes (je vous rappelle
 d'éviter autant que possible de presser sur l'écran de la carte Adafruit),
 commencez par visser (en croix) les vis nylons. Vissez bien en croix et
@@ -346,7 +358,7 @@ USB-C. Pressez simplement sur le bouton d'alimentation, attendez quelques
 secondes (moins de 10 secondes). L'écran devrait afficher à nouveau une image
 de livres, puis Contelia va s'éteindre automatiquement après 20 secondes.
 
-### Fermeture de la boîte à encastrer
+### Fermeture de la boîte à encastrer {#sec-cover}
 
 **Couvercle inférieur**
 
@@ -373,7 +385,8 @@ de force) légèrement le couvercle afin de faire rentrer le second clip.
 ::: {.content-visible when-format="pdf"}
 ![](images/clip.png){width=100%}
 
-[▶ Voir la vidéo en ligne][3]
+▶ Voir la vidéo en ligne  
+[https://contelia.schroetersa.ch/project/kit.html#fermeture-de-la-boîte-à-encastrer][3]
 :::
 
 ![](images/016.jpg){width=100%}
@@ -418,9 +431,8 @@ au préalable évidemment).
 
 ![](images/021.jpg){width=100%}
 
-Fixez le couvercle supérieur de la même manière
-[que pour le couvercle inférieur](#fermeture-de-la-boîte-à-encastrer)
-(en courbant légèrement celui-ci).
+Fixez le couvercle supérieur de la même manière que pour le couvercle inférieur
+comme expliqué à la @sec-cover (en courbant légèrement celui-ci).
 
 Votre petite boîte à histoire est prête.
 
