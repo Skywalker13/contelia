@@ -85,6 +85,12 @@ se fait avec les 4 lumières. Un meilleur indicateur est de simplement mettre
 la main sur le chargeur USB-C. Si après un certain temps, celui-ci n'est plus
 chaud, c'est qu'il ne charge plus rien et que vous pouvez alors le déconnecter.
 
+::: {.callout-warning}
+Lorsque le niveau de la batterie est bas, Contelia va s'éteindre sans aucun
+avertissement. Ce comportement est destiné à évoluer dans de prochaines
+versions.
+:::
+
 {{< pagebreak >}}
 
 ## Premier démarrage {#sec-firstrun}
@@ -438,7 +444,8 @@ elle est indiquée en dessous du titre (comme l'exemple ci-dessous).
 ![](images/update.png){.border width=60% fig-align="center"}
 
 Une fois les mises à jour appliquées, Contelia va automatiquement redémarrer
-et désactiver son réseau Wifi.
+et désactiver son réseau Wifi. **Attendez** que Contelia s'éteind d'elle même
+avant de l'utiliser.
 
 Les mises à jour sont disponibles dans la section dédiée aux
 [téléchargements][2].

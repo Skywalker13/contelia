@@ -106,7 +106,8 @@ détruire un de vos périphériques. Rappelez-vous que `if` signifie Input File,
 `of` signifie Output File.
 
 ```bash
-# Veuillez remplacer ici le sdX par le numéro qui correspond à votre carte
+# Veuillez remplacer ici le sdX par le numéro qui
+# correspond à votre carte
 dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
    of=/dev/sdX bs=1M status=progress
 ```
@@ -119,8 +120,8 @@ Linux, faites attention avec les `if=` et `of=`.
 ```bash
 diskutil list
 
-# Démontez la carte micro-SD (remplacer diskX par le bon identifiant),
-# puis flashez
+# Démontez la carte micro-SD (remplacer diskX par
+# le bon identifiant), puis flashez
 diskutil unmountDisk /dev/diskX
 dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
    of=/dev/diskX bs=1m status=progress
@@ -279,8 +280,8 @@ Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour
 enfin afficher l'image de livres (comme ci-dessous) et s'éteindre d'elle même
 après 20 secondes (tout le processus devrait se passer en moins d'une minute).
 Débranchez alors le câble USB-C et dévissez toutes les vis et ne séparez pas
-la carte àcran de la carte Raspberry Pi (ne touchez surtout pas au bouton
-d'alimentation dd la carte PiSugar pendant le démontage). Pour la suite, il
+la carte écran de la carte Raspberry Pi (ne touchez surtout pas au bouton
+d'alimentation de la carte PiSugar pendant le démontage). Pour la suite, il
 est nécessaire de monter la PiSugar séparément des deux autres cartes.
 
 ![](images/025.jpg){width=100%}
