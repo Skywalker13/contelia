@@ -21,6 +21,8 @@ website:
         text: Kit de montage
       - href: project/downloads.qmd
         text: Téléchargements
+      - href: project/tech.qmd
+        text: Technique
     right:
       - icon: github
         href: https://github.com/Skywalker13/contelia

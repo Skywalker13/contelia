@@ -28,6 +28,41 @@
     "text": "4 Bravo, vous avez terminé\nJe vous invite à lire la documentation de prise en main de Contelia."
   },
   {
+    "objectID": "project/tech.html",
+    "href": "project/tech.html",
+    "title": "Technique",
+    "section": "",
+    "text": "Contelia est entièrement construit sur des logiciels libres. Les logiciels proviennent de nombreuses sources et ensemble ils permettent de former ce qu’on nomme une distribution Linux. Ici, c’est une distribution GNU/Linux maison qui a été construite à l’aide du toolchain Xcraft (non documenté).\nLes recettes de constructions des logiciels sont hébergées à cette adresse :\nhttps://github.com/Xcraft-Inc/packages\n\n\n\n\n\n\nNote\n\n\n\nUne toute petite portion des logiciels ne sont malheureusement pas libres. Ce sont ce qu’on appel les firmwares. Ils sont nécessaires pour faire fonctionner la carte Raspberry Pi Zero 2 W. Il n’existe pas de substituts libres. Heureusement, c’est une minorité sur l’ensemble du projet.\n\n\nCarnotzet OS 1.1.0 (Contelia)\n\n\n\nLogiciel\nVersion\n\n\n\n\nadler+zlib-rpi64-x+bin\n1.3.1-7\n\n\nalsa+lib-rpi64-x+bin\n1.2.14-5\n\n\nalsa+ucm-conf-rpi64-x+bin\n1.2.14-3\n\n\nalsa+utils-rpi64-x+bin\n1.2.14-5\n\n\nangelacos+haserl-rpi64-x+bin\n0.9.27\n\n\narkq+bluez-alsa-rpi64-x+bin\n5.0.0-2fa7fb0\n\n\ncarnotzet+contelia-rpi64-x+bin\n1.0.0\n\n\ncarnotzet+os-base-contelia-rpiz2w-x+bin\n0.1.0-6\n\n\ncarnotzet+os-config-contelia-rpiz2w-x+bin\n1.1.0\n\n\ncarnotzet+rescuefs-contelia-rpiz2w-x+bin\n0.1.0-7\n\n\ncarnotzet+rootfs-contelia-rpiz2w-x+bin\n0.2.0-2\n\n\ndebian+ca-certificate-rpi64-x+bin\n1.0.0-9\n\n\ndosfstools+dosfstools-rpi64-x+bin\n4.2-8\n\n\nfreedesktop+libdbus-rpi64-x+bin\n1.16.2-26\n\n\ngnome+glib-rpi64-x+bin\n2.87.2-11\n\n\ngnu+glibc-rpi64-x+bin\n2.41-12\n\n\ngnu+groff-rpi64-x+bin\n1.24.1-4\n\n\ngnu+libncurses-rpi64-x+tinfo\n6.6\n\n\ngnu+libstdcxx-rpi64-x+bin\n13.3.0-7\n\n\ninfozip+zip-rpi64-x+bin\n3.0-3\n\n\nkelley+dnsmasq-rpi64-x+bin\n2.91\n\n\nlibffi+libffi-rpi64-x+bin\n3.5.2-4\n\n\nlinux+bluez-rpi64-x+bin\n5.66\n\n\nlinux+util-linux-rpi64-x+bin\n2.41.1-22\n\n\nmalinen+hostapd-rpi64-x+bin\n2.11\n\n\nmalinen+wpa-supplicant-rpi64-x+bin\n2.10-6\n\n\nopenssl+openssl3-rpi64-x+bin\n3.5.0-9\n\n\npisugar+pisugar-tools-rpi64-x+bin\n2.3.2-14\n\n\nraspberry+firmware-rpiz2w-x+bin\n1.20250915\n\n\nraspberry+linux-firmware-rpiz2w-x+bin\n20250917\n\n\nraspberry+linux-kernel-contelia-rpiz2w-x+bin\n6.12.100-2946b3f\n\n\nraspberry+linux-kernel-contelia-rpiz2w-x+modules\n6.12.100-2946b3f\n\n\nraspberry+uboot-rpiz2w-x+bin\n2026.04\n\n\nstedolan+jq-rpi64-x+bin\n1.7\n\n\ntytso+e2fsprogs-rpi64-x+bin\n1.47.4\n\n\nunigw+wpkg-rpi64-x+bin\n1.0.2-30\n\n\nvlasenko+busybox-rpi64-x+bin\n1.37.0-38\n\n\nvlasenko+busybox-rpi64-x+httpd\n1.37.0-38"
+  },
+  {
+    "objectID": "project/tech.html#logiciels",
+    "href": "project/tech.html#logiciels",
+    "title": "Technique",
+    "section": "",
+    "text": "Contelia est entièrement construit sur des logiciels libres. Les logiciels proviennent de nombreuses sources et ensemble ils permettent de former ce qu’on nomme une distribution Linux. Ici, c’est une distribution GNU/Linux maison qui a été construite à l’aide du toolchain Xcraft (non documenté).\nLes recettes de constructions des logiciels sont hébergées à cette adresse :\nhttps://github.com/Xcraft-Inc/packages\n\n\n\n\n\n\nNote\n\n\n\nUne toute petite portion des logiciels ne sont malheureusement pas libres. Ce sont ce qu’on appel les firmwares. Ils sont nécessaires pour faire fonctionner la carte Raspberry Pi Zero 2 W. Il n’existe pas de substituts libres. Heureusement, c’est une minorité sur l’ensemble du projet.\n\n\nCarnotzet OS 1.1.0 (Contelia)\n\n\n\nLogiciel\nVersion\n\n\n\n\nadler+zlib-rpi64-x+bin\n1.3.1-7\n\n\nalsa+lib-rpi64-x+bin\n1.2.14-5\n\n\nalsa+ucm-conf-rpi64-x+bin\n1.2.14-3\n\n\nalsa+utils-rpi64-x+bin\n1.2.14-5\n\n\nangelacos+haserl-rpi64-x+bin\n0.9.27\n\n\narkq+bluez-alsa-rpi64-x+bin\n5.0.0-2fa7fb0\n\n\ncarnotzet+contelia-rpi64-x+bin\n1.0.0\n\n\ncarnotzet+os-base-contelia-rpiz2w-x+bin\n0.1.0-6\n\n\ncarnotzet+os-config-contelia-rpiz2w-x+bin\n1.1.0\n\n\ncarnotzet+rescuefs-contelia-rpiz2w-x+bin\n0.1.0-7\n\n\ncarnotzet+rootfs-contelia-rpiz2w-x+bin\n0.2.0-2\n\n\ndebian+ca-certificate-rpi64-x+bin\n1.0.0-9\n\n\ndosfstools+dosfstools-rpi64-x+bin\n4.2-8\n\n\nfreedesktop+libdbus-rpi64-x+bin\n1.16.2-26\n\n\ngnome+glib-rpi64-x+bin\n2.87.2-11\n\n\ngnu+glibc-rpi64-x+bin\n2.41-12\n\n\ngnu+groff-rpi64-x+bin\n1.24.1-4\n\n\ngnu+libncurses-rpi64-x+tinfo\n6.6\n\n\ngnu+libstdcxx-rpi64-x+bin\n13.3.0-7\n\n\ninfozip+zip-rpi64-x+bin\n3.0-3\n\n\nkelley+dnsmasq-rpi64-x+bin\n2.91\n\n\nlibffi+libffi-rpi64-x+bin\n3.5.2-4\n\n\nlinux+bluez-rpi64-x+bin\n5.66\n\n\nlinux+util-linux-rpi64-x+bin\n2.41.1-22\n\n\nmalinen+hostapd-rpi64-x+bin\n2.11\n\n\nmalinen+wpa-supplicant-rpi64-x+bin\n2.10-6\n\n\nopenssl+openssl3-rpi64-x+bin\n3.5.0-9\n\n\npisugar+pisugar-tools-rpi64-x+bin\n2.3.2-14\n\n\nraspberry+firmware-rpiz2w-x+bin\n1.20250915\n\n\nraspberry+linux-firmware-rpiz2w-x+bin\n20250917\n\n\nraspberry+linux-kernel-contelia-rpiz2w-x+bin\n6.12.100-2946b3f\n\n\nraspberry+linux-kernel-contelia-rpiz2w-x+modules\n6.12.100-2946b3f\n\n\nraspberry+uboot-rpiz2w-x+bin\n2026.04\n\n\nstedolan+jq-rpi64-x+bin\n1.7\n\n\ntytso+e2fsprogs-rpi64-x+bin\n1.47.4\n\n\nunigw+wpkg-rpi64-x+bin\n1.0.2-30\n\n\nvlasenko+busybox-rpi64-x+bin\n1.37.0-38\n\n\nvlasenko+busybox-rpi64-x+httpd\n1.37.0-38"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Contelia",
+    "section": "",
+    "text": "Contelia s’inspire des boîtes à histoires du commerce mais avec une conviction différente : elle doit être libre, compréhensible, modifiable et évolutive.\nPas de cloud, pas de contenu verrouillé, pas besoin d’une application pour le smartphone. L’objet vous appartient. Vous pourrez y ajouter les histoires que vous voulez sans aucune limite à part la capacité de la mémoire sur la carte micro-SD (qui peut être changée en cas de besoin).\nCe site internet a pour vocation de répondre aux besoins des acquéreurs de Contelia. Sa distribution existe aujourd’hui sous la forme de deux variantes.\n– La première variante est la version assemblée et prête à l’emploi. Dans ce cas, la section « Prise en main » permet de se familiariser avec son fonctionnement. C’est en quelque sorte le manuel utilisateur de Contelia.\n– La seconde variante concerne les acquéreurs du kit. La section « Kit de montage » présente toutes les étapes pour assembler Contelia. Cette section est aussi utile en cas de réparation. Elle permet de se familiariser avec ce qui est à l’intérieur de la boîte à histoires."
+  },
+  {
+    "objectID": "index.html#une-boîte-évolutive",
+    "href": "index.html#une-boîte-évolutive",
+    "title": "Contelia",
+    "section": "1 Une boîte évolutive",
+    "text": "1 Une boîte évolutive\nCette boîte à histoire à un objectif à long terme. Une fois que l’enfant est plus grand, elle doit pouvoir être transformée en (par exemple) un simple lecteur de musique (lecteur mp3), en lecteur de livre audio avec toutes les fonctionnalités attendues pour un produit de ce type (navigation par phrase, chapitre, vitesse de lecture variable, …).\nAujourd’hui c’est une boîte à histoires, les évolutions ne sont pas disponible pour le moment. Ce projet est avant tout un projet artisanal où son développement suit quelques règles :\n\nLibre autant que possible\nFait par un humain pour les humains\nL’objectif n’est pas la productivité à tout prix\nDans mon temps libre\nPour le plaisir"
+  },
+  {
+    "objectID": "index.html#complètement-libre",
+    "href": "index.html#complètement-libre",
+    "title": "Contelia",
+    "section": "2 Complètement libre",
+    "text": "2 Complètement libre\nCette boîte à histoire est aussi libre que possible.\nLe code source du logiciel est entièrement disponible, les formats de contenu sont ouverts et documentés. Elle est aussi compatible avec le format propriétaire de Lunii. Le système d’exploitation peut entièrement être recompilé par “n’importe qui”.\nLe matériel utilisé est standard, modulable et remplaçable.\nLes modèles 3D du boîter sont publiés publiquement. “N’importe qui” peut les imprimer ou les modifier à sa guise."
+  },
+  {
     "objectID": "project/manual.html#contelia",
     "href": "project/manual.html#contelia",
     "title": "Prise en main",
@@ -75,27 +110,6 @@
     "title": "Prise en main",
     "section": "7 Mises à jour",
     "text": "7 Mises à jour\nLa page de configuration présentée en Section 3.3.1, permet également de charger une mise à jour de la boîte à histoires. Pour se faire, il suffit de charger le fichier ZIP de la mise à jour au lieu du fichier ZIP d’une histoire.\nTout d’abord, vérifiez la version du logiciel depuis la page de configuration, elle est indiquée en dessous du titre (comme l’exemple ci-dessous).\n\n\n\n\n\nUne fois les mises à jour appliquées, Contelia va automatiquement redémarrer et désactiver son réseau Wifi. Attendez que Contelia s’éteind d’elle même avant de l’utiliser.\nLes mises à jour sont disponibles dans la section dédiée aux téléchargements.\n\n\n\n\n\n\nMise en garde\n\n\n\nLors des mises à jour, il est impératif de connecter la boîte à histoires à un câble USB-C afin de garantir qu’il n’y aura pas de coupure. Une mise à jour peut être très gourmande en énergie."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Contelia",
-    "section": "",
-    "text": "Contelia s’inspire des boîtes à histoires du commerce mais avec une conviction différente : elle doit être libre, compréhensible, modifiable et évolutive.\nPas de cloud, pas de contenu verrouillé, pas besoin d’une application pour le smartphone. L’objet vous appartient. Vous pourrez y ajouter les histoires que vous voulez sans aucune limite à part la capacité de la mémoire sur la carte micro-SD (qui peut être changée en cas de besoin).\nCe site internet a pour vocation de répondre aux besoins des acquéreurs de Contelia. Sa distribution existe aujourd’hui sous la forme de deux variantes.\n– La première variante est la version assemblée et prête à l’emploi. Dans ce cas, la section « Prise en main » permet de se familiariser avec son fonctionnement. C’est en quelque sorte le manuel utilisateur de Contelia.\n– La seconde variante concerne les acquéreurs du kit. La section « Kit de montage » présente toutes les étapes pour assembler Contelia. Cette section est aussi utile en cas de réparation. Elle permet de se familiariser avec ce qui est à l’intérieur de la boîte à histoires."
-  },
-  {
-    "objectID": "index.html#une-boîte-évolutive",
-    "href": "index.html#une-boîte-évolutive",
-    "title": "Contelia",
-    "section": "1 Une boîte évolutive",
-    "text": "1 Une boîte évolutive\nCette boîte à histoire à un objectif à long terme. Une fois que l’enfant est plus grand, elle doit pouvoir être transformée en (par exemple) un simple lecteur de musique (lecteur mp3), en lecteur de livre audio avec toutes les fonctionnalités attendues pour un produit de ce type (navigation par phrase, chapitre, vitesse de lecture variable, …).\nAujourd’hui c’est une boîte à histoires, les évolutions ne sont pas disponible pour le moment. Ce projet est avant tout un projet artisanal où son développement suit quelques règles :\n\nLibre autant que possible\nFait par un humain pour les humains\nL’objectif n’est pas la productivité à tout prix\nDans mon temps libre\nPour le plaisir"
-  },
-  {
-    "objectID": "index.html#complètement-libre",
-    "href": "index.html#complètement-libre",
-    "title": "Contelia",
-    "section": "2 Complètement libre",
-    "text": "2 Complètement libre\nCette boîte à histoire est aussi libre que possible.\nLe code source du logiciel est entièrement disponible, les formats de contenu sont ouverts et documentés. Elle est aussi compatible avec le format propriétaire de Lunii. Le système d’exploitation peut entièrement être recompilé par “n’importe qui”.\nLe matériel utilisé est standard, modulable et remplaçable.\nLes modèles 3D du boîter sont publiés publiquement. “N’importe qui” peut les imprimer ou les modifier à sa guise."
   },
   {
     "objectID": "project/downloads.html",

@@ -1,0 +1,69 @@
+---
+title: "Technique"
+lang: fr-CH
+date: today
+date-format: "D MMMM YYYY"
+---
+
+## Logiciels
+
+Contelia est entièrement construit sur des logiciels libres. Les logiciels
+proviennent de nombreuses sources et ensemble ils permettent de former ce
+qu'on nomme une distribution Linux. Ici, c'est une distribution GNU/Linux
+maison qui a été construite à l'aide du toolchain Xcraft (non documenté).
+
+Les recettes de constructions des logiciels sont hébergées à cette
+adresse :  
+[https://github.com/Xcraft-Inc/packages][1]
+
+::: {.callout-note}
+Une toute petite portion des logiciels ne sont malheureusement pas libres. Ce
+sont ce qu'on appel les firmwares. Ils sont nécessaires pour faire fonctionner
+la carte Raspberry Pi Zero 2 W. Il n'existe pas de substituts libres.
+Heureusement, c'est une minorité sur l'ensemble du projet.
+:::
+
+**Carnotzet OS 1.1.0 (Contelia)**
+
+| Logiciel | Version |
+| --- | --- |
+| adler+zlib-rpi64-x+bin | 1.3.1-7 |
+| alsa+lib-rpi64-x+bin | 1.2.14-5 |
+| alsa+ucm-conf-rpi64-x+bin | 1.2.14-3 |
+| alsa+utils-rpi64-x+bin | 1.2.14-5 |
+| angelacos+haserl-rpi64-x+bin | 0.9.27 |
+| arkq+bluez-alsa-rpi64-x+bin | 5.0.0-2fa7fb0 |
+| carnotzet+contelia-rpi64-x+bin | 1.0.0 |
+| carnotzet+os-base-contelia-rpiz2w-x+bin | 0.1.0-6 |
+| carnotzet+os-config-contelia-rpiz2w-x+bin | 1.1.0 |
+| carnotzet+rescuefs-contelia-rpiz2w-x+bin | 0.1.0-7 |
+| carnotzet+rootfs-contelia-rpiz2w-x+bin | 0.2.0-2 |
+| debian+ca-certificate-rpi64-x+bin | 1.0.0-9 |
+| dosfstools+dosfstools-rpi64-x+bin | 4.2-8 |
+| freedesktop+libdbus-rpi64-x+bin | 1.16.2-26 |
+| gnome+glib-rpi64-x+bin | 2.87.2-11 |
+| gnu+glibc-rpi64-x+bin | 2.41-12 |
+| gnu+groff-rpi64-x+bin | 1.24.1-4 |
+| gnu+libncurses-rpi64-x+tinfo | 6.6 |
+| gnu+libstdcxx-rpi64-x+bin | 13.3.0-7 |
+| infozip+zip-rpi64-x+bin | 3.0-3 |
+| kelley+dnsmasq-rpi64-x+bin | 2.91 |
+| libffi+libffi-rpi64-x+bin | 3.5.2-4 |
+| linux+bluez-rpi64-x+bin | 5.66 |
+| linux+util-linux-rpi64-x+bin | 2.41.1-22 |
+| malinen+hostapd-rpi64-x+bin | 2.11 |
+| malinen+wpa-supplicant-rpi64-x+bin | 2.10-6 |
+| openssl+openssl3-rpi64-x+bin | 3.5.0-9 |
+| pisugar+pisugar-tools-rpi64-x+bin | 2.3.2-14 |
+| raspberry+firmware-rpiz2w-x+bin | 1.20250915 |
+| raspberry+linux-firmware-rpiz2w-x+bin | 20250917 |
+| raspberry+linux-kernel-contelia-rpiz2w-x+bin | 6.12.100-2946b3f |
+| raspberry+linux-kernel-contelia-rpiz2w-x+modules | 6.12.100-2946b3f |
+| raspberry+uboot-rpiz2w-x+bin | 2026.04 |
+| stedolan+jq-rpi64-x+bin | 1.7 |
+| tytso+e2fsprogs-rpi64-x+bin | 1.47.4 |
+| unigw+wpkg-rpi64-x+bin | 1.0.2-30 |
+| vlasenko+busybox-rpi64-x+bin | 1.37.0-38 |
+| vlasenko+busybox-rpi64-x+httpd | 1.37.0-38 |
+
+[1]: https://github.com/Xcraft-Inc/packages

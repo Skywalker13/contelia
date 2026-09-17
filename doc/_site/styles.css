@@ -10,6 +10,7 @@ body {
 #quarto-document-content {
   background: #ffffff;
   max-width: 21cm;
+  min-width: 21cm;
   margin: 2.5rem auto;
   padding: 1.5cm 1.5cm 1.5cm 1.5cm;
   box-shadow:

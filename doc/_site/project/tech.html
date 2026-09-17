@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Téléchargements – Contelia</title>
+<title>Technique – Contelia</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -107,11 +107,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Kit de montage</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../project/downloads.html" aria-current="page"> 
+    <a class="nav-link" href="../project/downloads.html"> 
 <span class="menu-text">Téléchargements</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../project/tech.html"> 
+    <a class="nav-link active" href="../project/tech.html" aria-current="page"> 
 <span class="menu-text">Technique</span></a>
   </li>  
 </ul>
@@ -137,27 +137,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Sur cette page</h2>
    
   <ul>
-  <li><a href="#pour-les-utilisateurs" id="toc-pour-les-utilisateurs" class="nav-link active" data-scroll-target="#pour-les-utilisateurs"><span class="header-section-number">1</span> Pour les utilisateurs</a></li>
-  <li><a href="#pour-les-bidouilleurs" id="toc-pour-les-bidouilleurs" class="nav-link" data-scroll-target="#pour-les-bidouilleurs"><span class="header-section-number">2</span> Pour les bidouilleurs</a>
-  <ul class="collapse">
-  <li><a href="#images-de-contelia-os" id="toc-images-de-contelia-os" class="nav-link" data-scroll-target="#images-de-contelia-os"><span class="header-section-number">2.1</span> Images de Contelia OS</a></li>
-  </ul></li>
-  <li><a href="#pour-les-développeurs-et-les-makers" id="toc-pour-les-développeurs-et-les-makers" class="nav-link" data-scroll-target="#pour-les-développeurs-et-les-makers"><span class="header-section-number">3</span> Pour les développeurs et les makers</a>
-  <ul class="collapse">
-  <li><a href="#le-code-source" id="toc-le-code-source" class="nav-link" data-scroll-target="#le-code-source"><span class="header-section-number">3.1</span> Le code source</a></li>
-  <li><a href="#les-modèles-3d" id="toc-les-modèles-3d" class="nav-link" data-scroll-target="#les-modèles-3d"><span class="header-section-number">3.2</span> Les modèles 3D</a></li>
-  <li><a href="#le-toolchain-de-compilation" id="toc-le-toolchain-de-compilation" class="nav-link" data-scroll-target="#le-toolchain-de-compilation"><span class="header-section-number">3.3</span> Le toolchain de compilation</a></li>
-  </ul></li>
+  <li><a href="#logiciels" id="toc-logiciels" class="nav-link active" data-scroll-target="#logiciels"><span class="header-section-number">1</span> Logiciels</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Autres formats</h2><ul><li><a href="downloads.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Autres formats</h2><ul><li><a href="tech.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Téléchargements</h1>
-<p class="subtitle lead">Ressources pour Contelia</p>
+<h1 class="title">Technique</h1>
 </div>
 
 
@@ -165,76 +154,204 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Date de publication</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">17 septembre 2026</p>
+    </div>
+  </div>
   
     
   </div>
   
-<div>
-  <div class="abstract">
-    <div class="block-title">Résumé</div>
-    Une utilisation normal de Contelia ne nécessite pas de téléchargement particulier. Mais si vous avez l’âme d’un bidouilleur, ici vous trouverez toutes les ressources nécessaires pour ré-imaginer votre propre boîte à histoires; voir même en faire un nouveau projet complètement différent.
-  </div>
-</div>
 
 
 </header>
 
 
-<section id="pour-les-utilisateurs" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="pour-les-utilisateurs"><span class="header-section-number">1</span> Pour les utilisateurs</h2>
-<p>Des mises à jour du système Contelia sont disponibles lorsque des corrections ou de nouvelles fonctionnalités sont apportées. Etant donné que Contelia ne se connecte jamais à internet, c’est à vous d’effectuer la mise à jour en suivant <a href="manual.html#sec-update">ce guide</a>.</p>
-<dl>
-<dt>Mise à jour</dt>
-<dd>
-<a href="https://schroetersa.ch/downloads/carnotzet-os-contelia-1.1.0-rpiz2w.update.zip">carnotzet-os-contelia-1.1.0-rpiz2w.update.zip</a>
-</dd>
-</dl>
-</section>
-<section id="pour-les-bidouilleurs" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="pour-les-bidouilleurs"><span class="header-section-number">2</span> Pour les bidouilleurs</h2>
-<p>La boîte à histoire contient une carte micro-SD préinstallée et qui peut être changée ou réinstallée avec une nouvelle version de Contelia OS, voir même votre propre OS (si vous avez l’âme d’un <a href="https://fr.wikipedia.org/wiki/Hacker_(sous-culture)">hacker</a>).</p>
-<p>Pour accéder à la carte micro-SD, il est nécessaire de démonter partiellement la boîte à histoire. Je vous invite à consulter le guide du <a href="kit.html#préparation">kit de montage</a> pour vous documenter sur l’assemblage de Contelia.</p>
-<section id="images-de-contelia-os" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="images-de-contelia-os"><span class="header-section-number">2.1</span> Images de Contelia OS</h3>
-<p>L’installation doit se faire comme expliqué avec <a href="kit.html#préparation">le kit de montage</a>. En quelques mots, vous allez utiliser le logiciel balenaEtcher pour déployer l’image décompressée de Contelia OS sur la carte micro-SD. Il est important de se référer complètement au kit de montage jusqu’à ce que la boîte soit remontée proprement.</p>
-<dl>
-<dt>Image complète</dt>
-<dd>
-<a href="https://schroetersa.ch/downloads/carnotzet-os-contelia-1.1.0-rpiz2w.zip">carnotzet-os-contelia-1.1.0-rpiz2w.zip</a>
-</dd>
-</dl>
-</section>
-</section>
-<section id="pour-les-développeurs-et-les-makers" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="pour-les-développeurs-et-les-makers"><span class="header-section-number">3</span> Pour les développeurs et les makers</h2>
-<section id="le-code-source" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="le-code-source"><span class="header-section-number">3.1</span> Le code source</h3>
-<p>Le logiciel principal de Contelia est disponible sur <a href="https://github.com/Skywalker13/contelia">GitHub</a>. Il est écrit en Rust sous licence libre GPLv3+.</p>
-</section>
-<section id="les-modèles-3d" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="les-modèles-3d"><span class="header-section-number">3.2</span> Les modèles 3D</h3>
-<p>Tous les modèles 3D sont disponibles dans le même dépôt de code-source que le logiciel. Ils ont été entièrement réalisé à l’aide de <a href="https://www.freecad.org/">FreeCAD</a> et suivent la même licence que le code source.</p>
-</section>
-<section id="le-toolchain-de-compilation" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="le-toolchain-de-compilation"><span class="header-section-number">3.3</span> Le toolchain de compilation</h3>
-<p>Le toolchain de compilation se nomme Xcraft et permet de créer la distribution Linux Contelia OS. Cet OS est basé sur Carnotzet OS qui est un système d’exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour des projets annexes). Le système de base se nomme <a href="https://xcraft.ch/carnotzet/index.html">Carnotzet OS</a>.</p>
-<p>Xcraft est un projet vaste et complexe. Compiler Contelia OS de zéro est tout a fait possible pour n’importe qui, qui est à l’aise avec les outils de développement et les concepts sous-jacents comme le packaging, la compilation croisée, etc.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<section id="logiciels" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="logiciels"><span class="header-section-number">1</span> Logiciels</h2>
+<p>Contelia est entièrement construit sur des logiciels libres. Les logiciels proviennent de nombreuses sources et ensemble ils permettent de former ce qu’on nomme une distribution Linux. Ici, c’est une distribution GNU/Linux maison qui a été construite à l’aide du toolchain Xcraft (non documenté).</p>
+<p>Les recettes de constructions des logiciels sont hébergées à cette adresse :<br>
+<a href="https://github.com/Xcraft-Inc/packages">https://github.com/Xcraft-Inc/packages</a></p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Avertissement
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A l’heure actuelle il n’existe pas de guide pour Xcraft. Ce n’est pas exclus que cela change à l’avenir.</p>
+<p>Une toute petite portion des logiciels ne sont malheureusement pas libres. Ce sont ce qu’on appel les firmwares. Ils sont nécessaires pour faire fonctionner la carte Raspberry Pi Zero 2 W. Il n’existe pas de substituts libres. Heureusement, c’est une minorité sur l’ensemble du projet.</p>
 </div>
 </div>
+<p><strong>Carnotzet OS 1.1.0 (Contelia)</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Logiciel</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>adler+zlib-rpi64-x+bin</td>
+<td>1.3.1-7</td>
+</tr>
+<tr class="even">
+<td>alsa+lib-rpi64-x+bin</td>
+<td>1.2.14-5</td>
+</tr>
+<tr class="odd">
+<td>alsa+ucm-conf-rpi64-x+bin</td>
+<td>1.2.14-3</td>
+</tr>
+<tr class="even">
+<td>alsa+utils-rpi64-x+bin</td>
+<td>1.2.14-5</td>
+</tr>
+<tr class="odd">
+<td>angelacos+haserl-rpi64-x+bin</td>
+<td>0.9.27</td>
+</tr>
+<tr class="even">
+<td>arkq+bluez-alsa-rpi64-x+bin</td>
+<td>5.0.0-2fa7fb0</td>
+</tr>
+<tr class="odd">
+<td>carnotzet+contelia-rpi64-x+bin</td>
+<td>1.0.0</td>
+</tr>
+<tr class="even">
+<td>carnotzet+os-base-contelia-rpiz2w-x+bin</td>
+<td>0.1.0-6</td>
+</tr>
+<tr class="odd">
+<td>carnotzet+os-config-contelia-rpiz2w-x+bin</td>
+<td>1.1.0</td>
+</tr>
+<tr class="even">
+<td>carnotzet+rescuefs-contelia-rpiz2w-x+bin</td>
+<td>0.1.0-7</td>
+</tr>
+<tr class="odd">
+<td>carnotzet+rootfs-contelia-rpiz2w-x+bin</td>
+<td>0.2.0-2</td>
+</tr>
+<tr class="even">
+<td>debian+ca-certificate-rpi64-x+bin</td>
+<td>1.0.0-9</td>
+</tr>
+<tr class="odd">
+<td>dosfstools+dosfstools-rpi64-x+bin</td>
+<td>4.2-8</td>
+</tr>
+<tr class="even">
+<td>freedesktop+libdbus-rpi64-x+bin</td>
+<td>1.16.2-26</td>
+</tr>
+<tr class="odd">
+<td>gnome+glib-rpi64-x+bin</td>
+<td>2.87.2-11</td>
+</tr>
+<tr class="even">
+<td>gnu+glibc-rpi64-x+bin</td>
+<td>2.41-12</td>
+</tr>
+<tr class="odd">
+<td>gnu+groff-rpi64-x+bin</td>
+<td>1.24.1-4</td>
+</tr>
+<tr class="even">
+<td>gnu+libncurses-rpi64-x+tinfo</td>
+<td>6.6</td>
+</tr>
+<tr class="odd">
+<td>gnu+libstdcxx-rpi64-x+bin</td>
+<td>13.3.0-7</td>
+</tr>
+<tr class="even">
+<td>infozip+zip-rpi64-x+bin</td>
+<td>3.0-3</td>
+</tr>
+<tr class="odd">
+<td>kelley+dnsmasq-rpi64-x+bin</td>
+<td>2.91</td>
+</tr>
+<tr class="even">
+<td>libffi+libffi-rpi64-x+bin</td>
+<td>3.5.2-4</td>
+</tr>
+<tr class="odd">
+<td>linux+bluez-rpi64-x+bin</td>
+<td>5.66</td>
+</tr>
+<tr class="even">
+<td>linux+util-linux-rpi64-x+bin</td>
+<td>2.41.1-22</td>
+</tr>
+<tr class="odd">
+<td>malinen+hostapd-rpi64-x+bin</td>
+<td>2.11</td>
+</tr>
+<tr class="even">
+<td>malinen+wpa-supplicant-rpi64-x+bin</td>
+<td>2.10-6</td>
+</tr>
+<tr class="odd">
+<td>openssl+openssl3-rpi64-x+bin</td>
+<td>3.5.0-9</td>
+</tr>
+<tr class="even">
+<td>pisugar+pisugar-tools-rpi64-x+bin</td>
+<td>2.3.2-14</td>
+</tr>
+<tr class="odd">
+<td>raspberry+firmware-rpiz2w-x+bin</td>
+<td>1.20250915</td>
+</tr>
+<tr class="even">
+<td>raspberry+linux-firmware-rpiz2w-x+bin</td>
+<td>20250917</td>
+</tr>
+<tr class="odd">
+<td>raspberry+linux-kernel-contelia-rpiz2w-x+bin</td>
+<td>6.12.100-2946b3f</td>
+</tr>
+<tr class="even">
+<td>raspberry+linux-kernel-contelia-rpiz2w-x+modules</td>
+<td>6.12.100-2946b3f</td>
+</tr>
+<tr class="odd">
+<td>raspberry+uboot-rpiz2w-x+bin</td>
+<td>2026.04</td>
+</tr>
+<tr class="even">
+<td>stedolan+jq-rpi64-x+bin</td>
+<td>1.7</td>
+</tr>
+<tr class="odd">
+<td>tytso+e2fsprogs-rpi64-x+bin</td>
+<td>1.47.4</td>
+</tr>
+<tr class="even">
+<td>unigw+wpkg-rpi64-x+bin</td>
+<td>1.0.2-30</td>
+</tr>
+<tr class="odd">
+<td>vlasenko+busybox-rpi64-x+bin</td>
+<td>1.37.0-38</td>
+</tr>
+<tr class="even">
+<td>vlasenko+busybox-rpi64-x+httpd</td>
+<td>1.37.0-38</td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
