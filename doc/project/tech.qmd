@@ -1,8 +1,6 @@
 ---
 title: "Technique"
 lang: fr-CH
-date: today
-date-format: "D MMMM YYYY"
 ---
 
 ## Logiciels
@@ -22,6 +20,8 @@ sont ce qu'on appel les firmwares. Ils sont nécessaires pour faire fonctionner
 la carte Raspberry Pi Zero 2 W. Il n'existe pas de substituts libres.
 Heureusement, c'est une minorité sur l'ensemble du projet.
 :::
+
+{{< pagebreak >}}
 
 **Carnotzet OS 1.1.0 (Contelia)**
 
@@ -66,4 +66,31 @@ Heureusement, c'est une minorité sur l'ensemble du projet.
 | vlasenko+busybox-rpi64-x+bin | 1.37.0-38 |
 | vlasenko+busybox-rpi64-x+httpd | 1.37.0-38 |
 
+{{< pagebreak >}}
+
+## Matériel
+
+Les logiciels sont dédiés aux cartes ci-dessous. Bien entendu, concernant les
+haut-parleurs, l'adaptateur micro-USB et la carte micro-SD, libre à vous d'en
+utiliser d'autres.
+
+::: {.callout-note}
+Il n'est pas impossible d'ajouter le support des autres cartes Raspberry Pi car
+Carnotzet OS est adapté aussi à la Raspberry Pi 4B ainsi qu'à la Raspberry Pi
+5B.
+:::
+
+| Composants | Description | 
+| --- | --- |
+| [Raspberry Pi Zero 2 WH] | Carte principale<br/><small>Le H signifie avec Header, ce qui permet de connecter une carte fille</small> |
+| [Adafruit 1.3" TFT Bonnet] | Carte fille<br/><small>Offre un écran de 240×240px, un joystick et deux boutons poussoirs</small> |
+| [PiSugar 3] | Carte d'alimentation<br/><small>Contactes par bogo-PINs avec une batterie de 1200mAh</small> |
+| [Mini USB Stereo Speaker] | Haut-parleurs USB<br/><small>2×3W (correspond partiellement au modèle en lien)</small> |
+| Adaptateur USB <> micro-USB | Pour connecter les haut-parleurs USB |
+| Carte micro-SD de 64 GB | Contient le système et les histoires<br/><small>Les slogiciels installés sont listés ci-dessus</small> |
+
+[Raspberry Pi Zero 2 WH]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
+[Adafruit 1.3" TFT Bonnet]: https://www.adafruit.com/product/4506
+[PiSugar 3]: https://www.pisugar.com/products/pisugar-3-raspberry-pi-zero-battery
+[Mini USB Stereo Speaker]: https://www.adafruit.com/product/3369
 [1]: https://github.com/Xcraft-Inc/packages
