@@ -6,6 +6,8 @@ abstract: Une utilisation normal de Contelia ne nécessite pas de téléchargeme
   particulier. Mais si vous avez l'âme d'un bidouilleur, ici vous trouverez
   toutes les ressources nécessaires pour ré-imaginer votre propre boîte à
   histoires; voir même en faire un nouveau projet complètement différent.
+format:
+  html: {}
 ---
 
 ## Pour les utilisateurs
@@ -39,7 +41,7 @@ proprement.
 Image complète
 : [carnotzet-os-contelia-1.1.0-rpiz2w.zip][2]
 
-## Pour les développeurs et les makers
+## Pour les makers
 
 ### Le code source
 

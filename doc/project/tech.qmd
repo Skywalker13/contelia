@@ -1,6 +1,8 @@
 ---
 title: "Technique"
 lang: fr-CH
+format:
+  html: {}
 ---
 
 ## Logiciels
@@ -20,8 +22,6 @@ sont ce qu'on appel les firmwares. Ils sont nécessaires pour faire fonctionner
 la carte Raspberry Pi Zero 2 W. Il n'existe pas de substituts libres.
 Heureusement, c'est une minorité sur l'ensemble du projet.
 :::
-
-{{< pagebreak >}}
 
 **Carnotzet OS 1.1.0 (Contelia)**
 
@@ -65,8 +65,6 @@ Heureusement, c'est une minorité sur l'ensemble du projet.
 | unigw+wpkg-rpi64-x+bin | 1.0.2-30 |
 | vlasenko+busybox-rpi64-x+bin | 1.37.0-38 |
 | vlasenko+busybox-rpi64-x+httpd | 1.37.0-38 |
-
-{{< pagebreak >}}
 
 ## Matériel
 

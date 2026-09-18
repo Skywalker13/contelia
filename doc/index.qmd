@@ -4,11 +4,11 @@ subtitle: "Une boîte à histoires libre et open-source"
 lang: fr-CH
 abstract: Bienvenue sur le site de la boîte à histoires libre Contelia, une
   boîte à histoires artisanale et complètement libre.
+format:
+  html: {}
 ---
 
 ![](images/contelia.jpg){width=80% fig-align="center"}
-
-{{< pagebreak >}}
 
 Contelia s'inspire des boîtes à histoires du commerce mais avec une conviction
 différente&nbsp;: elle doit être libre, compréhensible, modifiable et évolutive.
