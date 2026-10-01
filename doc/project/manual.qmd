@@ -252,11 +252,13 @@ Vous pouvez alors utiliser un ordinateur ou un smartphone pour vous connecter
 d'accéder à la page de connexion du réseau Contelia. Cette page permet de
 modifier le contenu de votre boîte à histoires.
 
-Si votre ordinateur ne vous propose rien, ouvrez votre navigateur internet
+::: {.callout-important}
+Si votre ordinateur ne vous propose rien, **ouvrez votre navigateur internet**
 (Firefox, Chrome, Safari, Edge, ...).
 Si le navigateur internet ne propose pas d'accéder au portail captif, alors
-entrez l'adresse suivante ([http://192.168.42.1](http://192.168.42.1)) pour
-accéder à la page de configuration de Contelia.
+entrez l'adresse suivante ([**http://192.168.42.1**](http://192.168.42.1))
+pour accéder à la page de configuration de Contelia.
+:::
 
 ::: {.callout-warning}
 Bien entendu, quand vous êtes connecté au réseau Wifi Contelia, vous ne pouvez
@@ -372,14 +374,14 @@ USB-C de Contelia car ça ne fonctionnera pas. La prise USB-C de Contelia est
 uniquement destinée à la recharge de la batterie.
 :::
 
-![Casque USB connecté à l'adaptateur micro-USB de Contelia.](images/051.jpg)
+![Casque USB connecté à l'adaptateur micro-USB de Contelia.](images/051.jpg){width=80% fig-align="center"}
 
 Si vous avez un casque USB avec dongle (pour le sans-fil), vous pouvez brancher
 le dongle de la même manière, en utilisant l'adaptateur micro-USB. Avec ce type
 de branchement, vous pouvez même cacher le dongle du casque directement dans la
 boîte principale.
 
-![Casque sans-fil, le dongle USB est connecté à l'adaptateur micro-USB de Contelia.](images/050.jpg)
+![Casque sans-fil, le dongle USB est connecté à l'adaptateur micro-USB de Contelia.](images/050.jpg){width=80% fig-align="center"}
 
 Si vous voulez faire du sans-fil sans le dongle, il existe l'alternative
 Bluetooth documentée ci-dessous. Néanmoins si vous avez un dongle, je vous
@@ -431,6 +433,8 @@ Quand vous utilisez le Bluetooth, c'est une bonne idée de séparer la boîte
 à histoires des haut-parleurs USB afin de **gagner en autonomie**. En effet,
 dès le moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas
 utilisés pour le son, ils vont consommer de l'énergie inutilement.
+
+{{< pagebreak >}}
 
 ## Mises à jour {#sec-update}
 
