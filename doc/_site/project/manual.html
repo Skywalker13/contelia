@@ -151,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#lunii" id="toc-lunii" class="nav-link" data-scroll-target="#lunii"><span class="header-section-number">3.1</span> Lunii</a></li>
   <li><a href="#sec-community" id="toc-sec-community" class="nav-link" data-scroll-target="#sec-community"><span class="header-section-number">3.2</span> Communautaire</a></li>
-  <li><a href="#charger-des-histoires" id="toc-charger-des-histoires" class="nav-link" data-scroll-target="#charger-des-histoires"><span class="header-section-number">3.3</span> Charger des histoires</a></li>
+  <li><a href="#sec-wifi" id="toc-sec-wifi" class="nav-link" data-scroll-target="#sec-wifi"><span class="header-section-number">3.3</span> Charger des histoires</a></li>
   </ul></li>
   <li><a href="#sec-menus" id="toc-sec-menus" class="nav-link" data-scroll-target="#sec-menus"><span class="header-section-number">4</span> Navigation dans les menus</a></li>
   <li><a href="#éteindre-contelia" id="toc-éteindre-contelia" class="nav-link" data-scroll-target="#éteindre-contelia"><span class="header-section-number">5</span> Éteindre Contelia</a></li>
@@ -181,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Date de publication</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">1 octobre 2026</p>
+      <p class="date">3 octobre 2026</p>
     </div>
   </div>
   
@@ -474,8 +474,8 @@ Note
 </div>
 <p>L’utilisation du logiciel Discord est discutable, mais c’est le seul moyen de pouvoir accéder à cette communauté. Les livres téléchargeables chez eux peuvent être directement exploités dans Contelia. Je vous encourage fortement d’y aller faire un tour car leur bibliothèque est plutôt impressionnante.</p>
 </section>
-<section id="charger-des-histoires" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="charger-des-histoires"><span class="header-section-number">3.3</span> Charger des histoires</h3>
+<section id="sec-wifi" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="sec-wifi"><span class="header-section-number">3.3</span> Charger des histoires</h3>
 <p>Pour charger des histoires, vous devez mettre Contelia en mode configuration. Avant tout, il est recommandé de brancher le connecteur d’alimentation (charge) pour garantir que les transferts ne soient pas interrompus.</p>
 <p>Pour activer le mode configuration vous devez effectuer la combinaison de boutons suivante&nbsp;:</p>
 <ol type="1">
@@ -520,9 +520,13 @@ Avertissement
 <div style="page-break-after: always;"></div>
 <section id="sec-portal" class="level4" data-number="3.3.1">
 <h4 data-number="3.3.1" class="anchored" data-anchor-id="sec-portal"><span class="header-section-number">3.3.1</span> Portail</h4>
-<p>Le portail (ou gestionnaire) Contelia se présente sous la forme d’un formulaire permettant de charger une histoire au format ZIP (ou une mise à jour de Contelia), puis de modifier le contenu actuellement disponible dans la boîte à histoires. L’utilisation de cette page devrait être auto-explicative. Certaines actions nécessites de cliquer sur le bouton “Appliquer les modifications” pour que ce soit pris en compte (ce bouton est tout au fond de la page).</p>
-<p><img src="images/portal.png" class="img-fluid" style="width:100.0%"></p>
-<p>Dans la copie d’écran ci-dessus on peut voir que Contelia contient deux histoires et que l’utilisateur a choisi de désactiver l’une d’elle.</p>
+<p>Le portail (dont l’accès se fait par l’adresse <a href="http://192.168.42.1">http://192.168.42.1</a> une fois que vous êtes connecté au réseau Wifi Contelia comme expliqué à la <a href="#sec-wifi" class="quarto-xref">Section&nbsp;3.3</a>) se présente sous la forme d’un formulaire permettant de charger une histoire au format ZIP (ou une mise à jour de Contelia), puis de modifier le contenu actuellement disponible dans la boîte à histoires. L’utilisation de cette page devrait être auto-explicative.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/portal.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Dans cet exemple, Contelia contient deux histoires et l’utilisateur a choisi de désactiver l’une d’elle.</figcaption>
+</figure>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -540,13 +544,17 @@ Note
 <ul>
 <li><p>Charger une nouvelle histoire avec le formulaire en tête de page.<br>
 Cliquez sur le bouton “Browse” ou “Parcourir” en dessous de “Déployer une histoire”. Une fenêtre va s’ouvrir depuis laquelle vous pourrez aller chercher le fichier ZIP de l’histoire que vous souhaiter charger dans Contelia. Une fois fait, cliquez sur le bouton “Charger” et patientez.</p></li>
-<li><p>Télécharger une histoire depuis la boîte à histoires.<br>
-Vous pouvez ainsi récupérer le fichier ZIP correspondant pour le sauvegarder sur votre ordinateur.</p></li>
-<li><p>Désactiver une histoire pour la garder dans la boîte à histoire mais sans la rendre visible.</p></li>
-<li><p>Supprimer une histoire de la boîte à histoire.<br>
-Si vous supprimez une histoire, veillez à garder une copie sur votre ordinateur car cette opération n’est pas réversible.</p></li>
 <li><p>Charger une une mise à jour de Contelia (consultez la <a href="#sec-update" class="quarto-xref">Section&nbsp;7</a>).</p></li>
 </ul>
+<p>La liste des histoires actuellement chargées dans Contelia est située sous le formulaire. Trois boutons sont présents pour chaque histoire.</p>
+<ul>
+<li><p>« Télécharger » une histoire depuis la boîte à histoires.<br>
+Vous pouvez ainsi récupérer le fichier ZIP correspondant pour le sauvegarder sur votre ordinateur.</p></li>
+<li><p>« Désactiver » une histoire pour la garder dans la boîte à histoire mais sans la rendre visible pendant l’utilisation.</p></li>
+<li><p>« Supprimer » une histoire de la boîte à histoire.<br>
+Si vous supprimez une histoire, veillez à garder une copie sur votre ordinateur car cette opération n’est pas réversible.</p></li>
+</ul>
+<p>Certaines actions (comme « Désactiver » et « Supprimer ») nécessitent de cliquer sur le bouton « Appliquer les modifications » pour que ce soit pris en compte (ce bouton est tout au fond de la page).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -557,9 +565,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Il n’est (pour le moment) pas possible de modifier l’ordre des histoires.</p>
+<p>Il n’est (pour le moment) <strong>pas possible</strong> de modifier l’ordre des histoires. Cette fonctionnalité est prévue pour une future mise à jour.</p>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
 </section>
 </section>
 </section>
@@ -631,7 +640,6 @@ Note
 <p>Il est possible de forcer l’extinction de Contelia en tenant pressé le bouton d’alimentation pendant plus de 2 secondes.</p>
 </div>
 </div>
-<div style="page-break-after: always;"></div>
 </section>
 <section id="audio" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="audio"><span class="header-section-number">6</span> Audio</h2>
@@ -641,6 +649,7 @@ Note
 <p><img src="images/jack.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:30.0%"></p>
 </figure>
 </div>
+<div style="page-break-after: always;"></div>
 <section id="casque-audio-usb" class="level3" data-number="6.1">
 <h3 data-number="6.1" class="anchored" data-anchor-id="casque-audio-usb"><span class="header-section-number">6.1</span> Casque audio USB</h3>
 <p>Vous pouvez brancher un casque USB (à la place des haut-parleurs d’origine) directement avec l’adaptateur USB fourni (dans la boîte principale). L’adaptateur micro-USB est utilisé avec le câble USB du casque. Notez bien qu’il vous faut aussi un adaptateur si votre casque utilise la norme USB-C.</p>
@@ -737,7 +746,6 @@ Note
 </div>
 </div>
 <p>Quand vous utilisez le Bluetooth, c’est une bonne idée de séparer la boîte à histoires des haut-parleurs USB afin de <strong>gagner en autonomie</strong>. En effet, dès le moment que les haut-parleurs USB sont branchés, même s’ils ne sont pas utilisés pour le son, ils vont consommer de l’énergie inutilement.</p>
-<div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="sec-update" class="level2" data-number="7">

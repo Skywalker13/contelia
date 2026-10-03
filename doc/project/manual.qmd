@@ -224,7 +224,7 @@ pouvoir accéder à cette communauté. Les livres téléchargeables chez eux peu
 être directement exploités dans Contelia. Je vous encourage fortement d'y aller
 faire un tour car leur bibliothèque est plutôt impressionnante.
 
-### Charger des histoires
+### Charger des histoires {#sec-wifi}
 
 Pour charger des histoires, vous devez mettre Contelia en mode configuration.
 Avant tout, il est recommandé de brancher le connecteur d'alimentation (charge)
@@ -271,18 +271,15 @@ votre smartphone), les histoires que vous souhaitez charger dans Contelia.
 
 #### Portail {#sec-portal}
 
-Le portail (ou gestionnaire) Contelia se présente sous la forme d'un formulaire
-permettant de charger une histoire au format ZIP (ou une mise à jour de
-Contelia), puis de modifier le contenu actuellement disponible dans la boîte
-à histoires. L'utilisation de cette page devrait être auto-explicative.
-Certaines actions nécessites de cliquer sur le bouton "Appliquer les
-modifications" pour que ce soit pris en compte (ce bouton est tout au fond
-de la page).
+Le portail (dont l'accès se fait par l'adresse
+[http://192.168.42.1](http://192.168.42.1) une fois que vous êtes connecté
+au réseau Wifi Contelia comme expliqué à la @sec-wifi) se présente sous
+la forme d'un formulaire permettant de charger une histoire au format ZIP (ou
+une mise à jour de Contelia), puis de modifier le contenu actuellement
+disponible dans la boîte à histoires. L'utilisation de cette page devrait être
+auto-explicative.
 
-![](images/portal.png){width=100%}
-
-Dans la copie d'écran ci-dessus on peut voir que Contelia contient deux
-histoires et que l'utilisateur a choisi de désactiver l'une d'elle.
+![Dans cet exemple, Contelia contient deux histoires et l'utilisateur a choisi de désactiver l'une d'elle.](images/portal.png){width=100%}
 
 ::: {.callout-note}
 Si le bouton "Parcourir..." (qui permet de sélectionner le fichier ZIP depuis
@@ -298,22 +295,32 @@ pas ce portail depuis votre navigateur internet habituel.
   chercher le fichier ZIP de l'histoire que vous souhaiter charger dans
   Contelia. Une fois fait, cliquez sur le bouton "Charger" et patientez.
 
-- Télécharger une histoire depuis la boîte à histoires.  
+- Charger une une mise à jour de Contelia (consultez la @sec-update).
+
+La liste des histoires actuellement chargées dans Contelia est située sous le
+formulaire. Trois boutons sont présents pour chaque histoire.
+
+- « Télécharger » une histoire depuis la boîte à histoires.  
   Vous pouvez ainsi récupérer le fichier ZIP correspondant pour le sauvegarder
   sur votre ordinateur.
 
-- Désactiver une histoire pour la garder dans la boîte à histoire mais sans
-  la rendre visible.
+- « Désactiver » une histoire pour la garder dans la boîte à histoire mais sans
+  la rendre visible pendant l'utilisation.
 
-- Supprimer une histoire de la boîte à histoire.  
+- « Supprimer » une histoire de la boîte à histoire.  
   Si vous supprimez une histoire, veillez à garder une copie sur votre
   ordinateur car cette opération n'est pas réversible.
 
-- Charger une une mise à jour de Contelia (consultez la @sec-update).
+Certaines actions (comme « Désactiver » et « Supprimer ») nécessitent de
+cliquer sur le bouton « Appliquer les modifications » pour que ce soit pris en
+compte (ce bouton est tout au fond de la page).
 
 ::: {.callout-note}
-Il n'est (pour le moment) pas possible de modifier l'ordre des histoires.
+Il n'est (pour le moment) **pas possible** de modifier l'ordre des histoires.
+Cette fonctionnalité est prévue pour une future mise à jour.
 :::
+
+{{< pagebreak >}}
 
 ## Navigation dans les menus {#sec-menus}
 
@@ -349,8 +356,6 @@ Il est possible de forcer l'extinction de Contelia en tenant pressé le bouton
 d'alimentation pendant plus de 2 secondes.
 :::
 
-{{< pagebreak >}}
-
 ## Audio
 
 Contelia peut être utilisée en dehors de sa boîte principale et sans les
@@ -360,6 +365,8 @@ jack. Si c'est nécessaire pour vous, il vous faudra acheter un adaptateur
 jack → USB du même genre que sur l'image ci-dessous.
 
 ![](images/jack.jpg){width=30% fig-align="center"}
+
+{{< pagebreak >}}
 
 ### Casque audio USB
 
@@ -433,8 +440,6 @@ Quand vous utilisez le Bluetooth, c'est une bonne idée de séparer la boîte
 à histoires des haut-parleurs USB afin de **gagner en autonomie**. En effet,
 dès le moment que les haut-parleurs USB sont branchés, même s'ils ne sont pas
 utilisés pour le son, ils vont consommer de l'énergie inutilement.
-
-{{< pagebreak >}}
 
 ## Mises à jour {#sec-update}
 
