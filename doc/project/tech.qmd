@@ -18,7 +18,7 @@ adresse :
 
 ::: {.callout-note}
 Une toute petite portion des logiciels ne sont malheureusement pas libres. Ce
-sont ce qu'on appel les firmwares. Ils sont nécessaires pour faire fonctionner
+sont ce qu'on appelle les firmwares. Ils sont nécessaires pour faire fonctionner
 la carte Raspberry Pi Zero 2 W. Il n'existe pas de substituts libres.
 Heureusement, c'est une minorité sur l'ensemble du projet.
 :::

@@ -39,7 +39,7 @@ composants de votre boîte à histoires Contelia.
 ## Préparation
 
 Avant de commencer le montage à proprement parler, il faut déployer le système
-d'exploitation Contelia sur la carte micro-SD. Pour se faire, déballez la carte
+d'exploitation Contelia sur la carte micro-SD. Pour ce faire, déballez la carte
 et son adaptateur, et en fonction des moyens que vous avez à votre disposition,
 introduisez la carte micro-SD dans son adaptateur puis l'adaptateur dans votre
 ordinateur, ou utilisez directement un lecteur de carte micro-SD.
@@ -127,7 +127,7 @@ dd if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img \
    of=/dev/diskX bs=1m status=progress
 ```
 
-### Ejection
+### Éjection
 
 Comme avec tous périphériques qui se respectent, veuillez éjecter proprement la
 carte micro-SD de votre ordinateur. Il faut être sûr que les données sont
@@ -137,7 +137,7 @@ reviendrons plus loin.
 
 ## Montage
 
-A partir d'ici, les manipulations vont devoir se faire avec soin et si possible
+À partir d'ici, les manipulations vont devoir se faire avec soin et si possible
 sans électricité statique. Si vous ne disposez pas de bracelet anti-statique,
 assurez-vous de ne pas porter de vêtements qui favorisent l'électricité statique
 tel qu'un pull-over, une jacket ou un vêtement en cuir.
@@ -200,7 +200,7 @@ et la carte Adafruit 1.3" TFT Bonnet. N'enlevez pas encore la protection sur
 l'écran de la carte Adafruit et laissez le joystick en caoutchouc de côté pour
 le moment.
 
-Connectez délicatement la carte Adafruit avec la carte Raspberry Pi. Pour se
+Connectez délicatement la carte Adafruit avec la carte Raspberry Pi. Pour ce
 faire, introduisez doucement le connecteur en veillant à ne pas appuyer avec vos
 doigts sur l'écran. Il serait dommage de l'abîmer avec cette manipulation.
 Utilisez les zones libres du PCB comme appuis et prenez votre temps. Gardez bien
@@ -263,7 +263,7 @@ automatiquement au moment même où vous branchez le câble USB-C.
 ::: {.callout-warning}
 Si la carte PiSugar n'alimente pas automatiquement la carte Raspberry Pi
 (aucune lumière verte s'allume sur le côté **droit** de la carte Raspberry Pi),
-vous devez utilisez le bouton de gauche de la PiSugar afin de la mettre sous
+vous devez utiliser le bouton de gauche de la PiSugar afin de la mettre sous
 tension.
 
 ![](images/031.jpg){width=100%}
@@ -277,7 +277,7 @@ gauche de la carte PiSugar.
 :::
 
 Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour
-enfin afficher l'image de livres (comme ci-dessous) et s'éteindre d'elle même
+enfin afficher l'image de livres (comme ci-dessous) et s'éteindre d'elle-même
 après 20 secondes (tout le processus devrait se passer en moins d'une minute).
 Débranchez alors le câble USB-C et dévissez toutes les vis et ne séparez pas
 la carte écran de la carte Raspberry Pi (ne touchez surtout pas au bouton
@@ -288,9 +288,9 @@ est nécessaire de monter la PiSugar séparément des deux autres cartes.
 
 ::: {.callout-note}
 S'il semble ne rien se passer et surtout que vous n'avez jamais vu l'image des
-livres, c'est peut être que vous avez mal relié les deux cartes, que les vis
+livres, c'est peut-être que vous avez mal relié les deux cartes, que les vis
 sont mal serrées ou alignées, que l'alimentation USB-C n'est pas branchée ou
-peut être simplement que la carte micro-SD est mal flashée. Vérifiez bien
+peut-être simplement que la carte micro-SD est mal flashée. Vérifiez bien
 qu'une lumière verte sur la carte Raspberry Pi s'allume.
 :::
 
@@ -406,7 +406,7 @@ ci-dessous.
 
 ::: {.callout-note}
 Si la vitre ne veut pas du tout s'insérer car elle serait un petit peu trop
-large, prennez un cutter et une règle métallique et découper légèrement le
+large, prenez un cutter et une règle métallique et découper légèrement le
 plastique d'une fraction de millimètre. Vous pouvez également utiliser une
 paire de ciseaux.
 :::
@@ -487,7 +487,7 @@ de la grande boîte à histoire.
 ::: {.callout-note}
 La première fois il est relativement difficile de tout faire entrer
 correctement. Ajustez les différentes longueurs de segment de câble en serrant
-ou déserrant les boucles si cela est nécessaire. En prennant le temps de faire
+ou desserrant les boucles si cela est nécessaire. En prenant le temps de faire
 bien, je vous assure qu'il est possible de connecter l'ensemble sans qu'un seul
 câble dépasse en hauteur. Notez encore qu'une fois enroulé correctement, dès
 le moment que vous ne les manipulez plus, ils finiront par conserver leur
