@@ -40,7 +40,7 @@ fonctionnalités attendues pour un produit de ce type (navigation par phrase,
 chapitre, vitesse de lecture variable, ...).
 
 Aujourd'hui c'est une boîte à histoires, les évolutions **ne sont pas
-disponible** pour le moment. Ce projet est avant tout un projet artisanal où
+disponibles** pour le moment. Ce projet est avant tout un projet artisanal où
 son développement suit quelques règles&nbsp;:
 
 - Libre autant que possible 
@@ -60,7 +60,7 @@ recompilé par "n'importe qui".
 
 Le matériel utilisé est standard, modulable et remplaçable.
 
-Les modèles 3D du boîter sont publiés publiquement. "N'importe qui" peut les
+Les modèles 3D du boîtier sont publiés publiquement. "N'importe qui" peut les
 imprimer ou les modifier à sa guise.
 
 [1]: project/manual.html

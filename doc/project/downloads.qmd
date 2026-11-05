@@ -2,7 +2,7 @@
 title: "Téléchargements"
 subtitle: "Ressources pour Contelia"
 lang: fr-CH
-abstract: Une utilisation normal de Contelia ne nécessite pas de téléchargement
+abstract: Une utilisation normale de Contelia ne nécessite pas de téléchargement
   particulier. Mais si vous avez l'âme d'un bidouilleur, ici vous trouverez
   toutes les ressources nécessaires pour ré-imaginer votre propre boîte à
   histoires; voir même en faire un nouveau projet complètement différent.
@@ -13,7 +13,7 @@ format:
 ## Pour les utilisateurs
 
 Des mises à jour du système Contelia sont disponibles lorsque des
-corrections ou de nouvelles fonctionnalités sont apportées. Etant donné
+corrections ou de nouvelles fonctionnalités sont apportées. Étant donné
 que Contelia ne se connecte jamais à internet, c'est à vous d'effectuer la
 mise à jour en suivant [ce guide][6].
 
@@ -51,7 +51,7 @@ en Rust sous licence libre GPLv3+.
 ### Les modèles 3D
 
 Tous les modèles 3D sont disponibles dans le même dépôt de code-source que le
-logiciel. Ils ont été entièrement réalisé à l'aide de [FreeCAD] et suivent la
+logiciel. Ils ont été entièrement réalisés à l'aide de [FreeCAD] et suivent la
 même licence que le code source.
 
 ### Le toolchain de compilation
@@ -62,12 +62,12 @@ d'exploitation GNU/Linux entièrement construit pour ce projet (ainsi que pour
 des projets annexes). Le système de base se nomme [Carnotzet OS][5].
 
 Xcraft est un projet vaste et complexe. Compiler Contelia OS de zéro est tout
-a fait possible pour n'importe qui, qui est à l'aise avec les outils de
+à fait possible pour n'importe qui, qui est à l'aise avec les outils de
 développement et les concepts sous-jacents comme le packaging, la
 compilation croisée, etc.
 
 ::: {.callout-warning}
-A l'heure actuelle il n'existe pas de guide pour Xcraft. Ce n'est pas exclus
+À l'heure actuelle il n'existe pas de guide pour Xcraft. Ce n'est pas exclu
 que cela change à l'avenir.
 :::
 

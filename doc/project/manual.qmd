@@ -4,7 +4,7 @@ subtitle: "Manuel d'utilisation de Contelia"
 lang: fr-CH
 date: today
 date-format: "D MMMM YYYY"
-abstract: Ce manuel couvre l'ensemble des fonctionalités de Contelia. Vous
+abstract: Ce manuel couvre l'ensemble des fonctionnalités de Contelia. Vous
   trouverez la version la plus à jour sur
   [contelia.schroetersa.ch](https://contelia.schroetersa.ch).
 ---
@@ -38,9 +38,9 @@ voir la @sec-battery.
 
 Observez bien les connecteurs de la boîte à histoires. Il est important de
 toujours brancher les haut-parleurs sur le connecteur micro-USB de gauche.
-Le connecteur mini-HDMI n'est pas utile aujourd'hui (à par pour les bidouilleurs).
+Le connecteur mini-HDMI n'est pas utile aujourd'hui (à part pour les bidouilleurs).
 Mais il sera utilisé dans une version ultérieure du logiciel et qui
-permettra d'exploiter Contelia autrement. A propos du connecteur micro-USB
+permettra d'exploiter Contelia autrement. À propos du connecteur micro-USB
 de droite (avec la croix rouge dans l'image ci-dessous), vous pouvez le considérer
 comme étant inutilisé.
 
@@ -68,7 +68,7 @@ d'autonomie, cette protection permet de prolonger sa durée de vie.
 
 ![](images/load.jpg){width=35% fig-align="center"}
 
-Bien que Contelia peut être utilisé pendant la charge, Si la
+Bien que Contelia puisse être utilisé pendant la charge, si la
 batterie est complètement déchargée, il est nécessaire d'attendre
 au moins **une minute ou deux** avant de pouvoir allumer la boîte à histoires.
 
@@ -133,7 +133,7 @@ et directement passer à la @sec-community.
 
 ![](images/lunii/lunii.jpg){width=100%}
 
-Récupérer les histoires que vous avez acheté pour la Lunii fait sens. Pour cela
+Récupérer les histoires que vous avez achetées pour la Lunii fait sens. Pour cela
 il faut brancher la Lunii à votre ordinateur, un nouveau périphérique devrait
 s'afficher en tant que disque USB.
 
@@ -210,7 +210,7 @@ téléphone mobile.
 
 Cette communauté met à disposition de nombreux livres, donne des conseils,
 de l'aide et sert également de vitrine pour de nombreux autres projets qui
-partagent le même esprit que Contelia, c'est à dire d'offrir des alternatives
+partagent le même esprit que Contelia, c'est-à-dire d'offrir des alternatives
 aux boîtes à histoires Lunii, etc. Que ce soit du matériel dédié ou du
 "recyclage" de smartphones en liseuses pour enfants.
 
@@ -245,7 +245,7 @@ Si vous voyez bien le même écran que sur la photo ci-dessus, alors le mode
 configuration est activé et vous pouvez procéder aux modifications des histoires
 qui sont actuellement sauvegardées dans votre boîte à histoires.
 
-A partir de maintenant, Contelia est en mode portail captif (captive portal).
+À partir de maintenant, Contelia est en mode portail captif (captive portal).
 Cela veut dire qu'un nouveau réseau Wifi est apparu et se nomme Contelia.
 Vous pouvez alors utiliser un ordinateur ou un smartphone pour vous connecter
 à ce nouveau réseau. En vous connectant, votre ordinateur devrait vous proposer
@@ -292,10 +292,10 @@ pas ce portail depuis votre navigateur internet habituel.
 - Charger une nouvelle histoire avec le formulaire en tête de page.  
   Cliquez sur le bouton "Browse" ou "Parcourir" en dessous de "Déployer une
   histoire". Une fenêtre va s'ouvrir depuis laquelle vous pourrez aller
-  chercher le fichier ZIP de l'histoire que vous souhaiter charger dans
+  chercher le fichier ZIP de l'histoire que vous souhaitez charger dans
   Contelia. Une fois fait, cliquez sur le bouton "Charger" et patientez.
 
-- Charger une une mise à jour de Contelia (consultez la @sec-update).
+- Charger une mise à jour de Contelia (consultez la @sec-update).
 
 La liste des histoires actuellement chargées dans Contelia est située sous le
 formulaire. Trois boutons sont présents pour chaque histoire.
@@ -428,7 +428,7 @@ d'appairage. L'activation de l'appairage dépend de chaque matériel.
 Tant que l'image du scan persiste, c'est que Contelia ne trouve aucun
 périphérique audio disponible (ou compatible) à proximité. Si la détection
 réussi, vous pouvez presser le bouton de droite afin de confirmer. Dès ce
-moment là, les histoires seront lues à travers le périphérique Bluetooth.
+moment-là, les histoires seront lues à travers le périphérique Bluetooth.
 
 ::: {.callout-note}
 Veuillez noter que le Bluetooth est toujours désactivé si Contelia a été
@@ -444,7 +444,7 @@ utilisés pour le son, ils vont consommer de l'énergie inutilement.
 ## Mises à jour {#sec-update}
 
 La page de configuration présentée en @sec-portal, permet également de charger une
-mise à jour de la boîte à histoires. Pour se faire, il suffit de charger le
+mise à jour de la boîte à histoires. Pour ce faire, il suffit de charger le
 fichier ZIP de la mise à jour au lieu du fichier ZIP d'une histoire.
 
 Tout d'abord, vérifiez la version du logiciel depuis la page de configuration,
@@ -453,7 +453,7 @@ elle est indiquée en dessous du titre (comme l'exemple ci-dessous).
 ![](images/update.png){.border width=60% fig-align="center"}
 
 Une fois les mises à jour appliquées, Contelia va automatiquement redémarrer
-et désactiver son réseau Wifi. **Attendez** que Contelia s'éteind d'elle même
+et désactiver son réseau Wifi. **Attendez** que Contelia s'éteint d'elle-même
 avant de l'utiliser.
 
 Les mises à jour sont disponibles dans la section dédiée aux
