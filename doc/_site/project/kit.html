@@ -180,7 +180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#a.-balenaetcher" id="toc-a.-balenaetcher" class="nav-link" data-scroll-target="#a.-balenaetcher"><span class="header-section-number">2.1</span> A. balenaEtcher</a></li>
   <li><a href="#b.-ligne-de-commande" id="toc-b.-ligne-de-commande" class="nav-link" data-scroll-target="#b.-ligne-de-commande"><span class="header-section-number">2.2</span> B. Ligne de commande</a></li>
-  <li><a href="#ejection" id="toc-ejection" class="nav-link" data-scroll-target="#ejection"><span class="header-section-number">2.3</span> Ejection</a></li>
+  <li><a href="#éjection" id="toc-éjection" class="nav-link" data-scroll-target="#éjection"><span class="header-section-number">2.3</span> Éjection</a></li>
   </ul></li>
   <li><a href="#montage" id="toc-montage" class="nav-link" data-scroll-target="#montage"><span class="header-section-number">3</span> Montage</a>
   <ul class="collapse">
@@ -213,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Date de publication</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">3 octobre 2026</p>
+      <p class="date">6 novembre 2026</p>
     </div>
   </div>
   
@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="préparation" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="préparation"><span class="header-section-number">2</span> Préparation</h2>
-<p>Avant de commencer le montage à proprement parler, il faut déployer le système d’exploitation Contelia sur la carte micro-SD. Pour se faire, déballez la carte et son adaptateur, et en fonction des moyens que vous avez à votre disposition, introduisez la carte micro-SD dans son adaptateur puis l’adaptateur dans votre ordinateur, ou utilisez directement un lecteur de carte micro-SD.</p>
+<p>Avant de commencer le montage à proprement parler, il faut déployer le système d’exploitation Contelia sur la carte micro-SD. Pour ce faire, déballez la carte et son adaptateur, et en fonction des moyens que vous avez à votre disposition, introduisez la carte micro-SD dans son adaptateur puis l’adaptateur dans votre ordinateur, ou utilisez directement un lecteur de carte micro-SD.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/000.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
@@ -299,14 +299,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dd</span> if=~/carnotzet-os-contelia-X.Y.Z-rpiz2w.img <span class="dt">\</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   of=/dev/diskX bs=1m status=progress</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ejection" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="ejection"><span class="header-section-number">2.3</span> Ejection</h3>
+<section id="éjection" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="éjection"><span class="header-section-number">2.3</span> Éjection</h3>
 <p>Comme avec tous périphériques qui se respectent, veuillez éjecter proprement la carte micro-SD de votre ordinateur. Il faut être sûr que les données sont correctement écrites. Dans le cas contraire, une fois que votre boîte à histoire Contelia sera montée, il risquerait de ne rien s’afficher mais nous y reviendrons plus loin.</p>
 </section>
 </section>
 <section id="montage" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="montage"><span class="header-section-number">3</span> Montage</h2>
-<p>A partir d’ici, les manipulations vont devoir se faire avec soin et si possible sans électricité statique. Si vous ne disposez pas de bracelet anti-statique, assurez-vous de ne pas porter de vêtements qui favorisent l’électricité statique tel qu’un pull-over, une jacket ou un vêtement en cuir.</p>
+<p>À partir d’ici, les manipulations vont devoir se faire avec soin et si possible sans électricité statique. Si vous ne disposez pas de bracelet anti-statique, assurez-vous de ne pas porter de vêtements qui favorisent l’électricité statique tel qu’un pull-over, une jacket ou un vêtement en cuir.</p>
 <p>Dans tous les cas, essayez de manipuler les cartes électroniques en touchant le moins possible les contacts et les composants.</p>
 <section id="préparation-de-la-carte-raspberry-pi" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="préparation-de-la-carte-raspberry-pi"><span class="header-section-number">3.1</span> Préparation de la carte Raspberry Pi</h3>
@@ -342,7 +342,7 @@ Note
 <section id="assemblage-des-cartes-raspberry-pi-et-adafruit" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="assemblage-des-cartes-raspberry-pi-et-adafruit"><span class="header-section-number">3.3</span> Assemblage des cartes Raspberry Pi et Adafruit</h3>
 <p>Pour commencer, l’assemblage des cartes ne concernera que la carte Raspberry Pi et la carte Adafruit 1.3” TFT Bonnet. N’enlevez pas encore la protection sur l’écran de la carte Adafruit et laissez le joystick en caoutchouc de côté pour le moment.</p>
-<p>Connectez délicatement la carte Adafruit avec la carte Raspberry Pi. Pour se faire, introduisez doucement le connecteur en veillant à ne pas appuyer avec vos doigts sur l’écran. Il serait dommage de l’abîmer avec cette manipulation. Utilisez les zones libres du PCB comme appuis et prenez votre temps. Gardez bien les deux cartes parallèles l’une avec l’autre.</p>
+<p>Connectez délicatement la carte Adafruit avec la carte Raspberry Pi. Pour ce faire, introduisez doucement le connecteur en veillant à ne pas appuyer avec vos doigts sur l’écran. Il serait dommage de l’abîmer avec cette manipulation. Utilisez les zones libres du PCB comme appuis et prenez votre temps. Gardez bien les deux cartes parallèles l’une avec l’autre.</p>
 <p><img src="images/006.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Une fois connectés, posez les deux cartes à plat et introduisez les entretoises entre elles puis faites glisser une vis nylon à l’intérieur afin de maintenir les entretoises en place.</p>
 <p><img src="images/007.jpg" class="img-fluid" style="width:100.0%"></p>
@@ -385,12 +385,12 @@ Avertissement
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Si la carte PiSugar n’alimente pas automatiquement la carte Raspberry Pi (aucune lumière verte s’allume sur le côté <strong>droit</strong> de la carte Raspberry Pi), vous devez utilisez le bouton de gauche de la PiSugar afin de la mettre sous tension.</p>
+<p>Si la carte PiSugar n’alimente pas automatiquement la carte Raspberry Pi (aucune lumière verte s’allume sur le côté <strong>droit</strong> de la carte Raspberry Pi), vous devez utiliser le bouton de gauche de la PiSugar afin de la mettre sous tension.</p>
 <p><img src="images/031.jpg" class="img-fluid" style="width:100.0%"></p>
 <p>Si c’est la toute première fois que cette carte PiSugar va être configurée avec Contelia, il faut effectuer un “click and hold”. Cela consiste à appuyer sur le bouton comme si on faisait un clic de souris, puis à appuyer à nouveau mais en tenant enfoncé. Alors sur la carte PiSugar, les lumières vertes vont s’allumer les une après les autres jusqu’à ce qu’une lumière bleue s’active sur le côté gauche de la carte PiSugar.</p>
 </div>
 </div>
-<p>Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour enfin afficher l’image de livres (comme ci-dessous) et s’éteindre d’elle même après 20 secondes (tout le processus devrait se passer en moins d’une minute). Débranchez alors le câble USB-C et dévissez toutes les vis et ne séparez pas la carte écran de la carte Raspberry Pi (ne touchez surtout pas au bouton d’alimentation de la carte PiSugar pendant le démontage). Pour la suite, il est nécessaire de monter la PiSugar séparément des deux autres cartes.</p>
+<p>Attendez un instant, Contelia OS va démarrer et effectuer un redémarrage pour enfin afficher l’image de livres (comme ci-dessous) et s’éteindre d’elle-même après 20 secondes (tout le processus devrait se passer en moins d’une minute). Débranchez alors le câble USB-C et dévissez toutes les vis et ne séparez pas la carte écran de la carte Raspberry Pi (ne touchez surtout pas au bouton d’alimentation de la carte PiSugar pendant le démontage). Pour la suite, il est nécessaire de monter la PiSugar séparément des deux autres cartes.</p>
 <p><img src="images/025.jpg" class="img-fluid" style="width:100.0%"></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -402,7 +402,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>S’il semble ne rien se passer et surtout que vous n’avez jamais vu l’image des livres, c’est peut être que vous avez mal relié les deux cartes, que les vis sont mal serrées ou alignées, que l’alimentation USB-C n’est pas branchée ou peut être simplement que la carte micro-SD est mal flashée. Vérifiez bien qu’une lumière verte sur la carte Raspberry Pi s’allume.</p>
+<p>S’il semble ne rien se passer et surtout que vous n’avez jamais vu l’image des livres, c’est peut-être que vous avez mal relié les deux cartes, que les vis sont mal serrées ou alignées, que l’alimentation USB-C n’est pas branchée ou peut-être simplement que la carte micro-SD est mal flashée. Vérifiez bien qu’une lumière verte sur la carte Raspberry Pi s’allume.</p>
 </div>
 </div>
 </section>
@@ -467,7 +467,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Si la vitre ne veut pas du tout s’insérer car elle serait un petit peu trop large, prennez un cutter et une règle métallique et découper légèrement le plastique d’une fraction de millimètre. Vous pouvez également utiliser une paire de ciseaux.</p>
+<p>Si la vitre ne veut pas du tout s’insérer car elle serait un petit peu trop large, prenez un cutter et une règle métallique et découper légèrement le plastique d’une fraction de millimètre. Vous pouvez également utiliser une paire de ciseaux.</p>
 </div>
 </div>
 <p><img src="images/018.jpg" class="img-fluid" style="width:100.0%"></p>
@@ -515,7 +515,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>La première fois il est relativement difficile de tout faire entrer correctement. Ajustez les différentes longueurs de segment de câble en serrant ou déserrant les boucles si cela est nécessaire. En prennant le temps de faire bien, je vous assure qu’il est possible de connecter l’ensemble sans qu’un seul câble dépasse en hauteur. Notez encore qu’une fois enroulé correctement, dès le moment que vous ne les manipulez plus, ils finiront par conserver leur nouvelle forme et les assemblages suivants de la boîte à histoires seront bien plus simple.</p>
+<p>La première fois il est relativement difficile de tout faire entrer correctement. Ajustez les différentes longueurs de segment de câble en serrant ou desserrant les boucles si cela est nécessaire. En prenant le temps de faire bien, je vous assure qu’il est possible de connecter l’ensemble sans qu’un seul câble dépasse en hauteur. Notez encore qu’une fois enroulé correctement, dès le moment que vous ne les manipulez plus, ils finiront par conserver leur nouvelle forme et les assemblages suivants de la boîte à histoires seront bien plus simple.</p>
 </div>
 </div>
 <p>Si la batterie est complètement chargée, alors vous pouvez mettre le couvercle en place. Commencez par en haut à gauche et terminez de clipper en bas à droite.</p>
